@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": ["vite/client", "unplugin-vue-macros/macros-global"],
+    "paths": {
+      "@blocks-next/*": ["../packages/*"]
+    }
+  },
+  "include": ["**/*", "typings/vue-shim.d.ts"],
+  "exclude": ["lib", "build"]
+}

@@ -1,0 +1,10 @@
+.bn-space{
+  &-horizontal {
+    display: flex;
+  }
+
+  &-vertical {
+    display: flex;
+    flex-direction: column;
+  }
+}

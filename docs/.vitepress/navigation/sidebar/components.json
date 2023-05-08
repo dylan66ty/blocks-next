@@ -1,0 +1,17 @@
+{
+  "/components/": [
+    {
+      "text": "通用",
+      "items": [
+        {
+          "text": "Button",
+          "link": "button"
+        },
+        {
+          "text": "Icon",
+          "link": "icon"
+        }
+      ]
+    }
+  ]
+}

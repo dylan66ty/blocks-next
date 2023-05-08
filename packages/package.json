@@ -1,0 +1,64 @@
+{
+  "name": "blocks-next",
+  "version": "1.0.2",
+  "description": "Vue3 Component Library",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsxiaosi/xs-components-lib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jsxiaosi/xs-components-lib/issues"
+  },
+  "keywords": [
+    "xs-components",
+    "ui framework",
+    "vue"
+  ],
+  "sideEffects": [
+    "cdn/*",
+    "theme-chalk/**/*.css",
+    "theme-chalk/src/**/*.scss",
+    "es/components/*/style/*",
+    "lib/components/*/style/*"
+  ],
+  "exports": {
+    ".": {
+      "require": "./lib/index.js",
+      "import": "./es/index.mjs",
+      "types/*": "./es/index.ts"
+    },
+    "./es": "./es/index.mjs",
+    "./lib": "./lib/index.js",
+    "./es/*.mjs": "./es/*.mjs",
+    "./es/*": "./es/*.mjs",
+    "./lib/*.js": "./lib/*.js",
+    "./lib/*": "./lib/*.js",
+    "./*": "./*"
+  },
+  "main": "lib/index.js",
+  "module": "es/index.mjs",
+  "unpkg": "cdn/index.cdn.js",
+  "jsdelivr": "cdn/index.cdn.js",
+  "types": "es/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "style": "cdn/index.css",
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.191",
+    "@vueuse/core": "^9.12.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "vue": "^3.2.47"
+  },
+  "browserslist": [
+    "> 1%",
+    "not ie 11",
+    "not op_mini all"
+  ]
+}

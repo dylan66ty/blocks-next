@@ -1,0 +1,10 @@
+@media screen and (max-width: 768px) {
+    [sm-visible=false]{
+        display: none!important;
+    }
+}
+@media screen and (min-width: 768px) {
+    [md-visible=false]{
+        display: none!important;
+    }
+}

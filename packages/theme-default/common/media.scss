@@ -1,0 +1,161 @@
+/* 小型设备（平板电脑，768px 起） */
+
+/* 中型设备（台式电脑，992px 起） */
+
+/* 大型设备（大台式电脑，1200px 起） */
+
+/* 带g表示全局 */
+
+@media screen and (max-width: 768px) {
+    :root {
+        --bn-aside-width: 228px;
+        --bn-aside-toggle-width: 48px;
+        --phx: 15px;
+    }
+    ::-webkit-scrollbar {
+        display: none !important;
+    }
+}
+
+:root {
+    --bn-aside-width: 228px;
+    --bn-aside-toggle-width: 48px;
+    --phx: 15px;
+}
+
+:root {
+    --bn-300: 300px;
+    --bn-183: 183px;
+    --bn-90: 90px;
+    --bn-70: 70px;
+    --bn-62: 62px;
+    --bn-60: 60px;
+    --bn-50: 50px;
+    --bn-47: 47px;
+    --bn-45: 45px;
+    --bn-44: 44px;
+    --bn-42: 42px;
+    --bn-39: 39px;
+    --bn-36: 36px;
+    --bn-30: 30px;
+    --bn-25: 25px;
+    --bn-24: 24px;
+    --bn-22: 22px;
+    --bn-21: 21px;
+    --bn-18: 18px;
+    --bn-17: 17px;
+    --bn-16: 16px;
+    --bn-15: 15px;
+    --bn-14: 14px;
+    --bn-13: 13px;
+    --bn-12: 12px;
+    --bn-10: 10px;
+    --bn-9: 9px;
+    --bn-8: 8px;
+    --bn-6: 6px;
+    --bn-5: 5px;
+    --bn-2: 2px;
+
+    --bn-pd-sm: 8px;
+    --bn-pd: 16px;
+    --bn-pd-lg: 24px;
+
+    --bn-gicon: 24px;
+    --bn-gicon-sm: 16px;
+
+    --bn-gtopbar-h: 60px;
+    --bn-gtopbar-tfs: 18px;
+    --bn-gtopbar-fs: 15px;
+
+    --bn-gbtn-h-large: 48px;
+    --bn-gbtn-h: 40px;
+    --bn-gbtn-h-small: 36px;
+    --bn-gbtn-h-mini: 24px;
+    --bn-gbtn-fs-lg: 18px;
+    --bn-gbtn-fs: 15px;
+    --bn-gbtn-fs-sm: 13px;
+
+    --bn-gcard-th: 47px;
+    --bn-gcard-tfs: 16px;
+    --bn-gcard-tfs-sm: 14px;
+    --bn-gcard-fs: 15px;
+    --bn-gcard-lh: 24px;
+    --bn-gcard-fs-sm: 13px;
+
+    --bn-gas-desc: 14px;
+    --bn-gas-bh: 32px;
+    --bn-gas-bfs: var(--bn-fs);
+    --bn-gas-gpd: 21px;
+    --bn-gas-gitem-h: 60px;
+    --bn-gas-gitem-ih: 36px;
+    --bn-gas-gitem-gap: 16px;
+    --bn-gas-gitem-fs: 10px;
+
+    --bn-gmodal-w: 380px;
+    --bn-gmodal-pd: var(--bn-pd-lg);
+    --bn-gmodal-tfs: 16px;
+    --bn-gmodal-tlh: 24px;
+    --bn-gmodal-tmb: 12px;
+    --bn-gmodal-bdfs: 14px;
+    --bn-gmodal-bdlh: 22px;
+    --bn-gmodal-ah: 32px;
+    --bn-gmodal-amt: var(--bn-pd-lg);
+    --bn-gmodal-afs: 16px;
+    --bn-gmodal-apd: var(--bn-pd-lg);
+
+    --bn-gtoast-h: 95px;
+    --bn-gtoast-ih: 36px;
+    --bn-gtoast-imb: 6px;
+    --bn-gtoast-fs: 12px;
+    --bn-gtoast-lh: 21px;
+
+    --bn-gloading-h: 95px;
+    --bn-gloading-ih: 36px;
+    --bn-gloading-imb: 6px;
+    --bn-gloading-fs: 12px;
+    --bn-gloading-lh: 21px;
+
+    --bn-gtabs-h: 32px;
+    --bn-gtabs-fs: var(--bn-fs);
+    --bn-gtabs-iflex: 0 0 auto;
+    --bn-gtabs-pd: 0 var(--bn-pd);
+
+    --bn-gmsg-w: 420px;
+    --bn-gmsg-h: 40px;
+    --bn-gmsg-fs: 14px;
+    --bn-gmsg-lh: 22px;
+    --bn-gmsg-ih: 16px;
+
+    --bn-galert-w: 80%;
+    --bn-galert-h: 40px;
+    --bn-galert-fs: 14px;
+    --bn-galert-lh: 22px;
+    --bn-galert-ih: 16px;
+
+    --bn-glist-h-lg: var(--bn-70);
+    --bn-glist-h: 46px;
+    --bn-glist-fs: var(--bn-17);
+    --bn-glist-lh: var(--bn-25);
+    --bn-glist-fs-sm: var(--bn-16);
+    --bn-glist-desc-fs: var(--bn-14);
+
+    --bn-gacd-h: 45px;
+    --bn-gacd-fs: 16px;
+
+    --bn-gdd-h: 34px;
+    --bn-gdd-fs: 15px;
+
+    --bn-gstep-is: 32px;
+    --bn-gstep-is-sm: 24px;
+    //全局Input高度
+    --bn-ginput-h: 40px;
+    --bn-ginput-h-lg: 48px;
+    --bn-ginput-h-sm: 32px;
+
+    --bn-ginput-lb-fs: 14px;
+    --bn-ginput-fs: 14px;
+    --bn-ginput-fs-lg: 16px;
+    --bn-ginput-desc: 12px;
+
+    --bn-gcselect-w: 180px;
+}
