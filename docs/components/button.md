@@ -58,15 +58,15 @@ button/group
 
 | 属性           | 描述       | 类型                                                                    | 默认值     |
 |:-------------|:---------|:----------------------------------------------------------------------|:--------|
-| type         | 按钮类型     | 'default' \| 'info' \| 'success' \| 'danger' \| 'warning' \| 'strong' | default |
-| fill-mode    | 填充类型     | 'outline' \| 'none'                                                   | -       |
-| block        | 块级按钮     | boolean                                                               | false   |
-| size         | 按钮大小     | 'mini' \| 'small' \| 'default' \| 'large'                             | default |
-| shape        | 按钮形状     | 'circle' \| 'square' \| 'round'                                       | -       |
-| loading      | 按钮加载中    | boolean                                                               | false   |
-| loading-fill | 按钮居中填充   | boolean                                                               | false   |
-| right-icon   | 文字右按钮    | 'add' \| 'delete' \| 'search'                                         | -       |
-| left-icon    | 文字左按钮    | 'add' \| 'delete' \| 'search'                                         | -       |
-| delay        | 节流等待时间   | number                                                                | 0       |
-| await        | 等待函数执行完毕 | Promise \| AsyncFunction                                              | -       |
-| disabled     | 禁止操作     | true \| false                                                         | false   |
+| `type`         | 按钮类型     | `default` \| `info` \| `success` \| `danger` \| `warning` \| `strong` | `default` |
+| `fill-mode`    | 填充类型     | `outline` \| `none`                                                   | `-`       |
+| `block`        | 块级按钮     | boolean                                                               | `false`   |
+| `size`         | 按钮大小     | `mini` \| `small` \| `default` \| `large`                             | `default` |
+| `shape`        | 按钮形状     | `circle` \| `square` \| `round`                                       | `-`       |
+| `loading`      | 按钮加载中    | `boolean`                                                               | `false`   |
+| `loading-fill` | 按钮居中填充   | `boolean`                                                               | `false`   |
+| `right-icon`   | 文字右按钮    | `add` \| `delete` \| `search`                                         | `-`       |
+| `left-icon`   | 文字左按钮    | `add` \| `delete` \| `search`                                         | `-`       |
+| `delay`        | 节流等待时间   | `number`                                                                | `0`       |
+| `await`        | 等待函数执行完毕 | `Promise` \| `AsyncFunction`                                              |`-`      |
+| `disabled`     | 禁止操作     | `true` \| `false`                                                         | `false`   |

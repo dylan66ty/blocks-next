@@ -1,10 +1,12 @@
 @import './mixins/bem.scss';
 
 @include b(checkbox) {
+  line-height: 1;
   position: relative;
-  user-select: none;
-  display: inline-block;
   cursor: pointer;
+  display: inline-block;
+  white-space: nowrap;
+  outline: none;
 
   @include e(icon) {
     margin-right: var(--bn-pd-sm);
@@ -32,13 +34,14 @@
     }
   }
 
-  @include e(input) {
+  @include e(origin) {
+    opacity: 0;
+    outline: none;
     position: absolute;
-    top: 0;
-    left: 0;
+    margin: 0;
     width: 0;
     height: 0;
-    opacity: 0;
+    z-index: -1;
   }
 
   @include when(checked) {
@@ -55,12 +58,10 @@
     cursor: not-allowed;
     color: var(--bn-c-disabled);
 
-    svg {
+    .#{$namespace}-checkbox__icon {
       color: var(--bn-c-disabled);
     }
   }
-
-  @include when(indeterminate) {}
 
 }
 

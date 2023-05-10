@@ -1,33 +1,99 @@
-.bn-radio-wrap {
-  flex-wrap: wrap;
-}
-.bn-radio {
-  font-size: var(--bn-ip-fs);
-  color: var(--bn-c);
-  padding: 0 12px 0 0;
-  display: flex;
-  align-items: center;
+
+@import './mixins/bem.scss';
+
+@include b('radio') {
+  font-weight: 500;
+  line-height: 1;
+  position: relative;
   cursor: pointer;
-  height: var(--bn-ip-h);
-  user-select: none;
-  .bn-ck-icon {
-      margin-right: var(--bn-pd-sm);
-      color: var(--bn-c-l2);
-  }
-  .bn-ck-icon,
-  .bn-ck-text {
-      cursor: inherit;
-      color: inherit;
-  }
-  &.bn-ck-select-text {
-      user-select: text;
-  }
-  &.bn-ck-checked {
-      color: var(--bn-primary);
+  display: inline-block;
+  white-space: nowrap;
+  outline: none;
+
+
+  @include when(checked) {
+    color: var(--bn-primary);
   }
 
-  &.bn-ck-disabled {
-      cursor: not-allowed;
-      color: var(--bn-c-disabled);
+  @include when(disabled) {
+    cursor: not-allowed;
+    pointer-events: none;
+    .bn-radio__label {
+      color: #c0c4cc;
+    }
+    .bn-radio__inner {
+      background-color: #f5f7fa;
+      border-color: #e4e7ed;
+    }
+    @include when(checked) {
+      .bn-radio__inner {
+        background-color: #f5f7fa;
+        border-color: #e4e7ed;
+        &::after {
+          background-color: #c0c4cc;
+        }
+      }
+    }
+  }
+
+  @include e(input) {
+    @include when(checked) {
+      .#{$namespace}-radio__inner {
+        border-color: var(--bn-primary);
+        background: var(--bn-primary);
+
+        &::after {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+    }
+  }
+
+  @include e(origin) {
+    opacity: 0;
+    outline: none;
+    position: absolute;
+    margin: 0;
+    width: 0;
+    height: 0;
+    z-index: -1;
+  }
+
+
+  @include e(inner) {
+    border: 1px solid #dcdfe6;
+    border-radius: 100%;
+    width: 14px;
+    height: 14px;
+    background-color: #fff;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    box-sizing: border-box;
+    transition: all 0.15s ease-in;
+
+    &::after {
+      content: "";
+      width: 4px;
+      height: 4px;
+      border-radius: 100%;
+      background-color: #fff;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform .15s ease-in;
+    }
+  }
+
+  @include e(label) {
+    padding-left: 8px;
+  }
+
+}
+
+@include b(radio-group) {
+  .#{$namespace}-radio+.#{$namespace}-radio {
+    margin-left: 15px;
   }
 }

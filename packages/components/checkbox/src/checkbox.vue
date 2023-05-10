@@ -6,7 +6,7 @@
       <Square v-else class="bn-checkbox__icon" />
     </template>
     <span class="bn-checkbox__input">
-      <input type="checkbox" v-model="model" :name="name" :disabled="disabled" :checked="isChecked"
+      <input class="bn-checkbox__origin" type="checkbox" v-model="model" :name="name" :disabled="disabled" :checked="isChecked"
         :indeterminate="indeterminate" :value="label" @change="handleChange" />
     </span>
     <span class="bn-checkbox__label">
@@ -51,8 +51,8 @@ export default defineComponent({
 
     const model = computed({
       get() {
-        const store = checkboxGroup ? checkboxGroup.modelValue?.value : props.modelValue
-        return isGroup ? store : props.modelValue
+        const groupValue = checkboxGroup ? checkboxGroup.modelValue?.value : props.modelValue
+        return isGroup ? groupValue : props.checked ? props.checked : props.modelValue
       },
       set(val) {
         if (isGroup) {
@@ -76,23 +76,16 @@ export default defineComponent({
       if (props.disabled) {
         cls.push('is-disabled')
       }
-
-      if (props.modelValue && !isGroup) {
-        cls.push('is-checked')
+      if(isGroup) {
+        isChecked.value && cls.push('is-checked')
+      }else {
+        props.modelValue && cls.push('is-checked')
       }
-
-      if(isChecked.value) {
-        cls.push('is-checked')
-      }
-
       if (props.indeterminate && !props.modelValue) {
         cls.push('is-indeterminate')
       }
-    
       return cls
     })
-
-
 
 
     const handleChange = (e: InputEvent) => {

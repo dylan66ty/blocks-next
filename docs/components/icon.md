@@ -5,9 +5,7 @@ lang: zh-CN
 
 # 图标 Icon
 :::demo
-
-icon/basic
-
+icon/basic-hide-code
 :::
 
 ## 基础使用
@@ -32,10 +30,10 @@ icon/use
 ## Attributes
 |参数名|描述|类型|默认值|
 |---|---|---|:---:|
-|size|大小|`number \| string`|`-`|
-|color|颜色|`string`|`-`|
-|rotate|旋转角度|`number`|0|
-|spin|转圈|`boolean`|false|
+|`size`|大小|`number \| string`|`-`|
+|`color`|颜色|`string`|`-`|
+|`rotate`|旋转角度|`number`|`0`|
+|`spin`|转圈|`boolean`|`false`|
 
 
 

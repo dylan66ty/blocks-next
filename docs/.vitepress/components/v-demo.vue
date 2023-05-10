@@ -4,20 +4,16 @@
 
     <div class="example">
       <Example :file="pathName" :demo="formatPathDemos[pathName]" />
-      <div class="op-btns" v-if="isShowOpBtns">
+      <div class="op-btns" v-if="hiddenOps">
         <span class="op-btn" @click="copyCode">复制</span>
-        <span class="op-btn" @click="toggleSourceVisible">显示源代码</span>
-        <!-- <VIcon class="op-btn" name="icon-github"></VIcon>
-      <VIcon class="op-btn" name="icon-fuzhi" @click="copyCode"></VIcon>
-      <VIcon class="op-btn" name="icon-zitidaima" @click="toggleSourceVisible"></VIcon> -->
+        <span class="op-btn" @click="toggleSourceVisible">示例</span>
       </div>
       <VTransition>
         <SourceCode v-show="sourceVisible" :source="source" />
       </VTransition>
       <Transition name="fade">
         <div v-show="sourceVisible" class="example-float-control" @click="toggleSourceVisible()">
-          <!-- <VIcon class="op-btn" name="icon-sanjiao2"></VIcon> -->/
-          <span>隐藏源代码</span>
+          <span>隐藏示例</span>
         </div>
       </Transition>
     </div>
@@ -43,6 +39,10 @@
 
   const decodedDescription = computed(() => decodeURIComponent(props.description!));
 
+
+  const hiddenOps = computed(() => !props.pathName.includes('hide-code'))
+
+
   const formatPathDemos = computed(() => {
     const demos: Object = {};
     Object.keys(props.demos).forEach((key: string) => {
@@ -51,9 +51,6 @@
     return demos;
   });
 
-  const isShowOpBtns = computed(() => {
-    return Object.keys(props.demos).some(path => !path.includes('icon/basic'))
-  })
 
   const { copy, isSupported } = useClipboard({
     source: decodeURIComponent(props.rawSource),
@@ -76,7 +73,6 @@
     sourceVisible.value = !sourceVisible.value;
   };
 
-  // const formatPathDemos = ref(decodeURIComponent(props.rawSource))
 </script>
 <style lang="scss">
   .example {
@@ -94,7 +90,7 @@
       .op-btn {
         margin: 0 0.5rem;
         cursor: pointer;
-        color: var(--vp-c-brand-lighter);
+        color: var(--vp-c-brand);
         transition: 0.2s;
         &:hover {
           color: var(--vp-c-brand);

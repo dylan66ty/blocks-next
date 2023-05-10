@@ -21,6 +21,8 @@ export type {CheckboxGroupInstance} from './checkbox-group'
 
 export {default as Radio } from './radio'
 export type { RadioInstance } from './radio'
+export {default as RadioGroup} from './radio-group'
+export type {RadioGroupInstance} from './radio-group'
 
 export { Form , FormLabel } from './form'
 export type { FormInstance , FromLabelInstance} from './form'

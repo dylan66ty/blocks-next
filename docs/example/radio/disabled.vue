@@ -2,13 +2,12 @@
   import { ref } from 'vue'
   const radio = ref(1)
 
-
 </script>
 
 <template>
   <bn-space :size="20">
-    <bn-radio v-model="radio" :label="1">radio1</bn-radio>
-    <bn-radio v-model="radio" :label="2">radio2</bn-radio>
+    <bn-radio v-model="radio" :label="1" disabled>radio1</bn-radio>
+    <bn-radio v-model="radio" :label="2" disabled>radio2</bn-radio>
   </bn-space>
 </template>
 

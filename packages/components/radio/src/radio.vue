@@ -1,28 +1,20 @@
 <template>
-  <!-- <InputWrap class="bn-radio-wrap">
-    <template #default="scope">
-      <div v-for="(item, idx) in options" :key="idx" :class="[
-        'bn-radio',
-        modelValue === item.value ? 'bn-ck-checked' : '',
-        scope.disabled || item.disabled ? 'bn-ck-disabled' : '',
-        item.selectText ? 'bn-ck-select-text' : ''
-      ]" @click="onClick(item, scope.disabled || item.disabled)">
-        <CirCleRadio v-if="modelValue === item.value" class="bn-ck-icon" type="primary" />
-        <Circle v-else class="bn-ck-icon" />
-        <span class="bn-ck-text">{{ item.text }}</span>
-      </div>
-    </template>
-  </InputWrap> -->
-
   <label :class="cls">
-    <span class="bn-radio__input">
-      <input class="bn-radio__origin" type="radio" />
+    <span class="bn-radio__input" :class="{
+      'is-checked': isChecked
+    }" >
+      <span class="bn-radio__inner"></span>
+      <input 
+         class="bn-radio__origin" 
+         type="radio"
+         v-model="model"
+         :value="label"
+         @change="handleChange"
+         />
     </span>
-    
     <span class="bn-radio__label">
       <slot>{{ label }}</slot>
     </span>
-
   </label>
 </template>
 <script lang="ts">
@@ -52,16 +44,17 @@ export default defineComponent({
       type: [Boolean, Number,String] as PropType<boolean | number | string>, 
       required: true 
     },
-
-    
+    disabled:{
+      type:Boolean,
+      default:false
+    }
   },
-  emits: ['update:modelValue', 'input'],
+  emits: ['update:modelValue','change'],
   setup(props,{emit}) {
     const ns = getNamespaced('radio')
 
     const radioGroup = inject<IRadioGroupProvide | null>('BnRadioGroup', null)
     const isGroup = radioGroup?.name === 'BnRadioGroup' 
-
     const model = computed({
       get() {
         const store = radioGroup ? radioGroup.modelValue?.value : props.modelValue
@@ -71,43 +64,30 @@ export default defineComponent({
         if (isGroup) {
           radioGroup.changeEvent?.(val)
         } else {
+          
           emit('update:modelValue', val)
         }
       }
     })
 
     const isChecked = computed(() => {
-      const value = model.value
-      if (Array.isArray(value)) {
-        return value.includes(props.label)
-      }
-      return value === props.label
+      return model.value === props.label
     })  
 
-
+    const handleChange = () => {
+      emit('change', props.modelValue)
+    }
     const cls = computed(() => [
         ns,
-        isChecked && 'is-checked',
-
+        isChecked.value && 'is-checked',
+        props.disabled && 'is-disabled',
     ])
     
-
-    
-
-    // const update = (v: string | number) => {
-    //   emit('update:modelValue', v)
-    //   emit('input', v)
-    // }
-    // const onClick = (item: IOption, disabled: boolean) => {
-    //   if (disabled) return
-    //   const checked = props.modelValue === item.value
-    //   if (checked) update('')
-    //   else update(item.value)
-    // }
-
     return {
-      // onClick
-      cls
+      cls,
+      model,
+      handleChange,
+      isChecked
     }
   }
 

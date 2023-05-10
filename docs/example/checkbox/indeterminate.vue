@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 
-const options = ['option1', 'options2', 'options3']
+const options = ['options1', 'options2', 'options3']
 
-const checked = ref(['option1'])
+const checked = ref(['options2'])
 
 const checkAll = computed(() => {
   return checked.value.length === options.length && checked.value.length

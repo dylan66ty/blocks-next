@@ -7,7 +7,8 @@ import {
   Input,
   Checkbox,
   CheckboxGroup,
-  Radio
+  Radio,
+  RadioGroup
 } from './components'
 
 
@@ -18,7 +19,8 @@ const components = [
   Input,
   Checkbox,
   CheckboxGroup,
-  Radio
+  Radio,
+  RadioGroup
 ] as Plugin[];
 
 export const install = function (app: App) {

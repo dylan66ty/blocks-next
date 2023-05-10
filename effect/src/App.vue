@@ -1,17 +1,31 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const radio = ref('1')
+const radios = ref(2)
+const textarea = ref('')
 
-const checkbox = ref(false)
+const handleChange = (val) => {
+  console.log(val);
+}
+
+const handleBlur = (e) => {
+  console.log(e, 'blur');
+}
+
+const handleFocus = (e) => {
+  console.log(e,'focus');
+}
 
 </script>
 
 <template>
-  <div>
-    <bn-radio v-model="radio" :label="radio">12313</bn-radio>
-    <bn-checkbox v-model="checkbox">复选框</bn-checkbox>
+  <div style="width:200px">
+    <bn-input  v-model="textarea" type="textarea" :autosize="{minRows:6,maxRows:8}" @change="handleChange" @blur="handleBlur" @focus="handleFocus"></bn-input>
   </div>
+
+  <!-- <div style="width:200px">
+    <bn-input  @change="handleChange" @blur="handleBlur" @focus="handleFocus"></bn-input>
+  </div> -->
 </template>
 
 <style>
