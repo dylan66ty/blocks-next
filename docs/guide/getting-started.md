@@ -9,47 +9,29 @@ node -v
 # v16+
 ```
 
-## 代码拉取
-
-``` sh
-# （https or ssh）
-git clone https://github.com/jsxiaosi/xs-components-lib.git
-
-git clone git@github.com:jsxiaosi/xs-components-lib.git
-```
-
 ## 使用
 
 - 安装依赖
-
 ``` sh
-npm install
+pnpm install blocks-next
 ```
 
-### Develop
 
-- 运行文档
 
-``` sh
-npm run docs:dev
+- 在vue项目中注册block-next
+
+```js
+
+// main.ts
+import BlocksNext, {Icon} from blocks-next
+// 引入BlocksNext样式
+import 'blocks-next/theme-default/index.css'
+
+// 注册BlocksNext组件库
+app.use(BlocksNext)
+// 注册BlocksNext图标
+app.use(Icon) 
+
 ```
 
-- 运行组件开发调试模板
 
-``` sh
-npm run dev
-```
-
-### Production
-
-- 文档
-
-``` sh
-npm run docs:build
-```
-
-- 组件打包
-
-``` sh
-npm run build
-```

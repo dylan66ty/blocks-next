@@ -35,9 +35,9 @@
 
 :root {
   --vp-home-hero-name-color: transparent;
+  /* 首页图片 */
   --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #409eff 30%, #79bbff);
-
-  --vp-home-hero-image-background-image: linear-gradient(-45deg, #a0cfff 50%, #c6e2ff 50%);
+  /* --vp-home-hero-image-background-image: linear-gradient(-45deg, #a0cfff 50%, #c6e2ff 50%); */
   --vp-home-hero-image-filter: blur(40px);
 }
 

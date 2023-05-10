@@ -5,3 +5,5 @@ coverage
 package-lock.json
 bin
 *.local
+
+pnpm-lock.yaml

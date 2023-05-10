@@ -3,5 +3,4 @@
 
 - Vue3
 - Vite
-- VitePress
-- Rollup
+- TypeScript

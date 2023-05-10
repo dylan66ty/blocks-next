@@ -1,44 +1,11 @@
 {
   "/guide/": [
     {
-      "text": "入门",
       "collapsible": true,
       "items": [
         {
-          "text": "介绍",
-          "link": "introduce"
-        },
-        {
-          "text": "如何使用",
+          "text": "快速开始",
           "link": "getting-started"
-        }
-      ]
-    },
-    {
-      "text": "文档（docs）",
-      "collapsible": true,
-      "items": [
-        {
-          "text": "写第一个docs",
-          "link": "docs/add-page"
-        },
-        {
-          "text": "组件示例",
-          "link": "docs/components"
-        }
-      ]
-    },
-    {
-      "text": "组件（packages）",
-      "collapsible": true,
-      "items": [
-        {
-          "text": "编写组件",
-          "link": "components/writing"
-        },
-        {
-          "text": "发布组件库",
-          "link": "components/publish"
         }
       ]
     }
