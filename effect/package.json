@@ -1,6 +1,6 @@
 {
-  "name": "xs-components-effect",
-  "version": "0.0.0",
+  "name": "blocks-next-effect",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

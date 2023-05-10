@@ -4,6 +4,7 @@ import Plus from './src/plus.vue'
 import Search from './src/search.vue'
 import Time from './src/time.vue'
 import Minus from './src/minus.vue'
+import Loading from './src/loading.vue'
 
 import type {App} from 'vue'
 import { getComponentPrefix } from '../../utils/global-config'
@@ -16,7 +17,7 @@ const components = [
     Minus,
     Search,
     Time,
-
+    Loading
 ]
 
 const install = (app:App) => {

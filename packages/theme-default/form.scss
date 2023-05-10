@@ -1,0 +1,114 @@
+@import './common/fn.scss';
+.bn-form{
+    background-color: var(--bn-block-bg);
+    color: var(--bn-c);
+    padding: var(--bn-pd);
+    margin-bottom: var(--bn-pd);
+    border-radius: 2px;
+    line-height: var(--bn-24);
+    &-hasheader{
+        padding-top: 0;
+    }
+    &-header,
+    &-action{
+        display: flex;
+        align-items: center;
+    }
+    &-header{
+        height: var(--bn-gcard-th);
+        color: var(--bn-c-d2);
+        font-weight: var(--bn-fw-m);
+        font-size: var(--bn-gcard-tfs);
+        position: relative;
+        margin-bottom: var(--bn-pd);
+        &:after{
+            @include blMx(var(--bn-bd));
+        }
+    }
+    &-action{
+        justify-content: center;
+        margin-top: var(--bn-pd-lg);
+        gap: var(--bn-pd);
+    }
+}
+@media screen and (max-width: 768px){
+    .bn-form-action{
+        flex-direction: column;
+        .bn-btn{
+            width: 100%;
+        }
+    }
+}
+
+.bn-field {
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    .bn-field-label {
+        flex: 0 0 auto;
+        color: var(--bn-c-d1);
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-right: 8px;
+        position: relative;
+        width: 120px;
+        user-select: none;
+        &:after {
+            content: ':';
+        }
+        &:after,
+        &:before {
+            display: inline-block;
+            padding: 0 5px;
+        }
+    }
+    &-required {
+        .bn-field-label {
+            &:before {
+                content: '*';
+                color: var(--bn-danger);
+            }
+        }
+    }
+    &-hr {
+        flex-direction: row;
+    }
+    &-vt {
+        flex-direction: column;
+        .bn-field-label {
+            width: 100%;
+            justify-content: flex-start;
+            margin-right: 0;
+            margin-bottom: 8px;
+        }
+    }
+}
+@media screen and (max-width: 768px) {
+    .bn-field {
+        .bn-field-label {
+            justify-content: flex-start;
+            &:after {
+                display: none;
+            }
+        }
+        &-auto {
+            flex-direction: column;
+            .bn-field-label {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 8px;
+            }
+        }
+    }
+}
+
+.bn-field-tip{
+    font-size: 12px;
+    display: block;
+    text-align: right;
+    width: 100%;
+    flex: 1 0 auto;
+    margin-top: 5px;
+    color: var(--bn-danger);
+}

@@ -1,6 +1,8 @@
-.bn-btn-group {
+@import './mixins/bem.scss';
+
+@include b(btn-group) {
   display: flex;
-  &  > .bn-btn {
+   &  > .#{ $namespace }-btn {
     &:first-child {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
@@ -20,7 +22,7 @@
       margin-left: -1px;
     }
   }
-
-  
 }
+ 
+
 

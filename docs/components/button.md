@@ -42,10 +42,10 @@ button/block
 button/loading
 :::
 
-## 其他配置
+## 形状
 
 ::: demo 设置属性 **shape**为 `circle` 圆形、`square`长方形、`round`全圆角，设置属性 **disabled**为 `true`为禁止。
-button/others
+button/shape
 :::
 ## 组合按钮
 
@@ -53,9 +53,8 @@ button/others
 button/group
 :::
 
-## API
+## Attributes
 
-### 属性
 
 | 属性           | 描述       | 类型                                                                    | 默认值     |
 |:-------------|:---------|:----------------------------------------------------------------------|:--------|

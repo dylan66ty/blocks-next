@@ -1,0 +1,33 @@
+.bn-radio-wrap {
+  flex-wrap: wrap;
+}
+.bn-radio {
+  font-size: var(--bn-ip-fs);
+  color: var(--bn-c);
+  padding: 0 12px 0 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  height: var(--bn-ip-h);
+  user-select: none;
+  .bn-ck-icon {
+      margin-right: var(--bn-pd-sm);
+      color: var(--bn-c-l2);
+  }
+  .bn-ck-icon,
+  .bn-ck-text {
+      cursor: inherit;
+      color: inherit;
+  }
+  &.bn-ck-select-text {
+      user-select: text;
+  }
+  &.bn-ck-checked {
+      color: var(--bn-primary);
+  }
+
+  &.bn-ck-disabled {
+      cursor: not-allowed;
+      color: var(--bn-c-disabled);
+  }
+}

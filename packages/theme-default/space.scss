@@ -1,4 +1,6 @@
-.bn-space{
+@import './mixins/bem.scss';
+
+@include b(space) {
   &-horizontal {
     display: flex;
   }

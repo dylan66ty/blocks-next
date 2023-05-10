@@ -1,4 +1,4 @@
-export const debounce = (callback: Function, delay: number | string): any => {
+export const throttle = (callback: Function, delay: number | string):any => {
   if (typeof callback === 'function') {
       let timer: number | unknown
       if (timer) {
@@ -12,3 +12,15 @@ export const debounce = (callback: Function, delay: number | string): any => {
       })
   }
 }
+
+export const debounce = (callback:Function,delay: number) => {
+    let timer:any = null
+    return function (...args:[]) {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            callback.apply(null, args)
+        }, delay);
+    }
+}
+
+export const rand = ()=>(Math.random()+"").replace(".","");

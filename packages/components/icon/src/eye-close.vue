@@ -10,9 +10,6 @@ export default defineComponent({
   name: 'EyeClose',
   components: {
       IconComponent
-  },
-  props: {
-    open:{type:Boolean,default:true}
   }
 })
 </script>

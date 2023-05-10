@@ -3,8 +3,6 @@
 import { defineComponent, getCurrentInstance, h } from 'vue'
 import { useClipboard } from '@vueuse/core'
 
-
-
 const icons: Array<{ [key: string]: string }> = [
     {
         name: 'bn-icon-eye-open',
@@ -19,12 +17,20 @@ const icons: Array<{ [key: string]: string }> = [
         componentName: 'bnIconPlus',
     },
     {
+        name: 'bn-icon-minus',
+        componentName: 'bnIconMinus',
+    },
+    {
         name: 'bn-icon-search',
         componentName: 'bnIconSearch',
     },
     {
         name: 'bn-icon-time',
         componentName: 'bnIconTime',
+    },
+    {
+        name: 'bn-icon-loading',
+        componentName: 'bnIconLoading',
     },
     
 ]
@@ -39,7 +45,6 @@ export default defineComponent({
             
             const content = '<' + name + ' />'
             const { copy, isSupported } = useClipboard({
-
                 source: decodeURIComponent(content)
             })
             if (isSupported) {
@@ -75,13 +80,14 @@ export default defineComponent({
         margin-top: -1px;
         cursor: pointer;
         transition: all 0.3s ease;
-        line-height: 140px;
-
+        display: flex;
+        align-items: center;
+        justify-content: center;
         &:hover {
             background-color: #f2f3f5;
 
             .icon {
-                transform: scale(1.2);
+                transform: scale(1.4);
             }
         }
 

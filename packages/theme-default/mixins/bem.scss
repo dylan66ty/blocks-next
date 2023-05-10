@@ -1,0 +1,48 @@
+$namespace: 'bn';
+$state-prefix: 'is-';
+$modifier-separator: '--';
+$element-separator: '__';
+
+
+// .bu-button
+@mixin b($block) {
+  $B: $namespace + '-' + $block;
+  .#{$B} {
+    @content;
+  }
+}
+
+
+// .bn-button.is-disabled
+@mixin when($state) {
+  @at-root {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}
+
+// bn-button--primary
+@mixin m($modifier) {
+  @at-root {
+    #{& + $modifier-separator + $modifier} {
+      @content;
+    }
+  }
+}
+
+// &__header => bn-button__header
+@mixin e($element) {
+  @at-root {
+    #{& + $element-separator+$element} {
+      @content;
+    }
+  }
+}
+
+
+// @mixin button-type($color,$background-color,$border-color) {
+//   color: $color;
+//   background-color: $background-color;
+//   border-color: $border-color;
+// }

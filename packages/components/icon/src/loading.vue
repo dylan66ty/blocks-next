@@ -1,7 +1,8 @@
 <template>
-  <IconComponent>
-    <svg viewBox="0 0 50 50" class="loading-svg">
-      <circle cx="25" cy="25" r="20" fill="none" class="path" max="100"></circle>
+  <IconComponent spin>
+    <svg viewBox="0 0 48 48" style="fill:none;" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
+      stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter">
+      <path d="M42 24c0 9.941-8.059 18-18 18S6 33.941 6 24 14.059 6 24 6"></path>
     </svg>
   </IconComponent>
 </template>

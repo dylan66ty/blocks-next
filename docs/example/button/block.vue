@@ -1,5 +1,5 @@
 <template>
-    <bn-space size="20">
+    <bn-space direction="vertical" size="small">
         <bn-button type="normal" block>Default</bn-button>
         <bn-button type="primary" :block="true">Primary</bn-button>
         <bn-button type="success" :block="true">Success</bn-button>
@@ -9,11 +9,3 @@
     </bn-space>
 
 </template>
-
-<style lang="scss">
-.block-wrapper {
-    .bn-btn+.bn-btn {
-        margin-top: 8px;
-    }
-}
-</style>

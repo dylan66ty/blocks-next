@@ -1,0 +1,71 @@
+@import './mixins/bem.scss';
+
+@include b(checkbox) {
+  position: relative;
+  user-select: none;
+  display: inline-block;
+  cursor: pointer;
+
+  @include e(icon) {
+    margin-right: var(--bn-pd-sm);
+
+  }
+
+  .#{$namespace}-checkbox__icon--half {
+    color: var(--bn-primary);
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: var(--bn-primary);
+    border-radius: 2px;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 2px;
+      border-radius: 2px;
+      background-color: #fff;
+    }
+  }
+
+  @include e(input) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  @include when(checked) {
+    color: var(--bn-primary);
+
+    .#{$namespace}-checkbox__icon--checked {
+      color: var(--bn-primary);
+    }
+  }
+
+
+
+  @include when(disabled) {
+    cursor: not-allowed;
+    color: var(--bn-c-disabled);
+
+    svg {
+      color: var(--bn-c-disabled);
+    }
+  }
+
+  @include when(indeterminate) {}
+
+}
+
+@include b(checkbox-group) {
+  .#{$namespace}-checkbox+.#{$namespace}-checkbox {
+    margin-left: 15px;
+  }
+}

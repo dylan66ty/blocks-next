@@ -1,10 +1,30 @@
-.bn-icon {
-    color: inherit;
-    font-size: inherit;
-    display: inline-block;
-    svg {
-      fill: currentColor;
-      width: 1em;
-      height: 1em;
-    }
+@import './mixins/bem.scss';
+
+@include b(icon) {
+  display: inline-block;
+  color: inherit;
+  font-size: inherit;
+
+  > svg {
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
+    vertical-align: -2px;
+    outline: none;
+  }
+
+  &-loading {
+    animation: bn-rotating 1s infinite cubic-bezier(0,0,1,1);
+  }
 }
+
+@keyframes bn-rotating {
+  0% {
+    transform: rotateZ(0deg);
+  }
+
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+

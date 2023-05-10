@@ -1,17 +1,12 @@
 {
   "name": "blocks-next",
-  "version": "1.0.2",
+  "version": "0.0.1",
   "description": "Vue3 Component Library",
   "license": "MIT",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jsxiaosi/xs-components-lib.git"
-  },
-  "bugs": {
-    "url": "https://github.com/jsxiaosi/xs-components-lib/issues"
+    "type": "git"
   },
   "keywords": [
-    "xs-components",
     "ui framework",
     "vue"
   ],

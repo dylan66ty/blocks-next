@@ -1,0 +1,89 @@
+.bn-grid {
+  display: grid;
+  --bn-shadow-light: var(--bn-shadow-3);
+
+  --bn-grid-cols-all: auto-fit;
+  --bn-grid-cols-xs: auto-fit;
+  --bn-grid-cols-sm: 2;
+  --bn-grid-cols-md: 3;
+  --bn-grid-cols-lg: 4;
+  --bn-grid-cols-xl: 6;
+  --bn-grid-cols: var(--bn-grid-cols-all);
+
+  --bn-grid-cgap: var(--bn-pd);
+  --bn-grid-rgap: var(--bn-pd);
+  --bn-grid-item-padding: var(--bn-pd);
+  --bn-grid-item-radius: 4px;
+  --bn-grid-item-border: none;
+  --bn-grid-item-shadow: none;
+
+  grid-template-columns: repeat(var(--bn-grid-cols), 1fr);
+  grid-gap: var(--bn-grid-rgap) var(--bn-grid-cgap);
+
+  &[shadow='true'] {
+    --bn-grid-item-shadow: var(--bn-shadow-light);
+  }
+
+  &[border='true'] {
+    --bn-grid-item-border: 1px solid var(--bn-bd-light, #e4e7ed);
+  }
+}
+
+@media (max-width: 480px) {
+  .bn-grid.bn-auto-fit {
+    --bn-grid-cols: var(--bn-grid-cols-xs, var(--bn-grid-cols-all));
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .bn-grid.bn-auto-fit {
+    --bn-grid-cols: var(--bn-grid-cols-sm, var(--bn-grid-cols-all));
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .bn-grid.bn-auto-fit {
+    --bn-grid-cols: var(--bn-grid-cols-md, var(--bn-grid-cols-all));
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  .bn-grid.bn-auto-fit {
+    --bn-grid-cols: var(--bn-grid-cols-lg, var(--bn-grid-cols-all));
+  }
+}
+
+@media (min-width: 1201px) {
+  .bn-grid.bn-auto-fit {
+    --bn-grid-cols: var(--bn-grid-cols-xl, var(--bn-grid-cols-all));
+  }
+}
+
+
+
+.bn-grid-item {
+  --bn-grid-item-place: auto;
+  --bn-grid-col-span: 1;
+  --bn-grid-row-span: 1;
+  --bn-grid-col-offset: auto;
+  --bn-grid-row-offset: auto;
+  position: relative;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  box-shadow: none;
+  border: var(--bn-grid-item-border);
+  border-radius: var(--bn-grid-item-radius);
+  padding: var(--bn-grid-item-padding);
+  place-self: var(--bn-grid-item-place);
+  grid-column: var(--bn-grid-col-offset) / span var(--bn-grid-col-span);
+  grid-row: var(--bn-grid-row-offset) / span var(--bn-grid-row-span);
+  align-self: flex-start;
+
+  &:hover {
+    box-shadow: var(--bn-grid-item-shadow);
+    z-index: 1;
+  }
+
+  &>img {
+    width: 100%;
+  }
+}

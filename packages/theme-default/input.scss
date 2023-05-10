@@ -1,0 +1,111 @@
+@import './mixins/bem.scss';
+// @import './common/fn.scss';
+
+
+@include b(input) {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+    font-size: inherit;
+
+    @include e(inner) {
+        background-color: var(--bn-input-background-color);
+        background-image: none;
+        border-radius: var(--bn-input-border-radius);
+        border: 1px solid var(--bn-input-border-color);
+        box-sizing: border-box;
+        color: #606266;
+        display: inline-block;
+        font-size: inherit;
+        height: var(--bn-input-default-height);
+        line-height: var(--bn-input-default-height);
+        outline: none;
+        padding: 0 15px;
+        transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+        width: 100%;
+
+        &::-webkit-input-placeholder {
+            color: var(--bn-input-placeholder-color);
+        }
+
+        &:disabled::-webkit-input-placeholder {
+            color: var(--bn-input-disabled-border-color);
+        }
+
+        &:focus {
+            border-color: var(--bn-primary) ;
+        }
+
+
+
+    }
+
+    @include e(icon) {
+        width: 25px;
+    }
+
+    @include e(prefix) {
+        position: absolute;
+        height: 100%;
+        left: 5px;
+        top: 0;
+        text-align: center;
+        color: var(--bn-input-icon-color);
+        transition: all .3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @include e(suffix) {
+        position: absolute;
+        height: 100%;
+        right: 5px;
+        top: 0;
+        text-align: center;
+        color: var(--bn-input-icon-color);
+        transition: all .3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @include e(eye) {
+        cursor: pointer;
+    }
+
+    @include when(disabled) {
+        .#{$namespace}-input__inner {
+            background-color: var(--bn-input-disabled-background-color);
+            border-color: var(--bn-input-disabled-border-color);
+        }
+    }
+
+    @include when(error) {
+        .#{$namespace}-input__inner {
+            border-color: var(--bn-danger);
+            color: var(--bn-danger);
+        }
+    }
+
+    @include m(suffix) {
+        .#{$namespace}-input__inner {
+            padding-right: 30px;
+        }
+    }
+
+    @include m(prefix) {
+        .#{$namespace}-input__inner {
+            padding-left: 30px;
+        }
+    }
+
+
+    @include m(small) {
+        --bn-input-default-height: 32px;
+    }
+
+    @include m(large) {
+        --bn-input-default-height: 48px
+    }
+}

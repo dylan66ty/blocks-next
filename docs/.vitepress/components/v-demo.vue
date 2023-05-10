@@ -4,7 +4,7 @@
 
     <div class="example">
       <Example :file="pathName" :demo="formatPathDemos[pathName]" />
-      <div class="op-btns">
+      <div class="op-btns" v-if="isShowOpBtns">
         <span class="op-btn" @click="copyCode">复制</span>
         <span class="op-btn" @click="toggleSourceVisible">显示源代码</span>
         <!-- <VIcon class="op-btn" name="icon-github"></VIcon>
@@ -16,7 +16,7 @@
       </VTransition>
       <Transition name="fade">
         <div v-show="sourceVisible" class="example-float-control" @click="toggleSourceVisible()">
-          <!-- <VIcon class="op-btn" name="icon-sanjiao2"></VIcon> -->
+          <!-- <VIcon class="op-btn" name="icon-sanjiao2"></VIcon> -->/
           <span>隐藏源代码</span>
         </div>
       </Transition>
@@ -45,12 +45,15 @@
 
   const formatPathDemos = computed(() => {
     const demos: Object = {};
-
     Object.keys(props.demos).forEach((key: string) => {
       demos[key.split('./example/')[1].replace('.vue', '')] = props.demos[key].default;
     });
     return demos;
   });
+
+  const isShowOpBtns = computed(() => {
+    return Object.keys(props.demos).some(path => !path.includes('icon/basic'))
+  })
 
   const { copy, isSupported } = useClipboard({
     source: decodeURIComponent(props.rawSource),

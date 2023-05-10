@@ -19,7 +19,7 @@
 <script lang="ts">
 import { PropType, reactive, computed, defineComponent } from 'vue'
 import { IThemeType } from './types'
-import { debounce } from '../../../utils'
+import { throttle } from '../../../utils'
 
 import Search from '../../icon/src/search.vue'
 import Plus from '../../icon/src/plus.vue'
@@ -124,7 +124,7 @@ export default defineComponent({
 
       state.clicked = true
       // 执行节流
-      const callback = await debounce(() => {
+      const callback = await throttle(() => {
         state.clicked = false
         emit('click', event)
       }, props.delay as number)

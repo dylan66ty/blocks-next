@@ -4,12 +4,29 @@
       "text": "通用",
       "items": [
         {
-          "text": "Button",
+          "text": "按钮 Button",
           "link": "button"
         },
         {
-          "text": "Icon",
+          "text": "图标 Icon",
           "link": "icon"
+        }
+      ]
+    },
+    {
+      "text": "Form",
+      "items": [
+        {
+          "text": "输入框 Input",
+          "link": "input"
+        },
+        {
+          "text": "复选框 Checkbox",
+          "link": "checkbox"
+        },
+        {
+          "text": "单选框 Radio",
+          "link": "radio"
         }
       ]
     }

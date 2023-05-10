@@ -1,7 +1,8 @@
 <script lang="tsx">
 import { PropType, defineComponent,computed, CSSProperties, Fragment , Comment} from 'vue'
 import { isNumber } from '../../../utils/is'
-import {getComponentPrefix} from '../../../utils/global-config'
+import {getNamespaced} from '../../../utils/global-config'
+import { getAllElements } from '../../../utils/vue-utils'
 
 type SpaceSize = number | 'mini' | 'small' | 'medium' | 'large';
 
@@ -18,10 +19,10 @@ export default defineComponent({
     }
   },
   setup(props, { slots }) {
-    const prefixCls = getComponentPrefix()
+    const ns = getNamespaced('space')
 
     const cls = computed(() => [
-      `${prefixCls}-space-${props.direction}`
+      `${ns}-${props.direction}`
     ]);
 
     function getMargin(size: SpaceSize) {
@@ -59,12 +60,11 @@ export default defineComponent({
       return style;
     };
 
-    console.log(slots.default?.());
-
     return () => {
-      const children = slots.default?.().filter(
+      const children = getAllElements(slots.default?.().filter(
         (item) => item.type !== Comment
-      )  as []
+      )  as [])
+
 
       return (
         <div class={cls.value}>
@@ -74,14 +74,14 @@ export default defineComponent({
               <Fragment key={`space-item-${index}`}>
                 {shouldRenderSplit && (
                   <div
-                    class={`${prefixCls}-space-item-split`}
+                    class={`${ns}-item-split`}
                     style={getMarginStyle(false)}
                   >
                     {slots.split?.()}
                   </div>
                 )}
                 <div
-                  class={`${prefixCls}-space-item`}
+                  class={`${ns}-item`}
                   style={getMarginStyle(index === children.length - 1)}
                 >
                   {child}

@@ -6,7 +6,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+
 export default defineComponent({
-  name: 'ButtonGroup'
+  name: 'ButtonGroup',
 })
 </script>

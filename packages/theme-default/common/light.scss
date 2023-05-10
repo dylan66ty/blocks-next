@@ -1,3 +1,4 @@
+
 :root {
     --bn-c-top: #fff;
     --bn-c-l3: #dddddd; //#D9D9D9;//rgb(0 0 0 /15%);border
@@ -48,8 +49,8 @@
 
     --bn-input-bg: #ffffff;
     --bn-input-bc: #e1e4e8;
-    --bn-bg-disabled: var(--bn-bg-a1); //#262626;
-    --bn-bd-disabled: var(--bn-bg-a1); //#262626;
+    --bn-bg-disabled: #e1e4e8;
+    --bn-bd-disabled: #e1e4e8; //#262626;
     --bn-c-disabled: rgb(0 0 0 /25%);
 
     --bn-aside-bg: var(--bn-bg-2);
@@ -67,4 +68,16 @@
     --bn-notify-bg: var(--bn-bg-4);
     --bn-msg-bg: var(--bn-bg-4);
     --bn-loading-bg: var(--bn-bg-4);
+
+
+    // new input var
+    --bn-input-border-color: #e1e4e8;
+    --bn-input-border-radius: 4px;
+    --bn-input-background-color: #fff;
+    --bn-input-disabled-background-color:#fafbfd;
+    --bn-input-disabled-border-color:#E1E4E8;
+    --bn-input-color: #242934;
+    --bn-input-placeholder-color: #9CA6B9;
+    --bn-input-default-height: 40px;
+    --bn-input-icon-color: #c0c4cc;
 }
