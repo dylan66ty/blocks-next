@@ -1,6 +1,6 @@
 import { cloneVNode } from 'vue';
 import type { VNodeTypes, VNode, PropType, Component, Slots } from 'vue';
-import type { SFCWithInstall, Data } from './types';
+import type { SFCWithInstall, Data , SFCInstallWithContext} from './types';
 import { isArray, isFunction } from './is';
 
 export enum ShapeFlags {
@@ -190,5 +190,15 @@ export const withInstall = <T, E extends Record<string, any>>(main: T, extra?: E
   }
   return main as SFCWithInstall<T> & E;
 };
+
+
+export const withInstallFunction = <T>(fn: T, name: string) => {
+  ;(fn as SFCWithInstall<T>).install = (app: App) => {
+    ;(fn as SFCInstallWithContext<T>)._context = app._context
+    app.config.globalProperties[name] = fn
+  }
+
+  return fn as SFCInstallWithContext<T>
+}
 
 export const definePropType = <T>(val: any): PropType<T> => val;

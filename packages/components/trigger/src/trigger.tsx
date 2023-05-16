@@ -25,6 +25,8 @@ import type { TriggerEvent } from './_trigger';
 
 import { triggerInjectionKey } from './constant';
 
+import ResizeObserver from '../../../shared/resize-observer';
+
 import {
   getArrowStyle,
   getPopupStyle,
@@ -107,17 +109,17 @@ export default defineComponent({
       const containerRect = containerRef.value.getBoundingClientRect();
       const triggerRect = props.alignPoint
         ? {
-            top: mousePosition.value.top,
-            bottom: mousePosition.value.top,
-            left: mousePosition.value.left,
-            right: mousePosition.value.left,
-            scrollTop: mousePosition.value.top,
-            scrollBottom: mousePosition.value.top,
-            scrollLeft: mousePosition.value.left,
-            scrollRight: mousePosition.value.left,
-            width: 0,
-            height: 0,
-          }
+          top: mousePosition.value.top,
+          bottom: mousePosition.value.top,
+          left: mousePosition.value.left,
+          right: mousePosition.value.left,
+          scrollTop: mousePosition.value.top,
+          scrollBottom: mousePosition.value.top,
+          scrollLeft: mousePosition.value.left,
+          scrollRight: mousePosition.value.left,
+          width: 0,
+          height: 0,
+        }
         : getElementScrollRect(firstElement.value, containerRect);
       const getPopupRect = () =>
         // @ts-expect-error
@@ -157,6 +159,13 @@ export default defineComponent({
             customStyle: props.arrowStyle,
           });
         });
+      }
+    };
+
+    const handleResize = () => {
+      console.log(11);
+      if (computedVisible.value) {
+        updatePopupStyle();
       }
     };
 
@@ -398,54 +407,56 @@ export default defineComponent({
           {children.value}
           <Teleport to={teleportContainer.value} disabled={!props.renderToBody}>
             {props.unmountOnClose && !computedVisible.value && !mounted.value ? null : (
-              <div
-                class={cls.value}
-                ref={popupRef}
-                style={{
-                  ...popupStyle.value,
-                  zIndex: zIndex.value,
-                  pointerEvents: isAnimation.value ? 'none' : 'auto',
-                  position: 'absolute',
-                }}
-                trigger-placement={popupPosition.value}
-                onMouseenter={handleMouseEnterWithContext}
-                onMouseleave={handleMouseLeaveWithContext}
-                onMousedown={handlePopupMouseDown}
-              >
-                <Transition
-                  name={props.animationName}
-                  duration={props.duration}
-                  appear
-                  onBeforeEnter={onAnimationStart}
-                  onAfterEnter={handleShow}
-                  onBeforeLeave={onAnimationStart}
-                  onAfterLeave={handleHide}
+              <ResizeObserver onResize={handleResize}>
+                <div
+                  class={cls.value}
+                  ref={popupRef}
+                  style={{
+                    ...popupStyle.value,
+                    zIndex: zIndex.value,
+                    pointerEvents: isAnimation.value ? 'none' : 'auto',
+                    position: 'absolute',
+                  }}
+                  trigger-placement={popupPosition.value}
+                  onMouseenter={handleMouseEnterWithContext}
+                  onMouseleave={handleMouseLeaveWithContext}
+                  onMousedown={handlePopupMouseDown}
                 >
-                  <div
-                    class={`${ns}-popup-wrapper`}
-                    style={transformStyle.value}
-                    v-show={computedVisible.value}
+                  <Transition
+                    name={props.animationName}
+                    duration={props.duration}
+                    appear
+                    onBeforeEnter={onAnimationStart}
+                    onAfterEnter={handleShow}
+                    onBeforeLeave={onAnimationStart}
+                    onAfterLeave={handleHide}
                   >
-                    <div class={[`${ns}-content`, props.contentClass]} style={props.contentStyle}>
-                      {slots.content?.()}
+                    <div
+                      class={`${ns}-popup-wrapper`}
+                      style={transformStyle.value}
+                      v-show={computedVisible.value}
+                    >
+                      <div class={[`${ns}-content`, props.contentClass]} style={props.contentStyle}>
+                        {slots.content?.()}
+                      </div>
+                      {props.showArrow && (
+                        <div
+                          ref={arrowRef}
+                          class={[`${ns}-arrow`, props.arrowClass]}
+                          style={{
+                            position: 'absolute',
+                            width: 'var(--bn-trigger-arrow-size)',
+                            height: 'var(--bn-trigger-arrow-size)',
+                            zIndex: -1,
+                            'background-color': 'var(--bn-trigger-arrow-background-color)',
+                            ...arrowStyle.value,
+                          }}
+                        />
+                      )}
                     </div>
-                    {props.showArrow && (
-                      <div
-                        ref={arrowRef}
-                        class={[`${ns}-arrow`, props.arrowClass]}
-                        style={{
-                          position: 'absolute',
-                          width: 'var(--bn-trigger-arrow-size)',
-                          height: 'var(--bn-trigger-arrow-size)',
-                          zIndex: -1,
-                          'background-color': 'var(--bn-trigger-arrow-background-color)',
-                          ...arrowStyle.value,
-                        }}
-                      />
-                    )}
-                  </div>
-                </Transition>
-              </div>
+                  </Transition>
+                </div>
+              </ResizeObserver>
             )}
           </Teleport>
         </>

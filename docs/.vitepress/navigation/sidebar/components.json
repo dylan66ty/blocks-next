@@ -41,6 +41,15 @@
           "link": "form"
         }
       ]
+    },
+    {
+      "text": "Notice 通知",
+      "items": [
+        {
+          "text": "Message 消息通知",
+          "link": "message"
+        }
+      ]
     }
   ]
 }

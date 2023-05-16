@@ -4,7 +4,7 @@ import { onMounted, onBeforeUnmount, readonly, ref, watch } from 'vue';
 export type PopupType = 'popup' | 'dialog' | 'message';
 
 const POPUP_BASE_Z_INDEX = 1000;
-const MESSAGE_BASE_Z_INDEX = 5000;
+const MESSAGE_BASE_Z_INDEX = 3000;
 const Z_INDEX_STEP = 1;
 
 class PopupManager {

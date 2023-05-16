@@ -19,6 +19,10 @@ export default (): UserConfig => {
           find: '@blocks-next',
           replacement: `${path.resolve(__dirname, '../packages')}/`,
         },
+        {
+          find: 'blocks-next',
+          replacement: `${path.resolve(__dirname, '../packages')}/index`,
+        },
       ],
     },
     server: {

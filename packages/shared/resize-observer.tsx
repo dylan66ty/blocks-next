@@ -10,7 +10,6 @@ export default defineComponent({
   emits: [
     /**
      * resize 事件
-     * @property {ResizeObserverEntry} entry 触发 resize 的 dom 元素
      */
     'resize',
   ],

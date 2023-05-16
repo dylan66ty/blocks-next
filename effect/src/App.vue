@@ -6,14 +6,11 @@
   import Trigger from './components/Trigger.vue';
   import Select from './components/Select.vue';
   import Scrollbar from './components/Scrollbar.vue';
+  import Message from './components/Message.vue'
 </script>
 
 <template>
-  <div style="padding: 100px">
-    <Select />
-  </div>
-
-  <!-- <Scrollbar /> -->
+    <Message />
 </template>
 
 <style></style>

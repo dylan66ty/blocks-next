@@ -13,4 +13,6 @@ export * from './trigger';
 export * from './select';
 export * from './scrollbar';
 
+export * from './message'
+
 export { default as Icon } from './icon';
