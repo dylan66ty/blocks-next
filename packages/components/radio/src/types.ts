@@ -1,7 +1,6 @@
-import {ComputedRef} from 'vue'
+import type { ComputedRef } from 'vue';
 
-export interface IRadioGroupProvide {
-  modelValue?: ComputedRef,
-  changeEvent?: (val: unknown) => void,
-  name?: string
-} 
+export interface RadioGroupContext {
+  changeEvent?: (val: unknown) => void;
+  modelValue?: ComputedRef;
+}

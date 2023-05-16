@@ -12,4 +12,7 @@ dist
 /bin
 *html
 Dockerfile
-lib
+
+docs
+effect
+build

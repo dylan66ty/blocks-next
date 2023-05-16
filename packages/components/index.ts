@@ -1,35 +1,16 @@
+export * from './button';
+export * from './button-group';
+export * from './input';
+export * from './checkbox';
+export * from './checkbox-group';
+export * from './radio';
+export * from './radio-group';
+export * from './space';
+export * from './switch';
+export * from './form';
+export * from './form-item';
+export * from './trigger';
+export * from './select';
+export * from './scrollbar';
 
-export { default as Button } from './button'
-export type { ButtonInstance } from './button'
-
-export {default as Icon} from './icon'
-
-export { default as ButtonGroup} from './button-group'
-export type { ButtonGroupInstance } from './button-group'
-
-export {default as Space} from './space'
-export type { SpaceInstance } from './space'
-
-export {default as Input} from './input'
-export type { InputInstance } from './input'
-
-export {default as Checkbox} from './checkbox'
-export type { CheckboxInstance } from './checkbox'
-export {default as CheckboxGroup} from './checkbox-group'
-export type {CheckboxGroupInstance} from './checkbox-group'
-
-
-export {default as Radio } from './radio'
-export type { RadioInstance } from './radio'
-export {default as RadioGroup} from './radio-group'
-export type {RadioGroupInstance} from './radio-group'
-
-export { Form , FormLabel } from './form'
-export type { FormInstance , FromLabelInstance} from './form'
-
-
-
-
-
-
-
+export { default as Icon } from './icon';

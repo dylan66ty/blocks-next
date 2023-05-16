@@ -1,37 +1,59 @@
 @import './mixins/bem.scss';
 
 @include b(checkbox) {
-  line-height: 1;
-  position: relative;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   white-space: nowrap;
-  outline: none;
+  user-select: none;
+  vertical-align: middle;
 
   @include e(icon) {
-    margin-right: var(--bn-pd-sm);
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+    position: relative;
+    border: 1px solid #9CA6B9;
+    &:hover {
+      border-color: var(--bn-primary);
+    }
+    &--half {
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 6px;
+        height: 6px;
+        background-color: var(--bn-primary);
+        border-radius: 1px;
+      }
+    }
+
+    &--checked {
+      background-color: var(--bn-primary);
+      border-color: var(--bn-primary);
+      &::after {
+        box-sizing: content-box;
+        content: "";
+        border: 2px solid #fff;
+        border-left: 0;
+        border-top: 0;
+        position: absolute;
+        left: 5px;
+        top: 1px;
+        height: 7px;
+        width: 3px;
+        transform: rotate(45deg) scaleY(1);
+        transform-origin: center;
+      }
+    }
 
   }
 
-  .#{$namespace}-checkbox__icon--half {
-    color: var(--bn-primary);
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background-color: var(--bn-primary);
-    border-radius: 2px;
-    position: relative;
-    &::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 10px;
-      height: 2px;
-      border-radius: 2px;
-      background-color: #fff;
-    }
+  @include e(label) {
+    padding-left: 8px;
   }
 
   @include e(origin) {
@@ -44,24 +66,37 @@
     z-index: -1;
   }
 
-  @include when(checked) {
-    color: var(--bn-primary);
 
-    .#{$namespace}-checkbox__icon--checked {
+  @include when(checked) {
+    .#{$namespace}-checkbox__label {
       color: var(--bn-primary);
     }
   }
 
-
-
   @include when(disabled) {
     cursor: not-allowed;
-    color: var(--bn-c-disabled);
+    pointer-events: none;
 
-    .#{$namespace}-checkbox__icon {
+    .#{$namespace}-checkbox__label {
       color: var(--bn-c-disabled);
     }
+
+    .#{$namespace}-checkbox__icon {
+      &--checked {
+        background-color: #ebedf1;
+        border-color: #e2e4e8;
+
+      }
+
+      &--square {
+        background-color: #f5f7fb;
+        border-color: #e2e4e8;
+      }
+    }
   }
+
+
+
 
 }
 

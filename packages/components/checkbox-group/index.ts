@@ -1,16 +1,7 @@
-import _CheckboxGroup from '../checkbox/src/checkbox-group.vue'
-import type { App } from 'vue'
-import { getComponentPrefix } from '../../utils/global-config'
+import _CheckboxGroup from '../checkbox/src/checkbox-group.vue';
+import { withInstall } from '../../utils/vue-utils';
 
+export const CheckboxGroup = withInstall(_CheckboxGroup);
 
-const CheckboxGroup = {
-  ..._CheckboxGroup,
-  install: (app: App): void => {
-    const componentPrefix = getComponentPrefix()
-    app.component(componentPrefix + _CheckboxGroup.name, _CheckboxGroup)
-  }
-}
-
-
-export type CheckboxGroupInstance = InstanceType<typeof _CheckboxGroup>
-export default CheckboxGroup
+export type CheckboxGroupInstance = InstanceType<typeof _CheckboxGroup>;
+export default CheckboxGroup;

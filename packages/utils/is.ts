@@ -1,5 +1,4 @@
-import type { ComponentPublicInstance, VNodeNormalizedChildren } from 'vue';
-import { VNode } from 'vue';
+import type { ComponentPublicInstance, VNodeNormalizedChildren, VNode } from 'vue';
 
 const opt = Object.prototype.toString;
 
@@ -28,7 +27,7 @@ export function isString(obj: any): obj is string {
 }
 
 export function isNumber(obj: any): obj is number {
-  return opt.call(obj) === '[object Number]' && obj === obj; // eslint-disable-line
+  return opt.call(obj) === '[object Number]' && obj === obj;
 }
 
 export function isRegExp(obj: any) {
@@ -75,14 +74,10 @@ export function isWindow(el: any): el is Window {
   return el === window;
 }
 
-export const isComponentInstance = (
-  value: any
-): value is ComponentPublicInstance => {
+export const isComponentInstance = (value: any): value is ComponentPublicInstance => {
   return value?.$ !== undefined;
 };
 
-export const isArrayChildren = (
-  children: VNodeNormalizedChildren
-): children is VNode[] => {
+export const isArrayChildren = (children: VNodeNormalizedChildren): children is VNode[] => {
   return isArray(children);
 };

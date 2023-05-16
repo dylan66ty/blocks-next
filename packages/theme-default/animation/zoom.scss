@@ -1,0 +1,207 @@
+// modal use
+.bn-zoom-in-enter-from,
+.bn-zoom-in-appear-from {
+  transform: scale(0.5, 0.5);
+  opacity: 0;
+}
+
+.bn-zoom-in-enter-to,
+.bn-zoom-in-appear-to {
+  transform: scale(1, 1);
+  opacity: 1;
+}
+
+.bn-zoom-in-enter-active,
+.bn-zoom-in-appear-active {
+  transition: opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.bn-zoom-in-leave-from {
+  transform: scale(1, 1);
+  opacity: 1;
+}
+
+.bn-zoom-in-leave-to {
+  transform: scale(0.5, 0.5);
+  opacity: 0;
+}
+
+.bn-zoom-in-leave-active {
+  transition: opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+// used by tooltip。缩放出现，渐隐退出
+.bn-zoom-in-fade-out-enter-from,
+.bn-zoom-in-fade-out-appear-from {
+  transform: scale(0.5, 0.5);
+  opacity: 0;
+}
+
+.bn-zoom-in-fade-out-enter-to,
+.bn-zoom-in-fade-out-appear-to {
+  transform: scale(1, 1);
+  opacity: 1;
+}
+
+.bn-zoom-in-fade-out-enter-active,
+.bn-zoom-in-fade-out-appear-active {
+  transition: opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+}
+
+.bn-zoom-in-fade-out-leave-from {
+  transform: scale(1, 1);
+  opacity: 1;
+}
+
+.bn-zoom-in-fade-out-leave-to {
+  transform: scale(0.5, 0.5);
+  opacity: 0;
+}
+
+.bn-zoom-in-fade-out-leave-active {
+  transition: opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+}
+
+// used by slide, table filter
+.bn-zoom-in-big-enter-from,
+.bn-zoom-in-big-appear-from {
+  transform: scale(0.5, 0.5);
+  opacity: 0;
+}
+
+.bn-zoom-in-big-enter-to,
+.bn-zoom-in-big-appear-to {
+  transform: scale(1, 1);
+  opacity: 1;
+}
+
+.bn-zoom-in-big-enter-active,
+.bn-zoom-in-big-appear-active {
+  transition: opacity 0.2s linear,
+    transform 0.2s linear;
+}
+
+.bn-zoom-in-big-leave-from {
+  transform: scale(1, 1);
+  opacity: 1;
+}
+
+.bn-zoom-in-big-leave-to {
+  transform: scale(0.2, 0.2);
+  opacity: 0;
+}
+
+.bn-zoom-in-big-leave-active {
+  transition: opacity 0.2s linear,
+    transform 0.2s linear;
+}
+
+.bn-zoom-in-left-enter-from,
+.bn-zoom-in-left-appear-from {
+  transform: scale(0.1, 0.1);
+  opacity: 0.1;
+}
+
+.bn-zoom-in-left-enter-to,
+.bn-zoom-in-left-appear-to {
+  transform: scale(1, 1);
+  opacity: 1;
+}
+
+.bn-zoom-in-left-enter-active,
+.bn-zoom-in-left-appear-active {
+  transform-origin: 0 50%;
+  transition: opacity 0.3s linear,
+    transform 0.3s ease-in-out;
+}
+
+.bn-zoom-in-left-leave-from {
+  transform: scale(1, 1);
+  opacity: 1;
+}
+
+.bn-zoom-in-left-leave-to {
+  transform: scale(0.1, 0.1);
+  opacity: 0.1;
+}
+
+.bn-zoom-in-left-leave-active {
+  transform-origin: 0 50%;
+  transition: opacity 0.3s linear,
+    transform 0.3s ease-in-out;
+}
+
+// used by alert form
+.bn-zoom-in-top-enter-from,
+.bn-zoom-in-top-appear-from {
+  transform: scaleY(0.8) translateZ(0);
+  opacity: 0;
+}
+
+.bn-zoom-in-top-enter-to,
+.bn-zoom-in-top-appear-to {
+  transform: scaleY(1) translateZ(0);
+  opacity: 1;
+}
+
+.bn-zoom-in-top-enter-active,
+.bn-zoom-in-top-appear-active {
+  transform-origin: 0 0;
+  transition: transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
+}
+
+.bn-zoom-in-top-leave-from {
+  transform: scaleY(1) translateZ(0);
+  opacity: 1;
+}
+
+.bn-zoom-in-top-leave-to {
+  transform: scaleY(0.8) translateZ(0);
+  opacity: 0;
+}
+
+.bn-zoom-in-top-leave-active {
+  transform-origin: 0 0;
+  transition: transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
+}
+
+.bn-zoom-in-bottom-enter-from,
+.bn-zoom-in-bottom-appear-from {
+  transform: scaleY(0.8) translateZ(0);
+  opacity: 0;
+}
+
+.bn-zoom-in-bottom-enter-to,
+.bn-zoom-in-bottom-appear-to {
+  transform: scaleY(1) translateZ(0);
+  opacity: 1;
+}
+
+.bn-zoom-in-bottom-enter-active,
+.bn-zoom-in-bottom-appear-active {
+  transform-origin: 100% 100%;
+  transition: transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
+}
+
+.bn-zoom-in-bottom-leave-from {
+  transform: scaleY(1) translateZ(0);
+  opacity: 1;
+}
+
+.bn-zoom-in-bottom-leave-to {
+  transform: scaleY(0.8) translateZ(0);
+  opacity: 0;
+}
+
+.bn-zoom-in-bottom-leave-active {
+  transform-origin: 100% 100%;
+  transition: transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
+}

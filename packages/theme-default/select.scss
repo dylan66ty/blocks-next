@@ -1,0 +1,72 @@
+@import './mixins/bem.scss';
+
+
+
+@include b(select) {
+  font-size: 14px;
+
+  @include e(icon-caret) {
+    transform: rotate(0);
+    transition: transform 0.3s ease;
+
+    &.is-rotate {
+      transform: rotate(-180deg);
+    }
+  }
+
+  @include e(empty-text) {
+    min-height: 70px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #a8abb2;
+  }
+}
+
+
+
+@include b(select-menu) {
+  max-height: 224px;
+  background: #FFFFFF;
+  box-shadow: 0px 8px 40px 0px rgba(100, 107, 122, 0.15);
+  border-radius: 8px;
+  box-sizing: border-box;
+  // padding-right: 2px;
+  overflow: hidden;
+
+  --bn-mene-hover-background-color:#f8faff;
+  --bn-menu-disabled-color:#a8abb2;
+  --bn-menu-item-height:40px;
+
+  @include e(item) {
+    font-size: 14px;
+    padding: 0 32px 0 20px;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--bn-default-text-color);
+    height: var(--bn-menu-item-height);
+    line-height: var(--bn-menu-item-height);
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &.is-hover {
+      background-color:var(--bn-mene-hover-background-color);
+    }
+
+    &.is-disabled {
+      cursor: not-allowed;
+      color: var(--bn-menu-disabled-color);
+    }
+
+
+
+    &.is-selected {
+      color: var(--bn-primary);
+    }
+  }
+
+}

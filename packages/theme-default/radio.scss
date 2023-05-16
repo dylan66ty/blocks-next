@@ -1,52 +1,52 @@
-
 @import './mixins/bem.scss';
 
 @include b('radio') {
-  font-weight: 500;
-  line-height: 1;
   position: relative;
-  cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   white-space: nowrap;
   outline: none;
-
+  line-height: 1;
+  cursor: pointer;
 
   @include when(checked) {
-    color: var(--bn-primary);
+    .#{$namespace}-radio__label {
+      color: var(--bn-primary);
+    }
   }
 
   @include when(disabled) {
     cursor: not-allowed;
-    pointer-events: none;
-    .bn-radio__label {
+    .#{$namespace}-radio__label {
       color: #c0c4cc;
-    }
-    .bn-radio__inner {
-      background-color: #f5f7fa;
-      border-color: #e4e7ed;
-    }
-    @include when(checked) {
-      .bn-radio__inner {
-        background-color: #f5f7fa;
-        border-color: #e4e7ed;
-        &::after {
-          background-color: #c0c4cc;
-        }
-      }
     }
   }
 
   @include e(input) {
+    @include when(disabled) {
+      .#{$namespace}-radio__inner {
+        border-color: #ebecef;
+      }
+
+      &.is-checked {
+        .#{$namespace}-radio__inner {
+          &::after {
+            background-color: #c0c4cc;
+          }
+        }
+      }
+
+    }
+
     @include when(checked) {
       .#{$namespace}-radio__inner {
-        border-color: var(--bn-primary);
-        background: var(--bn-primary);
-
         &::after {
+          background: var(--bn-primary);
           transform: translate(-50%, -50%) scale(1);
         }
       }
     }
+
   }
 
   @include e(origin) {
@@ -61,21 +61,24 @@
 
 
   @include e(inner) {
-    border: 1px solid #dcdfe6;
+    border: 1px solid #9CA6B9;
     border-radius: 100%;
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     background-color: #fff;
     position: relative;
-    cursor: pointer;
     display: inline-block;
     box-sizing: border-box;
     transition: all 0.15s ease-in;
 
+    &:hover {
+      border-color: var(--bn-primary);
+    }
+
     &::after {
       content: "";
-      width: 4px;
-      height: 4px;
+      width: 6px;
+      height: 6px;
       border-radius: 100%;
       background-color: #fff;
       position: absolute;

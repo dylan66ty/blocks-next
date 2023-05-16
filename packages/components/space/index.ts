@@ -1,17 +1,7 @@
-import _Space from './src/space.vue'
-import type { App } from 'vue'
-import { getComponentPrefix } from '../../utils/global-config'
+import { withInstall } from '../../utils/vue-utils';
+import _Space from './src/space.vue';
 
+export const Space = withInstall(_Space);
 
-const Space = {
-  ..._Space,
-  install: (app: App): void => {
-    const componentPrefix = getComponentPrefix()
-    app.component(componentPrefix + _Space.name, _Space)
-  }
-}
-
-
-export type SpaceInstance = InstanceType<typeof _Space>
-export default Space
-
+export type SpaceInstance = InstanceType<typeof _Space>;
+export default Space;

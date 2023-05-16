@@ -1,0 +1,77 @@
+@import './mixins/bem.scss';
+
+@include b(scrollbar) {
+  --bn-scrollbar-track-size: 3px;
+  --bn-scrollbar-thumb-color: #EDF1F6;
+  position: relative;
+  height: 100%;
+
+  @include e(container) {
+    overflow: auto;
+    height: 100%;
+  }
+
+  &:hover {
+    .#{$namespace}-scrollbar-thumb {
+      opacity: 1;
+    }
+  }
+  
+
+  ::-webkit-scrollbar-track{
+    display: none;
+  }
+  ::-webkit-scrollbar{
+    display: none;
+  }
+
+}
+
+
+@include b(scrollbar-track) {
+  @include e(horizontal) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    z-index: 100;
+    width: 100%;
+    height:var(--bn-scrollbar-track-size);
+    opacity: 0;
+
+  }
+
+  @include e(vertical) {
+    position: absolute;
+    top: 0;
+    right: 3px;
+    box-sizing: border-box;
+    z-index: 100;
+    width: var(--bn-scrollbar-track-size);
+    height: 100%;
+  }
+
+
+}
+
+@include b(scrollbar-thumb) {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  &.is-dragging {
+    opacity: 1;
+  }
+  @include e(horizontal) {
+    position: absolute;
+    height: 100%;
+    border-radius: 2px;
+    background-color: var(--bn-scrollbar-thumb-color);
+  }
+
+  @include e(vertical) {
+    position: absolute;
+    width: 100%;
+    border-radius: 2px;
+    background-color: var(--bn-scrollbar-thumb-color);
+  }
+
+}

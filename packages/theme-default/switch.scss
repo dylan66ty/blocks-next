@@ -1,0 +1,157 @@
+@import './mixins/bem.scss';
+
+@include b(switch) {
+  --bn-switch-font-size:14px;
+  // line
+  --bn-switch-line-width: 36px;
+  --bn-switch-line-height: 10px;
+  --bn-switch-line-radius: 6px;
+  // circle
+  --bn-switch-circle-width: 40px;
+  --bn-switch-circle-height: 20px;
+  --bn-switch-line-radius: 10px;
+  --bn-switch-block-gap: 2px;
+
+
+  --bn-switch-transition-duration: 0.3s;
+  --bn-switch-inactiveColor-color: #E1E4E8;
+  --bn-switch-active-color: var(--bn-primary);
+  --bn-switch-block-size: 16px;
+  --bn-switch-disabled-opacity: 0.6;
+  --bn-switch-label-gap: 8px;
+}
+
+@include b(switch) {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  vertical-align: middle;
+  font-size: var(--bn-switch-font-size);
+  position: relative;
+  user-select: none;
+  cursor: pointer;
+
+  
+  @include e(input) {
+    opacity: 0;
+    outline: none;
+    position: absolute;
+    margin: 0;
+    width: 0;
+    height: 0;
+    z-index: -1;
+  }
+
+  @include e(core-line) {
+    display: inline-flex;
+    min-width: var(--bn-switch-line-width);
+    height: var(--bn-switch-line-height);
+    background-color: var(--bn-switch-inactiveColor-color);
+    border-radius: var(--bn-switch-line-radius);
+    position: relative;
+    transition: all var(--bn-switch-transition-duration);
+
+  }
+  @include e(core-circle) {
+    display: inline-flex;
+    min-width: var(--bn-switch-circle-width);
+    height: var(--bn-switch-circle-height);
+    background-color: var(--bn-switch-inactiveColor-color);
+    border-radius: var(--bn-switch-line-radius);
+    position: relative;
+    transition: all var(--bn-switch-transition-duration);
+  }
+
+  @include e(core) {
+    display: inline-flex;
+  }
+
+  @include e(label--right) {
+    margin-left: var(--bn-switch-label-gap);
+    &.is-active {
+      color: var(--bn-switch-active-color);
+    }
+  }
+
+  @include e(label--left) {
+    margin-right: var(--bn-switch-label-gap);
+    &.is-active {
+      color: var(--bn-switch-active-color);
+    }
+  }
+
+
+
+  @include e(block-circle) {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: var(--bn-switch-block-size);
+    height: var(--bn-switch-block-size);
+    transform: translate(var(--bn-switch-block-gap), -50%);
+    background: #fff;
+    border-radius: 100%;
+    box-shadow: 0px 1px 6px 0px rgba(75, 88, 122, 0.2);
+    transition: all var(--bn-switch-transition-duration);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include e(block-line) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--bn-switch-block-size);
+    height: var(--bn-switch-block-size);
+    transform: translate(0, -25%);
+    background: #fff;
+    border-radius: 100%;
+    box-shadow: 0px 1px 6px 0px rgba(75, 88, 122, 0.2);
+    transition: all var(--bn-switch-transition-duration);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include e(inline) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 4px 0 18px;
+    transition: all var(--bn-switch-transition-duration);
+     > .is-text {
+      color: #fff;
+    }
+  }
+
+  @include when(checked) {
+    .#{$namespace}-switch__core {
+      &-line {
+        background-color: var(--bn-switch-active-color);
+        .#{$namespace}-switch__block {
+          left: calc(100% - var(--bn-switch-block-size) + 1px);
+        }
+      }
+      &-circle {
+        background-color: var(--bn-switch-active-color);
+        .#{$namespace}-switch__block {
+          left: calc(100% - var(--bn-switch-block-size) - 2 * var(--bn-switch-block-gap));
+        }
+      }
+    }
+    .#{$namespace}-switch__inline {
+      padding: 0 18px 0 4px;
+    }
+  }
+
+  @include when(disabled) {
+    opacity: var(--bn-switch-disabled-opacity);
+    .#{$namespace}-switch__core {
+      cursor: not-allowed;
+    }
+  }
+}

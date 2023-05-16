@@ -1,16 +1,7 @@
-import _ButtonGroup from '../button/src/button-group.vue'
-import type { App } from 'vue'
-import { getComponentPrefix } from '../../utils/global-config'
+import _ButtonGroup from '../button/src/button-group.vue';
+import { withInstall } from '../../utils/vue-utils';
 
+export const ButtonGroup = withInstall(_ButtonGroup);
 
-const ButtonGroup = {
-  ..._ButtonGroup,
-  install: (app: App): void => {
-    const componentPrefix = getComponentPrefix()
-    app.component(componentPrefix + _ButtonGroup.name, _ButtonGroup)
-  }
-}
-
-
-export type ButtonGroupInstance = InstanceType<typeof _ButtonGroup>
-export default ButtonGroup
+export type ButtonGroupInstance = InstanceType<typeof _ButtonGroup>;
+export default ButtonGroup;

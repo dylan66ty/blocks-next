@@ -1,114 +1,81 @@
-@import './common/fn.scss';
-.bn-form{
-    background-color: var(--bn-block-bg);
-    color: var(--bn-c);
-    padding: var(--bn-pd);
-    margin-bottom: var(--bn-pd);
-    border-radius: 2px;
-    line-height: var(--bn-24);
-    &-hasheader{
-        padding-top: 0;
+@import './mixins/bem.scss';
+
+
+
+@include b('form') {
+  @include m(top) {
+    .#{$namespace}-form-item__label {
+      float: none;
+      display: inline-block;
+      text-align: left;
     }
-    &-header,
-    &-action{
-        display: flex;
-        align-items: center;
+  }
+
+  @include m(left) {
+    .#{$namespace}-form-item__label {
+      text-align: left;
     }
-    &-header{
-        height: var(--bn-gcard-th);
-        color: var(--bn-c-d2);
-        font-weight: var(--bn-fw-m);
-        font-size: var(--bn-gcard-tfs);
-        position: relative;
-        margin-bottom: var(--bn-pd);
-        &:after{
-            @include blMx(var(--bn-bd));
-        }
-    }
-    &-action{
-        justify-content: center;
-        margin-top: var(--bn-pd-lg);
-        gap: var(--bn-pd);
-    }
-}
-@media screen and (max-width: 768px){
-    .bn-form-action{
-        flex-direction: column;
-        .bn-btn{
-            width: 100%;
-        }
-    }
+  }
 }
 
-.bn-field {
-    display: flex;
-    position: relative;
-    flex-wrap: wrap;
-    .bn-field-label {
-        flex: 0 0 auto;
-        color: var(--bn-c-d1);
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        margin-right: 8px;
-        position: relative;
-        width: 120px;
-        user-select: none;
-        &:after {
-            content: ':';
-        }
-        &:after,
-        &:before {
-            display: inline-block;
-            padding: 0 5px;
-        }
-    }
-    &-required {
-        .bn-field-label {
-            &:before {
-                content: '*';
-                color: var(--bn-danger);
-            }
-        }
-    }
-    &-hr {
-        flex-direction: row;
-    }
-    &-vt {
-        flex-direction: column;
-        .bn-field-label {
-            width: 100%;
-            justify-content: flex-start;
-            margin-right: 0;
-            margin-bottom: 8px;
-        }
-    }
-}
-@media screen and (max-width: 768px) {
-    .bn-field {
-        .bn-field-label {
-            justify-content: flex-start;
-            &:after {
-                display: none;
-            }
-        }
-        &-auto {
-            flex-direction: column;
-            .bn-field-label {
-                width: 100%;
-                margin-right: 0;
-                margin-bottom: 8px;
-            }
-        }
-    }
+
+@include b('form-item') {
+  --bn-form-item-font-size: 14px;
+  --bn-form-item-error-color: var(--bn-danger);
+  --bn-form-item-error-font-size: 12px;
+  --bn-form-item-line-height:40px;
+  --bn-form-item-required-color: #f56c6c;
 }
 
-.bn-field-tip{
-    font-size: 12px;
-    display: block;
+@include b('form-item') {
+
+  margin-bottom: 22px;
+
+  // 嵌套表单不给marginBottom
+  .#{$namespace}-form-item {
+    margin-bottom: 0;
+  }
+
+
+  @include e(label) {
     text-align: right;
-    width: 100%;
-    flex: 1 0 auto;
-    margin-top: 5px;
-    color: var(--bn-danger);
+    vertical-align: middle;
+    font-size: var(--bn-form-item-font-size);
+    color: var(--bn-text-default-color);
+    padding: 0 12px 0 0;
+    box-sizing: border-box;
+    line-height: var(--bn-form-item-line-height);
+    float: left;
+  }
+
+  @include e(content) {
+    position: relative;
+    line-height: var(--bn-form-item-line-height);
+  }
+
+  @include e(error) {
+    color: var(--bn-form-item-error-color);
+    font-size: var(--bn-form-item-error-font-size);
+    line-height: 1;
+    padding-top: 4px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+
+  @include when(required) {
+    .#{$namespace}-form-item__label:before {
+      content: "*";
+      color: var(--bn-form-item-required-color);
+      margin-right: 4px;
+    }
+  }
+
+  @include when(error) {
+
+    .#{$namespace}-input__inner,
+    .#{$namespace}-textarea__inner {
+      border-color: var(--bn-form-item-error-color);
+    }
+  }
 }

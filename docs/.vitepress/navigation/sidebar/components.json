@@ -1,7 +1,7 @@
 {
   "/components/": [
     {
-      "text": "通用",
+      "text": "Basic 基础组件",
       "items": [
         {
           "text": "按钮 Button",
@@ -14,7 +14,7 @@
       ]
     },
     {
-      "text": "Form",
+      "text": "Form 表单组件",
       "items": [
         {
           "text": "输入框 Input",
@@ -27,6 +27,18 @@
         {
           "text": "单选框 Radio",
           "link": "radio"
+        },
+        {
+          "text": "选择器 Select",
+          "link": "select"
+        },
+        {
+          "text": "开关 Switch",
+          "link": "switch"
+        },
+        {
+          "text": "表单 Form",
+          "link": "form"
         }
       ]
     }

@@ -1,33 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-const radios = ref(2)
-const textarea = ref('')
-
-const handleChange = (val) => {
-  console.log(val);
-}
-
-const handleBlur = (e) => {
-  console.log(e, 'blur');
-}
-
-const handleFocus = (e) => {
-  console.log(e,'focus');
-}
-
+  import Input from './components/Input.vue';
+  import Form from './components/Form.vue';
+  import formNested from './components/FormNested.vue';
+  import Switch from './components/Switch.vue';
+  import Trigger from './components/Trigger.vue';
+  import Select from './components/Select.vue';
+  import Scrollbar from './components/Scrollbar.vue';
 </script>
 
 <template>
-  <div style="width:200px">
-    <bn-input  v-model="textarea" type="textarea" :autosize="{minRows:6,maxRows:8}" @change="handleChange" @blur="handleBlur" @focus="handleFocus"></bn-input>
+  <div style="padding: 100px">
+    <Select />
   </div>
 
-  <!-- <div style="width:200px">
-    <bn-input  @change="handleChange" @blur="handleBlur" @focus="handleFocus"></bn-input>
-  </div> -->
+  <!-- <Scrollbar /> -->
 </template>
 
-<style>
-
-</style>
+<style></style>

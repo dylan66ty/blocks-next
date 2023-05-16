@@ -12,8 +12,8 @@
   ],
   "sideEffects": [
     "cdn/*",
-    "theme-chalk/**/*.css",
-    "theme-chalk/src/**/*.scss",
+    "theme-default/**/*.css",
+    "theme-default/src/**/*.scss",
     "es/components/*/style/*",
     "lib/components/*/style/*"
   ],
@@ -45,8 +45,7 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.191",
-    "@vueuse/core": "^9.12.0",
-    "lodash": "^4.17.21"
+    "@vueuse/core": "^9.12.0"
   },
   "devDependencies": {
     "vue": "^3.2.47"

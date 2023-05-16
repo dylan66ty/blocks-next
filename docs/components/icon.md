@@ -28,12 +28,12 @@ icon/use
 :::
 
 ## Attributes
-|参数名|描述|类型|默认值|
+|参数名|描述|可选值|默认值|
 |---|---|---|:---:|
-|`size`|大小|`number \| string`|`-`|
-|`color`|颜色|`string`|`-`|
-|`rotate`|旋转角度|`number`|`0`|
-|`spin`|转圈|`boolean`|`false`|
+|size|大小|`number` \| `string 记得加上单位px (示例 20px)`  |`-`|
+|color|颜色|`string`|`-`|
+|rotate|旋转角度|`number`|`0`|
+|spin|转圈|`boolean`|`false`|
 
 
 

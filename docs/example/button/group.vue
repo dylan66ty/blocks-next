@@ -14,4 +14,3 @@
     </bn-button-group>
   </bn-space>
 </template>
-

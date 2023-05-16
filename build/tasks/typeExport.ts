@@ -83,7 +83,6 @@ async function addSourceFiles(project: Project) {
       onlyFiles: true,
     }),
   );
-  console.log(filePaths, 'filePaths');
   const epPaths = excludeFiles(
     await glob(globSourceFile, {
       cwd: epRoot,

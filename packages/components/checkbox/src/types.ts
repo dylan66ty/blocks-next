@@ -1,19 +1,7 @@
-import { ComputedRef } from "vue"
+import type { ComputedRef } from 'vue';
 
-
-export type IModelValue =  string | number | boolean
-
-export interface ICheckboxProps {
-  indeterminate?:boolean,
-  checked?:boolean,
-  name?:string,
-  disable?:boolean,
-  label?: string | number | boolean,
-  modelValue?: IModelValue
+export interface CheckboxGroupContext {
+  modelValue?: ComputedRef;
+  changeEvent?: (val: unknown) => void;
+  validateEvent?: boolean;
 }
-
-export interface ICheckboxGroupProvide {
-  modelValue?: ComputedRef,
-  changeEvent?: (val: unknown) => void,
-  name?: string
-} 

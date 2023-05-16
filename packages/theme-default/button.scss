@@ -1,4 +1,5 @@
 @import './common/rebot.scss';
+@import './mixins/bem.scss';
 
 .bn-btn {
     --bn-btn-br: 0;
@@ -297,3 +298,27 @@
     border-radius: var(--bn-btn-br);
     background-color: var(--bn-btn-bg);
 }
+
+@include b(btn-group) {
+    display: flex;
+     &  > .#{$namespace}-btn {
+      &:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    
+      &:last-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left-color: hsla(0,0%,100%,.5);
+        margin-left: -1px;
+      }
+    
+      &:not(:first-child):not(:last-child) {
+        border-left-color: hsla(0,0%,100%,.5);
+        border-right-color: hsla(0,0%,100%,.5);
+        border-radius: 0;
+        margin-left: -1px;
+      }
+    }
+  }

@@ -1,0 +1,146 @@
+// used by cascader select treeselect ... like picker
+.bn-slide-dynamic-origin-enter-from,
+.bn-slide-dynamic-origin-appear-from {
+  transform: scaleY(0.9);
+  transform-origin: 0 0;
+  opacity: 0;
+}
+
+.bn-slide-dynamic-origin-enter-to,
+.bn-slide-dynamic-origin-appear-to {
+  transform: scaleY(1);
+  transform-origin: 0 0;
+  opacity: 1;
+}
+
+.bn-slide-dynamic-origin-enter-active,
+.bn-slide-dynamic-origin-appear-active {
+  transition: transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.bn-slide-dynamic-origin-leave-from {
+  transform: scaleY(1);
+  transform-origin: 0 0;
+  opacity: 1;
+}
+
+.bn-slide-dynamic-origin-leave-to {
+  transform: scaleY(0.9);
+  transform-origin: 0 0;
+  opacity: 0;
+}
+
+.bn-slide-dynamic-origin-leave-active {
+  transition: transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+// used by drawer
+.bn-slide-left-enter-from,
+.bn-slide-left-appear-from {
+  transform: translateX(-100%);
+}
+
+.bn-slide-left-enter-to,
+.bn-slide-left-appear-to {
+  transform: translateX(0);
+}
+
+.bn-slide-left-enter-active,
+.bn-slide-left-appear-active {
+  transition: transform 0.3s ease;
+}
+
+.bn-slide-left-leave-from {
+  transform: translateX(0);
+}
+
+.bn-slide-left-leave-to {
+  transform: translateX(-100%);
+}
+
+.bn-slide-left-leave-active {
+  transition: transform 0.3s ease;
+}
+
+.bn-slide-right-enter-from,
+.bn-slide-right-appear-from {
+  transform: translateX(100%);
+}
+
+.bn-slide-right-enter-to,
+.bn-slide-right-appear-to {
+  transform: translateX(0);
+}
+
+.bn-slide-right-enter-active,
+.bn-slide-right-appear-active {
+  transition: transform 0.3s ease;
+}
+
+.bn-slide-right-leave-from {
+  transform: translateX(0);
+}
+
+.bn-slide-right-leave-to {
+  transform: translateX(100%);
+}
+
+.bn-slide-right-leave-active {
+  transition: transform 0.3s ease;
+}
+
+.bn-slide-top-enter-from,
+.bn-slide-top-appear-from {
+  transform: translateY(-100%);
+}
+
+.bn-slide-top-enter-to,
+.bn-slide-top-appear-to {
+  transform: translateY(0);
+}
+
+.bn-slide-top-enter-active,
+.bn-slide-top-appear-active {
+  transition: transform 0.3s ease;
+}
+
+.bn-slide-top-leave-from {
+  transform: translateY(0);
+}
+
+.bn-slide-top-leave-to {
+  transform: translateY(-100%);
+}
+
+.bn-slide-top-leave-active {
+  transition: transform 0.3s ease;
+}
+
+.bn-slide-bottom-enter-from,
+.bn-slide-bottom-appear-from {
+  transform: translateY(100%);
+}
+
+.bn-slide-bottom-enter-to,
+.bn-slide-bottom-appear-to {
+  transform: translateY(0);
+}
+
+.bn-slide-bottom-enter-active,
+.bn-slide-bottom-appear-active {
+  transition: transform 0.3s ease;
+}
+
+.bn-slide-bottom-leave-from {
+  transform: translateY(0);
+}
+
+.bn-slide-bottom-leave-to {
+  transform: translateY(100%);
+}
+
+.bn-slide-bottom-leave-active {
+  transition: transform 0.3s ease;
+}

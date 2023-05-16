@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
- const radio = ref(1)
+  import { ref } from 'vue';
+  const radio = ref('vue');
 </script>
 
 <template>
   <div>
-    <div style="margin-bottom:10px">v-model : {{ radio }}</div>
+    <div style="margin-bottom: 10px">激活 : {{ radio }}</div>
     <bn-radio-group v-model="radio">
-      <bn-radio :label="1"></bn-radio>
-      <bn-radio :label="2"></bn-radio>
-      <bn-radio :label="3"></bn-radio>
+      <bn-radio label="vue">Vue</bn-radio>
+      <bn-radio label="react">React</bn-radio>
+      <bn-radio label="angular">Angular</bn-radio>
     </bn-radio-group>
   </div>
 </template>

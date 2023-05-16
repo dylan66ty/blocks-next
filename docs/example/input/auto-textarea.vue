@@ -1,12 +1,16 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-const textarea = ref('')
-
+  import { ref } from 'vue';
+  const textarea = ref('');
 </script>
 
 <template>
-   <div style="width:200px">
-    <bn-input type="textarea" v-model="textarea" placeholder="请输入内容" :autosize="{minRows:8,maxRows:10}"></bn-input>
+  <div style="width: 200px">
+    <bn-input
+      v-model="textarea"
+      type="textarea"
+      placeholder="请输入内容"
+      :autosize="{ minRows: 8, maxRows: 10 }"
+    ></bn-input>
   </div>
 </template>
 

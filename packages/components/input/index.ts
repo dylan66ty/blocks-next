@@ -1,16 +1,7 @@
-import _Input from './src/input.vue'
-import type { App } from 'vue'
-import { getComponentPrefix } from '../../utils/global-config'
+import { withInstall } from '../../utils/vue-utils';
+import _Input from './src/input.vue';
 
+export const Input = withInstall(_Input);
 
-const Input = {
-  ..._Input,
-  install: (app: App): void => {
-    const componentPrefix = getComponentPrefix()
-    app.component(componentPrefix + _Input.name, _Input)
-  }
-}
-
-
-export type InputInstance = InstanceType<typeof _Input>
-export default Input
+export type InputInstance = InstanceType<typeof _Input>;
+export default Input;

@@ -1,12 +1,11 @@
-export interface bnOptions {
-  classPrefix?: string;
-  componentPrefix?: string;
-}
+import type { Plugin, VNode } from 'vue';
 
-export interface bnIconOptions {
-  iconPrefix?: string;
-}
+export type SFCWithInstall<T> = T & Plugin;
 
-export interface bnGlobalConfig {
-  classPrefix?: string;
+export type Arrayable<T> = T | T[];
+
+export type Data = Record<string, any>;
+
+export interface SlotChildren {
+  value?: VNode[];
 }

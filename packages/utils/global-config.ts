@@ -1,11 +1,12 @@
-import type { bnOptions } from './types'
-const COMPONENT_PREFIX = 'bn'
+const COMPONENT_PREFIX = 'Bn';
+const NAMESPACE_PREFIX = 'bn';
 
-export const getComponentPrefix = (options?: bnOptions) => {
-  return options?.componentPrefix ?? COMPONENT_PREFIX;
-}
+export const COMPONENT_INSTALLED_KEY = Symbol('COMPONENT_INSTALLED_KEY');
 
-export const getNamespaced = (name?: string): string => {
-  return name ? COMPONENT_PREFIX + '-' + name : (name || '')
+export const getNamespace = (name?: string): string => {
+  return name ? NAMESPACE_PREFIX + '-' + name : name || '';
 };
 
+export const getComponentNamespace = (name: string): string => {
+  return COMPONENT_PREFIX + name;
+};

@@ -1,7 +1,7 @@
 // GlobalComponents for Volar
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    // IButton: typeof import('xs-components')['IButton'];
+    BnButton: typeof import('blocks-next')['BnButton'];
   }
 }
 

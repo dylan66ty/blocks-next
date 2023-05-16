@@ -33,7 +33,9 @@
     "release": "bump package.json packages/package.json docs/package.json"
   },
   "dependencies": {
-    "@vueuse/core": "^9.12.0"
+    "@vueuse/core": "^9.12.0",
+    "async-validator": "^4.2.5",
+    "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
     "@jsdevtools/version-bump-prompt": "^6.1.0",
@@ -107,8 +109,7 @@
     ],
     "*.vue": [
       "eslint --fix",
-      "prettier --write",
-      "stylelint --fix"
+      "prettier --write"
     ],
     "*.{scss,less,styl,html}": [
       "stylelint --fix",

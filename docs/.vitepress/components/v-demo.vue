@@ -25,8 +25,8 @@
   import Example from './v-example.vue';
   import SourceCode from './v-source-code.vue';
   import VTransition from './v-transition.vue';
-  // import VIcon from './v-icon.vue';
   import message from './message';
+  import { copyStr } from '../utils/helper'
 
   const props = defineProps<{
     demos: Object;
@@ -42,7 +42,6 @@
 
   const hiddenOps = computed(() => !props.pathName.includes('hide-code'))
 
-
   const formatPathDemos = computed(() => {
     const demos: Object = {};
     Object.keys(props.demos).forEach((key: string) => {
@@ -51,21 +50,10 @@
     return demos;
   });
 
-
-  const { copy, isSupported } = useClipboard({
-    source: decodeURIComponent(props.rawSource),
-  });
-
   const copyCode = async () => {
-    if (!isSupported) {
-      message.error('复制失败');
-    }
-    try {
-      await copy();
-      message.info('复制成功');
-    } catch (e: any) {
-      message.error('复制失败');
-    }
+    copyStr(decodeURIComponent(props.rawSource)).then(() => {
+     message.info('复制成功')
+    })
   };
 
   const sourceVisible = ref<boolean>(false);
