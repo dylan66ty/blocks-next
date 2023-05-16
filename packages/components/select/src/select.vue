@@ -269,7 +269,7 @@
         <Menu>
           <Scrollbar ref="scrollbarRef" style="max-height: 224px">
             <Options @update-options="onUpdateOptionsToRender">
-              <slot v-if="!loading"></slot> // loading状态不显示插槽
+              <slot v-if="!loading"></slot> 
             </Options>
             <template v-if="emptyText">
               <p :class="[`${ns}__empty-text`]" @click="handleCloseTrigger">
