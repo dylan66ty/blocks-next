@@ -1,5 +1,5 @@
 import { cloneVNode } from 'vue';
-import type { VNodeTypes, VNode, PropType, Component, Slots } from 'vue';
+import type { VNodeTypes, VNode, PropType, Component, Slots , App} from 'vue';
 import type { SFCWithInstall, Data , SFCInstallWithContext} from './types';
 import { isArray, isFunction } from './is';
 

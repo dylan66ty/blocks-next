@@ -21,18 +21,24 @@
       EyeClose,
     },
     props: inputProps,
-    emits: ['update:modelValue', 'input', 'change', 'focus', 'blur'],
+    emits: ['update:modelValue', 'input', 'change', 'focus', 'blur', 'clear'],
     setup(props, { emit, slots }) {
       const ns = getNamespace('input');
+      const mergeDisable = computed(() => props.disabled)
       const cls = computed(() => [
         ns,
-        props.disabled && 'is-disabled',
+        mergeDisable.value && 'is-disabled',
         props.error && 'is-error',
         props.size && `${ns}--${props.size}`,
         props.prefixIcon && `${ns}--prefix`,
         props.suffixIcon && `${ns}--suffix`,
+        isHover.value && 'is-hover',
+        isFocus.value && 'is-focus'
+        
       ]);
       const eyeStatus = ref(false);
+      const isHover = ref(false);
+      const isFocus = ref(false)
       const inputType = computed(() => {
         if (props.showPassword) {
           return eyeStatus.value ? 'text' : 'password';
@@ -41,6 +47,9 @@
       });
       const handleEye = () => {
         eyeStatus.value = !eyeStatus.value;
+        nextTick(() => {
+          inputRef.value?.focus()
+        })
       };
       const inputRef = shallowRef<HTMLInputElement>();
 
@@ -53,6 +62,9 @@
       const hasSuffixIcon = computed(() => {
         return props.suffixIcon || slots['suffix-icon'];
       });
+      const hasClearableIcon = computed(() => {
+        return props.clearable && isHover.value && !!props.modelValue
+      })
 
       // event
       const inputEvt = (e: Event) => {
@@ -74,15 +86,35 @@
       };
 
       const handleFocus = (event: Event) => {
+        isFocus.value = true
         emit('focus', event);
       };
 
       const handleBlur = (event: Event) => {
+        isFocus.value = false
         emit('blur', event);
         if (props.validateEvent) {
           formItem?.validate?.('blur').catch(NOOP);
         }
+        
       };
+
+      const handleMouseEnter = () => {
+        isHover.value = true
+      }
+
+      const handleMouseLeave = () => {
+        isHover.value = false
+      }
+
+      // 清空
+      const handleClear = () => {
+        emit('update:modelValue','')
+        emit('clear', '')
+        nextTick(() => {
+          inputRef.value?.focus()
+        })
+      }
 
       // textarea
       const textareaRef = shallowRef<HTMLTextAreaElement>();
@@ -146,6 +178,7 @@
         handleEye,
         textareaStyle,
         textareaRef,
+        mergeDisable,
         // event
         handleInput,
         handleChange,
@@ -153,13 +186,17 @@
         handleBlur,
         hasPrefixIcon,
         hasSuffixIcon,
+        handleClear,
+        hasClearableIcon,
+        handleMouseEnter,
+        handleMouseLeave
       };
     },
   });
 </script>
 
 <template>
-  <div :class="cls">
+  <div :class="cls" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
     <!-- input -->
     <template v-if="type !== 'textarea'">
       <span v-if="hasPrefixIcon" :class="[`${ns}__prefix ${ns}__icon`]">
@@ -173,7 +210,7 @@
         :class="[`${ns}__inner`]"
         v-bind="$attrs"
         :placeholder="placeholder"
-        :disabled="disabled"
+        :disabled="mergeDisable"
         :type="inputType"
         :value="modelValue"
         :readonly="readonly"
@@ -183,18 +220,26 @@
         @blur="handleBlur"
       />
 
-      <span v-if="hasSuffixIcon && !showPassword" :class="[`${ns}__suffix ${ns}__icon`]">
+      <span v-if="hasSuffixIcon && !showPassword && !hasClearableIcon" :class="[`${ns}__suffix ${ns}__icon`]">
         <slot name="suffix-icon">
           <component :is="suffixIcon"></component>
         </slot>
       </span>
 
       <template v-if="showPassword">
-        <span :class="[`${ns}__suffix ${ns}__icon ${ns}__eye`]" @click="handleEye">
+        <span :class="[`${ns}__suffix ${ns}__icon ${ns}__eye`]" @click.stop="handleEye">
           <EyeOpen v-if="!eyeStatus" />
           <EyeClose v-else />
         </span>
       </template>
+
+      <template v-if="hasClearableIcon">
+        <span :class="[`${ns}__suffix ${ns}__icon`]" @click.stop="handleClear">
+          <span :class="[`${ns}__clearable`]"></span>
+        </span>
+      </template>
+
+      
     </template>
     <!-- textarea -->
     <template v-else>
@@ -202,7 +247,7 @@
         ref="textareaRef"
         class="bn-textarea__inner"
         v-bind="$attrs"
-        :disabled="disabled"
+        :disabled="mergeDisable"
         :style="textareaStyle"
         :placeholder="placeholder"
         :value="modelValue"

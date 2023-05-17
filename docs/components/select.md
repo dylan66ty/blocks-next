@@ -16,6 +16,11 @@ select/basic
 select/disabled
 :::
 
+## 可清空单选
+::: demo 包含清空按钮，可将选择器清空为初始状态
+select/clearable
+:::
+
 ## 有禁用选项
 ::: demo 在bn-option中，设定disabled值为 true，即可禁用该选项
 select/option-disabled

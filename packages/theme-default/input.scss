@@ -20,6 +20,18 @@
     display: inline-block;
     font-size: inherit;
 
+    @include when(hover) {
+        .#{$namespace}-input__inner {
+            border-color: var(--bn-input-hover-border-color);
+        }
+    }
+
+    @include when(focus) {
+        .#{$namespace}-input__inner {
+            border-color: var(--bn-primary);
+        }
+    }
+
     @include e(inner) {
         background-color: var(--bn-input-background-color);
         background-image: none;
@@ -43,17 +55,6 @@
         &:disabled::-webkit-input-placeholder {
             color: var(--bn-input-disabled-border-color);
         }
-
-        &:hover {
-            border-color: var(--bn-input-hover-border-color);
-        }
-
-        &:focus {
-            border-color: var(--bn-primary);
-        }
-
-
-
     }
 
     @include e(icon) {
@@ -88,6 +89,41 @@
 
     @include e(eye) {
         cursor: pointer;
+    }
+
+     @include e(clearable) {
+        width: 14px;
+        height: 14px;
+        border: 1px solid #ddd;
+        border-radius: 100%;
+        cursor: pointer;
+        &:hover {
+            border-color: var(--bn-input-hover-border-color);
+            &::before,
+            &::after {
+                background-color: var(--bn-input-hover-border-color);
+            }
+        }
+        &::before {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 8px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%) rotate(45deg);
+            background-color: #ddd;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 8px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%) rotate(-45deg);
+            background-color: #ddd;
+        }
     }
 
     @include when(disabled) {

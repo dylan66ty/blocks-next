@@ -22,7 +22,11 @@
     emits: ['validate'],
     setup(props, { emit }) {
       const ns = getNamespace('form');
-      const cls = computed(() => [ns, `${ns}--${props.labelPosition}`]);
+      const cls = computed(() => [
+        ns, 
+      `${ns}--${props.labelPosition}`,
+      props.inline && `${ns}--inline`
+    ]);
 
       const fields: FormItemContext[] = [];
 

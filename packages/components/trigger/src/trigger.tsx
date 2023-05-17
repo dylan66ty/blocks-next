@@ -17,6 +17,7 @@ import { getComponentNamespace, getNamespace } from '../../../utils/global-confi
 
 import usePopupManager from '../../../hooks/use-popup-manager';
 import { useFirstElement } from '../../../hooks/use-first-element';
+import { useResizeObserver } from '../../../hooks/use-resize-observer'
 import { mergeFirstChild } from '../../../utils/vue-utils';
 import { on, off } from '../../../utils/dom';
 
@@ -163,7 +164,6 @@ export default defineComponent({
     };
 
     const handleResize = () => {
-      console.log(11);
       if (computedVisible.value) {
         updatePopupStyle();
       }
@@ -247,7 +247,13 @@ export default defineComponent({
       },
     );
 
+    const { createResizeObserver, destroyResizeObserver } = useResizeObserver({
+      elementRef: containerRef,
+      onResize: handleResize,
+    });
+
     onMounted(() => {
+      createResizeObserver();
       //默认显示时，更新popup位置
       if (props.clickOutsideToClose && !outsideListener) {
         on(document.documentElement, 'mousedown', handleOutsideClick);
@@ -257,6 +263,7 @@ export default defineComponent({
 
     onBeforeUnmount(() => {
       triggerCtx?.removeChildRef(popupRef);
+      destroyResizeObserver();
       if (outsideListener) {
         removeOutsideListener();
       }

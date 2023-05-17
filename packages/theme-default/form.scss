@@ -3,6 +3,22 @@
 
 
 @include b('form') {
+
+  @include m(inline) {
+    width: auto;
+    .#{$namespace}-form-item {
+      display: inline-block;
+      margin-right: 10px;
+      vertical-align: top;
+    }
+
+    .#{$namespace}-form-item__content {
+      display: inline-flex;
+      vertical-align: top;
+    }
+
+  }
+
   @include m(top) {
     .#{$namespace}-form-item__label {
       float: none;

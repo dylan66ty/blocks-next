@@ -119,13 +119,16 @@
           return {};
         }
         const style: CSSProperties = {
-          width: addUnit(props?.labelWidth || formContext?.labelWidth),
+          width: addUnit(props?.labelWidth || formContext?.labelWidth) || 0,
         };
         return style;
       });
       const contentStyle = computed<CSSProperties>(() => {
         if (formContext?.labelPosition === 'top') {
           return {};
+        }
+        if(formContext?.inline) {
+          return {}
         }
         // 嵌套form-item不展示label
         if (!props.label && !props.labelWidth && isNested) {

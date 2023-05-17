@@ -26,7 +26,7 @@ message/text-center
 message/render-container
 :::
 
-## 手动关闭
+## 可关闭
 ::: demo 
 message/close
 :::
@@ -40,6 +40,8 @@ message/close
 |center|文字是否居中|`boolean`|`false`|
 |offset|Message 距离窗口顶部的偏移量|`number`|`20`|
 |onClose|关闭时的回调函数, 参数为被关闭的 message 实例|`function`|`-`|
+|showClose|是否显示关闭按钮|`boolean`|`false`|
+
 
 ## 方法
 |方法名|说明|

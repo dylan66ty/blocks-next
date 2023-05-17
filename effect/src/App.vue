@@ -7,10 +7,11 @@
   import Select from './components/Select.vue';
   import Scrollbar from './components/Scrollbar.vue';
   import Message from './components/Message.vue'
+  import Notify from './components/Notify.vue'
 </script>
 
 <template>
-    <Message />
+    <Notify/>
 </template>
 
 <style></style>

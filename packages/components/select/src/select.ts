@@ -6,6 +6,7 @@ export const selectProps = {
   },
   multiple: Boolean,
   loading: Boolean,
+  clearable:Boolean,
   loadingText: {
     type: String,
     default: '加载中',

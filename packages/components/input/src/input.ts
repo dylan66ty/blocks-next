@@ -60,7 +60,10 @@ export const inputProps = {
     type: Boolean,
     default: true,
   },
-
+  clearable: {
+    type:Boolean,
+    default: false
+  },
   // 原生input属性
   ...nativeProps,
 } as const;

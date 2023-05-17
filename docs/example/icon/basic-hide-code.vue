@@ -1,6 +1,5 @@
 <script lang="tsx">
   import { defineComponent, getCurrentInstance, h } from 'vue';
-  import { useClipboard } from '@vueuse/core';
 
   const formatSvgName = (svgName) => {
     return svgName
@@ -26,6 +25,7 @@
     'time',
     'loading',
     'caret',
+    'prompt'
   ].map((svgName) => {
     console.log('Bn' + formatSvgName(svgName));
     return {

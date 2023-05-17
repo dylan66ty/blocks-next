@@ -6,14 +6,17 @@ lang: zh-CN
 # 表单 Form
 
 ## 基础表单
-
 ::: demo
 form/basic
 :::
 
+## 行内表单
+::: demo
+form/inline
+:::
+
 
 ## 表单label对齐方式
-
 ::: demo 设置属性 **label-position**为`left` `top` `right`即可
 form/label-position
 :::
@@ -44,6 +47,7 @@ form/chain-validate
 |参数名|描述|可选值|默认值|
 |---|---|---|:---:|
 |model|表单数据对象|`object`|`-`|
+|inline|行内表单|`boolean`|`false`|
 |rules|表单验证规则|`object`|`-`|
 |label-position|label位置|`left` / `right` / `top`|`right`|
 |label-width|label长度|`string` / `number`|`-`|

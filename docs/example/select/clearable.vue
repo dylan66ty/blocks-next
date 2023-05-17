@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
 
-  const langs = ['Vue', 'React', 'Angular', 'Java', 'Python', 'JavaScript', 'Golang'];
+  const langs = ['Vue', 'React', 'Angular'];
 
   const model = ref('Vue');
 
@@ -12,7 +12,7 @@
 
 <template>
   <div style="width: 200px">
-    <bn-select v-model="model" placeholder="请选择" @change="handleChange">
+    <bn-select v-model="model" placeholder="请选择" clearable @change="handleChange">
       <bn-option v-for="lang in langs" :key="lang" :label="lang" :value="lang"> </bn-option>
     </bn-select>
   </div>

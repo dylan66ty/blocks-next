@@ -33,6 +33,11 @@ export const formProps = {
     type: Boolean,
     default: true,
   },
+  // 行内表单
+  inline: {
+    type: Boolean,
+    default: false
+  }
 };
 
 export type FormProps = ExtractPropTypes<typeof formProps>;

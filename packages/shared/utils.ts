@@ -9,7 +9,7 @@ export const getProp = (target: any, path: any, defVal?: any) => {
       .reduce((a: any, v: string) => {
         return a[v];
       }, target);
-    if (!result) {
+    if (result === undefined) {
       result = defVal;
     }
   } catch (e) {

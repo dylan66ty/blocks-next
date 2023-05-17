@@ -6,13 +6,17 @@ lang: zh-CN
 # 输入框 Input
 
 ## 基本使用
-
 ::: demo  warning设置属性 **error**为 `true` 即可
 input/basic
 :::
 
-## 尺寸
 
+## 可清空
+::: demo  使用`clearable`属性即可得到一个可清空的输入框
+input/clearable
+:::
+
+## 尺寸
 ::: demo  设置属性 **size**为 `small` `normal` `large` 即可
 input/size
 :::
@@ -20,7 +24,6 @@ input/size
 
 
 ## 禁用
-
 ::: demo 设置属性 **disabled**为 `true` 即可
 input/disabled
 :::
@@ -91,6 +94,8 @@ input/auto-textarea
 |focus|在 Input 获得焦点时触发|`(event: Event)`|
 |change|仅在输入框失去焦点或用户按下回车时触发|`(value: string / number)`|
 |input|在 Input 值改变时触发|`(value: string / number)`|
+|clear|在 Input 清空时触发|`(value: '')`|
+
 
 
 

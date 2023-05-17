@@ -25,7 +25,7 @@
       const cls = computed(() => [
         ns,
         checked.value && 'is-checked',
-        switchDisabled.value && 'is-disabled',
+        mergeDisabled.value && 'is-disabled',
       ]);
 
       const coreCls = computed(() => [`${ns}__core`, `${ns}__core-${props.type}`]);
@@ -34,9 +34,8 @@
 
       // moduleValue value 控制模式
       const isControlled = ref(props.modelValue !== false);
-
       // TODO: 后期和form表单关联
-      const switchDisabled = computed(() => props.disabled);
+      const mergeDisabled = computed(() => props.disabled);
 
       // 用这个值控制checkbox状态
       const actualValue = computed(() => {
@@ -58,7 +57,7 @@
       });
 
       const switchValue = () => {
-        if (switchDisabled.value) return;
+        if (mergeDisabled.value) return;
 
         const { beforeChange } = props;
         if (!beforeChange) {
@@ -95,7 +94,6 @@
 
       watch(checked, (val) => {
         inputRef.value!.checked = val;
-
         if (props.validateEvent) {
           formItem?.validate?.('change').catch(NOOP);
         }
@@ -129,7 +127,7 @@
         coreStyle,
         coreCls,
         blockCls,
-        switchDisabled,
+        mergeDisabled,
         switchValue,
         handleChange,
         checked,
@@ -149,11 +147,11 @@
       type="checkbox"
       role="switch"
       :aria-checked="checked"
-      :aria-disabled="switchDisabled"
+      :aria-disabled="mergeDisabled"
       :name="name"
       :true-value="trueValue"
       :false-value="falseValue"
-      :disabled="switchDisabled"
+      :disabled="mergeDisabled"
       @change="handleChange"
       @keydown.enter="switchValue"
     />
