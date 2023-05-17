@@ -8,6 +8,10 @@
           "link": "button"
         },
         {
+          "text": "间距 Space",
+          "link": "space"
+        },
+        {
           "text": "图标 Icon",
           "link": "icon"
         }

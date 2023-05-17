@@ -16,13 +16,26 @@
       },
       size: {
         type: [Number, String] as PropType<number | 'mini' | 'small' | 'medium' | 'large'>,
-        default: 'mini',
+        default: 'small',
       },
+      align: {
+        type: String as PropType<'start' | 'end' | 'center' | 'baseline'>,
+        default: 'center'
+      },
+      fill: {
+        type:Boolean,
+        default:false
+      }
     },
     setup(props, { slots }) {
       const ns = getNamespace('space');
 
-      const cls = computed(() => [`${ns}-${props.direction}`]);
+      const cls = computed(() => [
+        ns,
+        `${ns}__${props.direction}`,
+        props.fill && `is-fill`,
+        `${ns}__${props.direction}-${props.align}`,
+      ]);
 
       function getMargin(size: SpaceSize) {
         if (isNumber(size)) {
@@ -70,11 +83,11 @@
               return (
                 <Fragment key={`space-item-${index}`}>
                   {shouldRenderSplit && (
-                    <div class={`${ns}-item-split`} style={getMarginStyle(false)}>
+                    <div class={`${ns}__split`} style={getMarginStyle(false)}>
                       {slots.split?.()}
                     </div>
                   )}
-                  <div class={`${ns}-item`} style={getMarginStyle(index === children.length - 1)}>
+                  <div class={`${ns}__item`} style={getMarginStyle(index === children.length - 1)}>
                     {child}
                   </div>
                 </Fragment>

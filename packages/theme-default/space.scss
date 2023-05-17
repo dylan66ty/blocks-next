@@ -1,12 +1,29 @@
 @import './mixins/bem.scss';
 
 @include b(space) {
-  &-horizontal {
+  display: inline-flex;
+  @include e(horizontal) {
+
+    &-center {
+      align-items: center;
+    }
+    &-start {
+      align-items: flex-start;
+    }
+    &-end {
+      align-items: flex-end;
+    }
+    &-baseline {
+      align-items: baseline;
+    }
+  }
+
+  @include e(vertical) {
+    flex-direction: column;
+  }
+ 
+  @include when(fill) {
     display: flex;
   }
 
-  &-vertical {
-    display: flex;
-    flex-direction: column;
-  }
 }

@@ -61,7 +61,7 @@ input/auto-textarea
 ## Attributes
 |参数名|描述|可选值|默认值|
 |---|---|---|:---:|
-|value / v-model|绑定值|`string` / `number`|`-`|
+|v-model|绑定值|`string` / `number`|`-`|
 |type|类型|`text` / `textarea`|`text`|
 |size|尺寸(只对type:`text`生效)|`small` / `normal` / `large`|`normal`|
 |show-password|是否显示切换密码图标|`boolean`|`false`|
