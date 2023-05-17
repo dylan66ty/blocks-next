@@ -11,7 +11,7 @@ form/basic
 :::
 
 ## 行内表单
-::: demo
+::: demo 设置属性 **inline**为`true`即可
 form/inline
 :::
 

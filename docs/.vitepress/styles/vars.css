@@ -107,3 +107,14 @@
 .dark .vp-doc .custom-block a {
   transition: color 0.25s;
 }
+
+/* 重制vitepress样式 */
+.vp-doc li + li {
+  margin: 0;
+}
+
+.vp-doc ul {
+  padding: 0;
+}
+
+

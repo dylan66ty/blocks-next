@@ -8,10 +8,14 @@
   import Scrollbar from './components/Scrollbar.vue';
   import Message from './components/Message.vue'
   import Notify from './components/Notify.vue'
+
+  import Pagination from './components/Pagination.vue'
 </script>
 
 <template>
-    <Notify/>
+   <div style="padding:100px">
+    <Pagination />
+   </div>
 </template>
 
 <style></style>

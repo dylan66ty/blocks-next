@@ -38,7 +38,8 @@
       ]);
       const eyeStatus = ref(false);
       const isHover = ref(false);
-      const isFocus = ref(false)
+      const isFocus = ref(false);
+      
       const inputType = computed(() => {
         if (props.showPassword) {
           return eyeStatus.value ? 'text' : 'password';

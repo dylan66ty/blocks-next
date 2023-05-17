@@ -12,6 +12,7 @@ export * from './form-item';
 export * from './trigger';
 export * from './select';
 export * from './scrollbar';
+export * from './pagination'
 
 export * from './message'
 

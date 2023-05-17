@@ -50,6 +50,15 @@
           "link": "message"
         }
       ]
+    },
+    {
+      "text": "Data 数据",
+      "items": [
+        {
+          "text": "Pagination 分页器",
+          "link": "pagination"
+        }
+      ]
     }
   ]
 }

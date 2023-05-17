@@ -1,6 +1,4 @@
 import type { App, Plugin } from 'vue';
-import { COMPONENT_INSTALLED_KEY } from './utils/global-config';
-
 import { Button } from './components/button';
 import { ButtonGroup } from './components/button-group';
 import { Checkbox } from './components/checkbox';
@@ -15,6 +13,7 @@ import { FormItem } from './components/form-item';
 import { Trigger } from './components/trigger';
 import { Select } from './components/select';
 import { Scrollbar } from './components/scrollbar';
+import { Pagination } from './components/pagination'
 
 // plugin 
 import { Message } from './components/message'
@@ -34,17 +33,14 @@ const components = [
   Trigger,
   Select,
   Scrollbar,
+  Pagination
 ] as Plugin[];
 
 const plugins = [
   Message
 ]
 
-export type IApp = App & { [COMPONENT_INSTALLED_KEY]: boolean };
-
-export const install = function (app: IApp) {
-  if (app[COMPONENT_INSTALLED_KEY]) return;
-  app[COMPONENT_INSTALLED_KEY] = true;
+export const install = function (app:App) {
   // 组件注册
   components.forEach((component) => app.use(component));
   // 插件注册
