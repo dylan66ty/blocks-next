@@ -50,6 +50,10 @@
       "text": "Notice 通知",
       "items": [
         {
+          "text": "Dialog 对话框",
+          "link": "dialog"
+        },
+        {
           "text": "Message 消息通知",
           "link": "message"
         }

@@ -29,3 +29,16 @@ space/split
 ::: demo 内置 4 种对齐方式，分别为 start center end baseline，在水平模式下默认为 center。
 space/align
 :::
+
+## Attributes
+|参数名|描述|可选值|默认值|
+|---|---|---|:---:|
+|direction|间距方向|`horizontal` / `vertical`|`horizontal`|
+|size|间距大小，支持分别制定横向和竖向的间距|`number` / `mini` / `small` / `medium` / `large`|`small`|
+|align|对齐方式|`start` / `center` / `end` / `baseline`|`center`|
+|fill|充满整行|`boolean`|`false`|
+
+## Slots
+|name|描述|
+|---|---|
+|split|设置分隔符|

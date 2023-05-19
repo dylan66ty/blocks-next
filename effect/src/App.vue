@@ -10,12 +10,16 @@
   import Notify from './components/Notify.vue'
 
   import Pagination from './components/Pagination.vue'
+
+  import Dialog from './components/Dialog.vue'
+  import MessageBox from './components/MessageBox.vue'
+
 </script>
 
 <template>
-   <div style="padding:100px">
-    <Pagination />
-   </div>
+  <div>
+    <MessageBox />
+  </div>
 </template>
 
 <style></style>

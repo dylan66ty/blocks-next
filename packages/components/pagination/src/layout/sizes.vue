@@ -3,7 +3,6 @@
     <bn-select 
       v-model="pageSizeModel" 
       :disabled="disabled" 
-      :popper-class="popperClass"
       :validate-event="false" 
       @change="handleChange"
       size="small"   
@@ -31,14 +30,10 @@ export default defineComponent({
   props: {
     pageSize: {
       type: Number,
-      required: true,
     },
     pageSizes: {
       type:Array as PropType<Array<number>>,
       default: () => [],
-    },
-    popperClass: {
-      type: String,
     },
     disabled: Boolean,
   },

@@ -13,10 +13,12 @@ import { FormItem } from './components/form-item';
 import { Trigger } from './components/trigger';
 import { Select } from './components/select';
 import { Scrollbar } from './components/scrollbar';
-import { Pagination } from './components/pagination'
+import { Pagination } from './components/pagination';
+import { Dialog } from './components/dialog';
 
 // plugin 
 import { Message } from './components/message'
+import { MessageBox } from './components/message-box'
 
 const components = [
   Button,
@@ -33,11 +35,13 @@ const components = [
   Trigger,
   Select,
   Scrollbar,
-  Pagination
+  Pagination,
+  Dialog
 ] as Plugin[];
 
 const plugins = [
-  Message
+  Message,
+  MessageBox
 ]
 
 export const install = function (app:App) {

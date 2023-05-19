@@ -73,9 +73,9 @@
 
       return () => {
         const children = getAllElements(
-          slots.default?.().filter((item) => item.type !== Comment) as [],
+          slots.default?.().filter((item) => item.type !== Comment) as []
         );
-
+   
         return (
           <div class={cls.value}>
             {children.map((child, index) => {

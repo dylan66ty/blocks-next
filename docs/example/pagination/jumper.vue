@@ -4,7 +4,7 @@ import { ref } from 'vue'
 const pageConfig = ref({
     page:1,
     pageSize:10,
-    total: 50,
+    total: 200,
 })
 
 const sizes = [10,20,30,40,50]

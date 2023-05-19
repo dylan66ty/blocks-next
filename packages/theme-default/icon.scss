@@ -2,15 +2,17 @@
 
 @include b(icon) {
   display: inline-block;
+  line-height: 1;
   color: inherit;
   font-size: inherit;
-
+  
   > svg {
     fill: currentColor;
     width: 1em;
     height: 1em;
-    vertical-align: -2px;
+    vertical-align: -0.15em;
     outline: none;
+    
   }
 
   &-loading {

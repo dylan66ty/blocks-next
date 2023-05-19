@@ -16,8 +16,8 @@
   --bn-strong-background-color: #FFF4EE;
   --bn-strong-color: #FF7125;
 
-  --bn-danger-background-color: #FEF2F2;
-  --bn-danger-color: #F12525;
+  --bn-error-background-color: #FEF2F2;
+  --bn-error-color: #F12525;
 
   --bn-info-background-color: #edf2fc;
   --bn-info-color: #909399;
@@ -96,9 +96,9 @@
     color: var(--bn-strong-color);
   }
 
-  @include m(danger) {
-    background-color: var(--bn-danger-background-color);
-    color: var(--bn-danger-color);
+  @include m(error) {
+    background-color: var(--bn-error-background-color);
+    color: var(--bn-error-color);
   }
 
   @include m(info) {

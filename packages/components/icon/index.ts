@@ -8,9 +8,11 @@ import Time from './src/time.vue';
 import Minus from './src/minus.vue';
 import Loading from './src/loading.vue';
 import Caret from './src/caret.vue';
-import Prompt from './src/prompt.vue'
+import Prompt from './src/prompt.vue';
+import Close from './src/close.vue';
+import Warning from './src/warning.vue'
 
-const components = [EyeOpen, EyeClose, Plus, Minus, Search, Time, Loading, Caret,Prompt];
+const components = [EyeOpen, EyeClose, Plus, Minus, Search, Time, Loading, Caret,Prompt,Close,Warning];
 
 const install = (app: App) => {
   components.forEach((component) => {

@@ -1,18 +1,22 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-const smodel = ref(true)
+const select = ref('')
 const inp = ref('')
 
 </script>
 
 <template>
   <bn-space>
-    <span>Space:</span>
-    <bn-button type="primary">Primary</bn-button>
-    <bn-button type="success">Success</bn-button>
-    <bn-input v-model="inp"></bn-input>
-    <bn-switch v-model="smodel"></bn-switch>
+    <bn-input v-model="inp" placeholder="请输入"></bn-input>    
+    <bn-select v-model="select">
+      <bn-option label="Vue" value="Vue"></bn-option>
+      <bn-option label="React" value="React"></bn-option>
+      <bn-option label="Angular" value="Angular"></bn-option>
+    </bn-select>
+    <bn-button type="primary">搜索
+      <bn-icon-search></bn-icon-search>
+    </bn-button>
   </bn-space>
 </template>
 

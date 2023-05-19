@@ -22,7 +22,7 @@ pagination/jumper
 :::
 
 ## 事件
-::: demo 在属性`layout`添加`jumper`即可
+::: demo `@page-change`、`@page-size-change`
 pagination/event
 :::
 

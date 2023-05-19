@@ -98,7 +98,7 @@ export default defineComponent({
           disabled: props.disabled,
           pageSize: pageSizeBridge.value,
         }),
-        sizes:h(LayoutComponentSizes, {
+        sizes: h(LayoutComponentSizes, {
           pageSize: pageSizeBridge.value,
           pageSizes: props.pageSizes,
           disabled: props.disabled,
