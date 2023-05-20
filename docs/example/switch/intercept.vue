@@ -1,12 +1,12 @@
 <script lang="ts" setup>
   import { getCurrentInstance, ref } from 'vue';
+  import { Message } from 'blocks-next'
 
   const model = ref(false);
   const model2 = ref(false);
 
   const instance = getCurrentInstance();
 
-  const message = instance?.appContext.config.globalProperties.message;
 
   const beforeChangeSuccess = () => {
     return new Promise((resolve) => {
@@ -21,7 +21,7 @@
       setTimeout(() => {
         reject(true);
         // todo something
-        message.error('加载失败');
+        Message.error('校验不通过');
       }, 800);
     });
   };

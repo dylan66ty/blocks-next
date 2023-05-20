@@ -1,13 +1,13 @@
 <template>
-  <teleport :to="renderTo" :disabled="disabled">
-    <div :class="cls" :style="{ zIndex }" v-show="outerVisible" v-if="!destroyOnClosed || outerVisible">
+  <teleport :to="renderTo" :disabled="disabled || !renderTo">
+    <div :class="cls" :style="dialogStyle" v-show="outerVisible" v-if="!destroyOnClosed || outerVisible">
       <transition name="bn-fade-in-standard" appear>
         <div :class="[`${ns}__mask`]" v-if="mask" v-show="innerVisible"></div>
       </transition>
-      <div :class="[`${ns}__wrapper`, { 'is-center': center  }]" @click.self="handleMaskClick">
+      <div :class="[`${ns}__wrapper`, { 'is-center': center }]" @click.self="handleMaskClick">
         <transition name="bn-zoom-in" appear @after-enter="afterEnter" @after-leave="afterLeave">
-          <div :class="[`${ns}__container`, {'is-fullscreen': fullscreen }]" :style="containerStyle" v-show="innerVisible"
-          >
+          <div :class="[`${ns}__container`, { 'is-fullscreen': fullscreen }]" :style="containerStyle"
+            v-show="innerVisible">
             <div :class="[`${messageBox ? messageBoxNs : ns}__header`]">
               <div :class="[`${ns}__header-title`]" v-if="!$slots['title']">
                 {{ title }}
@@ -18,7 +18,7 @@
               <slot></slot>
             </div>
             <div :class="[`${messageBox ? messageBoxNs : ns}__footer`]">
-              <slot name="footer" :cancel="handleCancel" :ok="handleOk"></slot>
+              <slot name="footer" :cancel="handleCancel" :ok="handleOk" :loadingObj="loadingObj"></slot>
             </div>
 
             <span :class="[`${ns}__close-icon`]" @click="interceptClose('cancel')"></span>
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, defineComponent, onBeforeUnmount, onMounted, reactive, ref, toRef, watch } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import { dialogProps } from './dialog'
 import type { StyleValue } from 'vue'
@@ -39,7 +39,7 @@ import { isFunction, isNumber, isPromise } from '../../../utils/is'
 import usePopupManager from '../../../hooks/use-popup-manager'
 import { useOverflow } from '../../../hooks/use-overflow'
 import { KEYBOARD_KEY } from '../../../utils/keyboard'
-import { off, on } from '../../../utils/dom'
+import { getElement, off, on } from '../../../utils/dom'
 
 const styleProps = ['width', 'minWidth', 'height', 'minHeight'] as const
 type StyleProps = (typeof styleProps)[number]
@@ -58,21 +58,36 @@ export default defineComponent({
       props.messageBox && 'is-message-box'
     ])
 
+    const renderTo = computed(() => {return getElement(props.renderTo)})
+    
+
+    const dialogStyle = computed(() => {
+      const style: StyleValue = {}
+      if(!renderTo.value) return style
+      if(renderTo.value !== document.body && !props.messageBox) {
+        renderTo.value!.style.position = 'relative'
+        style.position = 'absolute'
+      }
+      style.zIndex = zIndex.value
+      return style
+    })
+
     const containerStyle = computed(() => {
       const style: StyleValue = {}
-      if(props.fullscreen) {
+      if (props.fullscreen) {
         return style
       }
       if (!props.center && props.top) {
         style.top = isNumber(props.top) ? addUnit(props.top) : props.top
       }
-      styleProps.forEach((key:StyleProps) => {
+      styleProps.forEach((key: StyleProps) => {
         if (props[key]) {
           style[key] = isNumber(props[key]) ? addUnit(props[key]) : props[key]
         }
       })
       return style
     })
+
 
     const innerVisible = computed(() => props.modelValue);
     const outerVisible = computed(() => innerVisible.value || animation.value)
@@ -84,14 +99,14 @@ export default defineComponent({
       visible: innerVisible,
     });
 
-    const { setOverflowHidden, resetOverflow } = useOverflow(props.renderTo);
+    const { setOverflowHidden, resetOverflow } = useOverflow(renderTo);
 
 
-    const emitToClose = (action: 'cancel' | 'ok',e?:Event) => {
+    const emitToClose = (action: 'cancel' | 'ok', e?: Event) => {
       emit('update:modelValue', false)
       emit('close',
-      props.messageBox ? action : undefined,
-      props.messageBox ? e : undefined
+        props.messageBox ? action : undefined,
+        props.messageBox ? e : undefined
       )
     }
 
@@ -107,21 +122,29 @@ export default defineComponent({
       emit('opened')
     }
 
+    const loadingObj = reactive({
+      ok:false,
+      cancel:false
+    })
+
     // 关闭拦截
-    const interceptClose = (action: 'cancel' | 'ok',e?:Event) => {
+    const interceptClose = (action: 'cancel' | 'ok', e?: Event) => {
       let result = true;
+      loadingObj[action] = true
       if (isFunction(props.onBeforeCancel)) {
         result = props.onBeforeCancel(action) ?? false;
       }
       if (isPromise(result)) {
         result.then((res) => {
-          res && emitToClose(action,e)
+          loadingObj[action] = false
+          res && emitToClose(action, e)
+
         })
         return
       }
+      loadingObj[action] = false
+      result && emitToClose(action, e)
 
-      result && emitToClose(action,e)
-      
     };
 
     // 点击遮罩层
@@ -132,11 +155,11 @@ export default defineComponent({
     }
 
     // footer按钮内部控制
-    const handleCancel = (e:Event) => {
-      interceptClose('cancel',e)
+    const handleCancel = (e: Event) => {
+      interceptClose('cancel', e)
     }
-    const handleOk = (e:Event) => {
-      interceptClose('ok',e)
+    const handleOk = (e: Event) => {
+      interceptClose('ok', e)
     }
 
     let globalKeyDownListener = false
@@ -160,10 +183,9 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      if(innerVisible.value) {
+      if (innerVisible.value) {
         setOverflowHidden()
       }
-
       if (innerVisible.value && props.escToClose) {
         addGlobalKeyDownListener();
       }
@@ -173,7 +195,7 @@ export default defineComponent({
       resetOverflow();
       removeGlobalKeyDownListener();
     });
-    
+
 
 
     watch(() => innerVisible.value, (val) => {
@@ -188,14 +210,15 @@ export default defineComponent({
         resetOverflow()
       }
     })
- 
+
 
     return {
       cls,
       ns,
       messageBoxNs,
       containerStyle,
-      zIndex,
+      dialogStyle,
+      renderTo,
       innerVisible,
       outerVisible,
       interceptClose,
@@ -203,7 +226,8 @@ export default defineComponent({
       afterEnter,
       handleMaskClick,
       handleCancel,
-      handleOk
+      handleOk,
+      loadingObj
     }
 
   }

@@ -5,7 +5,7 @@
 
 <template>
   <div>
-    <bn-checkbox v-model="checked">佐助</bn-checkbox>
+    <bn-checkbox v-model="checked">Vue</bn-checkbox>
   </div>
 </template>
 

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
   import { computed, ref } from 'vue';
 
-  const options = ['斑', '柱间', '九尾狐'];
+  const options = ['Vue', 'React', 'Angular'];
 
-  const checked = ref<Array<string>>(['九尾狐']);
+  const checked = ref<Array<string>>(['Vue']);
 
   const checkAll = computed(() => {
     return !!(checked.value.length === options.length && checked.value.length);

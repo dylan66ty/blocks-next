@@ -56,6 +56,10 @@
         {
           "text": "Message 消息通知",
           "link": "message"
+        },
+        {
+          "text": "MessageBox 弹框",
+          "link": "messageBox"
         }
       ]
     },

@@ -1,8 +1,16 @@
 import _Dialog from '../../dialog/src/dialog.vue'
-import { createVNode, render } from 'vue'
+import { VNode, createVNode, render } from 'vue'
+import { fixedScrollbar } from '../../../shared/fixed-scrollbar'
+
 import BnButton from '../../button/src/button.vue'
 import BnSpace from '../../space/src/space.vue'
+
 import WarningIcon from '../../icon/src/warning.vue'
+import InfoIcon from '../../icon/src/info.vue'
+import SuccessIcon from '../../icon/src/success.vue'
+import ErrorIcon from '../../icon/src/error.vue'
+
+
 
 
 import {
@@ -18,19 +26,24 @@ import {
   MessageBoxContent
 } from './types'
 import { isFunction } from '../../../utils/is'
+import { getElement } from '../../../utils/dom'
 
 
 
 
 
 
-const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: MessageBoxOptions): void => {
-
-  const dialogRenderToContainer: HTMLElement = document.createElement('div')
+const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: MessageBoxOptions):void => {
   const vmMountContainer: HTMLElement = document.createElement('div')
+  const dialogContainer: HTMLElement = document.createElement('div')
+
+  const renderTo = getElement(options?.renderTo || 'body')!
+
+  const { setOverflowHidden , resetOverflow } = fixedScrollbar(renderTo)
 
   const onDestroy = () => {
     render(null, vmMountContainer)
+    resetOverflow()
   }
 
   const onBeforeCancel = (action: MessageBoxFooterAction) => {
@@ -60,28 +73,32 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
   }
 
 
-
   const defaultRenderIcon = (type: MessageBoxStaticMethod) => {
-    let vnode = null
+    let vnode:VNode;
     switch (type) {
       case 'warning':
-        vnode = <WarningIcon size={60} color="#FF7125" />
+        // @ts-ignore
+        vnode = <WarningIcon size="60px" color="#f6c64b" />
         break;
       case 'strong':
-        vnode = <WarningIcon size={60} color="#FF7125" />
+        // @ts-ignore
+        vnode = <WarningIcon size="60px" color="#ee793c" />
         break;
       case 'error':
-        vnode = <WarningIcon size={60} color="#FF7125" />
+        // @ts-ignore
+        vnode = <ErrorIcon size="60px" color="#e24f48" />
         break;
       case 'success':
-        vnode = <WarningIcon size={60} color="#FF7125" />
+        // @ts-ignore
+        vnode = <SuccessIcon size="60px" color="#68d1ab" />
         break;
       case 'info':
-        vnode = <WarningIcon size={60} color="#FF7125" />
+        // @ts-ignore
+        vnode = <InfoIcon size="60px" color="#2355f5" />
         break;
 
     }
-    return vnode
+    return vnode!
   }
 
 
@@ -89,7 +106,7 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     return () => {
       return (
         <>
-          {defaultRenderIcon(options.type! || 'info')}
+          {defaultRenderIcon(options.type || 'info')}
           {
             options?.title && <span class="bn-message-box__title">{options?.title}</span>
           }
@@ -115,22 +132,26 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     return (scoped: MessageBoxFooterScoped) => {
       return (<>
         <BnSpace size={12}>
-          <BnButton fill-mode='outline' onClick={scoped.cancel}>{cancelText}</BnButton>
-          <BnButton type="primary" onClick={scoped.ok}>{okText}</BnButton>
+          <BnButton fill-mode='outline' onClick={scoped.cancel} loading={scoped.loadingObj?.cancel}>{cancelText}</BnButton>
+          <BnButton type="primary" onClick={scoped.ok} loading={scoped.loadingObj?.ok}>{okText}</BnButton>
         </BnSpace>
       </>)
     }
   }
 
+  
+
 
   const vm = createVNode(_Dialog, {
+    messageBox: true,
     width: options?.width ?? 460,
     height: options?.height ?? 'auto',
     modelValue: true,
-    renderTo: dialogRenderToContainer,
-    center: options?.center ?? true,
+    renderTo:dialogContainer,
+    center: options?.top ? false : options?.center ?? true,
     top: options?.top ?? 0,
-    messageBox: true,
+    mask: options?.mask ?? true,
+    maskToClose:options?.maskToClose ?? true,
     onClose,
     onBeforeCancel,
     'onUpdate:modelValue': () => {
@@ -138,7 +159,10 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
       vm.component!.props.modelValue = false
     },
     // 等待动画完全结束后销毁vm
-    onClosed: onDestroy
+    onClosed: onDestroy,
+    onOpened: () => {
+      setOverflowHidden()
+    }
   },
     {
       title: defaultHeader(),
@@ -146,9 +170,23 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
       footer: options.footer ? options.footer : defaultFooter()
     }
   )
-  render(vm, vmMountContainer)
-  document.body.appendChild(dialogRenderToContainer.firstElementChild!)
 
+  render(vm, vmMountContainer)
+
+
+ 
+
+  const target = dialogContainer.firstElementChild! as HTMLElement
+
+  if(renderTo !== document.body) {
+    renderTo.style.position = 'relative'
+    target.style.position = 'absolute'
+  }else {
+    target.style.position = 'fixed'
+  }
+  
+
+  renderTo.appendChild(target)
 }
 
 
@@ -158,8 +196,8 @@ const registerAllMethods = () => {
     MessageBox[method] = (content: MessageBoxContent) => {
       const okFnArr: Array<Function> = []
       const cancelFnArr: Array<Function> = []
-      let _beforeOkFn:MessageBoxBeforeAction= () => true
-      let _beforeCancelFn:MessageBoxBeforeAction= () => true
+      let _beforeOkFn: MessageBoxBeforeAction = () => true
+      let _beforeCancelFn: MessageBoxBeforeAction = () => true
       setTimeout(() => {
         MessageBox({
           content: content as MessageBoxContent,
@@ -175,21 +213,21 @@ const registerAllMethods = () => {
         })
       })
       return {
-        ok(...args:MessageBoxChainArgs) {
-          if(args.length === 1) {
+        ok(...args: MessageBoxChainArgs) {
+          if (args.length === 1) {
             okFnArr.push(args[0])
           }
-          if(args.length === 2) {
+          if (args.length === 2) {
             _beforeOkFn = args[0]
             okFnArr.push(args[1])
           }
           return this
         },
-        cancel(...args:MessageBoxChainArgs) {
-          if(args.length === 1) {
+        cancel(...args: MessageBoxChainArgs) {
+          if (args.length === 1) {
             cancelFnArr.push(args[0])
           }
-          if(args.length === 2) {
+          if (args.length === 2) {
             _beforeCancelFn = args[0]
             cancelFnArr.push(args[1])
           }

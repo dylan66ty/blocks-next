@@ -10,9 +10,13 @@ import Loading from './src/loading.vue';
 import Caret from './src/caret.vue';
 import Prompt from './src/prompt.vue';
 import Close from './src/close.vue';
-import Warning from './src/warning.vue'
+import Warning from './src/warning.vue';
+import Info from './src/info.vue';
+import Success from './src/success.vue';
+import Error from './src/error.vue'
 
-const components = [EyeOpen, EyeClose, Plus, Minus, Search, Time, Loading, Caret,Prompt,Close,Warning];
+
+const components = [EyeOpen, EyeClose, Plus, Minus, Search, Time, Loading, Caret,Prompt,Close,Warning,Info,Success,Error];
 
 const install = (app: App) => {
   components.forEach((component) => {

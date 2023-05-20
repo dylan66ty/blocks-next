@@ -28,6 +28,7 @@ export interface MessageBoxOptions {
   height?:number |string;
   top?: number | string;
   center?: boolean;
+  renderTo?: string | HTMLElement;
 }
 
 export type MessageBoxFooterAction = 'cancel' | 'ok'
@@ -35,6 +36,7 @@ export type MessageBoxFooterAction = 'cancel' | 'ok'
 export type MessageBoxFooterScoped = {
   cancel():void;
   ok():void;
+  loadingObj?:{ok:boolean,cancel:boolean}
 } 
 
 

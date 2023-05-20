@@ -79,14 +79,6 @@ input/auto-textarea
 
 
 
-
-## Slots
-|name|描述|
-|---|---|
-|prefix-icon|输入框头部图标|
-|suffix-icon|输入框尾部图标|
-
-
 ## Events
 |name|描述|回调参数|
 |---|---|---|
@@ -95,6 +87,13 @@ input/auto-textarea
 |change|仅在输入框失去焦点或用户按下回车时触发|`(value: string / number)`|
 |input|在 Input 值改变时触发|`(value: string / number)`|
 |clear|在 Input 清空时触发|`(value: '')`|
+
+
+## Slots
+|name|描述|
+|---|---|
+|prefix-icon|输入框头部图标|
+|suffix-icon|输入框尾部图标|
 
 
 

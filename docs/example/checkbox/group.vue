@@ -1,16 +1,15 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
-  const selection = ref(['卡卡西', '鸣人']);
+  const selection = ref(['Vue']);
 </script>
 
 <template>
   <div style="margin-bottom: 10px">v-model: {{ selection }}</div>
   <bn-checkbox-group v-model="selection">
-    <bn-checkbox label="卡卡西"></bn-checkbox>
-    <bn-checkbox label="小樱"></bn-checkbox>
-    <bn-checkbox label="凯"></bn-checkbox>
-    <bn-checkbox label="带土" disabled></bn-checkbox>
-    <bn-checkbox label="佐助" disabled></bn-checkbox>
+    <bn-checkbox label="Vue"></bn-checkbox>
+    <bn-checkbox label="React"></bn-checkbox>
+    <bn-checkbox label="Angular"></bn-checkbox>
+    <bn-checkbox label="JQuery" disabled></bn-checkbox>
   </bn-checkbox-group>
 </template>
 
