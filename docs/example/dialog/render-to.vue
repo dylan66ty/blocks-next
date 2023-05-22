@@ -18,8 +18,8 @@ const containerRef = ref(null)
     </div>
 
     <bn-space>
-      <bn-button style="margin-top:10px" fill-mode="outline" type="danger" @click="handler(false)">close</bn-button>
-      <bn-button style="margin-top:10px" fill-mode="outline" @click="handler(true)">open</bn-button>
+      <bn-button style="margin-top:10px" size="small" fill-mode="outline" type="danger" @click="handler(false)">close</bn-button>
+      <bn-button style="margin-top:10px" size="small" fill-mode="outline" @click="handler(true)">open</bn-button>
 
     </bn-space>
 

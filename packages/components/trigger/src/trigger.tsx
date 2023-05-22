@@ -103,10 +103,11 @@ export default defineComponent({
     };
 
     const updatePopupStyle = () => {
+
+      
       if (!firstElement.value || !popupRef.value || !containerRef.value) {
         return;
       }
-
       const containerRect = containerRef.value.getBoundingClientRect();
       const triggerRect = props.alignPoint
         ? {
@@ -452,10 +453,11 @@ export default defineComponent({
                           class={[`${ns}-arrow`, props.arrowClass]}
                           style={{
                             position: 'absolute',
-                            width: 'var(--bn-trigger-arrow-size)',
-                            height: 'var(--bn-trigger-arrow-size)',
+                            "border-width": 'var(--bn-trigger-arrow-size)',
+                            "border-style": "solid",
+                            // height: 'var(--bn-trigger-arrow-size)',
                             zIndex: -1,
-                            'background-color': 'var(--bn-trigger-arrow-background-color)',
+                            // 'background-color': 'var(--bn-trigger-arrow-background-color)',
                             ...arrowStyle.value,
                           }}
                         />

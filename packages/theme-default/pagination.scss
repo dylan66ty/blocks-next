@@ -159,5 +159,8 @@
   > .#{$namespace}-input {
     width: 58px;
     margin: 0 6px;
+    .#{$namespace}-input__inner {
+     text-align: center;
+    }
   }
 }

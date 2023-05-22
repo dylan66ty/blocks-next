@@ -17,8 +17,8 @@ const close = () => {
 
 <template>
     <bn-space>
-      <bn-button fillMode="outline" @click="handler">open message</bn-button>
-      <bn-button fillMode="outline" type="danger" @click="close">close message</bn-button>
+      <bn-button fillMode="outline" size="small" @click="handler">open message</bn-button>
+      <bn-button fillMode="outline" size="small" type="danger" @click="close">close message</bn-button>
     </bn-space>
 
     

@@ -25,9 +25,11 @@
     'time',
     'loading',
     'caret',
-    'prompt'
+    'prompt',
+    'close',
+    'close-fill',
+    'delete'
   ].map((svgName) => {
-    console.log('Bn' + formatSvgName(svgName));
     return {
       n: 'bn-icon-' + svgName,
       c: 'BnIcon' + formatSvgName(svgName),

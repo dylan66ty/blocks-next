@@ -191,6 +191,7 @@ const getFitPosition = (
   const direction = getBoundaryPosition(position);
   const viewPortSize = getViewPortSize();
 
+
   // Boundary value of pop-up box and window
   const viewPortBoundary = {
     top: containerRect.top + popupPosition.top,
@@ -211,6 +212,7 @@ const getFitPosition = (
         offset,
         translate,
       });
+      
       // prettier-ignore
       if (viewPortSize.height - (containerRect.top + fitPosition.top + popupRect.height) > 0) {
         finalPosition = changePosition(position, 'bottom');
@@ -283,7 +285,6 @@ const getFitPosition = (
       popupPosition.top = -containerRect.top + (viewPortSize.height - popupRect.height);
     }
   }
-
   return {
     popupPosition,
     position: finalPosition,
@@ -474,19 +475,21 @@ export const getArrowStyle = (
         offsetLeft = popupRect.width - 8;
       }
     }
-
     if (['top', 'tl', 'tr'].includes(position)) {
       return {
         left: `${offsetLeft}px`,
         bottom: '0',
-        transform: 'translate(-50%,50%) rotate(45deg)',
+        transform: 'translate(-50%,100%)',
+        "border-color": 'var(--bn-trigger-arrow-background-color) transparent transparent transparent',
         ...customStyle,
       };
     }
+    // bottom bl br
     return {
       left: `${offsetLeft}px`,
       top: '0',
-      transform: 'translate(-50%,-50%) rotate(45deg)',
+      transform: 'translate(-50%,-100%)',
+      "border-color": 'transparent transparent var(--bn-trigger-arrow-background-color) transparent', 
       ...customStyle,
     };
   }
@@ -504,14 +507,17 @@ export const getArrowStyle = (
     return {
       top: `${offsetTop}px`,
       right: '0',
-      transform: 'translate(50%,-50%) rotate(45deg)',
+      transform: 'translate(100%,-50%)',
+      "border-color": 'transparent transparent transparent var(--bn-trigger-arrow-background-color)',
       ...customStyle,
     };
   }
+  // right rl rb
   return {
     top: `${offsetTop}px`,
     left: '0',
-    transform: 'translate(-50%,-50%) rotate(45deg)',
+    transform: 'translate(-100%,-50%)',
+    "border-color": 'transparent var(--bn-trigger-arrow-background-color) transparent transparent',
     ...customStyle,
   };
 };

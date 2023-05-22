@@ -1,14 +1,11 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import IconComponent from './icon-component.vue';
+  import IconComponent from '../icon-component.vue';
   export default defineComponent({
     name: 'Time',
     components: {
       IconComponent,
-    },
-    props: {
-      open: { type: Boolean, default: true },
-    },
+    }
   });
 </script>
 

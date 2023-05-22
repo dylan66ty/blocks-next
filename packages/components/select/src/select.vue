@@ -4,8 +4,9 @@ import { getComponentNamespace, getNamespace } from '../../../utils/global-confi
 
 import Trigger from '../../trigger/src/trigger';
 import Input from '../../input/src/input.vue';
-import CaretIcon from '../../icon/src/caret.vue';
-import LoadingIcon from '../../icon/src/loading.vue';
+
+import CaretIcon from '../../icon/src/base/caret.vue';
+import LoadingIcon from '../../icon/src/base/loading.vue';
 
 import { isNumber } from '../../../utils/is';
 

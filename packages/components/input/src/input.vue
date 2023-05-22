@@ -1,12 +1,13 @@
 <script lang="ts">
   import { defineComponent, computed, ref, shallowRef, nextTick, onMounted, watch } from 'vue';
-  import EyeOpen from '../../icon/src/eye-open.vue';
-  import EyeClose from '../../icon/src/eye-close.vue';
   import { getNamespace, getComponentNamespace } from '../../../utils/global-config';
   import { isClient } from '../../../utils/browser';
   import { isObject } from '../../../utils/is';
   import { throttle } from '../../../utils/throttle-debounce';
   import { NOOP } from '../../../shared/utils';
+  import EyeOpen from '../../icon/src/base/eye-open.vue'
+  import EyeClose from '../../icon/src/base/eye-close.vue'
+
 
   import { useFormItem } from '../../form/src/hooks/use-form-item';
   import { inputProps } from './input';

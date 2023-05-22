@@ -2,7 +2,7 @@
   import { computed, defineComponent, nextTick, onMounted, ref, watch } from 'vue';
   import type { CSSProperties, StyleValue } from 'vue';
   import { addUnit, NOOP } from '../../../shared/utils';
-  import Loading from '../../icon/src/loading.vue';
+  import Loading from '../../icon/src/base/loading.vue';
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config';
   import { isBoolean, isPromise } from '../../../utils/is';
 

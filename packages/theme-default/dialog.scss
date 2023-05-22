@@ -123,27 +123,3 @@
   }
 }
 
-@include b(message-box) {
-  @include e(header) {
-    padding: 48px 0 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-
-  }
-  @include e(body) {
-    padding: 0 48px;
-    box-sizing: border-box;
-  }
-
-  @include e(footer) {
-    padding-top: 32px;
-    padding-bottom: 48px;
-    box-sizing: border-box;
-  }
-
-  @include e(title) {
-    margin-left: 8px;
-  }
-}

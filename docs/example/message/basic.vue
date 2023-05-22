@@ -26,9 +26,9 @@ const handleVNodeFu = () => {
 
 <template>
     <bn-space>
-      <bn-button fillMode="outline" @click="handleInfo">打开消息提示</bn-button>
-      <bn-button fillMode="outline" @click="handleVNode">VNode</bn-button>
-      <bn-button fillMode="outline" @click="handleVNodeFu">VNode函数形式</bn-button>
+      <bn-button fillMode="outline" size="small" @click="handleInfo">打开消息提示</bn-button>
+      <bn-button fillMode="outline" size="small" @click="handleVNode">VNode</bn-button>
+      <bn-button fillMode="outline" size="small" @click="handleVNodeFu">VNode函数形式</bn-button>
     </bn-space>
 </template>
 

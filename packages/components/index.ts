@@ -15,6 +15,7 @@ export * from './scrollbar';
 export * from './pagination';
 export * from './dialog';
 export * from './message-box';
+export * from './tooltip';
 
 export * from './message'
 

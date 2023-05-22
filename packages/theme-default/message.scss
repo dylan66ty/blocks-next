@@ -84,26 +84,31 @@
   @include m(success) {
     background-color: var(--bn-success-background-color);
     color: var(--bn-success-color);
+    font-weight: 600;
   }
 
   @include m(warning) {
     background-color: var(--bn-warning-background-color);
     color: var(--bn-warning-color);
+    font-weight: 600;
   }
 
   @include m(strong) {
     background-color: var(--bn-strong-background-color);
     color: var(--bn-strong-color);
+    font-weight: 600;
   }
 
   @include m(error) {
     background-color: var(--bn-error-background-color);
     color: var(--bn-error-color);
+    font-weight: 600;
   }
 
   @include m(info) {
     background-color: var(--bn-info-background-color);
     color: var(--bn-info-color);
+    font-weight: 600;
   }
 
 

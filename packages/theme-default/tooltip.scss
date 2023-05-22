@@ -1,0 +1,15 @@
+@import './mixins/bem.scss';
+
+
+
+@include b(tooltip) {
+  box-sizing: border-box;
+  max-width: 494px;
+  padding:16px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  text-align: left;
+  word-wrap: break-word;
+  line-height: 16px;
+}

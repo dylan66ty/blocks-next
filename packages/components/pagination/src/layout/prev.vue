@@ -6,8 +6,8 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { getNamespace } from '../../../../utils/global-config';
-import PrevIcon from '../../../icon/src/caret.vue'
+import { getNamespace } from '../../../../utils/global-config'
+import PrevIcon from '../../../icon/src/base/caret.vue'
 
 export default defineComponent({
   name: 'PaginationPrev',

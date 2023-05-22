@@ -192,10 +192,10 @@
       // 执行验证器
       const doValidate = async (rules: RuleItem[]): Promise<true> => {
         const modelName = propString.value;
+        // 创建校验对象
         const validator = new AsyncValidator({
           [modelName]: rules,
         });
-
         return validator
           .validate({ [modelName]: fieldValue.value }, { firstFields: true })
           .then(() => {
@@ -220,6 +220,7 @@
         }
 
         const rules = getFilteredRule(trigger);
+
 
         if (rules.length === 0) {
           callback?.(true);

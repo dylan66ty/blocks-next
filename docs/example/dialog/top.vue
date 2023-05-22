@@ -14,7 +14,7 @@ const tops = [10, '40px', '15vh']
 
 <template>
   <div>
-    <bn-button fill-mode="outline" @click="openDialog">click open the dialog</bn-button>
+    <bn-button fill-mode="outline" size="small" @click="openDialog">click open the dialog</bn-button>
 
     <bn-dialog 
        v-model="visible"

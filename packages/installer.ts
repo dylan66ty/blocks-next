@@ -15,6 +15,7 @@ import { Select } from './components/select';
 import { Scrollbar } from './components/scrollbar';
 import { Pagination } from './components/pagination';
 import { Dialog } from './components/dialog';
+import { Tooltip } from './components/tooltip'
 
 // plugin 
 import { Message } from './components/message'
@@ -36,7 +37,8 @@ const components = [
   Select,
   Scrollbar,
   Pagination,
-  Dialog
+  Dialog,
+  Tooltip
 ] as Plugin[];
 
 const plugins = [

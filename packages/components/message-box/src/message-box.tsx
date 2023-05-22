@@ -5,10 +5,11 @@ import { fixedScrollbar } from '../../../shared/fixed-scrollbar'
 import BnButton from '../../button/src/button.vue'
 import BnSpace from '../../space/src/space.vue'
 
-import WarningIcon from '../../icon/src/warning.vue'
-import InfoIcon from '../../icon/src/info.vue'
-import SuccessIcon from '../../icon/src/success.vue'
-import ErrorIcon from '../../icon/src/error.vue'
+
+import WarningIcon from '../../icon/src/base/warning.vue'
+import InfoIcon from '../../icon/src/base/info.vue'
+import SuccessIcon from '../../icon/src/base/success.vue'
+import ErrorIcon from '../../icon/src/base/error.vue'
 
 
 
@@ -29,17 +30,13 @@ import { isFunction } from '../../../utils/is'
 import { getElement } from '../../../utils/dom'
 
 
-
-
-
-
-const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: MessageBoxOptions):void => {
+const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: MessageBoxOptions): void => {
   const vmMountContainer: HTMLElement = document.createElement('div')
   const dialogContainer: HTMLElement = document.createElement('div')
 
   const renderTo = getElement(options?.renderTo || 'body')!
 
-  const { setOverflowHidden , resetOverflow } = fixedScrollbar(renderTo)
+  const { setOverflowHidden, resetOverflow } = fixedScrollbar(renderTo)
 
   const onDestroy = () => {
     render(null, vmMountContainer)
@@ -74,7 +71,7 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
 
 
   const defaultRenderIcon = (type: MessageBoxStaticMethod) => {
-    let vnode:VNode;
+    let vnode: VNode;
     switch (type) {
       case 'warning':
         // @ts-ignore
@@ -107,9 +104,6 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
       return (
         <>
           {defaultRenderIcon(options.type || 'info')}
-          {
-            options?.title && <span class="bn-message-box__title">{options?.title}</span>
-          }
         </>
       )
     }
@@ -119,9 +113,12 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     if (isFunction(options.content)) {
       return () => options.content
     }
+
     return () => (
       <>
-        {options.content}
+        <div class="bn-message-box__content">
+         {options.content}
+        </div>
       </>
     )
   }
@@ -139,7 +136,7 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     }
   }
 
-  
+
 
 
   const vm = createVNode(_Dialog, {
@@ -147,11 +144,11 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     width: options?.width ?? 460,
     height: options?.height ?? 'auto',
     modelValue: true,
-    renderTo:dialogContainer,
+    renderTo: dialogContainer,
     center: options?.top ? false : options?.center ?? true,
     top: options?.top ?? 0,
     mask: options?.mask ?? true,
-    maskToClose:options?.maskToClose ?? true,
+    maskToClose: options?.maskToClose ?? true,
     onClose,
     onBeforeCancel,
     'onUpdate:modelValue': () => {
@@ -174,17 +171,17 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
   render(vm, vmMountContainer)
 
 
- 
+
 
   const target = dialogContainer.firstElementChild! as HTMLElement
 
-  if(renderTo !== document.body) {
+  if (renderTo !== document.body) {
     renderTo.style.position = 'relative'
     target.style.position = 'absolute'
-  }else {
+  } else {
     target.style.position = 'fixed'
   }
-  
+
 
   renderTo.appendChild(target)
 }

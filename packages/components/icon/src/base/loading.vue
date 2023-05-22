@@ -1,6 +1,6 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import IconComponent from './icon-component.vue';
+  import IconComponent from '../icon-component.vue';
   export default defineComponent({
     name: 'Loading',
     components: {

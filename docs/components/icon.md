@@ -1,14 +1,14 @@
 ---
-title: Button
+title: Icon
 lang: zh-CN
 ---
 
-# 图标 Icon
+# 基础图标
 :::demo
 icon/basic-hide-code
 :::
 
-## 基础使用
+## 使用
 ```ts
 // main.ts
 import {Icon} from 'blocks-next';

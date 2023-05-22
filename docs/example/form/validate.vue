@@ -55,6 +55,13 @@
       {
         required: true,
         message: '勾选允许添加好友',
+        validator(rule,value,callback) {
+          if(!value) {
+           return callback(new Error(rule.message))
+          }
+          callback()
+          
+        }
       },
     ],
     suggest: [

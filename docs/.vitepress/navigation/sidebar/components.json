@@ -12,8 +12,12 @@
           "link": "space"
         },
         {
-          "text": "图标 Icon",
+          "text": "基础图标 Icon",
           "link": "icon"
+        },
+        {
+          "text": "应用图标 AppIcon",
+          "link": "appIcon"
         }
       ]
     },
@@ -69,6 +73,10 @@
         {
           "text": "Pagination 分页器",
           "link": "pagination"
+        },
+        {
+          "text": "Tooltip 文字气泡",
+          "link": "tooltip"
         }
       ]
     }

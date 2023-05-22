@@ -13,12 +13,13 @@
 
   import Dialog from './components/Dialog.vue'
   import MessageBox from './components/MessageBox.vue'
+  import Tooltip from './components/Tooltip.vue'
 
 </script>
 
 <template>
   <div>
-    <MessageBox />
+    <Tooltip />
   </div>
 </template>
 

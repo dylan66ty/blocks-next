@@ -4,8 +4,10 @@
   import { debounce } from '../../../utils/throttle-debounce';
   import { getComponentNamespace } from '../../../utils/global-config';
 
-  import Search from '../../icon/src/search.vue';
-  import Plus from '../../icon/src/plus.vue';
+  import Search from '../../icon/src/base/search.vue'
+  import Plus from '../../icon/src/base/plus.vue'
+  
+
   import type { IThemeType } from './types';
 
   export default defineComponent({
@@ -84,7 +86,7 @@
 
       const handleClick = async (event: unknown) => {
         // 当前正在加载中
-        if (isLoading.value) {
+        if (isLoading.value || props.disabled) {
           return;
         }
         if (typeof props.await === 'function') {

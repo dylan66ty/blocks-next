@@ -23,7 +23,7 @@ const onBeforeCancel = () => {
 
 <template>
   <div>
-    <bn-button fill-mode="outline" @click="openDialog">click open then dialog</bn-button>
+    <bn-button fill-mode="outline" size="small" @click="openDialog">click open then dialog</bn-button>
     <bn-dialog v-model="visible" title="关闭前拦截" :onBeforeCancel="onBeforeCancel">
       <div>人生有很多的转折，每一个时段有每一个时段的颜色。</div>
     </bn-dialog>

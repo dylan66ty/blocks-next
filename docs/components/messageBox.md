@@ -42,7 +42,6 @@ messageBox/custom-container
 |content|弹框内容|`string` / `RenderFunction` |`required`|
 |width|弹框宽度|`string`/ `number`  |`-`|
 |height|弹框高度|`string`/ `number`  |`-`|
-|title|弹框标题|`string` / `RenderFunction`|`-`|
 |footer|弹框footer|`boolean` / `RenderFunction: scoped: {ok:Function,cancel:Function,loadingObj: {ok:boolean, cancel:boolean}}`|`-`|
 |okText|弹框确认按钮文本|`string`|`确认`|
 |cancelText|弹框取消按钮文本|`string`|`取消`|
