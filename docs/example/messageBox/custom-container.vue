@@ -2,8 +2,8 @@
   import { MessageBox } from 'blocks-next'
   const open = () => {
     MessageBox({
-      content: '自定义渲染到哪个容器里面',
-      type:'info',
+      title: '自定义渲染到哪个容器里面',
+      type:'success',
       renderTo: '.custom-container'
     })
   }

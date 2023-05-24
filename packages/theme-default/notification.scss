@@ -1,0 +1,126 @@
+@import './mixins/bem.scss';
+
+
+@include b(notification) {
+  box-sizing: border-box;
+  width: max-content;
+  width: 420px;
+  padding: 24px 20px;
+  background: #fff;
+  box-shadow: 0px 8px 40px 0px rgba(100, 107, 122, 0.15);
+  border-radius: 8px;
+  position: relative;
+
+  &.is-top {
+    transition: top 0.2s, transform 0.2s ease, opacity 0.2s;
+  }
+
+  &.is-bottom {
+    transition: bottom 0.2s, transform 0.2s ease, opacity 0.2s;
+  }
+
+  @include e(icon) {
+    margin-right: 8px;
+
+    &.is-info {
+      color: var(--bn-primary);
+    }
+
+    &.is-success {
+      color: var(--bn-success);
+    }
+
+    &.is-warning {
+      color: var(--bn-warning);
+    }
+
+    &.is-strong {
+      color: var(--bn-strong);
+    }
+
+    &.is-error {
+      color: var(--bn-danger);
+    }
+  }
+
+  @include e(header) {
+    display: inline-flex;
+  }
+
+  @include e(title) {
+    font-weight: 600;
+    color: #242934;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  @include e(message) {
+    box-sizing: border-box;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #646B7A;
+    line-height: 1;
+  }
+
+  @include e(close-icon) {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      width: 1px;
+      height: 100%;
+      background-color: #9CA6B9;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      width: 1px;
+      height: 100%;
+      background-color: #9CA6B9;
+    }
+  }
+
+}
+
+.bn-notification-slide-right-enter-from {
+  transform: translateX(100%);
+}
+
+.bn-notification-slide-right-enter-to {
+  transform: translateX(0);
+}
+
+.bn-notification-slide-left-enter-from {
+  transform: translateX(-100%);
+}
+
+.bn-notification-slide-left-enter-to {
+  transform: translateX(0);
+}
+
+.bn-notification-slide-right-leave-from,
+.bn-notification-slide-left-leave-from
+{
+  opacity: 1;
+}
+
+.bn-notification-slide-right-leave-to,
+.bn-notification-slide-left-leave-to
+{
+  opacity: 0;
+}
+

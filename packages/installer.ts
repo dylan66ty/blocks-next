@@ -16,10 +16,12 @@ import { Scrollbar } from './components/scrollbar';
 import { Pagination } from './components/pagination';
 import { Dialog } from './components/dialog';
 import { Tooltip } from './components/tooltip'
+import { Drawer } from './components/drawer'
 
 // plugin 
 import { Message } from './components/message'
 import { MessageBox } from './components/message-box'
+import { Notification } from './components/notification'
 
 const components = [
   Button,
@@ -38,12 +40,14 @@ const components = [
   Scrollbar,
   Pagination,
   Dialog,
-  Tooltip
+  Tooltip,
+  Drawer
 ] as Plugin[];
 
 const plugins = [
   Message,
-  MessageBox
+  MessageBox,
+  Notification
 ]
 
 export const install = function (app:App) {

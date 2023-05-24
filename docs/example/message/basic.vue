@@ -17,7 +17,7 @@ const handleVNode= () => {
 
 const handleVNodeFu = () => {
   Message({
-    message: h('div',{ style: {color: 'red'} }, '我是VNode function'),
+    message: () => h('div',{ style: {color: 'red'} }, '我是VNode function'),
     type: 'strong'
   })
 }

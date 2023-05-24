@@ -15,7 +15,7 @@ export const tooltipProps = {
   },
   backgroundColor: {
     type: String,
-    default:'#000'
+    default: undefined
   },
   renderTo: {
     type: [String,Object] as PropType<string | HTMLElement>,
@@ -24,6 +24,10 @@ export const tooltipProps = {
   disabled: {
     type:Boolean,
     default: false
+  },
+  effect: {
+    type:String as PropType<'dark' | 'light'>,
+    default: 'dark'
   }
 }
 

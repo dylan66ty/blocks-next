@@ -7,9 +7,11 @@
     padding: 42px 0 20px;
     line-height: 1;
   }
+
   @include e(body) {
     padding: 0 48px;
     box-sizing: border-box;
+    text-align: center;
   }
 
   @include e(footer) {
@@ -18,11 +20,18 @@
     box-sizing: border-box;
   }
 
-  @include e(content) {
-    font-weight: 600;
+  @include e(title) {
+    line-height: 1;
     color: #242934;
-    line-height: 28px;
     font-size: 20px;
-    text-align: center;
+    font-weight: 600;
+  }
+
+  @include e(content) {
+    margin-top: 16px;
+    line-height: 1;
+    color: #9CA6B9;
+    font-size: 14px;
+    font-weight: 400;
   }
 }

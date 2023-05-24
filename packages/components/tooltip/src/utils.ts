@@ -1,8 +1,7 @@
 import type { Position } from './types'
 
-
 const TRANSLATE_X = 10
-const TRANSLATE_Y = 8
+const TRANSLATE_Y = 14
 
 export const getPopupTranslateByPosition = () => {
   const translate = {

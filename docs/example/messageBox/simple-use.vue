@@ -2,7 +2,7 @@
 import { MessageBox, Message } from 'blocks-next'
 
 const info = () => {
-  MessageBox.info('这是一条信息').cancel(() => {
+  MessageBox.info('这是一条信息', 'content').cancel(() => {
     console.log('cancel');
   }).ok(() => {
     console.log('ok');

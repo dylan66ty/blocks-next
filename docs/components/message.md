@@ -21,12 +21,12 @@ message/type
 message/text-center
 :::
 
-## 渲染到容器
-::: demo 使用 `renderTo` 属性让message渲染到容器中，默认`document.body`
+## 挂载位置
+::: demo 设置 `renderTo` 即可, 默认挂载到`document.body`
 message/render-container
 :::
 
-## 可关闭
+## 手动关闭
 ::: demo 
 message/close
 :::
@@ -38,9 +38,12 @@ message/close
 |type|主题|`success`/ `info` / `error` / `warning` / `strong` |`-`|
 |duration|显示时间, 毫秒。设为 0 则不会自动关闭|`number`|`1500`|
 |center|文字是否居中|`boolean`|`false`|
-|offset|Message 距离窗口顶部的偏移量|`number`|`20`|
-|onClose|关闭时的回调函数, 参数为被关闭的 message 实例|`function`|`-`|
+|offset|Message 距离顶部的偏移量|`number`|`20`|
+|onClose|关闭时的回调函数, 参数为被关闭的 message 实例|`(vm) => void`|`-`|
 |showClose|是否显示关闭按钮|`boolean`|`false`|
+|renderTo|Message挂载位置|`string` / `HTMLElement`|`body`|
+
+
 
 
 ## 方法

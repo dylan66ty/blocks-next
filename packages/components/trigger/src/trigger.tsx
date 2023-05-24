@@ -455,9 +455,7 @@ export default defineComponent({
                             position: 'absolute',
                             "border-width": 'var(--bn-trigger-arrow-size)',
                             "border-style": "solid",
-                            // height: 'var(--bn-trigger-arrow-size)',
-                            zIndex: -1,
-                            // 'background-color': 'var(--bn-trigger-arrow-background-color)',
+                            zIndex: 0,
                             ...arrowStyle.value,
                           }}
                         />

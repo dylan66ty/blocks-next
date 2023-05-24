@@ -1,4 +1,4 @@
-import {  Ref, watch} from 'vue';
+import {  Ref} from 'vue';
 import { getScrollBarWidth, isScroll } from '../utils/dom';
 
 export const useOverflow = (elementRef: Ref<HTMLElement | undefined>) => {
@@ -8,6 +8,7 @@ export const useOverflow = (elementRef: Ref<HTMLElement | undefined>) => {
     width: '',
     boxSizing: '',
   };
+
 
   const setOverflowHidden = () => {
     if (elementRef.value) {
@@ -19,7 +20,8 @@ export const useOverflow = (elementRef: Ref<HTMLElement | undefined>) => {
           originStyle.width = element.style.width;
           originStyle.boxSizing = element.style.boxSizing;
           element.style.overflow = 'hidden';
-          element.style.width = `${element.offsetWidth - scrollBarWidth}px`;
+          // element.style.width = `${element.offsetWidth - scrollBarWidth}px`;
+          element.style.width = `100%`;
           element.style.boxSizing = 'border-box';
 
           isSetOverflow = true;
@@ -38,12 +40,6 @@ export const useOverflow = (elementRef: Ref<HTMLElement | undefined>) => {
       isSetOverflow = false;
     }
   };
-
-  watch(() => elementRef.value, (newElement) => {
-    if(newElement) {
-      setOverflowHidden()
-    }
-  })
 
   return {
     setOverflowHidden,

@@ -62,3 +62,9 @@ export const addUnit = (value: string | number | undefined, unit = 'px'): string
   }
   return value + unit;
 };
+
+export const upperFirstChar = (text:string) => {
+ text = text.trim()
+ if(!text) return
+ return text.slice(0,1).toUpperCase() + text.slice(1)
+}

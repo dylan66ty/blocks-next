@@ -1,6 +1,5 @@
 import type { VNode  } from 'vue'
 
-
 export const messageTypes = ['success' ,'warning' ,'error' , 'strong' ,'info'] as const
 
 export type IMessageType = (typeof messageTypes)[number]
@@ -15,7 +14,7 @@ export interface IMessageOptions {
   type?: IMessageType;
   duration?: number;
   center?:boolean;
-  onClose?: () => void;
+  onClose?: (vm?:VNode) => void;
   offset?:number;
   renderTo?: string | HTMLElement;
   showClose?:Boolean;

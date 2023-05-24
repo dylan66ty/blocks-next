@@ -5,11 +5,15 @@
 @include b(tooltip) {
   box-sizing: border-box;
   max-width: 494px;
-  padding:16px;
+  width: max-content;
   border-radius: 4px;
+  padding: 16px 0 16px 16px;
   color: #fff;
-  font-size: 14px;
-  text-align: left;
-  word-wrap: break-word;
-  line-height: 16px;
+  @include e(content) {
+    padding-right: 16px;
+    line-height: 20px;
+    font-size: 14px;
+    word-wrap: break-word;
+  }
 }
+

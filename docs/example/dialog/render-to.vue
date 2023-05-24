@@ -23,7 +23,7 @@ const containerRef = ref(null)
 
     </bn-space>
 
-    <bn-dialog v-model="visible" title="title" :renderTo="containerRef">
+    <bn-dialog v-model="visible" title="This is the title" :renderTo="containerRef">
       <div>最美的相遇，不言过往；最好的离别，不问归期。</div>
       <template #footer>
         <bn-space>

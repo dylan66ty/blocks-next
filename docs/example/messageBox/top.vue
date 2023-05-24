@@ -2,7 +2,7 @@
   import { MessageBox } from 'blocks-next'
   const open = () => {
     MessageBox({
-      content: '优于别人，并不高贵，真正的高贵应该是优于过去的自己。',
+      title: '优于别人，并不高贵，真正的高贵应该是优于过去的自己。',
       type:'success',
       top:20,
     })

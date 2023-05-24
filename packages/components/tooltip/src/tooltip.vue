@@ -16,7 +16,9 @@
     >
     <slot></slot>
     <template #content>
-      <slot name="content">{{ content }}</slot>
+        <Scrollbar style="max-height: 140px" :class="[`${ns}__content`]">
+         <slot name="content">{{ content }}</slot>
+        </Scrollbar>    
     </template>
   </Trigger>
 </template>
@@ -25,30 +27,40 @@
 import { computed, defineComponent, nextTick, ref, watch } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import Trigger from '../../trigger/src/trigger'
-import { tooltipProps } from './tooltip'
+import { tooltipProps } from './props'
 import { getPopupTranslateByPosition, getPopupPositionByEmpty } from './utils'
 import type { Position } from './types'
 import type { StyleValue } from 'vue'
 import type { TriggerPopupTranslate} from '../../trigger/src/_trigger'
 import { getElement } from '../../../utils/dom'
-
+import Scrollbar from '../../scrollbar/src/scrollbar.vue';
 
 export default defineComponent({
   name: getComponentNamespace('Tooltip'),
   components: {
-    Trigger
+    Trigger,
+    Scrollbar
   },
   props: tooltipProps,
   emits:['update:modelValue', 'change'],
   setup(props, { slots, emit }) {
     const ns = getNamespace('tooltip')
     const contentCls = computed(() => [
-      ns
+      ns,
+      `is-${props.effect}`
     ])
     const arrowStyle = computed(() => {
       const style: StyleValue = {}
       if (props.backgroundColor) {
         style['--bn-trigger-arrow-background-color'] = props.backgroundColor
+      }else {
+        if(props.effect === 'dark') {
+          style['--bn-trigger-arrow-background-color'] = 'rgba(0,0,0,.8)'
+        }
+        if(props.effect === 'light') {
+          style['--bn-trigger-arrow-background-color'] = '#fff'
+        }
+
       }
       return style
     })
@@ -56,6 +68,17 @@ export default defineComponent({
       const style: StyleValue = {}
       if (props.backgroundColor) {
         style.backgroundColor = props.backgroundColor
+      }else {
+        if(props.effect === 'dark') {
+          style.color = '#fff'
+          style['background-color'] = 'rgba(0,0,0,.8)'
+        }
+        if(props.effect === 'light') {
+          style.color = '#000'
+          style['background-color'] = '#fff'
+          style['box-shadow'] = '0px 8px 40px 0px rgba(100,107,122,0.15)'
+        }
+
       }
       return style
     })
@@ -92,6 +115,7 @@ export default defineComponent({
     } 
 
     return {
+      ns,
       contentCls,
       contentStyle,
       arrowStyle,

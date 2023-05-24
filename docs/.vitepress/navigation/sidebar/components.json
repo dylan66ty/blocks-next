@@ -51,7 +51,7 @@
       ]
     },
     {
-      "text": "Notice 通知",
+      "text": "Feedback 反馈",
       "items": [
         {
           "text": "Dialog 对话框",
@@ -64,6 +64,14 @@
         {
           "text": "MessageBox 弹框",
           "link": "messageBox"
+        },
+        {
+          "text": "Drawer 抽屉",
+          "link": "drawer"
+        },
+        {
+          "text": "Notification 通知",
+          "link": "notification"
         }
       ]
     },

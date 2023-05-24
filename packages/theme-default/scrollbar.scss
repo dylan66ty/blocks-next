@@ -3,6 +3,8 @@
 @include b(scrollbar) {
   --bn-scrollbar-track-size: 3px;
   --bn-scrollbar-thumb-color: #EDF1F6;
+  --bn-scrollbar-right: 12px;
+
   position: relative;
   height: 100%;
 
@@ -44,7 +46,7 @@
   @include e(vertical) {
     position: absolute;
     top: 0;
-    right: 3px;
+    right: var(--bn-scrollbar-right);
     box-sizing: border-box;
     z-index: 100;
     width: var(--bn-scrollbar-track-size);

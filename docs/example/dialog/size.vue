@@ -13,17 +13,16 @@ const openDialog = () => {
   <div>
     <bn-button fill-mode="outline" size="small" @click="openDialog">click open the dialog</bn-button>
 
-    <bn-dialog 
-       v-model="visible"
-       minWidth="400px"
-       minHeight="256px"
-     >
-     <template #title>
-        <div>版本更新</div>
-        <div>日期：2023-05-18</div>
+    <bn-dialog v-model="visible" minWidth="400px" minHeight="256px">
+      <template #title>
+        <div class="title">版本更新</div>
+        <div class="time">日期：2023-05-18</div>
       </template>
-      <div>1、Dialog组件</div>
-      <div>2、Dialog组件文档</div>
+      <div class="content">
+        <div>1、Dialog组件</div>
+        <div>2、Dialog组件文档</div>
+      </div>
+
       <template #footer>
         <bn-space>
           <bn-button fill-mode="outline" @click="visible = false">取消</bn-button>
@@ -34,4 +33,27 @@ const openDialog = () => {
   </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.title {
+  font-size: 18px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #242934;
+  line-height: 18px;
+}
+
+.time {
+  font-size: 14px;
+  font-weight: 400;
+  color: #9CA6B9;
+  line-height: 14px;
+  margin-top: 8px;
+}
+
+.content {
+  font-size: 14px;
+  font-weight: 400;
+  color: #242934;
+  line-height: 24px;
+}
+</style>

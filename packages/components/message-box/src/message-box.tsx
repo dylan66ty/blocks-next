@@ -1,15 +1,14 @@
 import _Dialog from '../../dialog/src/dialog.vue'
-import { VNode, createVNode, render } from 'vue'
-import { fixedScrollbar } from '../../../shared/fixed-scrollbar'
-
+import { createVNode, render, isVNode, nextTick, ref } from 'vue'
+import type { RenderFunction, VNode } from 'vue'
 import BnButton from '../../button/src/button.vue'
 import BnSpace from '../../space/src/space.vue'
 
 
 import WarningIcon from '../../icon/src/base/warning.vue'
-import InfoIcon from '../../icon/src/base/info.vue'
+import InfoIcon from '../../icon/src/base/prompt.vue'
 import SuccessIcon from '../../icon/src/base/success.vue'
-import ErrorIcon from '../../icon/src/base/error.vue'
+import ErrorIcon from '../../icon/src/base/close-fill.vue'
 
 
 
@@ -28,6 +27,7 @@ import {
 } from './types'
 import { isFunction } from '../../../utils/is'
 import { getElement } from '../../../utils/dom'
+import { useOverflow } from '../../../hooks/use-overflow'
 
 
 const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: MessageBoxOptions): void => {
@@ -36,7 +36,7 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
 
   const renderTo = getElement(options?.renderTo || 'body')!
 
-  const { setOverflowHidden, resetOverflow } = fixedScrollbar(renderTo)
+  const { setOverflowHidden, resetOverflow } = useOverflow(ref(renderTo))
 
   const onDestroy = () => {
     render(null, vmMountContainer)
@@ -103,33 +103,57 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     return () => {
       return (
         <>
-          {defaultRenderIcon(options.type || 'info')}
+          {defaultRenderIcon(options.type || 'success')}
         </>
       )
     }
   }
 
-  const defaultContent = () => {
-    if (isFunction(options.content)) {
-      return () => options.content
+  const defaultBody = () => {
+    const renderTitle = (title: RenderFunction | string) => {
+      if (isVNode(title)) return title
+      if (isFunction(title)) {
+        const vnode = title()
+        return isVNode(vnode) ? vnode : null
+      }
+      return (<div class="bn-message-box__title"> {title} </div>)
+    }
+
+    const renderContent = (content: RenderFunction | string) => {
+      if (isVNode(content)) return content
+      if (isFunction(content)) {
+        const vnode = content()
+        return isVNode(vnode) ? vnode : null
+      }
+      return (<div class="bn-message-box__content"> {options.content} </div>)
     }
 
     return () => (
       <>
-        <div class="bn-message-box__content">
-         {options.content}
-        </div>
+        {
+          options.title && renderTitle(options.title)
+        }
+        {
+          options.content && renderContent(options.content)
+        }
       </>
     )
   }
 
   const defaultFooter = () => {
+    if(isVNode(options.footer)) return options.footer
+    if (isFunction(options.footer) ) {
+      return options.footer
+    }
+
     const cancelText = options?.cancelText || '取消'
     const okText = options?.okText || '确认'
     return (scoped: MessageBoxFooterScoped) => {
       return (<>
         <BnSpace size={12}>
-          <BnButton fill-mode='outline' onClick={scoped.cancel} loading={scoped.loadingObj?.cancel}>{cancelText}</BnButton>
+          {
+            !options.hideCancel && (<BnButton fill-mode='outline' onClick={scoped.cancel} loading={scoped.loadingObj?.cancel}>{cancelText}</BnButton>)
+          }
           <BnButton type="primary" onClick={scoped.ok} loading={scoped.loadingObj?.ok}>{okText}</BnButton>
         </BnSpace>
       </>)
@@ -163,41 +187,43 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
   },
     {
       title: defaultHeader(),
-      default: defaultContent(),
-      footer: options.footer ? options.footer : defaultFooter()
+      default: defaultBody(),
+      footer: defaultFooter()
     }
   )
 
   render(vm, vmMountContainer)
 
 
+  nextTick(() => {
+    const target = dialogContainer.firstElementChild! as HTMLElement
+    if (renderTo !== document.body) {
+      renderTo.style.position = 'relative'
+      target.style.position = 'absolute'
+    } else {
+      target.style.position = 'fixed'
+    }
+    renderTo.appendChild(target)
+  })
+
+  
 
 
-  const target = dialogContainer.firstElementChild! as HTMLElement
-
-  if (renderTo !== document.body) {
-    renderTo.style.position = 'relative'
-    target.style.position = 'absolute'
-  } else {
-    target.style.position = 'fixed'
-  }
-
-
-  renderTo.appendChild(target)
 }
 
 
 
 const registerAllMethods = () => {
   messageBoxStaticMethods.forEach((method: MessageBoxStaticMethod) => {
-    MessageBox[method] = (content: MessageBoxContent) => {
+    MessageBox[method] = (title: MessageBoxContent, content: MessageBoxContent) => {
       const okFnArr: Array<Function> = []
       const cancelFnArr: Array<Function> = []
       let _beforeOkFn: MessageBoxBeforeAction = () => true
       let _beforeCancelFn: MessageBoxBeforeAction = () => true
       setTimeout(() => {
         MessageBox({
-          content: content as MessageBoxContent,
+          title,
+          content,
           type: method,
           beforeOnCancel: _beforeCancelFn,
           beforeOnOk: _beforeOkFn,
@@ -208,7 +234,7 @@ const registerAllMethods = () => {
             cancelFnArr.forEach(fn => isFunction(fn) && fn())
           }
         })
-      })
+      },0)
       return {
         ok(...args: MessageBoxChainArgs) {
           if (args.length === 1) {

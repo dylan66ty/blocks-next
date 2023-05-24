@@ -15,11 +15,13 @@
   import MessageBox from './components/MessageBox.vue'
   import Tooltip from './components/Tooltip.vue'
 
+  import Drawer from './components/Drawer.vue'
+
 </script>
 
 <template>
   <div>
-    <Tooltip />
+    <Notify />
   </div>
 </template>
 

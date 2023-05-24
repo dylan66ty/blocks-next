@@ -11,9 +11,10 @@ import {
 import MessageComponent from './message.vue'
 import { createVNode, render, isVNode } from 'vue'
 import type { VNode } from 'vue'
-import { isFunction, isObject, isString } from '../../../utils/is'
+import { isFunction, isObject } from '../../../utils/is'
+import { getElement } from '../../../utils/dom'
 
-const instanceMap = new WeakMap()
+const domMap = new WeakMap()
 
 const Message: Partial<IMessageMethods> & IMessageCaller = (options: IMessageParams): IMessageHandler => {
 
@@ -23,24 +24,14 @@ const Message: Partial<IMessageMethods> & IMessageCaller = (options: IMessagePar
     }
   }
 
-  let renderContainer: HTMLElement
-  let renderTo = options.renderTo
+  let renderContainer: HTMLElement = getElement(options.renderTo || 'body') as HTMLElement
 
-  if (renderTo) {
-    if (isString(renderTo)) {
-      renderContainer = document.querySelector(renderTo)!
-    } else {
-      renderContainer = renderTo
-    }
-  } else {
-    renderContainer = document.body
+
+  if (!domMap.has(renderContainer)) {
+    domMap.set(renderContainer, [] as VNode[])
   }
 
-  if (!instanceMap.has(renderContainer)) {
-    instanceMap.set(renderContainer, [] as VNode[])
-  }
-
-  const instances: VNode[] = instanceMap.get(renderContainer)
+  const instances: VNode[] = domMap.get(renderContainer)
 
   let offset = options.offset || 20
 
@@ -51,8 +42,7 @@ const Message: Partial<IMessageMethods> & IMessageCaller = (options: IMessagePar
 
   const userClose = options.onClose
 
-  let vm: any = {}
-  let props: any = {}
+  let props:Record<string, any> = {}
 
   const onClose = () => {
     const index = instances.findIndex((_vm: VNode) => _vm === vm)
@@ -64,7 +54,7 @@ const Message: Partial<IMessageMethods> & IMessageCaller = (options: IMessagePar
       _vm.component!.props.offset = top - closingInstanceOffset
     })
     instances.splice(index, 1)
-    userClose && userClose()
+    userClose && userClose(vm)
   }
   const onDestroy = () => {
     render(null, container)
@@ -72,7 +62,7 @@ const Message: Partial<IMessageMethods> & IMessageCaller = (options: IMessagePar
 
   props = { ...options, onClose, onDestroy, offset }
 
-  vm = createVNode(MessageComponent, props,
+  const vm = createVNode(MessageComponent, props,
     isFunction(props.message) || isVNode(props.message)
       ? {
         default: isFunction(props.message)
@@ -86,11 +76,11 @@ const Message: Partial<IMessageMethods> & IMessageCaller = (options: IMessagePar
   render(vm, container)
 
   if (renderContainer === document.body) {
-    vm.el.style.position = 'fixed'
+    vm.el!.style.position = 'fixed'
   } else {
     // TODO 获取挂在对象的position 没有的话就设置个relative
     renderContainer!.style.position = 'relative'
-    vm.el.style.position = 'absolute'
+    vm.el!.style.position = 'absolute'
   }
   renderContainer!.appendChild(container.firstElementChild!)
 
@@ -99,7 +89,7 @@ const Message: Partial<IMessageMethods> & IMessageCaller = (options: IMessagePar
 
 
   const close = () => {
-    vm.component!.proxy.handleClose()
+    (vm.component!.proxy as any).handleClose()
   }
 
 

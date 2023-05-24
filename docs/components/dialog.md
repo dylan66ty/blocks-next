@@ -35,8 +35,8 @@ dialog/top
 dialog/fullscreen
 :::
 
-## 自定义挂载容器
-::: demo 设置属性**renderTo** `string/HTMLElement`即可
+## 挂载位置
+::: demo 设置 `renderTo` 即可, 默认挂载到`document.body`
 dialog/render-to
 :::
 

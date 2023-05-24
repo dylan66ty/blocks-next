@@ -22,7 +22,6 @@
     'plus',
     'minus',
     'search',
-    'time',
     'loading',
     'caret',
     'prompt',

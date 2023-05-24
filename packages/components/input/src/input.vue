@@ -230,7 +230,7 @@
 
       <template v-if="showPassword">
         <span :class="[`${ns}__suffix ${ns}__icon ${ns}__eye`]" @click.stop="handleEye">
-          <EyeOpen v-if="!eyeStatus" />
+          <EyeOpen v-if="eyeStatus" />
           <EyeClose v-else />
         </span>
       </template>

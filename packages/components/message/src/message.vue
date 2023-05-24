@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType , computed, ref, onMounted, onUnmounted, nextTick} from "vue";
+import { defineComponent, PropType , computed, ref, onMounted, onUnmounted} from "vue";
 import { IMessageType , IMessage} from "./types";
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import usePopupManager from '../../../hooks/use-popup-manager'

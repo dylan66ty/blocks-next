@@ -1,5 +1,5 @@
 <template>
-  <teleport :to="renderTo" :disabled="disabled || !renderTo">
+  <teleport :to="teleportContainer" :disabled="teleportDisabled">
     <div :class="cls" :style="dialogStyle" v-show="outerVisible" v-if="!destroyOnClosed || outerVisible">
       <transition name="bn-fade-in-standard" appear>
         <div :class="[`${ns}__mask`]" v-if="mask" v-show="innerVisible"></div>
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, reactive, ref, toRef, watch } from 'vue'
+import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, reactive, ref, toRef, watch } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import { dialogProps } from './dialog'
 import type { StyleValue } from 'vue'
@@ -58,14 +58,20 @@ export default defineComponent({
       props.messageBox && 'is-message-box'
     ])
 
-    const renderTo = computed(() => {return getElement(props.renderTo)})
-    
+    const teleportContainer = ref<HTMLElement>()
+    const teleportDisabled = computed(() => props.disabled || !teleportContainer.value)
+
+    watch(() => props.renderTo, async (newRenderTo) => {
+      await nextTick()
+      teleportContainer.value = getElement(newRenderTo)
+    }, { immediate: true })
+
 
     const dialogStyle = computed(() => {
       const style: StyleValue = {}
-      if(!renderTo.value) return style
-      if(renderTo.value !== document.body && !props.messageBox) {
-        renderTo.value!.style.position = 'relative'
+      if (!teleportContainer.value) return style
+      if (teleportContainer.value !== document.body && !props.messageBox) {
+        teleportContainer.value!.style.position = 'relative'
         style.position = 'absolute'
       }
       style.zIndex = zIndex.value
@@ -92,6 +98,7 @@ export default defineComponent({
     const innerVisible = computed(() => props.modelValue);
     const outerVisible = computed(() => innerVisible.value || animation.value)
     const animation = ref(innerVisible.value)
+  
 
 
 
@@ -99,7 +106,7 @@ export default defineComponent({
       visible: innerVisible,
     });
 
-    const { setOverflowHidden, resetOverflow } = useOverflow(renderTo);
+    const { setOverflowHidden, resetOverflow } = useOverflow(teleportContainer);
 
 
     const emitToClose = (action: 'cancel' | 'ok', e?: Event) => {
@@ -114,17 +121,20 @@ export default defineComponent({
     // 动画执行完后触发关闭
     const afterLeave = () => {
       animation.value = false
+      resetOverflow()
       emit('closed')
     }
 
     // 动画加载后触发打开
     const afterEnter = () => {
+      // 隐藏滚动条
+      setOverflowHidden()
       emit('opened')
     }
 
     const loadingObj = reactive({
-      ok:false,
-      cancel:false
+      ok: false,
+      cancel: false
     })
 
     // 关闭拦截
@@ -185,9 +195,7 @@ export default defineComponent({
     onMounted(() => {
       if (innerVisible.value) {
         setOverflowHidden()
-      }
-      if (innerVisible.value && props.escToClose) {
-        addGlobalKeyDownListener();
+        props.escToClose && addGlobalKeyDownListener();
       }
     })
     // 页面意外关闭
@@ -201,13 +209,10 @@ export default defineComponent({
     watch(() => innerVisible.value, (val) => {
       if (val) {
         emit('open')
-        // 隐藏滚动条
-        setOverflowHidden()
         animation.value = true
         addGlobalKeyDownListener();
       } else {
         removeGlobalKeyDownListener()
-        resetOverflow()
       }
     })
 
@@ -218,7 +223,8 @@ export default defineComponent({
       messageBoxNs,
       containerStyle,
       dialogStyle,
-      renderTo,
+      teleportContainer,
+      teleportDisabled,
       innerVisible,
       outerVisible,
       interceptClose,
@@ -227,7 +233,8 @@ export default defineComponent({
       handleMaskClick,
       handleCancel,
       handleOk,
-      loadingObj
+      loadingObj,
+      
     }
 
   }

@@ -10,7 +10,6 @@ import Prompt from './src/base/prompt.vue'
 import Close from './src/base/close.vue'
 import CloseFill from './src/base/close-fill.vue'
 import Warning from './src/base/warning.vue'
-import Info from './src/base/info.vue'
 import Success from './src/base/success.vue'
 import Error from './src/base/error.vue'
 import Delete from './src/base/delete.vue'
@@ -27,7 +26,6 @@ const components = [
   Prompt,
   Close,
   Warning,
-  Info,
   Success,
   Error,
   CloseFill,
