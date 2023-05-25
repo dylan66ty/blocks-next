@@ -9,7 +9,6 @@ const visible = ref(true)
     <bn-tooltip content="This is a Tooltip" v-model="visible">
       <bn-button size="small">默认显示</bn-button>
     </bn-tooltip>
-  
   </div>
 </template>
 

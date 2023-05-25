@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+import { ref } from 'vue';
 
-  const form = ref({
-    name: '',
-    email: '',
-    hobby: ['Coding'],
-    contact: 'qq',
-    suggest: '',
-  });
+const form = ref({
+  name: '',
+  email: '',
+  hobby: ['Coding'],
+  contact: 'qq',
+  suggest: '',
+});
 </script>
 
 <template>
@@ -35,7 +35,6 @@
       <bn-form-item prop="suggest" label="意见">
         <bn-input v-model="form.suggest" type="textarea"></bn-input>
       </bn-form-item>
-
       <bn-form-item>
         <bn-space>
           <bn-button type="primary" size="small">提交</bn-button>

@@ -21,7 +21,7 @@
 
 <template>
   <div>
-    <Notify />
+    <Tooltip />
   </div>
 </template>
 

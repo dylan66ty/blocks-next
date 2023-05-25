@@ -70,18 +70,15 @@ export default defineComponent({
       return style
     })
 
-    const visible = ref(true)
+    const visible = ref(false)
 
     const changeVisible = (value:boolean) => {
       visible.value = value
     }
 
     onMounted(() => {
-      // 仅仅只是为了动画
-      visible.value = false
-      nextTick(() => {
-        visible.value = true
-      })
+      visible.value = true
+      
     })
 
     onUnmounted(() => {

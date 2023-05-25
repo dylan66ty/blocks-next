@@ -5,7 +5,9 @@ import {
   ref,
   computed,
   nextTick,
-  watch
+  watch,
+  onUnmounted,
+  onMounted
 } from 'vue'
 import type { RenderFunction, VNode, CSSProperties } from 'vue'
 
@@ -18,6 +20,7 @@ import { getPopupTranslateByPosition, getPopupPositionByEmpty } from './utils'
 import usePopupManager from '../../../hooks/use-popup-manager'
 import { Position } from './types'
 import { getElement } from '../../../utils/dom'
+import { useResizeObserver } from '../../../hooks/use-resize-observer'
 
 
 
@@ -64,6 +67,7 @@ export default defineComponent({
 
 
     const updatePopupStyle = () => {
+      if(!popupTarget) return
       const triggerTarget = getFirstElement(defaultSlot) as HTMLElement
       const containerRect = renderTo!.getBoundingClientRect()
       const triggerScrollRect = getElementScrollRect(triggerTarget, containerRect)
@@ -98,7 +102,7 @@ export default defineComponent({
     }
 
     // 创建tooltip
-    const createTooltip = () => {
+    const createTooltip = async () => {
       if (popupTarget) return
       emit('change', true)
 
@@ -108,7 +112,7 @@ export default defineComponent({
         backgroundColor: props.backgroundColor,
         position: props.position,
         onMouseenter: () => clearTimeout(timer),
-        onMouseleave: () => handleMouseLeave(),
+        onMouseleave: () => beforeClose(),
         onClose: () => {
           // Trap!!! 不能在这里更改状态。因为动画有延迟时间，如果在这个时机恰好多次创建tooltip的话就会有bug，状态就会锁死。只能在动画执行结束后才能更改状态。
           // 状态统一用状态控制器来控制。不论是受控状态还是非受控状态。
@@ -120,9 +124,10 @@ export default defineComponent({
         Object.keys(popoverSlot).length ? popoverSlot : null
       )
       render(vm, container)
+      // 必须等待popup组件创建完毕后才能放入容器中。
+      await nextTick()
       popupTarget = container.firstChild! as HTMLElement
-      document.body.appendChild(popupTarget)
-
+      renderTo!.appendChild(popupTarget)
       updatePopupStyle()
     }
 
@@ -147,29 +152,55 @@ export default defineComponent({
       emit('update:modelValue', true)
     }
 
-    const handleMouseLeave = () => {
+    const beforeClose = () => {
       if (timer) clearTimeout(timer)
       timer = setTimeout(() => {
         changeVisible(false)
       }, 100)
+    } 
+
+    const handleResize = () => {
+      updatePopupStyle()
     }
+ 
+    const { createResizeObserver, destroyResizeObserver } = useResizeObserver({
+      elementRef: ref(renderTo),
+      onResize: handleResize,
+    });
 
     // 监听器控制tooltip显示
     watch(() => visible.value, (val) => {
       if (val && !props.disabled) {
         nextTick(createTooltip)
       }
+      
+      if(!val) {
+        changeVisible(false) 
+      }
+      
     },
       {
         immediate: true
       }
     )
 
+    onMounted(() => {
+      createResizeObserver()
+    })
+    
+    onUnmounted(() => {
+      changeVisible(false)
+      destroyResizeObserver()
+    })
+    
 
     return () => {
       mergeFirstChild(defaultSlot, {
         onMouseenter: handleMouseEnter,
-        onMouseleave: handleMouseLeave,
+        onMouseleave: beforeClose,
+        style: {
+          cursor: 'pointer'
+        }
       })
       return <>
         {defaultSlot}

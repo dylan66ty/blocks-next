@@ -42,6 +42,11 @@ form/custom-validate
 form/chain-validate
 :::
 
+## Example
+::: demo
+form/example
+:::
+
 
 ## Form Attributes
 |参数名|描述|可选值|默认值|

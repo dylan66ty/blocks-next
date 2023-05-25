@@ -82,6 +82,7 @@ const Message: Partial<IMessageMethods> & IMessageCaller = (options: IMessagePar
     renderContainer!.style.position = 'relative'
     vm.el!.style.position = 'absolute'
   }
+  
   renderContainer!.appendChild(container.firstElementChild!)
 
 
