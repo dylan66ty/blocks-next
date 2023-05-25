@@ -11,6 +11,7 @@ export * from './form';
 export * from './form-item';
 export * from './trigger';
 export * from './select';
+export * from './select-option';
 export * from './scrollbar';
 export * from './pagination';
 export * from './dialog';

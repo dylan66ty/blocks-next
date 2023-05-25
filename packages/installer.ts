@@ -12,6 +12,7 @@ import { Form } from './components/form';
 import { FormItem } from './components/form-item';
 import { Trigger } from './components/trigger';
 import { Select } from './components/select';
+import { Option } from './components/select-option'
 import { Scrollbar } from './components/scrollbar';
 import { Pagination } from './components/pagination';
 import { Dialog } from './components/dialog';
@@ -37,6 +38,7 @@ const components = [
   FormItem,
   Trigger,
   Select,
+  Option,
   Scrollbar,
   Pagination,
   Dialog,

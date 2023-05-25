@@ -87,6 +87,15 @@
           "link": "tooltip"
         }
       ]
+    },
+    {
+      "text": "Others 其他",
+      "items": [
+        {
+          "text": "Scrollbar 滚动条",
+          "link": "scrollbar"
+        }
+      ]
     }
   ]
 }

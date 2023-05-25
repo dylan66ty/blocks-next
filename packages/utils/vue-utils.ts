@@ -201,4 +201,12 @@ export const withInstallFunction = <T>(fn: T, name: string) => {
   return fn as SFCInstallWithContext<T>
 }
 
+
+export const withNoopInstall = <T>(component: T) => {
+  ;(component as SFCWithInstall<T>).install = () => {}
+
+  return component as SFCWithInstall<T>
+}
+
+
 export const definePropType = <T>(val: any): PropType<T> => val;
