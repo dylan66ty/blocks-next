@@ -28,7 +28,7 @@ export interface IMessageCaller {
   (options:IMessageParams): IMessageHandler
 }
 
-export interface IMessageMethods extends IMessageCaller {
+export interface IMessageMethods {
   success(message:IMessage | IMessageOptions):IMessageHandler;
   error(message:IMessage | IMessageOptions):IMessageHandler;
   warning(message:IMessage | IMessageOptions):IMessageHandler;

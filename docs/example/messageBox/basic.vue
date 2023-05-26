@@ -9,6 +9,7 @@ const success = () => {
     title: '已收到您的订单纸质发票申请',
     content: '发票类型：增值税普通发票',
     type: 'success',
+    popupClass:'test',
     onCancel() {
       console.log('onCancel');
     },

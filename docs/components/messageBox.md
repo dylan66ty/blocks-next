@@ -56,6 +56,8 @@ messageBox/custom-container
 |beforeOnOk|点击确认前拦截器|`Function`|`()=> boolean | Promise<boolean>`|
 |onCancel|点击取消按钮后触发|`Function`|`(e:Event) => void`|
 |beforeOnCancel|点击取消前拦截器|`Function`|`()=> boolean | Promise<boolean>`|
+|popupClass|弹框添加自定义类名|`string`/ `-`|
+
 
 
 

@@ -41,11 +41,12 @@ export default defineComponent({
     const pageModel = ref(props.currentPage)
 
     const handleChange = (page:string) => {
-      const _page = Number(page)
+      let _page = Number(page)
       if(_page > props.pageCount) {
-        pageModel.value = props.pageCount
-        return
+        _page = props.pageCount        
+        pageModel.value = _page
       }
+      if(props.currentPage === _page) return
       emit('change',_page)
     }
 

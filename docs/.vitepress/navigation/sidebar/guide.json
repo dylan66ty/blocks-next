@@ -14,6 +14,10 @@
         {
           "text": "组件提示",
           "link": "component-prompt"
+        },
+        {
+          "text": "变更记录",
+          "link": "change-logs"
         }
       ]
     }

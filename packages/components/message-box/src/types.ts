@@ -29,7 +29,8 @@ export interface MessageBoxOptions {
   top?: number | string;
   center?: boolean;
   renderTo?: string | HTMLElement;
-  hideCancel?: boolean
+  hideCancel?: boolean,
+  popupClass?: string 
 }
 
 export type MessageBoxFooterAction = 'cancel' | 'ok'
@@ -53,11 +54,11 @@ export type MessageBoxMethodReturn = {
 }
 
 export interface MessageBoxMethods extends MessageBoxCaller {
-  info(title: MessageBoxContent, content: MessageBoxContent): MessageBoxMethodReturn;
-  success(title: MessageBoxContent, content: MessageBoxContent): MessageBoxMethodReturn;
-  warning(title: MessageBoxContent, content: MessageBoxContent): MessageBoxMethodReturn;
-  strong(title: MessageBoxContent, content: MessageBoxContent): MessageBoxMethodReturn;
-  error(title: MessageBoxContent, content: MessageBoxContent): MessageBoxMethodReturn;
+  info(title: MessageBoxContent, content?: MessageBoxContent): MessageBoxMethodReturn;
+  success(title: MessageBoxContent, content?: MessageBoxContent): MessageBoxMethodReturn;
+  warning(title: MessageBoxContent, content?: MessageBoxContent): MessageBoxMethodReturn;
+  strong(title: MessageBoxContent, content?: MessageBoxContent): MessageBoxMethodReturn;
+  error(title: MessageBoxContent, content?: MessageBoxContent): MessageBoxMethodReturn;
 }
 
 export type MessageBoxMethodOption = string | MessageBoxOptions

@@ -40,7 +40,6 @@ export default defineComponent({
           newCurrentPage = pageCountBridge.value
         }
         props.pageConfig.page = newCurrentPage
-        emit('page-change', newCurrentPage)
       },
     })
 
@@ -51,7 +50,6 @@ export default defineComponent({
       },
       set(v: number) {  
         props.pageConfig.pageSize = v
-        emit('page-size-change', v)
       },
     })
 
@@ -65,25 +63,31 @@ export default defineComponent({
       pageSizeBridge.value = val
       const newPageCount = pageCountBridge.value
       if (currentPageBridge.value > newPageCount) {
-        currentPageBridge.value = newPageCount
+        // pageSize发生变化了 将page直接设为1
+        currentPageBridge.value = 1
       }
+      emit('page-size-change', pageSizeBridge.value )
     }
 
     // event
     const handleCurrentChange = (val:number) => {
       currentPageBridge.value = val
+      emit('page-change', currentPageBridge.value)
+
     }
 
     const prev = () => {
       if (props.disabled) return
       currentPageBridge.value -= 1
       emit('prev', currentPageBridge.value)
+      emit('page-change', currentPageBridge.value)
     }
 
     const next = () => {
       if (props.disabled) return
       currentPageBridge.value += 1
       emit('next', currentPageBridge.value)
+      emit('page-change', currentPageBridge.value)
     }
 
     return () => {

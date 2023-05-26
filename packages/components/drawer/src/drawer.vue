@@ -1,6 +1,6 @@
 <template>
   <teleport :to="teleportContainer" :disabled="disabled || !teleportContainer">
-    <div v-if="!destroyOnClosed || outerVisible" v-show="outerVisible" :class="[`${ns}`]" :style="drawerStyle"
+    <div v-if="!destroyOnClosed || outerVisible" v-show="outerVisible" :class="[`${ns}`, popupClass]" :style="drawerStyle"
       v-bind="$attrs">
       <transition name="bn-fade-in-standard" appear>
         <div v-if="mask" v-show="innerVisible" :class="`${ns}__mask`" @click.self="handleMask" />

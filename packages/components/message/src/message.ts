@@ -18,11 +18,12 @@ const domMap = new WeakMap()
 
 const Message: Partial<IMessageMethods> & IMessageCaller = (options: IMessageParams): IMessageHandler => {
 
-  if (typeof options === 'string') {
+  if (typeof options === 'string' || isVNode(options)) {
     options = {
       message: options
     }
   }
+
 
   let renderContainer: HTMLElement = getElement(options.renderTo || 'body') as HTMLElement
 
@@ -120,4 +121,4 @@ const registerAllMethods = () => {
 registerAllMethods()
 
 
-export default Message
+export default Message as IMessageMethods

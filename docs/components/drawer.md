@@ -49,6 +49,7 @@ drawer/custom-container
 |beforeOnCancel|点击取消前拦截器|`Function`|`()=> boolean \| Promise<boolean>`|
 |renderTo|渲染到哪个容器里面|`string` / `HTMLElement`|`body`|
 |disabled|抽屉是否禁用|`boolean`|`false`|
+|popupClass|Drawer添加自定义类名|`string`/ `-`|
 
 
 ## Events

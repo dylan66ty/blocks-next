@@ -173,6 +173,7 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     top: options?.top ?? 0,
     mask: options?.mask ?? true,
     maskToClose: options?.maskToClose ?? true,
+    popupClass: options.popupClass,
     onClose,
     onBeforeCancel,
     'onUpdate:modelValue': () => {
@@ -267,4 +268,4 @@ registerAllMethods()
 
 
 
-export default MessageBox
+export default MessageBox as MessageBoxMethods

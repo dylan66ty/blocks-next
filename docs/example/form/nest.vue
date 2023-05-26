@@ -3,8 +3,8 @@ import { ref } from 'vue';
 
 const form = ref({
   rate: "",
-  day1: "",
-  day2: ""
+  day: "",
+  count: ""
 });
 
 const rules = {
@@ -56,12 +56,12 @@ const submitForm = async () => {
 
       <bn-form-item label-width="40px" required label="近">
         <bn-space :size="5">
-          <bn-form-item prop="day1" required>
-            <bn-input style="width:100px" v-model="form.day1"></bn-input>
+          <bn-form-item prop="day" required>
+            <bn-input style="width:100px;" v-model="form.day"></bn-input>
           </bn-form-item>
-          <span style="font-size:14px">天呼叫次数低于</span>
-          <bn-form-item prop="day2" required>
-            <bn-input v-model="form.day2"></bn-input>
+          <span style="font-size:14px;color:var(--bn-text-default-color)">天呼叫次数低于</span>
+          <bn-form-item prop="count" required>
+            <bn-input v-model="form.count"></bn-input>
           </bn-form-item>
         </bn-space>
       </bn-form-item>

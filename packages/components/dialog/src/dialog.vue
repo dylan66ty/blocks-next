@@ -55,7 +55,8 @@ export default defineComponent({
     const messageBoxNs = getNamespace('message-box')
     const cls = computed(() => [
       ns,
-      props.messageBox && 'is-message-box'
+      props.messageBox && 'is-message-box',
+      props.popupClass && props.popupClass
     ])
 
     const teleportContainer = ref<HTMLElement>()

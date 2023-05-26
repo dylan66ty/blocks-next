@@ -61,6 +61,10 @@ export const drawerProps = {
     type: [String, Object] as PropType<string | HTMLElement>,
     default: 'body',
   },
+  popupClass: {
+    type:String,
+    default: undefined
+  }
 }
 
 

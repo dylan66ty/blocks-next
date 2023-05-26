@@ -72,6 +72,10 @@ export const dialogProps = {
   messageBox: {
     type:Boolean,
     default: false
+  },
+  popupClass: {
+    type:String,
+    default: undefined
   }
 }
 
