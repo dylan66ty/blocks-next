@@ -73,10 +73,10 @@ export default defineComponent({
       const style: StyleValue = {}
 
       if (props.width && ['left', 'right'].includes(props.placement)) {
-        style.width = isNumber(props.width) ? addUnit(props.width) : props.width
+        style.width = addUnit(props.width)
       }
       if (props.height && ['top', 'bottom'].includes(props.placement)) {
-        style.height = isNumber(props.height) ? addUnit(props.height) : props.height
+        style.height = addUnit(props.height)
       }
       return style
     })

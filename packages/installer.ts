@@ -16,8 +16,11 @@ import { Option } from './components/select-option'
 import { Scrollbar } from './components/scrollbar';
 import { Pagination } from './components/pagination';
 import { Dialog } from './components/dialog';
-import { Tooltip } from './components/tooltip'
-import { Drawer } from './components/drawer'
+import { Tooltip } from './components/tooltip';
+import { Drawer } from './components/drawer';
+import { Table } from './components/table';
+import { Empty } from './components/empty';
+
 
 // plugin 
 import { Message } from './components/message'
@@ -43,7 +46,9 @@ const components = [
   Pagination,
   Dialog,
   Tooltip,
-  Drawer
+  Drawer,
+  Table,
+  Empty
 ] as Plugin[];
 
 const plugins = [

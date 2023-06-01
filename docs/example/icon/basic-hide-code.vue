@@ -24,10 +24,12 @@
     'search',
     'loading',
     'caret',
+    'caret-fill',
     'prompt',
     'close',
     'close-fill',
-    'delete'
+    'delete',
+    'setting',
   ].map((svgName) => {
     return {
       n: 'bn-icon-' + svgName,

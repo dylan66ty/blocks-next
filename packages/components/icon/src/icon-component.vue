@@ -3,15 +3,11 @@
   import { defineComponent, computed } from 'vue';
   import { isNumber } from '../../../utils/is';
   import { getNamespace } from '../../../utils/global-config';
+  import { iconProps } from './icon-props'
 
   export default defineComponent({
     name: 'Icon',
-    props: {
-      size: [Number, String],
-      rotate: Number,
-      spin: Boolean,
-      color: String,
-    },
+    props: iconProps,
     setup(props) {
       const ns = getNamespace('icon');
 

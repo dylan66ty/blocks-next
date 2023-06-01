@@ -85,11 +85,11 @@ export default defineComponent({
         return style
       }
       if (!props.center && props.top) {
-        style.top = isNumber(props.top) ? addUnit(props.top) : props.top
+        style.top = addUnit(props.top)
       }
       styleProps.forEach((key: StyleProps) => {
         if (props[key]) {
-          style[key] = isNumber(props[key]) ? addUnit(props[key]) : props[key]
+          style[key] = addUnit(props[key])
         }
       })
       return style
@@ -99,7 +99,7 @@ export default defineComponent({
     const innerVisible = computed(() => props.modelValue);
     const outerVisible = computed(() => innerVisible.value || animation.value)
     const animation = ref(innerVisible.value)
-  
+
 
 
 
@@ -235,7 +235,7 @@ export default defineComponent({
       handleCancel,
       handleOk,
       loadingObj,
-      
+
     }
 
   }

@@ -74,23 +74,18 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     let vnode: VNode;
     switch (type) {
       case 'warning':
-        // @ts-ignore
         vnode = <WarningIcon size="60px" color="#f6c64b" />
         break;
       case 'strong':
-        // @ts-ignore
         vnode = <WarningIcon size="60px" color="#ee793c" />
         break;
       case 'error':
-        // @ts-ignore
         vnode = <ErrorIcon size="60px" color="#e24f48" />
         break;
       case 'success':
-        // @ts-ignore
         vnode = <SuccessIcon size="60px" color="#68d1ab" />
         break;
       case 'info':
-        // @ts-ignore
         vnode = <InfoIcon size="60px" color="#2355f5" />
         break;
 

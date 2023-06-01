@@ -1,16 +1,19 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import IconComponent from '../icon-component.vue';
+import { iconProps } from '../icon-props';
 export default defineComponent({
   name: 'AppPie',
   components: {
     IconComponent,
-  }
+  },
+  props:iconProps,
+  inheritAttrs: false
 });
 </script>
 
 <template>
-  <IconComponent>
+  <IconComponent v-bind="{...$props,...$attrs}">
     <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink">
       <title>营销中心</title>

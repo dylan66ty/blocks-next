@@ -37,7 +37,7 @@ drawer/custom-container
 |v-model|抽屉是否可见|`boolean`|`false`|
 |placement|抽屉放置的位置|`top` / `right` / `bottom` / `left` |`right`|
 |title|标题|`string`|`-`|
-|mask|是否显示遮罩层|`boolean`|`false`|
+|mask|是否显示遮罩层|`boolean`|`true`|
 |maskToClose|是否点击遮罩层可以关闭对话框|`boolean` |`true`|
 |okText|确认按钮的内容|`string` |`确认`|
 |cancelText|取消按钮的内容|`string` |`取消`|
@@ -49,7 +49,7 @@ drawer/custom-container
 |beforeOnCancel|点击取消前拦截器|`Function`|`()=> boolean \| Promise<boolean>`|
 |renderTo|渲染到哪个容器里面|`string` / `HTMLElement`|`body`|
 |disabled|抽屉是否禁用|`boolean`|`false`|
-|popupClass|Drawer添加自定义类名|`string`/ `-`|
+|popupClass|Drawer添加自定义类名|`string`|`-`|
 
 
 ## Events

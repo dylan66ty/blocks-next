@@ -58,7 +58,7 @@ dialog/render-to
 |fullscreen|是否全屏|`boolean`|`false`|
 |onBeforeCancel|触发 cancel 事件前的回调函数。如果返回 false 则不会触发后续事件。|`boolean`/ `Promise<boolean>`|`-`|
 |renderTo|dialog挂在哪个容器下|`string`/ `HTMLElement`|`body`|
-|popupClass|dialog添加自定义类名|`string`/ `-`|
+|popupClass|dialog添加自定义类名|`string`|`-`|
 
 
 

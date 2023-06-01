@@ -5,6 +5,7 @@
   --bn-scrollbar-thumb-color: #EDF1F6;
   --bn-scrollbar-right: 12px;
   --bn-scrollbar-bottom:6px;
+  --bn-scrollbar-radius: 2px;
 
   position: relative;
   height: 100%;
@@ -64,15 +65,17 @@
   @include e(horizontal) {
     position: absolute;
     height: 100%;
-    border-radius: 2px;
     background-color: var(--bn-scrollbar-thumb-color);
+    border-radius: var(--bn-scrollbar-radius);
+
   }
 
   @include e(vertical) {
     position: absolute;
     width: 100%;
-    border-radius: 2px;
     background-color: var(--bn-scrollbar-thumb-color);
+    border-radius: var(--bn-scrollbar-radius);
+
   }
 
 }

@@ -16,7 +16,7 @@
     },
     props: checkboxProps,
     emits: ['update:modelValue', 'change'],
-    setup(props, { emit }) {
+    setup(props, { emit , slots}) {
       const ns = getNamespace('checkbox');
       const checkboxGroup = inject<CheckboxGroupContext | null>(checkboxGroupContextKey, null);
       const isGroup = computed(() => !!checkboxGroup);
@@ -70,6 +70,8 @@
         return cls;
       });
 
+      const isShowLabel = computed(() => slots['default'] || props.label)
+
       const handleChange = (e: InputEvent) => {
         const target = e.target as HTMLInputElement;
         const changeValue = target.checked;
@@ -88,12 +90,15 @@
         },
       );
 
+
       return {
+        ns,
         cls,
         handleChange,
         model,
         isChecked,
         isFocused,
+        isShowLabel,
       };
     },
   });
@@ -104,10 +109,10 @@
     <slot name="icon" :checked="isChecked" :indeterminate="indeterminate">
       <RenderIcon :is-checked="isChecked" :indeterminate="indeterminate" />
     </slot>
-    <span class="bn-checkbox__input">
+    <span :class="[`${ns}__input`]">
       <input
         v-model="model"
-        class="bn-checkbox__origin"
+        :class="[`${ns}__origin`]"
         type="checkbox"
         :name="name"
         :disabled="disabled"
@@ -119,7 +124,7 @@
         @blur="isFocused = false"
       />
     </span>
-    <span class="bn-checkbox__label">
+    <span :class="[`${ns}__label`]" v-if="isShowLabel">
       <slot>{{ label }}</slot>
     </span>
   </label>

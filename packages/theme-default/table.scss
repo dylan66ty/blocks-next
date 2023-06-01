@@ -1,0 +1,430 @@
+@import './mixins/bem.scss';
+
+@include b(table) {
+  --bn-table-radius: 12px;
+  --bn-table-height: 68px;
+  --bn-table-header-title-color: #9CA6B9;
+  --bn-table-body-cell-color: #242934;
+  --bn-table-border-color: #EDF1F6;
+  --bn-table-header-background-color: #f2f3f5;
+  --bn-table-hover-background-color: #f7f8fa;
+  --bn-table-fixed-column-box-shadow-color: #eeeeee85;
+
+}
+
+@include b(table) {
+  box-sizing: border-box;
+  border: 1px solid var(--bn-table-border-color);
+  border-radius: var(--bn-table-radius);
+  overflow: hidden;
+  position: relative;
+
+  &:hover {
+    .#{$namespace}-table__setting {
+      display: flex;
+    }
+  }
+
+  @include when(border) {
+
+    .#{$namespace}-th:not(:last-child),
+    .#{$namespace}-td:not(:last-child) {
+      border-right: 1px solid var(--bn-table-border-color);
+    }
+  }
+
+  @include e(header) {
+    position: relative;
+    height: var(--bn-table-height);
+    background: #fff;
+    box-shadow: 0px 10px 24px 0px rgba(36, 41, 52, 0.05);
+    z-index: 2;
+  }
+
+  @include e(header-title) {
+    display: inline-flex;
+    align-items: center;
+    color: var(--bn-table-header-title-color);
+    user-select: none;
+
+    &.is-sort-active {
+      color: #242934;
+    }
+  }
+
+  @include e(body) {
+    position: relative;
+    z-index: 1;
+
+    .#{$namespace}-scrollbar {
+      --bn-scrollbar-track-size: 8px;
+      --bn-scrollbar-thumb-color: #EDF1F6;
+      --bn-scrollbar-right: 0;
+      --bn-scrollbar-bottom: 0;
+      --bn-scrollbar-radius: 4px;
+
+    }
+  }
+
+  @include when(hover) {
+    .#{$namespace}-table__body {
+      .#{$namespace}-tr:hover {
+        .#{$namespace}-td {
+          background-color: var(--bn-table-hover-background-color);
+        }
+
+      }
+    }
+  }
+
+  @include when(stripe) {
+    .#{$namespace}-table__body {
+      .#{$namespace}-tr:nth-child(even) {
+        .#{$namespace}-td {
+          background-color: var(--bn-table-hover-background-color);
+        }
+      }
+    }
+  }
+
+  @include e(header-scroll) {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+
+  @include e(cell) {
+    box-sizing: border-box;
+    padding: 9px 16px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  @include e(element) {
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+  }
+
+  @include e(sort) {
+    width: 12px;
+    height: 20px;
+    margin-left: 2px;
+    position: relative;
+  }
+
+  @include e(sort-ascend) {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  @include e(sort-descend) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  
+  @include e(sort-arrow-center) {
+    position: absolute;
+    top: 5px;
+    left: 0;
+  }
+
+
+  @include e(setting) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 52px;
+    height: 100%;
+    background: #fff;
+    box-shadow: -10px 0px 20px 0px rgba(36, 41, 52, 0.05);
+    z-index: 5;
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  @include e(setting-icon) {
+    .line {
+      height: 1px;
+      background: #9CA6B9;
+    }
+
+    .line-1 {
+      width: 18px;
+    }
+
+    .line-2 {
+      width: 15px;
+      margin: 5px 0;
+    }
+
+    .line-3 {
+      width: 11px;
+    }
+  }
+
+
+  @include e(external-footer) {
+    box-sizing: border-box;
+    padding: 24px 32px;
+    border-top: 1px solid #EDF1F6;
+    display: flex;
+    justify-content: flex-end;
+
+  }
+
+  @include e(sort-popup) {
+    box-sizing: border-box;
+    width: 128px;
+    padding:12px;
+    background: #FFFFFF;
+    box-shadow: 0px 8px 40px 0px rgba(100, 107, 122, 0.15);
+    border-radius: 8px;
+  }
+
+  @include e(sort-item) {
+    box-sizing: border-box;
+    padding: 13px 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  @include e(sort-item-active) {
+    background-color: #f8faff;
+    color: #0056FF;
+  }
+
+  @include e(loading) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, .6);
+    color: var(--bn-primary);
+    font-size: 20px;
+    z-index: 6;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  // 固定列相关
+
+  .is-fixed-left {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+  }
+
+  .is-fixed-left-last {
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 8px;
+      box-shadow: none;
+      transition: box-shadow .1s cubic-bezier(0, 0, 1, 1);
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    &.is-scroll-position-right,
+    &.is-scroll-position-middle {
+      &::after {
+        box-shadow: inset 6px 0 8px -3px var(--bn-table-fixed-column-box-shadow-color);
+      }
+    }
+  }
+
+
+  .is-fixed-right {
+    position: sticky;
+    right: 0;
+    z-index: 3;
+  }
+
+  .is-fixed-right-first {
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 8px;
+      box-shadow: none;
+      transition: box-shadow .1s cubic-bezier(0, 0, 1, 1);
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    &.is-scroll-position-left,
+    &.is-scroll-position-middle {
+      &::after {
+        box-shadow: inset 6px 0 8px -3px var(--bn-table-fixed-column-box-shadow-color);
+      }
+    }
+  }
+
+
+
+
+
+}
+
+@include b(td) {
+  box-sizing: border-box;
+  color: var(--bn-table-body-cell-color);
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: break-all;
+  background-color: #fff;
+  position: relative;
+
+  @include when(align-left) {
+    text-align: left;
+  }
+
+  @include when(align-center) {
+    text-align: center;
+  }
+
+  @include when(align-right) {
+    text-align: right;
+  }
+
+
+  @include when(resize) {
+    border-right-color: #0056FF !important;
+  }
+
+
+}
+
+@include b(th) {
+  position: relative;
+  box-sizing: border-box;
+  font-size: 14px;
+  position: relative;
+  background-color: #fff;
+
+  @include when(align-left) {
+    text-align: left;
+  }
+
+  @include when(align-center) {
+    text-align: center;
+  }
+
+  @include when(align-right) {
+    text-align: right;
+  }
+
+  @include e(handler) {
+    position: absolute;
+    top: 0;
+    right: -4px;
+    z-index: 1;
+    width: 8px;
+    height: 100%;
+    cursor: col-resize;
+  }
+
+  @include when(resize) {
+    border-right-color: #0056FF !important;
+  }
+}
+
+@include b(tr) {
+  &:not(:last-child) {
+    .#{$namespace}-td {
+      // border-bottom: 1px solid var(--bn-table-border-color);
+    }
+  }
+}
+
+@include b(table-setting) {
+  @include e(popup) {
+    width: 244px;
+    // max-height: 393px;
+    background: #FFFFFF;
+    box-shadow: 0px 8px 40px 0px rgba(100, 107, 122, 0.15);
+    border-radius: 8px;
+  }
+
+  @include e(list) {
+    box-sizing: border-box;
+    padding: 18px 12px;
+    border-bottom: 1px solid #EDF1F6;
+  }
+
+  @include e(list-item) {
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    user-select: none;
+
+    &:not(.is-disabled):hover {
+      background-color: #f8faff;
+    }
+
+    @include when(disabled) {
+      color: #9CA6B9;
+    }
+  }
+
+  @include e(list-item-left) {
+    display: flex;
+    align-items: center;
+  }
+
+  @include e(list-item-title) {
+    margin-left: 8px;
+    line-height: 1;
+    color: inherit;
+  }
+
+  @include e(drag-icon) {
+    cursor: move;
+
+    .line {
+      width: 12px;
+      height: 1px;
+      background: #9CA6B9;
+      opacity: 0.6;
+
+      &:not(:last-child) {
+        margin-bottom: 2px;
+      }
+    }
+  }
+
+  @include e(footer) {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+}

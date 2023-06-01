@@ -1,16 +1,20 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import IconComponent from '../icon-component.vue';
+import { iconProps } from '../icon-props';
+
 export default defineComponent({
   name: 'Delete',
   components: {
     IconComponent,
-  }
+  },
+  props:iconProps,
+  inheritAttrs:false
 });
 </script>
 
 <template>
-  <IconComponent>
+  <IconComponent v-bind="{...$props,...$attrs}">
     <svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g transform="translate(-293.000000, -3880.000000)" fill="currentColor">

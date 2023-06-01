@@ -54,17 +54,53 @@ export const deepClone = (obj: any, set?: any) => {
 
 export const NOOP = () => {};
 
+const unitArr = ['px', '%' , 'vh' , 'vw','calc']
+
 export const addUnit = (value: string | number | undefined, unit = 'px'): string => {
-  if (value === undefined) return '';
-  value = String(value);
-  if (value.endsWith(unit)) {
-    return value;
+  if (value === void 0) return '';
+  let str = String(value)
+  if (unitArr.some(u => str.includes(u))) {
+    return str;
   }
-  return value + unit;
+  return str + unit;
 };
 
 export const upperFirstChar = (text:string) => {
  text = text.trim()
  if(!text) return
  return text.slice(0,1).toUpperCase() + text.slice(1)
+}
+
+export const compose = (...fns: any[]) => {
+  return fns.reduce((a,v) => (...args:any[]) => a(v(...args)))
+}
+
+
+export const pipe = (...fns:any[]) => {
+  return fns.reduceRight((a,v) => (...args:any[]) =>a(v(...args)))
+}
+
+export const findLastIndex = (arr = [], callback: (item:any,i:number,origin:any[]) => boolean) => {
+    let lastIndex = -1
+    for(let i = 0; i < arr.length; i++) {
+        if(callback(arr[i],i,arr)) {
+          lastIndex = i
+        } 
+    } 
+    return lastIndex
+}
+
+
+
+const getRandom = (start:number = 0, end:number = 1) => {
+  return Math.floor(Math.random() * (end - start)) + start
+}
+
+export const getUniqueId = (size = 6) => {
+  const code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  let ret = ''
+  for (let i = 1; i <= size; i++) {
+    ret += code[getRandom(0, 25)]
+  }
+  return ret
 }

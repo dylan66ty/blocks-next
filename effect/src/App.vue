@@ -17,12 +17,12 @@
 
   import Drawer from './components/Drawer.vue'
 
+  import Table from './components/Table.vue'
+
 </script>
 
 <template>
-  <div>
-    <Tooltip />
-  </div>
+ <Table />
 </template>
 
 <style></style>

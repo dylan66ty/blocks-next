@@ -1,16 +1,20 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import IconComponent from '../icon-component.vue';
+import { iconProps } from '../icon-props';
+
 export default defineComponent({
   name: 'CloseFill',
   components: {
     IconComponent,
-  }
+  },
+  props: iconProps,
+  inheritAttrs:false
 });
 </script>
 
 <template>
-  <IconComponent>
+  <IconComponent v-bind="{...$props,...$attrs}">
     <svg viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg">
       <g transform="translate(-340.000000, -3150.000000)">
         <g transform="translate(340.000000, 3150.000000)">

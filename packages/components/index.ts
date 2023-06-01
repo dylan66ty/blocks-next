@@ -17,10 +17,13 @@ export * from './pagination';
 export * from './dialog';
 export * from './tooltip';
 export * from './drawer';
+export * from './table';
+export * from './empty';
 
-export * from './message'
+// methods
+export * from './message';
 export * from './message-box';
-export * from './notification'
+export * from './notification';
 
 
 export { default as Icon } from './icon';

@@ -1,0 +1,17 @@
+@import './mixins/bem.scss';
+
+@include b(empty) {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  @include e(image) {
+    color: #aaaeb7;
+    margin-bottom: 4px;
+  }
+  @include e(description) {
+    color: rgb(169,174,184);
+    font-size: 14px;
+  }
+ 
+}

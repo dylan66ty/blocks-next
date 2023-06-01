@@ -79,6 +79,10 @@
       "text": "Data 数据",
       "items": [
         {
+          "text": "Table 表格",
+          "link": "table"
+        },
+        {
           "text": "Pagination 分页器",
           "link": "pagination"
         },
