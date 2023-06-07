@@ -15,7 +15,7 @@ import { Notification } from 'blocks-next'
 
   <div class="custom-container">custom container</div>
 
-   <bn-button fill-mode="outline" size="small" @click="handler" style="margin-top:20px;">自定义挂载</bn-button>
+   <bn-button size="small" @click="handler" style="margin-top:20px;">自定义挂载</bn-button>
     
 </template> 
 

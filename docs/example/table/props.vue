@@ -99,7 +99,9 @@ const onCheckAllChange = (status) => {
     </bn-space>
 
     <bn-table 
-      :columns="columns" :data="data" :hover="hover" :stripe="stripe" :border="border" :loading="loading">
+      :columns="columns" :data="data" :hover="hover" :stripe="stripe" :border="border" :loading="loading"
+      height="340"
+      >
     </bn-table>
 
   </bn-space>

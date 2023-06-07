@@ -47,8 +47,8 @@
 
 .bn-zoom-in-fade-out-enter-active,
 .bn-zoom-in-fade-out-appear-active {
-  transition: opacity 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
+  transition: opacity 0.15s ease-in-out,
+    transform 0.15s ease-in-out;
 }
 
 .bn-zoom-in-fade-out-leave-from {
@@ -62,8 +62,8 @@
 }
 
 .bn-zoom-in-fade-out-leave-active {
-  transition: opacity 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
+  transition: opacity 0.15s ease-in-out,
+    transform 0.15s ease-in-out;
 }
 
 // used by slide, table filter

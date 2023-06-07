@@ -24,8 +24,8 @@ const renderToCustom = () => {
     </div>  
 
     <bn-space>
-      <bn-button fillMode="outline" size="small" @click="renderToBody">默认（renderTo:document.body）</bn-button>
-      <bn-button fillMode="outline" size="small" @click="renderToCustom">custom（renderTo:containerRef）</bn-button>
+      <bn-button  size="small" @click="renderToBody">默认（renderTo:document.body）</bn-button>
+      <bn-button  size="small" @click="renderToCustom">custom（renderTo:containerRef）</bn-button>
 
     </bn-space>
 </template>

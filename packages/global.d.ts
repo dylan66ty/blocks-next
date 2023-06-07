@@ -20,6 +20,9 @@ declare module '@vue/runtime-core' {
     BnTooltip:typeof import('blocks-next')['Tooltip'];
     BnScrollbar:typeof import('blocks-next')['Scrollbar'];
     BnTable:typeof import('blocks-next')['Table'];
+    BnTabs:typeof import('blocks-next')['Tabs'];
+    BnTabPane:typeof import('blocks-next')['TabPane'];
+
 
 
   }

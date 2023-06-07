@@ -2,7 +2,7 @@ import { defineComponent } from 'vue'
 import LoadingIcon from '../../../icon/src/base/loading.vue'
 
 export default defineComponent({
-  name: 'Spin',
+  name: 'Loading',
   setup() {
     return () => {
       return (

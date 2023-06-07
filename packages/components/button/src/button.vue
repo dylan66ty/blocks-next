@@ -1,16 +1,16 @@
 <script lang="ts">
-import type { PropType } from 'vue';
+import { PropType, getCurrentInstance } from 'vue';
 import { reactive, computed, defineComponent } from 'vue';
-import { debounce } from '../../../utils/throttle-debounce';
-import { getComponentNamespace } from '../../../utils/global-config';
-
-import Search from '../../icon/src/base/search.vue'
-import Plus from '../../icon/src/base/plus.vue'
+import { getComponentNamespace, getNamespace } from '../../../utils/global-config';
+import Loading from '../../icon/src/base/loading.vue';
+import { isFunction, isPromise } from '../../../utils/is';
 
 
 export default defineComponent({
   name: getComponentNamespace('Button'),
-  components: {},
+  components: {
+    Loading
+  },
   props: {
     disabled: Boolean,
     block: Boolean,
@@ -19,146 +19,94 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    dropdown: String as PropType<'up' | 'down'>,
-    shape: String as PropType<'circle' | 'square' | 'round'>,
-    radius: { type: Boolean, default: true },
-    hover: { type: Boolean, default: true },
+    shape: {
+      type: String as PropType<'circle' | 'round'>,
+      default: undefined
+    },
+    link: {
+      type: Boolean,
+      default: false
+    },
     type: {
-      type: String as PropType<'primary' | 'info' | 'success' | 'danger' | 'warning' | 'strong' | 'normal' | 'mode'
-      >, default: 'normal'
+      type: String as PropType<'primary' | 'success' | 'danger' | 'warning' | 'strong' | 'card'>,
+      default: undefined
     },
-    fillMode: {
-      type: String as PropType<'outline' | 'reverse' | 'none' | 'normal'>,
-      default: 'normal',
+    plain: {
+      type: Boolean,
+      default: false
     },
-    size: { type: String as PropType<'mini' | 'small' | 'large' | 'normal'>, default: 'normal' },
-    delay: {
-      type: [Number, String] as PropType<number | string>,
-      default: 0,
+    size: {
+      type: String as PropType<'mini' | 'small' | 'large' | 'normal'>,
+      default: 'normal'
     },
-    leftIcon: String as PropType<'add' | 'delete' | 'search'>,
-    rightIcon: String as PropType<'add' | 'delete' | 'search'>,
-    await: Function,
+    border: {
+      type: Boolean,
+      default: true
+    },
   },
   emits: ['click'],
-  setup(props, { emit }) {
+  setup(props) {
+
     const state = reactive({
       clicked: false,
     });
 
-    const cns = computed(() => {
-      return {
-        'bn-btn': true,
-        'bn-btn-hover': props.hover && !props.disabled,
-        'bn-btn-radius': props.radius,
+    const ns = getNamespace('button')
+    const cls = computed(() => {
+      const _cls = [
+        ns,
+        props.type && `${ns}--${props.type}`,
+        props.disabled && `is-disabled`,
+        props.block && `is-block`,
+        props.plain && 'is-plain',
+        props.shape && `is-${props.shape}`,
+        props.link && `is-link`,
+        props.size && `is-${props.size}`,
+        !props.border && `is-hide-border`,
+        isLoading.value && `is-loading`
+      ]
 
-        'bn-btn-primary': props.type == 'primary',
-        'bn-btn-success': props.type == 'success',
-        'bn-btn-danger': props.type == 'danger',
-        'bn-btn-warning': props.type == 'warning',
-        'bn-btn-strong': props.type == 'strong',
-        'bn-btn-mode': props.type == 'mode',
-        'bn-btn-info': props.type == 'info',
-        'bn-btn-normal': props.type == 'normal' || !props.type,
-
-        'bn-btn-outline': props.fillMode == 'outline',
-        'bn-btn-none': props.fillMode == 'none',
-        'bn-btn-reverse': props.fillMode == 'reverse',
-
-        'bn-btn-mini': props.size == 'mini',
-        'bn-btn-small': props.size == 'small',
-        'bn-btn-large': props.size == 'large',
-
-        'bn-btn-loading': props.loading,
-        'bn-btn-loading-mode-fill': props.loadingFill,
-        'bn-btn-loading-fill': isLoading.value && props.loadingFill,
-        'bn-btn-block': props.block,
-
-        'bn-btn-circle': props.shape == 'circle',
-        'bn-btn-square': props.shape == 'square',
-        'bn-btn-round': props.shape == 'round',
-
-        'bn-btn-flex': !!props.dropdown,
-      };
+      return _cls
     });
+
     const isLoading = computed(() => {
       return props.loading || state.clicked;
     });
 
-    const handleClick = async (event: unknown) => {
-      // 当前正在加载中
-      if (isLoading.value || props.disabled) {
-        return;
-      }
-      if (typeof props.await === 'function') {
-        // 执行Async/Promise Func
-        state.clicked = true;
-        const send = props.await();
-        if (
-          Object.prototype.toString.call(send) === '[object Promise]' ||
-          Object.prototype.toString.call(send) === '[object AsyncFunction]'
-        ) {
-          send.finally(() => {
-            state.clicked = false;
-          });
-        } else {
-          state.clicked = false;
+    const instance = getCurrentInstance()
+
+    const handleClick = async (event: Event) => {
+      if (isLoading.value) return
+      const externalClickFn = instance?.vnode?.props?.onClick
+      if (isFunction(externalClickFn)) {
+        const ret = externalClickFn(event)
+        if (isPromise(ret)) {
+          state.clicked = true
+          ret.finally(() => {
+            state.clicked = false
+          })
         }
-        return emit('click', event);
       }
-      if (props.delay === 0) return emit('click', event);
-
-      state.clicked = true;
-      // 执行节流
-      const callback = await debounce(() => {
-        state.clicked = false;
-        emit('click', event);
-      }, +props.delay);
-
-      callback();
-    };
-    function selectIcon(name: string) {
-      if (name === 'add') {
-        return Plus;
-      }
-      if (name === 'search') {
-        return Search;
-      }
-      return '';
     }
-    const rightIconComponent = computed(() => {
-      return selectIcon(props.rightIcon as string);
-    });
-
-    const leftIconComponent = computed(() => {
-      return selectIcon(props.leftIcon as string);
-    });
-
     return {
-      cns,
+      ns,
+      cls,
       handleClick,
-      leftIconComponent,
-      rightIconComponent,
-      isLoading,
+      isLoading
     };
-  },
+  }
 });
 </script>
 
 <template>
-  <button :class="cns" :disabled="disabled" :hover="!disabled" @click.stop.prevent="handleClick">
-    <template v-if="leftIcon">
-      <component :is="leftIconComponent"></component>
-    </template>
-    <span v-if="$slots.default" class="bn-btn-slot">
+  <button :class="cls" type="button" :disabled="disabled" :hover="!disabled" @click.stop.prevent="handleClick">
+    <span>
       <slot></slot>
     </span>
-    <!-- <caret v-if="dropdown" :direction="dropdown" stroke="currentColor" /> -->
-    <template v-if="rightIcon">
-      <component :is="rightIconComponent"></component>
-    </template>
-    <svg viewBox="0 0 50 50" class="loading-svg" :class="isLoading ? 'show' : ''">
-      <circle cx="25" cy="25" r="20" fill="none" class="path" max="100"></circle>
-    </svg>
+    <span :class="[`${ns}__loading`, {
+      'is-fill': loadingFill
+    }]" v-if="isLoading">
+      <Loading />
+    </span>
   </button>
 </template>

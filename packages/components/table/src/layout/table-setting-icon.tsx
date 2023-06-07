@@ -1,6 +1,6 @@
 import { defineComponent, onUnmounted, ref } from 'vue'
 import Trigger from '../../../trigger/src/trigger'
-import SettingPopup from './setting-popup'
+import SettingPopup from './table-setting-popup'
 
 export default defineComponent({
   name: 'SettingIcon',

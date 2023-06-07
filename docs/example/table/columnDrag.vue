@@ -49,7 +49,7 @@ const columns = ref([
     width: 120,
   }
 ])
-const data = ref(Array.from({ length: 30 }, (_, index) => {
+const data = ref(Array.from({ length: 10 }, (_, index) => {
   return ({
     time: `2023-05-${index+1}`,
     department: 'department',
@@ -61,9 +61,6 @@ const data = ref(Array.from({ length: 30 }, (_, index) => {
     totalTime: 10000
   })
 }))
-
-
-
 
 
 </script>

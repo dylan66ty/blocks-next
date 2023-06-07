@@ -23,8 +23,8 @@ const show = () => {
 
 <template>
     <bn-space>
-      <bn-button fillMode="outline" size="small" @click="autoClose">可自动关闭</bn-button>
-      <bn-button fillMode="outline" size="small" @click="show">不会自动关闭</bn-button>
+      <bn-button  size="small" @click="autoClose">可自动关闭</bn-button>
+      <bn-button  size="small" @click="show">不会自动关闭</bn-button>
     </bn-space>
 </template>
 

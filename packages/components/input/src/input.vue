@@ -3,7 +3,6 @@
   import { getNamespace, getComponentNamespace } from '../../../utils/global-config';
   import { isClient } from '../../../utils/browser';
   import { isObject } from '../../../utils/is';
-  import { throttle } from '../../../utils/throttle-debounce';
   import { NOOP } from '../../../shared/utils';
   import EyeOpen from '../../icon/src/base/eye-open.vue'
   import EyeClose from '../../icon/src/base/eye-close.vue'
@@ -33,6 +32,7 @@
         props.size && `${ns}--${props.size}`,
         props.prefixIcon && `${ns}--prefix`,
         props.suffixIcon && `${ns}--suffix`,
+        props.card && `${ns}--card`,
         isHover.value && 'is-hover',
         isFocus.value && 'is-focus'
         
@@ -40,6 +40,11 @@
       const eyeStatus = ref(false);
       const isHover = ref(false);
       const isFocus = ref(false);
+
+      const innerValue = ref(props.value)
+      const computedModelValue = computed(() => props.modelValue ?? innerValue.value)
+
+
       
       const inputType = computed(() => {
         if (props.showPassword) {
@@ -65,7 +70,7 @@
         return props.suffixIcon || slots['suffix-icon'];
       });
       const hasClearableIcon = computed(() => {
-        return props.clearable && isHover.value && !!props.modelValue
+        return props.clearable && isHover.value && !!computedModelValue.value
       })
 
       // event
@@ -79,9 +84,10 @@
 
         emit('update:modelValue', value);
         emit('input', value);
+        innerValue.value = value
       };
 
-      const handleInput = props.throttle ? throttle(inputEvt, +props.throttle) : inputEvt;
+      const handleInput = inputEvt;
 
       const handleChange = (event: Event) => {
         emit('change', (event.target as TargetElement).value);
@@ -113,6 +119,7 @@
       const handleClear = () => {
         emit('update:modelValue','')
         emit('clear', '')
+        innerValue.value = ''
         nextTick(() => {
           inputRef.value?.focus()
         })
@@ -161,7 +168,7 @@
       );
 
       watch(
-        () => props.modelValue,
+        () => computedModelValue.value,
         () => {
           nextTick(() => resizeTextarea());
 
@@ -175,6 +182,7 @@
         eyeStatus,
         cls,
         ns,
+        computedModelValue,
         inputType,
         inputRef,
         handleEye,
@@ -214,7 +222,7 @@
         :placeholder="placeholder"
         :disabled="mergeDisable"
         :type="inputType"
-        :value="modelValue"
+        :value="computedModelValue"
         :readonly="readonly"
         @input="handleInput"
         @change="handleChange"
@@ -252,7 +260,7 @@
         :disabled="mergeDisable"
         :style="textareaStyle"
         :placeholder="placeholder"
-        :value="modelValue"
+        :value="computedModelValue"
         :readonly="readonly"
         @input="handleInput"
         @change="handleChange"

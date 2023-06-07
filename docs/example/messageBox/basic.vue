@@ -82,11 +82,11 @@ const info = () => {
 
 <template>
   <bn-space>
-    <bn-button fill-mode="outline" size="small" type="success" @click="success">success</bn-button>
-    <bn-button fill-mode="outline" size="small" type="strong" @click="strong">strong</bn-button>
-    <bn-button fill-mode="outline" size="small" type="warning" @click="warning">warning(renderFunction渲染)</bn-button>
-    <bn-button fill-mode="outline" size="small" type="danger" @click="error">error</bn-button>
-    <bn-button fill-mode="outline" size="small" type="info" @click="info">info</bn-button>
+    <bn-button  size="small" type="success" @click="success">success</bn-button>
+    <bn-button  size="small" type="strong" @click="strong">strong</bn-button>
+    <bn-button  size="small" type="warning" @click="warning">warning(renderFunction渲染)</bn-button>
+    <bn-button  size="small" type="danger" @click="error">error</bn-button>
+    <bn-button  size="small" type="info" @click="info">info</bn-button>
 
   </bn-space>
 </template>

@@ -22,7 +22,7 @@
       ]
     },
     {
-      "text": "Form 表单组件",
+      "text": "表单组件 Form",
       "items": [
         {
           "text": "输入框 Input",
@@ -51,52 +51,64 @@
       ]
     },
     {
-      "text": "Feedback 反馈",
+      "text": "反馈 Feedback",
       "items": [
         {
-          "text": "Dialog 对话框",
+          "text": "对话框 Dialog",
           "link": "dialog"
         },
         {
-          "text": "Message 消息通知",
+          "text": "消息通知 Message",
           "link": "message"
         },
         {
-          "text": "MessageBox 弹框",
+          "text": "弹框 MessageBox",
           "link": "messageBox"
         },
         {
-          "text": "Drawer 抽屉",
+          "text": "抽屉 Drawer",
           "link": "drawer"
         },
         {
-          "text": "Notification 通知",
+          "text": "通知 Notification",
           "link": "notification"
+        },
+        {
+          "text": "气泡确认框 Popconfirm",
+          "link": "popconfirm"
+        },
+        {
+          "text": "加载 Loading",
+          "link": "loading"
         }
       ]
     },
     {
-      "text": "Data 数据",
+      "text": "数据 Data",
       "items": [
         {
-          "text": "Table 表格",
+          "text": "表格 Table",
           "link": "table"
         },
         {
-          "text": "Pagination 分页器",
+          "text": "标签页 Tabs",
+          "link": "tabs"
+        },
+        {
+          "text": "分页器 Pagination",
           "link": "pagination"
         },
         {
-          "text": "Tooltip 文字气泡",
+          "text": "文字气泡 Tooltip",
           "link": "tooltip"
         }
       ]
     },
     {
-      "text": "Others 其他",
+      "text": "其他 Others",
       "items": [
         {
-          "text": "Scrollbar 滚动条",
+          "text": "滚动条 Scrollbar",
           "link": "scrollbar"
         }
       ]

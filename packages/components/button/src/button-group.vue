@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <div class="bn-btn-group">
+  <div class="bn-button-group">
     <slot></slot>
   </div>
 </template>

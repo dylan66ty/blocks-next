@@ -28,6 +28,9 @@ export const tooltipProps = {
   effect: {
     type:String as PropType<'dark' | 'light'>,
     default: 'dark'
+  },
+  popupClass: {
+    type:String
   }
 }
 

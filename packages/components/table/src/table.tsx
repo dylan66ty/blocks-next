@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref, watch, provide, reactive, toRef, ComponentPublicInstance, Ref, Transition } from 'vue'
+import { computed, defineComponent, ref, watch, provide, reactive, toRef, ComponentPublicInstance, Ref, Transition, StyleValue } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import { tableProps } from './table-props'
 import Scrollbar from '../../scrollbar/src/scrollbar.vue'
@@ -12,9 +12,9 @@ import Td from './layout/table-td'
 import Th from './layout/table-th'
 import Thead from './layout/table-thead'
 import ColGroup from './layout/table-col-group'
-import SettingIcon from './layout/setting-icon'
+import SettingIcon from './layout/table-setting-icon'
 import Empty from '../../empty/src/empty.vue'
-import Loading from './layout/loading'
+import Loading from './layout/table-loading'
 
 
 import { injectPrivatePropToTableColumnData, injectPrivatePropToTableData, splitColumns, genSortFn } from './utils'
@@ -132,7 +132,7 @@ export default defineComponent({
     watch(() => props.data, () => {
       flattenData.value = injectPrivatePropToTableData(props.data)
       updateRenderData()
-    }, { immediate: true })
+    }, { immediate: true,deep: true })
 
 
 
@@ -150,9 +150,13 @@ export default defineComponent({
               cellpadding={0}
               cellspacing={0}
               class={[`${ns}__element`]}
+              style={{
+                height: '100%',
+                tableLayout: 'fixed'
+              }}
             >
               {
-                renderData.value.length !== 0 && (
+                renderDataColumns.value.length !== 0 && (
                   <ColGroup
                     dataColumns={renderDataColumns.value}
                     columnWidth={columnWidth}
@@ -245,9 +249,16 @@ export default defineComponent({
 
 
     // table body height 
-    const tableBodyHeight = computed(() => {
-      return addUnit(props.height)
+    const tableBodyStyle= computed(() => {
+      const style:StyleValue = {
+        height: addUnit(props.height),
+        maxHeight: addUnit(props.maxHeight)
+      }
+      return style
     })
+    
+    
+
 
     const renderEmpty = () => {
       return (
@@ -258,6 +269,20 @@ export default defineComponent({
         </Tr>
       );
     };
+
+    // 水平滚动列时当表格没有数据 表头支持滚动
+    const calcTableBodyMinWidth = computed(() => {
+      const arr:any[] = []
+      renderDataColumns.value.forEach((column) => {
+        if(column.width) {
+          arr.push(addUnit(column.width))
+        }else if(column.minWidth) {
+          arr.push(addUnit(column.minWidth))
+        }
+      })  
+    
+      return `calc(${arr.join(' + ')})`
+    })
 
     const renderBody = () => {
       const hasSubData = renderData.value.some((record) => Boolean(record.hasSubtree));
@@ -270,7 +295,8 @@ export default defineComponent({
             class={[`${ns}__body-scroll`]}
             onScroll={onTbodyScroll}
             style={{
-              'height': tableBodyHeight.value
+              height: tableBodyStyle.value.height,
+              maxHeight: tableBodyStyle.value.maxHeight
             }}
             ref={tbodyComRef}
           >
@@ -279,7 +305,10 @@ export default defineComponent({
               cellspacing={0}
               class={[`${ns}__element`]}
               style={{
-                height: tableBodyHeight.value
+                maxHeight: tableBodyStyle.value.maxHeight,
+                tableLayout: 'fixed',
+                height: !renderData.value.length ? '100%' : '',
+                minWidth: calcTableBodyMinWidth.value
               }}
             >
               {

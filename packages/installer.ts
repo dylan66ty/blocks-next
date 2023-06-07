@@ -20,6 +20,10 @@ import { Tooltip } from './components/tooltip';
 import { Drawer } from './components/drawer';
 import { Table } from './components/table';
 import { Empty } from './components/empty';
+import { Tabs } from './components/tabs';
+import { TabPane } from './components/tab-pane';
+import { Popconfirm } from './components/popconfirm';
+import {Loading} from './components/loading'
 
 
 // plugin 
@@ -48,13 +52,17 @@ const components = [
   Tooltip,
   Drawer,
   Table,
-  Empty
+  Empty,
+  Tabs,
+  TabPane,
+  Popconfirm
 ] as Plugin[];
 
 const plugins = [
   Message,
   MessageBox,
-  Notification
+  Notification,
+  Loading
 ]
 
 export const install = function (app:App) {

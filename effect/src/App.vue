@@ -18,11 +18,15 @@
   import Drawer from './components/Drawer.vue'
 
   import Table from './components/Table.vue'
+  import ButtonClickLoading from './components/Button-click-loading.vue';
+  
+  import PopConfirm from './components/popconfirm.vue'
 
+  import Loading from './components/Loading.vue'
 </script>
 
 <template>
- <Table />
+  <Loading />
 </template>
 
 <style></style>

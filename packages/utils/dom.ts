@@ -1,7 +1,8 @@
-import type { VNode } from 'vue';
+import type { VNode, CSSProperties } from 'vue';
 import { NOOP } from '../shared/utils';
-import { isString } from './is';
+import { isObject, isString } from './is';
 import { isClient } from './browser';
+import { toCamelCase, toPascalCase } from './convert-case'
 
 export const on = (() => {
   if (!isClient) {
@@ -103,3 +104,37 @@ export const getScrollBarWidth = (element: HTMLElement) => {
     ? window.innerWidth - (document.documentElement.offsetWidth || document.body.offsetWidth)
     : element.offsetWidth - element.clientWidth;
 };
+
+export const getStyle = (
+  element: HTMLElement,
+  styleName: keyof CSSProperties
+): string => {
+  if (!isClient || !element || !styleName) return ''
+
+  let key = toCamelCase(styleName)
+  if (key === 'float') key = 'cssFloat'
+  try {
+    const style = (element.style as any)[key]
+    if (style) return style
+    const computed: any = document.defaultView?.getComputedStyle(element, '')
+    return computed ? computed[key] : ''
+  } catch {
+    return (element.style as any)[key]
+  }
+}
+
+export const setStyle = (
+  element: HTMLElement,
+  styleName: CSSProperties | keyof CSSProperties,
+  value?: string | number
+) => {
+  if (!element || !styleName) return
+  if (isObject(styleName)) {
+    Object.entries(styleName).forEach(([prop, value]) =>
+      setStyle(element, prop as any, value as string)
+    )
+  } else {
+    const key: any = toCamelCase(styleName as keyof CSSProperties)
+    element.style[key] = value as any
+  }
+}

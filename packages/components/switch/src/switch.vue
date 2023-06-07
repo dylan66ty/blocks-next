@@ -169,7 +169,7 @@
       </span>
       <span :class="blockCls">
         <slot v-if="isLoading" name="loading">
-          <Loading :size="14" :style="{ color: 'var(--bn-primary)' }" />
+          <Loading :size="14" :style="{ color: 'var(--bn-switch-active-color)' }" />
         </slot>
       </span>
     </span>

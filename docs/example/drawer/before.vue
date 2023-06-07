@@ -38,7 +38,7 @@ const opened = () => {
 </script>
 
 <template>
-  <bn-button @click="handler" size="small" fill-mode="outline">Open Drawer</bn-button>
+  <bn-button @click="handler" size="small" >Open Drawer</bn-button>
 
   <bn-drawer 
      v-model="visible" 

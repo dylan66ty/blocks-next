@@ -61,13 +61,13 @@
 
 
   @include e(inner) {
-    border: 1px solid #9CA6B9;
-    border-radius: 100%;
     width: 16px;
     height: 16px;
+    border: 1px solid #9CA6B9;
+    border-radius: 100%;
     background-color: #fff;
     position: relative;
-    display: inline-block;
+    display: inline-flex;
     box-sizing: border-box;
     transition: all 0.15s ease-in;
 

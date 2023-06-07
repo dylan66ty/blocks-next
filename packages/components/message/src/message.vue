@@ -89,6 +89,7 @@ export default defineComponent({
     })
 
     const {zIndex} = usePopupManager('message', {runOnMounted:true})
+    
     const styles = computed(() => {
       return {
         top: `${props.offset}px`,

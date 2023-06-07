@@ -13,7 +13,7 @@ import type { RenderFunction, VNode, CSSProperties } from 'vue'
 
 import { getComponentNamespace } from '../../../utils/global-config'
 import { mergeFirstChild, getFirstElement } from '../../../utils/vue-utils'
-import Popover from './popup.vue'
+import Popup from './popup.vue'
 import { tooltipProps } from './props'
 import { getPopupStyle, getElementScrollRect, getArrowStyle } from '../../trigger/src/utils'
 import { getPopupTranslateByPosition, getPopupPositionByEmpty } from './utils'
@@ -36,19 +36,19 @@ export default defineComponent({
       return props.modelValue ?? innerVisible.value
     })
 
-    const popoverSlot: Record<string, RenderFunction> = {}
+    const popupSlot: Record<string, RenderFunction> = {}
     if (slots.content) {
-      popoverSlot.content = slots.content
+      popupSlot.content = slots.content
     }
 
     let defaultSlot: VNode[] = slots.default?.() ?? []
     let timer = 0
-    let popupTarget: HTMLElement | null = null
+    let popupTarget: HTMLElement | null
     let vm: VNode | null
 
 
     const translate = getPopupTranslateByPosition()
-    const renderTo = getElement(props.renderTo || document.documentElement as HTMLElement)
+    const renderTo = getElement(props.renderTo || document.body)
 
     const { zIndex } = usePopupManager('popup', { visible });
 
@@ -67,7 +67,7 @@ export default defineComponent({
 
 
     const updatePopupStyle = () => {
-      if(!popupTarget) return
+      if (!popupTarget) return
       const triggerTarget = getFirstElement(defaultSlot) as HTMLElement
       const containerRect = renderTo!.getBoundingClientRect()
       const triggerScrollRect = getElementScrollRect(triggerTarget, containerRect)
@@ -85,7 +85,7 @@ export default defineComponent({
       const arrowStyle = getArrowStyle(position, triggerScrollRect, getPopupScrollRect(), {
         customStyle: {
           position: 'absolute',
-          "border-width": '8px',
+          "border-width": '6px',
           "border-style": "solid",
           zIndex: 0,
         },
@@ -106,11 +106,12 @@ export default defineComponent({
       if (popupTarget) return
       emit('change', true)
 
-      vm = createVNode(Popover, {
+      vm = createVNode(Popup, {
         content: props.content,
         effect: props.effect,
         backgroundColor: props.backgroundColor,
         position: props.position,
+        popupClass: props.popupClass,
         onMouseenter: () => clearTimeout(timer),
         onMouseleave: () => beforeClose(),
         onClose: () => {
@@ -121,7 +122,7 @@ export default defineComponent({
           destroyTooltip()
         }
       },
-        Object.keys(popoverSlot).length ? popoverSlot : null
+        Object.keys(popupSlot).length ? popupSlot : null
       )
       render(vm, container)
       // 必须等待popup组件创建完毕后才能放入容器中。
@@ -157,12 +158,12 @@ export default defineComponent({
       timer = setTimeout(() => {
         changeVisible(false)
       }, 100)
-    } 
+    }
 
     const handleResize = () => {
       updatePopupStyle()
     }
- 
+
     const { createResizeObserver, destroyResizeObserver } = useResizeObserver({
       elementRef: ref(renderTo),
       onResize: handleResize,
@@ -170,14 +171,13 @@ export default defineComponent({
 
     // 监听器控制tooltip显示
     watch(() => visible.value, (val) => {
-      if (val && !props.disabled) {
+      if (props.disabled) return
+      if (val) {
         nextTick(createTooltip)
+      } else {
+        changeVisible(false)
       }
-      
-      if(!val) {
-        changeVisible(false) 
-      }
-      
+
     },
       {
         immediate: true
@@ -187,20 +187,21 @@ export default defineComponent({
     onMounted(() => {
       createResizeObserver()
     })
-    
+
     onUnmounted(() => {
       changeVisible(false)
       destroyResizeObserver()
     })
-    
+
 
     return () => {
       mergeFirstChild(defaultSlot, {
         onMouseenter: handleMouseEnter,
         onMouseleave: beforeClose,
         style: {
-          cursor: 'pointer'
-        }
+          cursor: props.disabled ? 'not-allowed' : 'pointer'
+        },
+        disabled:props.disabled,
       })
       return <>
         {defaultSlot}

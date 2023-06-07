@@ -4,6 +4,7 @@
   import { isNumber } from '../../../utils/is';
   import { getNamespace } from '../../../utils/global-config';
   import { iconProps } from './icon-props'
+import { addUnit } from '../../../shared/utils';
 
   export default defineComponent({
     name: 'Icon',
@@ -14,7 +15,7 @@
       const styles = computed(() => {
         const styles: StyleValue = {};
         if (props.size) {
-          styles.fontSize = isNumber(props.size) ? `${props.size}px` : props.size;
+          styles.fontSize = addUnit(props.size)
         }
 
         if (props.rotate) {

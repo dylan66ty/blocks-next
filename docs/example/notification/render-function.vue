@@ -19,7 +19,7 @@ const handler = () => {
 
 <template>
     <bn-space>
-      <bn-button fillMode="outline" size="small" @click="handler">使用renderFunction</bn-button>
+      <bn-button  size="small" @click="handler">使用renderFunction</bn-button>
     </bn-space>
 </template>
 

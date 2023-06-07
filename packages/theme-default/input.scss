@@ -1,24 +1,27 @@
 @import './mixins/bem.scss';
+@import './common/var.scss';
 
 @include b(input) {
-    --bn-input-border-color: #e1e4e8;
+    --bn-input-border-color: var(--bn-border-color);
     --bn-input-border-radius: 4px;
     --bn-input-background-color: #fff;
-    --bn-input-disabled-background-color:#fafbfd;
-    --bn-input-disabled-border-color:#E1E4E8;
-    --bn-input-disabled-text-color:#9CA6B9;
-    --bn-input-color: #242934;
-    --bn-input-placeholder-color: #9CA6B9;
-    --bn-input-default-height: 40px;
-    --bn-input-icon-color: #c0c4cc;
-    --bn-input-hover-border-color: #c0c4cc;
+    --bn-input-disabled-background-color: rgba(245, 247, 251, 0.5);
+    --bn-input-disabled-border-color: var(--bn-color-5);
+    --bn-input-disabled-text-color: var(--bn-color-3);
+    --bn-input-color: var(--bn-color-1);
+    --bn-input-font-size: var(--bn-font-size);
+    --bn-input-placeholder-color: var(--bn-color-3);
+    --bn-input-height: 40px;
+    --bn-input-icon-color: var(--bn-color-3);
+    --bn-input-hover-border-color: rgba(188, 196, 214, 1);
 }
 
 @include b(input) {
+    box-sizing: border-box;
     position: relative;
     width: 100%;
-    display: inline-block;
-    font-size: inherit;
+    display: inline-flex;
+    font-size: var(--bn-input-font-size);
 
     @include when(hover) {
         .#{$namespace}-input__inner {
@@ -32,22 +35,30 @@
         }
     }
 
+    @include m(card) {
+        .#{$namespace}-input__inner {
+            border: 0;
+            box-shadow: 0px 2px 5px 0px rgba(36, 41, 52, 0.06);
+            &:hover {
+               --bn-input-placeholder-color:rgba(100, 107, 122, 1);
+            }
+        }
+    }
+
+
     @include e(inner) {
+        box-sizing: border-box;
+        width: 100%;
+        height: var(--bn-input-height);
+        line-height: var(--bn-input-height);
         background-color: var(--bn-input-background-color);
-        background-image: none;
         border-radius: var(--bn-input-border-radius);
         border: 1px solid var(--bn-input-border-color);
-        box-sizing: border-box;
         color: var(--bn-input-color);
-        display: inline-block;
-        font-size: inherit;
-        height: var(--bn-input-default-height);
-        line-height: var(--bn-input-default-height);
         outline: none;
         padding: 0 15px;
         transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
-        width: inherit;
-        height: inherit;
+
 
         &::-webkit-input-placeholder {
             color: var(--bn-input-placeholder-color);
@@ -92,19 +103,23 @@
         cursor: pointer;
     }
 
-     @include e(clearable) {
+    @include e(clearable) {
         width: 14px;
         height: 14px;
         border: 1px solid #ddd;
         border-radius: 100%;
+
         cursor: pointer;
+
         &:hover {
             border-color: var(--bn-input-hover-border-color);
+
             &::before,
             &::after {
                 background-color: var(--bn-input-hover-border-color);
             }
         }
+
         &::before {
             content: '';
             position: absolute;
@@ -112,9 +127,10 @@
             height: 8px;
             top: 50%;
             left: 50%;
-            transform: translate(-50%,-50%) rotate(45deg);
+            transform: translate(-50%, -50%) rotate(45deg);
             background-color: #ddd;
         }
+
         &::after {
             content: '';
             position: absolute;
@@ -122,7 +138,7 @@
             height: 8px;
             top: 50%;
             left: 50%;
-            transform: translate(-50%,-50%) rotate(-45deg);
+            transform: translate(-50%, -50%) rotate(-45deg);
             background-color: #ddd;
         }
     }
@@ -131,10 +147,23 @@
 
         .#{$namespace}-input__inner,
         .#{$namespace}-textarea__inner {
-            background-color: var(--bn-input-disabled-background-color);
-            border-color: var(--bn-input-disabled-border-color);
-            color: var(--bn-input-disabled-text-color);
+            cursor: not-allowed;
         }
+
+        &:not(.#{$namespace}-input--card) {
+
+            .#{$namespace}-input__inner,
+            .#{$namespace}-textarea__inner {
+                background-color: var(--bn-input-disabled-background-color);
+                border-color: var(--bn-input-disabled-border-color);
+                color: var(--bn-input-disabled-text-color);
+            }
+        }
+
+        &.#{$namespace}-input--card {
+            opacity: 0.8;
+        }
+
     }
 
     @include when(error) {
@@ -157,11 +186,11 @@
     }
 
     @include m(small) {
-        --bn-input-default-height: 32px;
+        --bn-input-height: 32px;
     }
 
     @include m(large) {
-        --bn-input-default-height: 48px
+        --bn-input-height: 48px
     }
 
     [readonly] {

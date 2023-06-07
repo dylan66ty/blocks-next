@@ -37,6 +37,11 @@ table/props
 table/fixedHeight
 :::
 
+## 流体高度
+::: demo 当数据量动态变化时，可以为 Table 设置一个最大高度。通过设置 max-height 属性为 table 指定最大高度。 此时若表格所需的高度大于最大高度，则会显示一个滚动条。
+table/flowHeight
+:::
+
 
 ## 固定列
 ::: demo 通过配置 column 里面 fixed 为 `left/right`即可。
@@ -59,6 +64,7 @@ table/customRender
 |data|表格数据|`array`|`-`|
 |columns|表格列配置|`array`|`-`|
 |height|设置height属性可以固定表头|`string` / `number`|`-`|
+|maxHeight|设置maxHeight可以实现流式高度|`string` / `number`|`-`|
 |hover|鼠标移入row样式|`boolean`|`-`|
 |v-model:selection|多选|`array`|`-`|
 |loading|Loading,加载数据时候用|`boolean`|`false`|
@@ -86,6 +92,8 @@ table/customRender
 |headerSlotName|列标题插槽|`string`|`-`|
 |hidden|列是否隐藏|`boolean`|`false`|
 |disabled|列是否禁用|`boolean`|`false`|
+|hiddenCheckboxAll|只有type是checkbox时会生效，默认表头显示全选，设为true后表头不显示全选|`boolean`|`false`|
+
 
 
 

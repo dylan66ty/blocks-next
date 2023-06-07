@@ -1,10 +1,9 @@
 @import './mixins/bem.scss';
 
 @include b(icon) {
-  display: inline-block;
+  display: inline-flex;
   color: inherit;
   font-size: inherit;
-  // vertical-align: -0.15em;
   vertical-align: middle;
   
   > svg {

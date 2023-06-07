@@ -47,6 +47,7 @@
     background-color: #fff;
     border-radius: var(--bn-dialog-radius);
     transition: top 0.3s;
+    overflow: hidden;
 
 
     &.is-fullscreen {

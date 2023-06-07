@@ -14,7 +14,7 @@ const handler = () => {
 
 
   <bn-space>
-    <bn-button @click="handler" size="small" fill-mode="outline">Open drawer</bn-button>
+    <bn-button @click="handler" size="small" >Open drawer</bn-button>
   </bn-space>
 
 

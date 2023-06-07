@@ -195,7 +195,7 @@ export default defineComponent({
           </ul>
           <div class={[`${ns}__footer`]}>
             <Space size={12}>
-              <Button fill-mode="outline" onClick={handleCancel}>取消</Button>
+              <Button onClick={handleCancel}>取消</Button>
               <Button type="primary" onClick={handleConfirm}>确认</Button>
             </Space>
           </div>

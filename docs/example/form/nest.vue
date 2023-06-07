@@ -59,7 +59,7 @@ const submitForm = async () => {
           <bn-form-item prop="day" required>
             <bn-input style="width:100px;" v-model="form.day"></bn-input>
           </bn-form-item>
-          <span style="font-size:14px;color:var(--bn-text-default-color)">天呼叫次数低于</span>
+          <span style="font-size:14px;color:var(--bn-text-color)">天呼叫次数低于</span>
           <bn-form-item prop="count" required>
             <bn-input v-model="form.count"></bn-input>
           </bn-form-item>

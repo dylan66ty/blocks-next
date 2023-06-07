@@ -4,23 +4,25 @@ lang: zh-CN
 ---
 
 # 输入框 Input
+通过鼠标或键盘输入字符
 
 ## 基本使用
-::: demo  warning设置属性 **error**为 `true` 即可
+::: demo 
 input/basic
 :::
+
+
+## 卡片输入框
+::: demo 设置属性 **card**为 `true` 即可
+input/card
+:::
+
 
 
 ## 可清空
 ::: demo  使用`clearable`属性即可得到一个可清空的输入框
 input/clearable
 :::
-
-## 尺寸
-::: demo  设置属性 **size**为 `small` `normal` `large` 即可
-input/size
-:::
-
 
 
 ## 禁用
@@ -41,9 +43,14 @@ input/password
 input/icon
 :::
 
-## 节流 
-::: demo 设置属性 **throttle**为 `number（毫秒）` 即可 
-input/throttle
+## 过滤器
+::: demo 设置属性 **formatter**为 `Function` 即可 
+input/formatter
+:::
+
+## 尺寸
+::: demo  设置属性 **size**为 `small` `normal` `large` 即可
+input/size
 :::
 
 
@@ -68,7 +75,7 @@ input/auto-textarea
 |disabled|禁用|`boolean`|`false`|
 |prefix-icon|输入框头部图标|`string`|`-`|
 |suffix-icon|输入框尾部图标|`string`|`-`|
-|throttle|是否开启节流,默认关闭|`number: 毫秒`|`0`|
+|formatter|输入框过滤器|`(val:string) => string`|`-`|
 |autosize|自适应内容高度，只对 type="textarea" 有效，可传入对象，如，\{ minRows: 2, maxRows: 6 \}|`object` / `boolean`|`false`|
 |warning|边框和文字颜色danger|`boolean`|`false`|
 |autocomplete|原生属性，自动补全|`on` / `off`|`off`|

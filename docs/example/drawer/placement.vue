@@ -20,7 +20,7 @@ const handler = () => {
     <bn-radio label="bottom">Bottom</bn-radio>
     <bn-radio label="left">Left</bn-radio>
   </bn-radio-group>  
-  <bn-button style="margin-top:20px" @click="handler" size="small" fill-mode="outline">Open Drawer</bn-button>
+  <bn-button style="margin-top:20px" @click="handler" size="small" >Open Drawer</bn-button>
 
   <bn-drawer 
      v-model="visible" 

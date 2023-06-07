@@ -11,7 +11,7 @@ import {
 import { TableColumnData, tableColumnTypes } from '../types'
 
 import Trigger from '../../../trigger/src/trigger'
-import SorterPopup from './sorter-popup'
+import SorterPopup from './table-sorter-popup'
 
 import { getNamespace } from '../../../../utils/global-config'
 import { isFunction } from '../../../../utils/is'

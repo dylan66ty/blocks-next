@@ -80,7 +80,7 @@ const handler = (row) => {
   <div>
     <bn-table :columns="columns" :data="data">
       <template #ops="{row}">
-        <bn-button type="primary" size="small" @click="handler(row)">确认{{ row.time  }}</bn-button>
+        <bn-button type="primary" size="small" @click="handler(row)">{{ row.time  }}</bn-button>
       </template>
       <template #opsHeader>
         <bn-icon-setting :size="18"/>

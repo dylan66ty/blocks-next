@@ -147,7 +147,7 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
       return (<>
         <BnSpace size={12}>
           {
-            !options.hideCancel && (<BnButton fill-mode='outline' onClick={scoped.cancel} loading={scoped.loadingObj?.cancel}>{cancelText}</BnButton>)
+            !options.hideCancel && (<BnButton onClick={scoped.cancel} loading={scoped.loadingObj?.cancel}>{cancelText}</BnButton>)
           }
           <BnButton type="primary" onClick={scoped.ok} loading={scoped.loadingObj?.ok}>{okText}</BnButton>
         </BnSpace>

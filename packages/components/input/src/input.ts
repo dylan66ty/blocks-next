@@ -25,8 +25,9 @@ const nativeProps = {
 
 export const inputProps = {
   modelValue: [String, Number] as PropType<string | number>,
+  value: [String, Number] as PropType<string | number>,
   type: {
-    type: String as PropType<'text' | 'textarea' | string>,
+    type: String as PropType<'text' | 'textarea'>,
     default: 'text',
   },
   placeholder: String as PropType<string>,
@@ -42,10 +43,6 @@ export const inputProps = {
   suffixIcon: {
     type: String as PropType<string>,
     default: '',
-  },
-  throttle: {
-    type: Number as PropType<number>,
-    default: 0,
   },
   autosize: {
     type: [Object, Boolean] as PropType<{ minRows: number; maxRows: number } | boolean>,
@@ -63,6 +60,10 @@ export const inputProps = {
   clearable: {
     type:Boolean,
     default: false
+  },
+  card: {
+    type:Boolean,
+    default:false
   },
   // 原生input属性
   ...nativeProps,

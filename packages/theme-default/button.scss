@@ -1,324 +1,507 @@
-@import './common/rebot.scss';
 @import './mixins/bem.scss';
+@import './common/var.scss';
 
-.bn-btn {
-    --bn-btn-br: 0;
-    --bn-btn-bw: 1px;
-    --bn-btn-bs: solid;
-    --bn-btn-pd: 0px 16px;
-    --bn-btn-fs: var(--bn-gbtn-fs);
-    --bn-btn-h: var(--bn-gbtn-h);
-    --bn-btn-c: var(--bn-c);
-    --bn-btn-bc: var(--bn-bd-1-a15);
-    --bn-btn-bg: var(--bn-bg-a15);
-    --bn-btn-theme: var(--bn-c);
+@include b(button) {
+    --bn-button-width: auto;
+    --bn-button-height: 40px;
+    --bn-button-font-weight: 400;
+    --bn-button-font-size: 14px;
+    --bn-button-padding: 0 26px;
+    --bn-button-border-radius: 4px;
+    --bn-button-opacity: 1;
 
-    position: relative;
-    display: inline-block;
+
+    --bn-button-border-color: var(--bn-border-color);
+    --bn-button-background-color: var(--bn-background-color);
+    --bn-button-color: var(--bn-text-color);
+
+
+    --bn-button-mini-height: 24px;
+    --bn-button-mini-font-size: 12px;
+    --bn-button-mini-padding: 0 8px;
+    --bn-button-mini-border-radius: 4px;
+
+
+    --bn-button-small-height: 36px;
+    --bn-button-small-font-size: 14px;
+    --bn-button-small-padding: 0 13px;
+    --bn-button-small-border-radius: 4px;
+
+
+    --bn-button-large-height: 48px;
+    --bn-button-large-font-size: 14px;
+    --bn-button-large-padding: 0 16px;
+    --bn-button-large-border-radius: 6px;
+
+}
+
+
+
+@mixin button-type ($color,
+    $bgColor,
+    $borderColor,
+    $hoverColor,
+    $hoverBgColor,
+    $hoverBorderColor,
+    $activeColor,
+    $activeBgColor,
+    $activeBorderColor) {
+    --bn-button-background-color: #{$bgColor};
+    --bn-button-color: #{$color};
+    --bn-button-border-color: #{$borderColor};
+
+    &:not(.is-disabled):hover {
+        --bn-button-background-color: #{$hoverBgColor};
+        --bn-button-color: #{$hoverColor};
+        --bn-button-border-color: #{$hoverBorderColor};
+    }
+
+    &:not(.is-disabled):active {
+        --bn-button-background-color: #{$activeBgColor};
+        --bn-button-color: #{$activeColor};
+        --bn-button-border-color: #{$activeBorderColor};
+    }
+}
+
+
+
+@mixin get-button-type ($type) {
+    &.#{$namespace}-button--#{$type} {
+        @content
+    }
+}
+
+
+
+@include b(button) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     box-sizing: border-box;
     outline: none;
     margin: 0;
     line-height: 1;
-    text-align: center;
-    cursor: pointer;
     user-select: none;
     appearance: none;
-    flex: 0 0 auto;
-    //height: fit-content;
     white-space: nowrap;
-    font-family: inherit;
-    font-weight: 500;
-    transition: opacity 0.15s ease, color 0.15s ease, background-color 0.15s ease, border 0.15s ease;
-    background-clip: padding-box;
-    &:before {
-        content: '';
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    overflow: hidden;
+    position: relative;
+    transition:all 0.15s ease;
+
+
+    height: var(--bn-button-height);
+    width: var(--bn-button-width);
+    padding: var(--bn-button-padding);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--bn-button-border-color);
+    border-radius: var(--bn-button-border-radius);
+    background-color: var(--bn-button-background-color);
+    color: var(--bn-button-color);
+    font-size: var(--bn-button-font-size);
+    font-weight: var(--bn-button-font-weight);
+    opacity: var(--bn-button-opacity);
+
+
+    @include button-type(var(--bn-text-color),
+        #fff,
+        var(--bn-border-color),
+        var(--bn-text-color),
+        var(--bn-background-color),
+        var(--bn-border-color),
+        var(--bn-text-color),
+        var(--bn-background-color),
+        var(--bn-color-4));
+
+
+
+
+    @include when(disabled) {
+        --bn-button-opacity: 0.4;
+        cursor: not-allowed;
+
     }
-    &-mini {
-        --bn-btn-pd: 0px 7px;
-        --bn-btn-fs: var(--bn-gbtn-fs-xs, 13px);
-        --bn-btn-h: var(--bn-gbtn-h-mini, 26px);
-    }
-    &-small {
-        --bn-btn-pd: 0px 11px;
-        --bn-btn-fs: var(--bn-gbtn-fs-sm);
-        --bn-btn-h: var(--bn-gbtn-h-small);
-    }
-    &-large {
-        --bn-btn-pd: 0px 22px;
-        --bn-btn-fs: var(--bn-gbtn-fs-lg);
-        --bn-btn-h: var(--bn-gbtn-h-large);
-    }
-    &-pc {
-        &.bn-btn-mini {
-            --bn-btn-pd: 0px 10px;
-            --bn-btn-fs: 12px;
-            --bn-btn-h: 24px;
-        }
-        &.bn-btn-small {
-            --bn-btn-pd: 0px 12px;
-        }
-        &.bn-btn-large {
-            --bn-btn-pd: 0px 22px;
-        }
-    }
-    &-radius {
-        --bn-btn-br: 4px;
-    }
-    &.bn-btn-circle,
-    &.bn-btn-square {
-        --bn-btn-pd: 0 !important;
-        width: var(--bn-btn-h) !important;
-        height: var(--bn-btn-h) !important;
-    }
-    &-circle {
-        border-radius: 50% !important;
-    }
-    &-round {
-        border-radius: var(--bn-btn-h) !important;
-    }
-    &-normal {
-        --bn-btn-bc: var(--bn-bg-a1-reverse);
-        --bn-btn-bg: var(--bn-bg-a1-reverse);
-        --bn-btn-c: var(--bn-c-reverse);
-        --bn-btn-theme: var(--bn-c-reverse);
-        &:disabled {
-            opacity: 0.4;
-        }
-    }
-    &-primary {
-        --bn-btn-theme: var(--bn-primary);
-        --bn-btn-bg: var(--bn-primary);
-        --bn-btn-bc: var(--bn-primary);
-        --bn-btn-c: var(--bn-c-white);
-    }
-    &-success {
-        --bn-btn-theme: var(--bn-success);
-        --bn-btn-bg: var(--bn-success);
-        --bn-btn-bc: var(--bn-success);
-        --bn-btn-c: var(--bn-c-white);
-    }
-    &-warning {
-        --bn-btn-theme: var(--bn-warning);
-        --bn-btn-bg: var(--bn-warning);
-        --bn-btn-bc: var(--bn-warning);
-        --bn-btn-c: var(--bn-c-white);
-    }
-    &-strong {
-        --bn-btn-theme: var(--bn-strong);
-        --bn-btn-bg: var(--bn-strong);
-        --bn-btn-bc: var(--bn-strong);
-        --bn-btn-c: var(--bn-c-white);
-    }
-    &-mode {
-        --bn-btn-theme: var(--bn-mode);
-        --bn-btn-bg: var(--bn-mode);
-        --bn-btn-bc: var(--bn-mode);
-        --bn-btn-c: var(--bn-c-d1);
-    }
-    &-info {
-        --bn-btn-theme: var(--bn-info);
-        --bn-btn-bg: var(--bn-info);
-        --bn-btn-bc: var(--bn-info);
-        --bn-btn-c: var(--bn-c-white);
-    }
-    &-danger {
-        --bn-btn-theme: var(--bn-danger);
-        --bn-btn-bg: var(--bn-danger);
-        --bn-btn-bc: var(--bn-danger);
-        --bn-btn-c: var(--bn-c-white);
-    }
-    &-outline {
-        --bn-btn-c: var(--bn-btn-theme);
-        --bn-btn-bg: transparent;
-    }
-    &-dashed {
-        --bn-btn-c: var(--bn-btn-theme);
-        --bn-btn-bg: transparent;
-        border-style: dashed;
-    }
-    &-none {
-        --bn-btn-c: var(--bn-btn-theme);
-        --bn-btn-bg: transparent;
-        --bn-btn-bc: transparent;
-    }
-    &-reverse {
-        --bn-btn-c: var(--bn-btn-theme);
-        --bn-btn-bg: var(--bn-bg-a1-reverse);
-        --bn-btn-bc: var(--bn-bg-a1-reverse);
-    }
-    &-block {
+
+    @include when(block) {
         display: block;
         width: 100%;
     }
-    &-loading-mode-fill {
-        .loading-svg {
-            display: none !important;
-            &.show {
-                display: inline-block !important;
+
+    @include when(loading) {
+        --bn-button-opacity: 0.68;
+        // --bn-button-width: calc(100% + 10px)
+    }
+
+    @include when(mini) {
+        --bn-button-height: var(--bn-button-mini-height);
+        --bn-button-font-size: var(--bn-button-mini-font-size);
+        --bn-button-padding: var(--bn-button-mini-padding);
+        --bn-button-border-radius: var(--bn-button-mini-border-radius);
+    }
+
+    @include when(small) {
+        --bn-button-height: var(--bn-button-small-height);
+        --bn-button-font-size: var(--bn-button-small-font-size);
+        --bn-button-padding: var(--bn-button-small-padding);
+        --bn-button-border-radius: var(--bn-button-small-border-radius);
+    }
+
+    @include when(large) {
+        --bn-button-height: var(--bn-button-large-height);
+        --bn-button-font-size: var(--bn-button-large-font-size);
+        --bn-button-padding: var(--bn-button-large-padding);
+        --bn-button-border-radius: var(--bn-button-large-border-radius);
+    }
+
+    @include when(plain) {
+        --bn-button-font-weight: 500;
+
+        @include get-button-type(primary) {
+            @include button-type(var(--bn-primary),
+                var(--bn-primary-9),
+                var(--bn-primary),
+                #fff,
+                var(--bn-primary),
+                var(--bn-primary),
+                #fff,
+                var(--bn-primary-1),
+                var(--bn-primary-1));
+        }
+
+        @include get-button-type(success) {
+            &.#{$namespace}-button--success {
+                @include button-type(var(--bn-success),
+                    var(--bn-success-9),
+                    var(--bn-success),
+                    #fff,
+                    var(--bn-success),
+                    var(--bn-success),
+                    #fff,
+                    var(--bn-success-1),
+                    var(--bn-success));
             }
         }
-    }
-    &-loading-fill {
-        position: relative;
 
-        .bn-btn-slot {
-            opacity: 0;
+        @include get-button-type(warning) {
+            @include button-type(var(--bn-warning),
+                var(--bn-warning-9),
+                var(--bn-warning),
+                #fff,
+                var(--bn-warning),
+                var(--bn-warning),
+                #fff,
+                var(--bn-warning),
+                var(--bn-warning));
         }
 
-        .loading-svg.show {
+        @include get-button-type(strong) {
+            @include button-type(var(--bn-strong),
+                var(--bn-strong-9),
+                var(--bn-strong),
+                #fff,
+                var(--bn-strong),
+                var(--bn-strong),
+                #fff,
+                var(--bn-strong),
+                var(--bn-strong));
+        }
+
+        @include get-button-type(danger) {
+            @include button-type(var(--bn-danger),
+                var(--bn-danger-9),
+                var(--bn-danger),
+                #fff,
+                var(--bn-danger),
+                var(--bn-danger),
+                #fff,
+                var(--bn-danger-1),
+                var(--bn-danger-1))
+        }
+
+
+
+
+    }
+
+    @include when(round) {
+        --bn-button-padding: 0 38px;
+        --bn-button-border-radius: 24px;
+        height: var(--bn-button-height);
+    }
+
+    @include when(circle) {
+        --bn-button-padding: 0;
+        --bn-button-border-radius: 100%;
+        width: var(--bn-button-height);
+        height: var(--bn-button-height);
+    }
+
+    @include when(link) {
+        --bn-button-font-weight: 500;
+
+        border-color: transparent;
+        color: var(--bn-button-color);
+        background: transparent;
+        padding: 2px;
+        height: auto;
+
+        @include get-button-type(primary) {
+            @include button-type(var(--bn-primary),
+                var(--bn-primary),
+                var(--bn-primary),
+                var(--bn-primary-3),
+                var(--bn-primary-3),
+                var(--bn-primary-3),
+                var(--bn-primary-1),
+                var(--bn-primary-1),
+                var(--bn-primary-1));
+        }
+
+        @include get-button-type(success) {
+            @include button-type(var(--bn-success),
+                var(--bn-success),
+                var(--bn-success),
+                var(--bn-success),
+                var(--bn-success),
+                var(--bn-success),
+                var(--bn-success),
+                var(--bn-success),
+                var(--bn-success));
+        }
+
+        @include get-button-type(warning) {
+            @include button-type(var(--bn-warning),
+                var(--bn-warning),
+                var(--bn-warning),
+                var(--bn-warning),
+                var(--bn-warning),
+                var(--bn-warning),
+                var(--bn-warning),
+                var(--bn-warning),
+                var(--bn-warning));
+        }
+
+        @include get-button-type(strong) {
+            @include button-type(var(--bn-strong),
+                var(--bn-strong),
+                var(--bn-strong),
+                var(--bn-strong),
+                var(--bn-strong),
+                var(--bn-strong),
+                var(--bn-strong),
+                var(--bn-strong),
+                var(--bn-strong));
+        }
+
+        @include get-button-type(danger) {
+            @include button-type(var(--bn-danger),
+                var(--bn-danger),
+                var(--bn-danger),
+                var(--bn-danger-3),
+                var(--bn-danger-3),
+                var(--bn-danger-3),
+                var(--bn-danger-1),
+                var(--bn-danger-1),
+                var(--bn-danger-1));
+        }
+
+
+    }
+
+    @include when(hide-border) {
+        --bn-button-font-weight: 500;
+
+        @include get-button-type(primary) {
+            @include button-type(var(--bn-primary),
+                var(--bn-primary-9),
+                transparent,
+                var(--bn-primary),
+                var(--bn-primary-9),
+                var(--bn-primary-6),
+                var(--bn-primary),
+                var(--bn-primary-9),
+                var(--bn-primary-1));
+        }
+
+        @include get-button-type(danger) {
+            @include button-type(var(--bn-danger),
+                var(--bn-danger-9),
+                transparent,
+                var(--bn-danger),
+                var(--bn-danger-9),
+                var(--bn-danger-6),
+                var(--bn-danger),
+                var(--bn-danger-9),
+                var(--bn-danger-1));
+        }
+
+        @include get-button-type(success) {
+            @include button-type(var(--bn-success),
+                var(--bn-success-9),
+                transparent,
+                var(--bn-success),
+                var(--bn-success-9),
+                var(--bn-success-6),
+                var(--bn-success),
+                var(--bn-success-9),
+                var(--bn-success-1));
+        }
+
+        @include get-button-type(warning) {
+            @include button-type(var(--bn-warning),
+                var(--bn-warning-9),
+                transparent,
+                var(--bn-warning),
+                var(--bn-warning-9),
+                var(--bn-warning-6),
+                var(--bn-warning),
+                var(--bn-warning-9),
+                var(--bn-warning-1));
+        }
+
+
+        @include get-button-type(strong) {
+            @include button-type(var(--bn-strong),
+                var(--bn-strong-9),
+                transparent,
+                var(--bn-strong),
+                var(--bn-strong-9),
+                var(--bn-strong-6),
+                var(--bn-strong),
+                var(--bn-strong-9),
+                var(--bn-strong-1));
+        }
+
+
+    }
+
+    @include m(primary) {
+        @include button-type(#fff,
+            var(--bn-primary),
+            var(--bn-primary),
+            #fff,
+            var(--bn-primary-3),
+            var(--bn-primary-3),
+            #fff,
+            var(--bn-primary-1),
+            var(--bn-primary-1));
+    }
+
+    @include m(success) {
+        @include button-type(#fff,
+            var(--bn-success),
+            var(--bn-success),
+            #fff,
+            var(--bn-success),
+            var(--bn-success),
+            #fff,
+            var(--bn-success),
+            var(--bn-success));
+    }
+
+    @include m(danger) {
+        @include button-type(#fff,
+            var(--bn-danger),
+            var(--bn-danger),
+            #fff,
+            var(--bn-danger-3),
+            var(--bn-danger-3),
+            #fff,
+            var(--bn-danger-1),
+            var(--bn-danger-1));
+    }
+
+    @include m(strong) {
+        @include button-type(#fff,
+            var(--bn-strong),
+            var(--bn-strong),
+            #fff,
+            var(--bn-strong),
+            var(--bn-strong),
+            #fff,
+            var(--bn-strong),
+            var(--bn-strong));
+
+    }
+
+    @include m(warning) {
+        @include button-type(#fff,
+            var(--bn-warning),
+            var(--bn-warning),
+            #fff,
+            var(--bn-warning),
+            var(--bn-warning),
+            #fff,
+            var(--bn-warning),
+            var(--bn-warning));
+
+    }
+
+    @include m(card) {
+        --bn-button-height: 48px;
+        --bn-button-font-weight: 500;
+        --bn-button-padding: 0 34px;
+        box-shadow: 0px 2px 5px 0px rgba(36, 41, 52, 0.06);
+        @include button-type(var(--bn-color-3),
+            #fff,
+            transparent,
+            var(--bn-text-color),
+            #fff,
+            transparent,
+            var(--bn-text-color),
+            #fff,
+            var(--bn-border-color));
+
+        &.is-disabled {
+            --bn-button-opacity: 0.8;
+        }
+    }
+
+    @include e(loading) {
+        margin-left: 4px;
+        > .bn-icon-loading {
+        }
+        &.is-fill {
             position: absolute;
             top: 0;
             right: 0;
             bottom: 0;
             left: 0;
-            margin: auto !important;
-        }
-    }
-    &:after {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 100%;
-        height: 100%;
-        border: inherit;
-        border-color: var(--bn-bg-a1);
-        background-color: var(--bn-bg-a1);
-        background-clip: padding-box;
-        border-radius: inherit;
-        transform: translate(-50%, -50%);
-        opacity: 0;
-        content: ' ';
-        box-sizing: content-box;
-        transition: var(--bn-ts-ei);
-    }
-    &:active:after,
-    &-hover:hover:after {
-        opacity: 1;
-    }
-    &:disabled {
-        cursor: not-allowed !important;
-    }
-    &:not(.bn-btn-normal):disabled {
-        opacity: 0.4 !important;
-    }
-    &-normal:disabled {
-        --bn-btn-bg: var(--bn-bg-disabled) !important;
-        --bn-btn-bc: var(--bn-bg-disabled) !important;
-        --bn-btn-c: var(--bn-c-disabled) !important;
-    }
-    &:active,
-    &-hover {
-        z-index: 1;
-    }
-    &-flex {
-        display: flex;
-        align-items: center;
-        padding-right: 8px;
-        .bn-btn-slot {
-            flex: 1;
-        }
-    }
-    .bn-icon {
-        font-size: inherit;
-    }
-    .bn-icon,
-    .bn-btn-slot {
-        vertical-align: middle;
-    }
-    .bn-icon + .bn-btn-slot {
-        margin-left: var(--bn-6);
-    }
-    .bn-btn-slot + .bn-icon {
-        margin-left: var(--bn-pd-sm);
-    }
-
-    @keyframes loading-dash {
-        0% {
-            stroke-dasharray: 1, 125;
-            stroke-dashoffset: 0;
-        }
-
-        50% {
-            stroke-dasharray: 95, 31;
-            stroke-dashoffset: -31px;
-        }
-
-        to {
-            stroke-dasharray: 6, 120;
-            stroke-dashoffset: -120px;
+            background-color: var(--bn-button-background-color);
+            margin-left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bn-button-color);
         }
     }
 
-    @keyframes loading-rotate {
-        to {
-            transform: rotate(1turn);
-        }
-    }
-
-    .loading-svg {
-        animation: loading-rotate 1.5s infinite ease-in-out;
-        width: 0;
-        height: 0;
-        display: inline-block;
-        vertical-align: middle;
-        transition: all 0.15s ease;
-
-        &.show {
-            width: var(--bn-btn-fs);
-            height: var(--bn-btn-fs);
-            margin-left: 4px;
-        }
-
-        & > .path {
-            stroke: var(--bn-btn-c);
-            stroke-width: 5;
-            animation: loading-dash 1.5s infinite ease-in-out;
-        }
-
-        &.full {
-            position: absolute;
-        }
-
-        &.inline {
-            display: inline-block;
-            margin-left: 4px;
-        }
-    }
-
-    color: var(--bn-btn-c);
-    height: var(--bn-btn-h);
-    padding: var(--bn-btn-pd);
-    font-size: var(--bn-btn-fs);
-    border-width: var(--bn-btn-bw);
-    border-style: var(--bn-btn-bs);
-    border-color: var(--bn-btn-bc);
-    border-radius: var(--bn-btn-br);
-    background-color: var(--bn-btn-bg);
 }
 
-@include b(btn-group) {
+
+@include b(button-group) {
     display: flex;
-     &  > .#{$namespace}-btn {
-      &:first-child {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-      }
-    
-      &:last-child {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-left-color: hsla(0,0%,100%,.5);
-        margin-left: -1px;
-      }
-    
-      &:not(:first-child):not(:last-child) {
-        border-left-color: hsla(0,0%,100%,.5);
-        border-right-color: hsla(0,0%,100%,.5);
-        border-radius: 0;
-        margin-left: -1px;
-      }
+    width: min-content;
+    &>.#{$namespace}-button {
+        &:first-child {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &:last-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-left-color: hsla(0, 0%, 100%, .5);
+            margin-left: -1px;
+        }
+
+        &:not(:first-child):not(:last-child) {
+            border-left-color: hsla(0, 0%, 100%, .5);
+            border-right-color: hsla(0, 0%, 100%, .5);
+            border-radius: 0;
+            margin-left: -1px;
+        }
     }
-  }
+}

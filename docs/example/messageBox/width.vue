@@ -11,7 +11,7 @@
 
 <template>
  <bn-space>
-  <bn-button fill-mode="outline" size="small" @click="open">打开弹框</bn-button>
+  <bn-button  size="small" @click="open">打开弹框</bn-button>
  </bn-space>
 
 </template>

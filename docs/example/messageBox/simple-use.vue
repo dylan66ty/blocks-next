@@ -53,11 +53,11 @@ const strong = () => {
 
 <template>
   <bn-space>
-    <bn-button fill-mode="outline" size="small" @click="info">正常触发回调</bn-button>
-    <bn-button fill-mode="outline" size="small" type="success" @click="success">确认被拦截</bn-button>
-    <bn-button fill-mode="outline" size="small" type="danger" @click="error">取消被拦截</bn-button>
-    <bn-button fill-mode="outline" size="small" type="warning" @click="warning">拦截1000ms</bn-button>
-    <bn-button fill-mode="outline" size="small" type="strong" @click="strong">strong</bn-button>
+    <bn-button size="small" @click="info">正常触发回调</bn-button>
+    <bn-button size="small" type="success" @click="success">确认被拦截</bn-button>
+    <bn-button size="small" type="danger" @click="error">取消被拦截</bn-button>
+    <bn-button size="small" type="warning" @click="warning">拦截1000ms</bn-button>
+    <bn-button size="small" type="strong" @click="strong">strong</bn-button>
   </bn-space>
 </template>
 

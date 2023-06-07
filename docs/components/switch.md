@@ -6,9 +6,13 @@ lang: zh-CN
 # 开关 Switch
 
 ## 基础用法
-
 ::: demo 绑定 v-model 到一个 Boolean 类型的变量。 可以使用 activeColor 属性与 inactiveText 属性来设置开关的背景色
 switch/basic
+:::
+
+## 开关类型
+::: demo 开关分为 circle - 圆形（默认）、line - 线性2种类型,设置属性`type:line \ circle`即可
+switch/type
 :::
 
 ## 文字描述
@@ -17,11 +21,6 @@ switch/basic
 switch/label
 :::
 
-## 开关类型
-
-::: demo 开关分为 circle - 圆形（默认）、line - 线性2种类型,设置属性`type:line \ circle`即可
-switch/type
-:::
 
 ## 自定义开关的值
 

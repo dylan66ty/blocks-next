@@ -25,7 +25,7 @@
                 <BnSpace :size="12">
                   <BnButton type="primary" @click="handleOk" :loading="loadingObj.ok">{{ `${okText ? okText : '确认'}` }}
                   </BnButton>
-                  <BnButton fill-mode="outline" @click="handleCancel" :loading="loadingObj.cancel">{{ `${cancelText ?
+                  <BnButton @click="handleCancel" :loading="loadingObj.cancel">{{ `${cancelText ?
                     cancelText : '取消'}` }}</BnButton>
                 </BnSpace>
               </slot>

@@ -12,7 +12,7 @@ const handler = () => {
 
 <template>
     <bn-space>
-      <bn-button fillMode="outline" size="small" @click="handler">文字居中</bn-button>
+      <bn-button  size="small" @click="handler">文字居中</bn-button>
     </bn-space>
 </template>
 

@@ -18,8 +18,8 @@ const containerRef = ref(null)
     </div>
 
     <bn-space>
-      <bn-button style="margin-top:10px" size="small" fill-mode="outline" type="danger" @click="handler(false)">close</bn-button>
-      <bn-button style="margin-top:10px" size="small" fill-mode="outline" @click="handler(true)">open</bn-button>
+      <bn-button style="margin-top:10px" size="small"  type="danger" @click="handler(false)">close</bn-button>
+      <bn-button style="margin-top:10px" size="small"  @click="handler(true)">open</bn-button>
 
     </bn-space>
 
@@ -27,7 +27,7 @@ const containerRef = ref(null)
       <div>最美的相遇，不言过往；最好的离别，不问归期。</div>
       <template #footer>
         <bn-space>
-          <bn-button fill-mode="outline" @click="visible = false">取消</bn-button>
+          <bn-button  @click="visible = false">取消</bn-button>
           <bn-button type="primary" @click="visible = false">确认</bn-button>
         </bn-space>
       </template>

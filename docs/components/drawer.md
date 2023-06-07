@@ -15,7 +15,7 @@ drawer/basic
 drawer/placement
 :::
 
-## 回调函数
+## 关闭前拦截
 ::: demo 在点击确认和取消前可以做一些事。`onBeforeOk`拦截点击确认按钮，可返回`boolean`或`Promise<boolean>`，只有当返回值为`true`时，抽屉才会关闭。`onBeforeCancel`拦截点击取消按钮，同上。
 drawer/before
 :::

@@ -1,0 +1,230 @@
+
+import { PropType, computed, defineComponent, ref, Ref, watch, nextTick, CSSProperties, onMounted, onUnmounted } from 'vue'
+import { getComponentNamespace, getNamespace } from '../../../utils/global-config';
+import { TabPaneData, TabsType } from './types'
+import CaretIcon from '../../icon/src/base/caret.vue'
+import { useResizeObserver } from '../../../hooks/use-resize-observer';
+
+
+
+export default defineComponent({
+  name: getComponentNamespace('TabNavsLine'),
+  props: {
+    tabs: {
+      type: Array as PropType<TabPaneData[]>,
+      default: () => []
+    },
+    type: {
+      type: String as PropType<TabsType>
+    },
+    activeKey: {
+      type: [String, Number]
+    },
+    changeActiveKey: {
+      type: Function
+    },
+    animation: {
+      type: Boolean,
+    }
+  },
+  setup(props) {
+    const ns = getNamespace('tabs')
+    const navsCls = computed(() => [
+      `${ns}__navs`,
+      `is-${props.type}`,
+    ])
+    const itemCls = computed(() => [
+      `${ns}__navs-item`,
+      `is-${props.type}`,
+
+    ])
+    const navInkStyle = ref<CSSProperties>({})
+    const navsStyle = ref<CSSProperties>({})
+
+    const navItemRefs = ref<Record<string, HTMLElement>>({})
+    const wrapperRef = ref<HTMLElement>()
+    const viewportRef = ref<HTMLElement>()
+    const panesRef = ref<HTMLElement>()
+
+
+
+    const scrollWidth = ref<number>(0)
+    const wrapperWidth = ref<number>(0)
+    const viewportWidth = ref<number>(0)
+    const translateX = ref<number>(0)
+
+    const showSlideIcon = computed(() => scrollWidth.value > wrapperWidth.value)
+    const prevDisabled = computed(() => translateX.value <= 0)
+    const nextDisabled = computed(() => translateX.value >= scrollWidth.value - viewportWidth.value)
+
+
+    const updateSlideIconStatus = () => {
+      scrollWidth.value = panesRef.value?.scrollWidth!
+      wrapperWidth.value = wrapperRef.value?.getBoundingClientRect().width as number
+    }
+
+    const onResize = () => {
+      updateSlideIconStatus()
+      const viewportRect = getViewportRect()
+      viewportWidth.value = viewportRect?.width as number
+    }
+
+    const { createResizeObserver, destroyResizeObserver } = useResizeObserver({
+      elementRef: wrapperRef,
+      onResize
+    })
+
+    onMounted(() => createResizeObserver())
+    onUnmounted(() => destroyResizeObserver())
+
+    const getViewportRect = () => viewportRef.value?.getBoundingClientRect()
+
+
+    // 更新nav视口的偏移位置 文字放大导致位置不一致怎么解决。
+    const updateNavViewportPosition = () => {
+      const ele = navItemRefs.value[props.activeKey!]
+      if (!ele) return
+      const viewportRect = getViewportRect()
+      viewportWidth.value = viewportRect?.width as number
+      scrollWidth.value = panesRef.value?.scrollWidth!
+      const offsetLeft = ele.offsetLeft
+      const { width } = ele.getBoundingClientRect()
+      let _translateX = offsetLeft - viewportWidth.value / 2 + width / 2
+      if (_translateX < 0) {
+        _translateX = 0
+      }
+      if (_translateX > scrollWidth.value - viewportWidth.value) {
+        _translateX = scrollWidth.value - viewportWidth.value
+      }
+
+      translateX.value = _translateX
+    }
+
+    const handleSlide = (direction: 'prev' | 'next') => {
+      let x = 0
+      if (direction === 'next') {
+        x = translateX.value + viewportWidth.value
+      }
+      if (direction === 'prev') {
+        x = translateX.value - viewportWidth.value
+      }
+      if (x < 0) {
+        x = 0
+      }
+      if (x > scrollWidth.value - viewportWidth.value) {
+        x = scrollWidth.value - viewportWidth.value
+      }
+
+      translateX.value = x
+    }
+
+    // translateX
+    watch(() => translateX.value, (x: number) => {
+      navsStyle.value.transform = `translate(${-x}px,0)`
+    })
+
+    // 更新线的偏移位置
+    const updateNavInkPosition = (ele: HTMLElement) => {
+      if (!ele) return
+      const { width, height } = ele.getBoundingClientRect()
+      const offsetLeft = ele.offsetLeft
+      const offsetTop = ele.offsetTop
+
+      // 暂时只考虑水平
+      navInkStyle.value.left = offsetLeft + 'px'
+      navInkStyle.value.width = width + 'px'
+      navInkStyle.value.height = '1px'
+      navInkStyle.value.bottom = 0
+
+    }
+
+    const handleNavItem = (key: string | number) => {
+      props.changeActiveKey?.(key)
+    }
+
+    // const activeIndex = computed(() => props.tabs.findIndex(tab => tab.key === props.activeKey))
+
+    const handleMouseenter = (e: Event, key: string | number) => {
+      e.stopPropagation()
+      if (props.type === 'line') {
+        updateNavInkPosition(e.currentTarget as HTMLElement)
+      }
+    }
+
+    const handleMouseleave = (e: Event) => {
+      updateNavInkPosition(navItemRefs.value[props.activeKey!])
+    }
+
+    const showNavInk = computed(() => {
+      return ['line'].includes(props.type!)
+    })
+
+    watch(() => props.tabs, (newTabs) => {
+      if (newTabs.length === 0) return
+      nextTick(() => {
+        updateSlideIconStatus()
+        setTimeout(() => {
+          // 在下一帧更新偏移量
+          updateNavViewportPosition()
+          updateNavInkPosition(navItemRefs.value[props.activeKey!])
+        }, 16);
+      })
+    }, { immediate: true })
+
+
+    watch(() => props.activeKey, (activeKey: string | number) => {
+      nextTick(() => {
+        updateNavViewportPosition()
+        updateNavInkPosition(navItemRefs.value[activeKey])
+      })
+    })
+
+    return () => {
+      return (
+        <div class={[`${ns}__navs-wrapper`]} ref={wrapperRef} onMouseleave={handleMouseleave}>
+          {showSlideIcon.value && <CaretIcon
+            class={[`${ns}__icon-prev`, {
+              'is-disabled': prevDisabled.value
+            }]}
+            rotate={90}
+            // @ts-ignore
+            onClick={() => handleSlide('prev')}
+          />}
+          <div class={[`${ns}__navs-viewport`]} ref={viewportRef} >
+            <div class={navsCls.value} ref={panesRef} style={navsStyle.value}>
+              {props.tabs.map(item => (
+                <div
+                  class={[...itemCls.value,
+                  {
+                    'is-active': item.key === props.activeKey,
+                    'is-disabled': item.disabled
+                  }
+                  ]}
+                  key={`${props.type!}__${item.key}`}
+                  onClick={() => handleNavItem(item.key)}
+                  onMouseenter={(e) => handleMouseenter(e, item.key)}
+                  ref={(el: HTMLElement) => {
+                    navItemRefs.value[item.key] = el
+                  }}
+                >
+                  {item.paneSlots?.title ? item.paneSlots?.title() : item.title}
+                </div>
+              ))}
+
+              {showNavInk.value && (<div class={[`${ns}__nav-ink`]} style={navInkStyle.value}></div>)}
+            </div >
+          </div>
+          {showSlideIcon.value && <CaretIcon
+            class={[`${ns}__icon-next`, {
+              'is-disabled': nextDisabled.value
+            }]}
+            rotate={-90}
+            // @ts-ignore
+            onClick={() => handleSlide('next')}
+          />}
+        </div>
+      )
+    }
+
+  }
+})

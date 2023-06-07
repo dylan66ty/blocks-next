@@ -19,11 +19,16 @@ export * from './tooltip';
 export * from './drawer';
 export * from './table';
 export * from './empty';
+export * from './tabs';
+export * from './tab-pane'
+export * from './popconfirm'
+
 
 // methods
 export * from './message';
 export * from './message-box';
 export * from './notification';
+export * from './loading'
 
 
 export { default as Icon } from './icon';

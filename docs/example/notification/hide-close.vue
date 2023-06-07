@@ -16,7 +16,7 @@ const handler = () => {
 
 <template>
     <bn-space>
-      <bn-button fillMode="outline" size="small" @click="handler">隐藏关闭按钮</bn-button>
+      <bn-button  size="small" @click="handler">隐藏关闭按钮</bn-button>
     </bn-space>
 </template>
 

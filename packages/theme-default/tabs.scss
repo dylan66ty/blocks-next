@@ -1,0 +1,194 @@
+@import './mixins/bem.scss';
+@import './common/var.scss';
+
+@include b(tabs) {
+  --bn-tabs-active-color: var(--bn-primary);
+  --bn-tabs-line-color: var(--bn-text-color);
+  --bn-tabs-ink-background-color: var(--bn-primary);
+
+  --bn-tabs-button-color: #646B7A;
+  --bn-tabs-button-border-color: var(--bn-border-color);
+  --bn-tabs-button-active-background-color: rgba(0, 86, 255, 0.05);
+  --bn-tabs-button-active-border-color: rgba(0, 86, 255, 0.5);
+  --bn-tabs-button-hover-border-color: rgba(0, 86, 255, 0.5);
+
+  --bn-tabs-button-group-color: #9CA6B9;
+
+}
+
+@include b(tabs) {
+  width: 100%;
+  @include e(navs-wrapper) {
+    display: flex;
+  }
+
+  @include e(navs-viewport) {
+    overflow:hidden;
+    flex: 1;
+    height: 100%;
+  }
+
+  @include e(icon-prev) {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    cursor: pointer;
+    &.is-disabled {
+      color: var(--bn-color-3);
+      cursor: not-allowed;
+    }
+  }
+
+  @include e(icon-next) {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    cursor: pointer;
+    &.is-disabled {
+      color: var(--bn-color-3);
+      cursor: not-allowed;
+    }
+  }
+
+  @include e(navs) {
+    box-sizing: border-box;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    transition: transform 0.3s ease;
+
+    &.is-line {
+      box-sizing: border-box;
+      padding-bottom: 10px;
+    }
+
+    &.is-button-group {
+      .#{$namespace}-tabs__navs-item {
+        border-radius: 0;
+        &:last-child {
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+        }
+        &:first-child {
+          border-top-left-radius: 4px;
+          border-bottom-left-radius: 4px;
+        }
+      }
+
+    }
+  }
+
+  @include e(nav-ink) {
+    position: absolute;
+    background-color: var(--bn-tabs-ink-background-color);
+    transition: all 0.3s ease;
+  }
+
+  @include e(navs-item) {
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.3 ease;
+    user-select: none;
+
+    &.is-line {
+      color: var(--bn-tabs-line-color);
+      font-size: 16px;
+      line-height: 1;
+
+     & + & {
+      margin-left: 40px;
+     }
+
+      &.is-active {
+        color: var(--bn-tabs-active-color);
+        font-weight: 600;
+        // transform: scale(1.2);
+      }
+    }
+    
+    &.is-button {
+      box-sizing: border-box;
+      height: 28px;
+      line-height: 28px;
+      padding: 0 28px;
+      border-radius: 4px;
+      border: 1px solid #E1E4E8;
+      font-size: 14px;
+      color: var(--bn-tabs-button-color);
+      
+      & + & {
+        margin-left: 6px;
+       }
+
+
+      &.is-active {
+        color: var(--bn-tabs-active-color);
+        background-color: var(--bn-tabs-button-active-background-color);
+        border-color: var(--bn-tabs-button-active-border-color);
+        font-weight: 500;
+      }
+
+      &:not(.is-active):hover {
+        border-color: var(--bn-tabs-button-hover-border-color);
+      }
+    }
+
+
+    &.is-button-group {
+      box-sizing: border-box;
+      height: 28px;
+      line-height: 28px;
+      padding: 0 11px;
+      border-radius: 4px;
+      border: 1px solid var(--bn-tabs-button-border-color);
+      color: var(--bn-tabs-button-group-color);
+      font-size: 14px;
+      margin-left: -1px;
+      z-index: 0;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &.is-active {
+        color: #fff;
+        background-color: var(--bn-tabs-active-color);
+        border-color: var(--bn-tabs-active-color);
+      }
+
+
+      &:not(.is-active):hover {
+        border-color: var(--bn-tabs-active-color);
+        z-index: 1;
+      }
+
+    }
+
+  }
+
+  @include e(panes-viewport) {
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
+    padding-top: 10px;
+
+  }
+
+  @include e(panes) {
+    display: flex;
+    width: 100%;
+
+    &.is-animation {
+      transition: transform 0.3s ease;
+    }
+  }
+
+  @include e(pane) {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+}

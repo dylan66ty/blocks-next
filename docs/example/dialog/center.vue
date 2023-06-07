@@ -11,7 +11,7 @@ const openDialog = () => {
 
 <template>
   <div>
-    <bn-button fill-mode="outline" size="small" @click="openDialog">click open the dialog</bn-button>
+    <bn-button  size="small" @click="openDialog">click open the dialog</bn-button>
 
     <bn-dialog v-model="visible" minWidth="400px" minHeight="256px" center>
       <template #title>
@@ -25,7 +25,7 @@ const openDialog = () => {
 
       <template #footer>
         <bn-space>
-          <bn-button fill-mode="outline" @click="visible = false">取消</bn-button>
+          <bn-button  @click="visible = false">取消</bn-button>
           <bn-button type="primary" @click="visible = false">确认</bn-button>
         </bn-space>
       </template>

@@ -17,10 +17,10 @@ const handler = (position) => {
 
 <template>
     <bn-space>
-      <bn-button fillMode="outline" size="small" @click="handler('top-right')">Top Right</bn-button>
-      <bn-button fillMode="outline" size="small" @click="handler('top-left')">Top Left</bn-button>
-      <bn-button fillMode="outline" size="small" @click="handler('bottom-right')">Bottom Right</bn-button>
-      <bn-button fillMode="outline" size="small" @click="handler('bottom-left')">Bottom Left</bn-button>
+      <bn-button  size="small" @click="handler('top-right')">Top Right</bn-button>
+      <bn-button  size="small" @click="handler('top-left')">Top Left</bn-button>
+      <bn-button  size="small" @click="handler('bottom-right')">Bottom Right</bn-button>
+      <bn-button  size="small" @click="handler('bottom-left')">Bottom Left</bn-button>
     </bn-space>
 </template>
 

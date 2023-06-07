@@ -1,4 +1,5 @@
 @import './mixins/bem.scss';
+@import './common/var.scss';
 
 @include b(switch) {
   --bn-switch-font-size:14px;
@@ -12,10 +13,9 @@
   --bn-switch-line-radius: 10px;
   --bn-switch-block-gap: 2px;
 
-
   --bn-switch-transition-duration: 0.3s;
   --bn-switch-inactiveColor-color: #E1E4E8;
-  --bn-switch-active-color: var(--bn-primary);
+  --bn-switch-active-color: var(--bn-success);
   --bn-switch-block-size: 16px;
   --bn-switch-disabled-opacity: 0.6;
   --bn-switch-label-gap: 8px;

@@ -40,13 +40,14 @@ tooltip/disabled
 ## Attributes
 |参数名|描述|可选值|默认值|
 |---|---|---|:---:|
+|v-model|双向绑定。不设置会用内部默认状态|`boolean`|`false`|
 |effect|默认提供的主题|`dark`/`light`|`dark`|
 |disabled|是否禁用|`boolean`|`false`|
 |content|文字气泡内容|`string`|`-`|
 |position|弹出位置|`top` / `tl` / `tr` / `bottom` / `bl` / `br` / `left` / `lt` / `lb` / `right` / `rt` / `rb`|`tl`|
 |background-color|气泡的背景颜色|`string`|`rgba(0,0,0,.8)`|
 |renderTo|气泡渲染到哪个容器|`string` / `HTMLElement`|`body`|
-|v-model|状态是否可见|`boolean`|`false`|
+
 
 
 ## Slots

@@ -1,80 +1,48 @@
-
 :root {
-    --bn-c-top: #fff;
-    --bn-c-l3: #dddddd; //#D9D9D9;//rgb(0 0 0 /15%);border
-    --bn-c-l2: #bfbfbf; //rgb(0 0 0 /25%);disabled
-    --bn-c-l1: #8c8c8c; //rgb(0 0 0 /45%);secondary text
-    --bn-c: rgb(0 0 0 /65%); //primary text
-    --bn-c-d1: rgb(0 0 0 /85%); //title
-    --bn-c-d2: rgb(0 0 0 /100%);
-    --bn-c-reverse: rgb(0 0 0 /85%);
+    --bn-primary: rgba(0, 86, 255, 1);
+    --bn-success: rgba(46, 212, 169, 1);
+    --bn-danger: rgba(241, 37, 37, 1);
+    --bn-strong: rgba(255, 113, 37, 1);
+    --bn-warning: rgba(255, 196, 32, 1);
 
-    --bn-backdrop-alpha: rgba(255, 255, 255, 0.7);
-    --bn-backdrop-alpha-reverse: rgb(0 0 0 / 49%);
-    --bn-progress-bg: rgb(0 0 0 /4%);
-    --bn-slider-bg: rgb(0 0 0 /4%);
 
-    --bn-toast-bg: rgb(0 0 0 / 80%);
-    --bn-table-header-bg: rgb(0 0 0 / 2%);
-    --bn-bd-1: var(--bn-c-l4);
-    --bn-bd-2: rgb(0 0 0 /5%);
+    --bn-primary-1: rgba(0, 70, 208, 1);
+    --bn-primary-3: rgba(0, 77, 229, 1);
+    --bn-primary-6: rgba(0, 77, 229, 0.3);
+    --bn-primary-9: rgba(0, 86, 255, 0.05);
 
-    --bn-fm-switch-bg: rgb(0 0 0 /25%);
-    --bn-fm-switch-bc: #979797;
-    --bn-fm-switch-irbg: #fff;
-
-    //块 背景和边框
-    --bn-bg-a5-reverse: rgba(32, 32, 32, 0.4);
-    --bn-bg-a1-reverse: rgba(32, 32, 32, 0.08);
-    --bn-bg-a15: rgba(0, 0, 0, 0.15);
-    --bn-bg-a1: rgba(0, 0, 0, 0.05);
-
-    --bn-bg-1: #e8eaed;
-    --bn-bd-1: rgba(218, 218, 220, 0.6);
-
-    --bn-bg-2: #f7f8fa;
-    --bn-bg-4: #fff;
-    --bn-bg-hover-4: var(--bn-bg-a1-reverse);
-
-    --bn-bg-doc: #ededed;
-    --bn-bg-view: #ededed; //#1a1b1c;
-    --bn-block-bg: #ffffff;
-    --bn-mode: #ffffff;
-
-    --bn-mask-bg: rgba(16, 17, 22, 0.6);
-    --bn-modal-bg: #f7f8fa;
-    --bn-modal-shadow: 0 3px 12px rgb(0 0 0 / 10%);
-    --bn-modal-br: 12px;
-    --bn-bd: rgba(218, 218, 220, 0.6);
-
-    --bn-input-bg: #ffffff;
-    --bn-input-bc: #e1e4e8;
-    --bn-bg-disabled: #e1e4e8;
-    --bn-bd-disabled: #e1e4e8; //#262626;
-    --bn-c-disabled: rgb(0 0 0 /25%);
-
-    --bn-aside-bg: var(--bn-bg-2);
-    --bn-topbar-bg: #ffffff;
-    --bn-card-bg: var(--bn-block-bg);
-    --bn-panel-bg: var(--bn-block-bg);
-    --bn-dt-bg: #fff;
-    --bn-menu-bg: var(--bn-primary-a1);
-
-    --bn-tooltip-bg: rgb(0 0 0 /85%);
-    --bn-tooltip-c: var(--bn-c-top);
-    --bn-popover-bg: #fff;
-    --bn-popover-bg-hover: var(--bn-bg-a1-reverse);
-    --bn-shadow-popover: 0 3px 6px rgb(0 0 0 / 25%);
-    --bn-notify-bg: var(--bn-bg-4);
-    --bn-msg-bg: var(--bn-bg-4);
-    --bn-loading-bg: var(--bn-bg-4);
-
+    --bn-success-1:rgba(24, 192, 148, 1);
+    --bn-success-9: rgba(46, 212, 169, 0.05);
     
-    
+    --bn-danger-1: rgba(191, 23, 23, 1);
+    --bn-danger-3: rgba(216, 33, 33, 1);
+    --bn-dander-6: rgba(191, 23, 23, 0.3);
+    --bn-danger-9: rgba(241, 37, 37, 0.05);
 
+
+    --bn-strong-9: rgba(255, 113, 37, 0.05);
+
+    --bn-warning-9: rgba(255, 196, 32, 0.05);
+
+
+
+
+    --bn-color-1: rgba(36, 41, 52, 1);
+    --bn-color-2: rgba(100, 107, 122, 1);
+    --bn-color-3: rgba(156, 166, 185, 1);
+    --bn-color-4: rgba(188, 196, 214, 1);
+    --bn-color-5: rgba(225, 228, 232, 1);
+    --bn-color-6: rgba(237, 241, 246, 1);
+    --bn-color-7: rgba(245, 247, 251, 1);
+    
 
     // base
-    --bn-text-default-color: rgb(0 0 0 /65%);
+    --bn-font-size: 14px;
+    --bn-text-color: var(--bn-color-2);
+    --bn-border-color: var(--bn-color-5);
+    --bn-split-color: var(--bn-color-6);
+    --bn-background-color: var(--bn-color-7);
 
-     
+
+
 }

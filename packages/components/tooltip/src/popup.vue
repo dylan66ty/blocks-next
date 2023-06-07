@@ -1,6 +1,6 @@
 <template>
   <transition  name="bn-fade-in" @before-leave="$emit('close')" @after-leave="$emit('destroy')">
-    <div :style="contentStyle" :class="contentCls" v-show="visible">
+    <div :class="contentCls" :style="contentStyle" v-show="visible">
       <Scrollbar style="max-height: 140px" :class="[`${ns}__content`]">
         <slot name="content">
           <slot name="content">{{ content }}</slot>
@@ -13,18 +13,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted, onUnmounted, nextTick} from 'vue'
-import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
+import { defineComponent, computed, ref, onMounted, onUnmounted} from 'vue'
+import { getNamespace } from '../../../utils/global-config'
 import type { StyleValue } from 'vue'
 import Scrollbar from '../../scrollbar/src/scrollbar.vue'
 
 export default defineComponent({
-  name: getComponentNamespace('TooltipPopup'),
+  name: 'TooltipPopup',
   props: {
     content: String,
     effect: String,
     backgroundColor: String,
-    position: String
+    position: String,
+    popupClass: String
   },
   components: {
     Scrollbar
@@ -35,7 +36,8 @@ export default defineComponent({
     const contentCls = computed(() => [
       ns,
       `is-${props.effect}`,
-      getNamespace('trigger-popup')
+      getNamespace('trigger-popup'),
+      props.popupClass && props.popupClass
     ])
     const arrowStyle = computed(() => {
       const style: StyleValue = {}

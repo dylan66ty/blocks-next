@@ -15,8 +15,8 @@ const handler2 = () => {
 
 <template>
   <bn-space>
-    <bn-button @click="handler1" size="small" fill-mode="outline">默认插槽</bn-button>
-    <bn-button @click="handler2" size="small" fill-mode="outline">其他插槽</bn-button>
+    <bn-button @click="handler1" size="small" >默认插槽</bn-button>
+    <bn-button @click="handler2" size="small" >其他插槽</bn-button>
 
   </bn-space>
 
@@ -39,7 +39,7 @@ const handler2 = () => {
     <template #footer="{ok,cancel,loadingObj}">
      <bn-space>
       <bn-button @click="ok" :loading="loadingObj.ok" type="success">OK</bn-button>
-      <bn-button @click="cancel" fill-mode="outline" type="danger" :loading="loadingObj.cancel">Cancel</bn-button>
+      <bn-button @click="cancel"  type="danger" :loading="loadingObj.cancel">Cancel</bn-button>
      </bn-space>
     </template>
   </bn-drawer>

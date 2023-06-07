@@ -39,7 +39,7 @@ const onBeforeCancel = () => {
       <div>3、API增加话单状态推送接口</div>
       <template #footer>
         <bn-space>
-          <bn-button fill-mode="outline" @click="visible = false">取消</bn-button>
+          <bn-button  @click="visible = false">取消</bn-button>
           <bn-button type="primary">确认</bn-button>
         </bn-space>
       </template>

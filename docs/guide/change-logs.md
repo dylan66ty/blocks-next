@@ -1,3 +1,21 @@
+## 1.0.1-alpha.22
+- Components [Popconfirm] (feat) Popconfirm组件
+- Components [Loading] (feat) loading加载。指令形式和全局单列模式。
+- Components [Input] (feat) 样式调整。新增card类型input。
+
+
+## 1.0.1-alpha.21
+- Components [Tabs] (feat) tabs组件 
+- Components [Button] (refactor) 新增type类型card。新增link属性。新增border属性。删除其余一些属性，变动比较大，详情请看文档。
+
+
+## 1.0.1-alpha.20
+- Components [Table] (fix) 表格数据为空，不显示滚动条
+
+
+## 1.0.1-alpha.19
+- Components [Table] (feat) 流式高度
+
 ## 1.0.1-alpha.18
 - Components [Table] (feat) 表格可支持排序
 - Components [Table] (feat) loading加载状态
