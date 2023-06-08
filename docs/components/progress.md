@@ -52,7 +52,6 @@ progress/trackColor
 
 
 ## Attributes
-
 |参数名|描述|可选值|默认值|
 |---|---|---|:---:|
 |type|进度条的类型| `line` / `circle`|`line`|
@@ -62,8 +61,12 @@ progress/trackColor
 |width|进度条的长度,注意环形进度条只能传number类型|`number` / `string`|`-`|
 |color|进度条的颜色，当color为函数时候，必须返回一个string颜色|`string`/ `(percent:number) => string`|`-`|
 |track-color|进度条的轨道颜色|`string`|`-`|
-|show-text|是否显示文字|`boolean`|`true`|
+|show-text|是否显示进度条尾部文字|`boolean`|`true`|
 |status|进度条状态|`primary` / `success` / `warning` / `danger`|`primary`|
 |formatText|文字格式化函数|`(percent:number) => string`|`-`|
 
+## Slots
+|name|描述|scoped|
+|---|---|---|
+|text|进度条尾部文字|`percent`|
 
