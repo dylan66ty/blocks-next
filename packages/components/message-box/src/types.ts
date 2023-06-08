@@ -30,6 +30,7 @@ export interface MessageBoxOptions {
   center?: boolean;
   renderTo?: string | HTMLElement;
   hideCancel?: boolean,
+  hideOk?: boolean,
   popupClass?: string 
 }
 

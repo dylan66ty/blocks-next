@@ -22,6 +22,8 @@ declare module '@vue/runtime-core' {
     BnTable:typeof import('blocks-next')['Table'];
     BnTabs:typeof import('blocks-next')['Tabs'];
     BnTabPane:typeof import('blocks-next')['TabPane'];
+    BnEmpty:typeof import('blocks-next')['Empty'];
+
 
 
 

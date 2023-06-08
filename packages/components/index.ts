@@ -20,9 +20,9 @@ export * from './drawer';
 export * from './table';
 export * from './empty';
 export * from './tabs';
-export * from './tab-pane'
-export * from './popconfirm'
-
+export * from './tab-pane';
+export * from './popconfirm';
+export * from './progress';
 
 // methods
 export * from './message';

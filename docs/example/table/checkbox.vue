@@ -73,9 +73,7 @@ const onSelectionChange = (selection) => {
 </script>
 
 <template>
-  <div>
-    <bn-table :columns="columns" :data="data" v-model:selection="selection" @selection-change="onSelectionChange"></bn-table>
-  </div>
+   <bn-table :columns="columns" :data="data" v-model:selection="selection" @selection-change="onSelectionChange"></bn-table>
 </template>
 
 <style lang="scss"></style>

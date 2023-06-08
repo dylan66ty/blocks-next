@@ -9,7 +9,7 @@ import {
   onUnmounted,
   onMounted
 } from 'vue'
-import type { RenderFunction, VNode, CSSProperties } from 'vue'
+import type { VNode, CSSProperties } from 'vue'
 
 import { getComponentNamespace } from '../../../utils/global-config'
 import { mergeFirstChild, getFirstElement } from '../../../utils/vue-utils'
@@ -35,11 +35,6 @@ export default defineComponent({
     const visible = computed(() => {
       return props.modelValue ?? innerVisible.value
     })
-
-    const popupSlot: Record<string, RenderFunction> = {}
-    if (slots.content) {
-      popupSlot.content = slots.content
-    }
 
     let defaultSlot: VNode[] = slots.default?.() ?? []
     let timer = 0
@@ -122,7 +117,9 @@ export default defineComponent({
           destroyTooltip()
         }
       },
-        Object.keys(popupSlot).length ? popupSlot : null
+        {
+          content: slots.content ?? null
+        }
       )
       render(vm, container)
       // 必须等待popup组件创建完毕后才能放入容器中。

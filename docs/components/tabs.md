@@ -4,6 +4,7 @@ lang: zh-CN
 ---
 
 # 标签页 Tabs
+将内容组织同一视图中，一次可查看一个视图内容，查看其他内容可切换选项卡查看。
 
 ## 基本使用
 ::: demo 标签页的基本使用方法。双向绑定设置 `v-model:activeKey`即可。
@@ -36,8 +37,8 @@ tabs/panes
 |---|---|---|:---:|
 |v-model:activeKey|当前选中的标签的 key|`string`/ `number`|`-`|
 |type|选项卡的类型| `line` / `button` / `button-group`|`line`|
-|destroyOnHide|是否在不显示标签时销毁内容|`boolean`|`-`|
-|animation|选项卡切换时是否开启动画|`boolean`|`false`|
+|destroyOnHide|是否在不显示标签时销毁看板内容|`boolean`|`-`|
+|animation|选项卡切换时看板是否开启动画|`boolean`|`true`|
 |hidePanes|是否隐藏看板|`boolean`|`true`|
 
 ## TabPane  Attributes

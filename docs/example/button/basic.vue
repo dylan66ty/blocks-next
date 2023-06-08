@@ -22,7 +22,6 @@
       <bn-button type="danger" plain>危险</bn-button>
     </bn-space>
 
-
   </bn-space>
 </template>
 

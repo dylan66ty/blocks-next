@@ -35,7 +35,7 @@ import { getComponentNamespace, getNamespace } from '../../../utils/global-confi
 import { dialogProps } from './dialog'
 import type { StyleValue } from 'vue'
 import { addUnit } from '../../../shared/utils'
-import { isFunction, isNumber, isPromise } from '../../../utils/is'
+import { isFunction, isPromise } from '../../../utils/is'
 import usePopupManager from '../../../hooks/use-popup-manager'
 import { useOverflow } from '../../../hooks/use-overflow'
 import { KEYBOARD_KEY } from '../../../utils/keyboard'

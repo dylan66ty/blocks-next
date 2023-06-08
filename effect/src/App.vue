@@ -23,10 +23,15 @@
   import PopConfirm from './components/popconfirm.vue'
 
   import Loading from './components/Loading.vue'
+  import Tabs from './components/Tabs.vue'
+
+  import Progress from './components/Progress.vue'
+
+
 </script>
 
 <template>
-  <Loading />
+  <Progress />
 </template>
 
 <style></style>

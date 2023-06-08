@@ -4,6 +4,7 @@ lang: zh-CN
 ---
 
 # 按钮 Button
+按钮是一种命令组件，可发起一个即时操作。
 
 ## 基本使用
 
@@ -70,7 +71,7 @@ button/group
 |---|---|---|:---:|
 |type|类型| `primary` / `success` / `danger` / `warning` / `strong` / `card` |`-`|
 |size|大小|`mini` / `small` / `normal` / `large`   | `normal` |
-|shape|按钮形状|`circle` | `round`|`-`|
+|shape|按钮形状|`circle` / `round`|`-`|
 |link|是否文字按钮|`boolean`|`false`|
 |plain|是否为朴素按钮|`boolean`|`false`|
 |border|按钮是否添加边框|`boolean`|`true`|

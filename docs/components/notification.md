@@ -4,6 +4,7 @@ lang: zh-CN
 ---
 
 # 通知 Notification
+全局展示通知提醒，将信息及时有效的传达给用户。
 
 ## 基本使用
 ::: demo 设置参数`duration`为0则不会自动关闭。默认`duration`为3s，倒计时结束后自动关闭。

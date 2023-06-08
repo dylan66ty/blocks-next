@@ -4,6 +4,7 @@ lang: zh-CN
 ---
 
 # 开关 Switch
+互斥性的操作控件，用户可打开或关闭某个功能。
 
 ## 基础用法
 ::: demo 绑定 v-model 到一个 Boolean 类型的变量。 可以使用 activeColor 属性与 inactiveText 属性来设置开关的背景色

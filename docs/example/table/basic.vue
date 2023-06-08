@@ -34,7 +34,7 @@ const data = ref([
     callCounter: 10000,
     callOn: 10000,
     callRate: '100%',
-    key:1,
+    key: 1,
   },
   {
     time: '2023-05-26',
@@ -42,7 +42,7 @@ const data = ref([
     callCounter: 10000,
     callOn: 10000,
     callRate: '100%',
-    key:2,
+    key: 2,
 
   },
   {
@@ -51,7 +51,7 @@ const data = ref([
     callCounter: 10000,
     callOn: 10000,
     callRate: '100%',
-    key:3,
+    key: 3,
   },
   {
     time: '2023-05-28',
@@ -59,7 +59,7 @@ const data = ref([
     callCounter: 10000,
     callOn: 10000,
     callRate: '100%',
-    key:4
+    key: 4
   },
   {
     time: '2023-05-29',
@@ -67,17 +67,17 @@ const data = ref([
     callCounter: 10000,
     callOn: 10000,
     callRate: '100%',
-    key:5
+    key: 5
   }
 ])
 
 const pageConfig = ref({
-    page:1,
-    pageSize:10,
-    total: 50,
+  page: 1,
+  pageSize: 10,
+  total: 50,
 })
 
-const sizes = [10,20]
+const sizes = [10, 20]
 
 
 
@@ -85,14 +85,11 @@ const sizes = [10,20]
 </script>
 
 <template>
-  <div>
-    <bn-table :columns="columns" :data="data">
-      <template #footer>
-        <bn-pagination :page-config="pageConfig" :page-sizes="sizes"
-          layout="prev, pager, next,sizes"></bn-pagination>
-      </template>
-    </bn-table>
-  </div>
+  <bn-table :columns="columns" :data="data">
+    <template #footer>
+      <bn-pagination :page-config="pageConfig" :page-sizes="sizes" layout="prev, pager, next,sizes"></bn-pagination>
+    </template>
+  </bn-table>
 </template>
 
 <style lang="scss"></style>

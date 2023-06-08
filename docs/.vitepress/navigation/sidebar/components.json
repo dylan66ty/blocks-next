@@ -80,12 +80,20 @@
         {
           "text": "加载 Loading",
           "link": "loading"
+        },
+        {
+          "text": "进度条 Progress",
+          "link": "progress"
         }
       ]
     },
     {
       "text": "数据 Data",
       "items": [
+        {
+          "text": "空状态 Empty",
+          "link": "empty"
+        },
         {
           "text": "表格 Table",
           "link": "table"

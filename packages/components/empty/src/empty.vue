@@ -58,7 +58,7 @@ export default defineComponent({
     },
     description: {
       type: [String, Number],
-      default: '暂无产品'
+      default: '暂无数据'
     }
   },
   setup(props) {
@@ -68,10 +68,7 @@ export default defineComponent({
     ])
 
     const imageStyle = computed(() => {
-      const style: StyleValue = {
-        width: '244px',
-        height: '120px',
-      }
+      const style: StyleValue = {}
       const iconSize = props.iconSize
       if(isArray(iconSize)) {
         const w = addUnit(iconSize[0] as number)

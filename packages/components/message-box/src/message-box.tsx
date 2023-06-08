@@ -136,22 +136,22 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
   }
 
   const defaultFooter = () => {
-    if(isVNode(options.footer)) return options.footer
-    if (isFunction(options.footer) ) {
+    if (isVNode(options.footer)) return options.footer
+    if (isFunction(options.footer)) {
       return options.footer
     }
 
     const cancelText = options?.cancelText || '取消'
     const okText = options?.okText || '确认'
     return (scoped: MessageBoxFooterScoped) => {
-      return (<>
-        <BnSpace size={12}>
-          {
-            !options.hideCancel && (<BnButton onClick={scoped.cancel} loading={scoped.loadingObj?.cancel}>{cancelText}</BnButton>)
-          }
-          <BnButton type="primary" onClick={scoped.ok} loading={scoped.loadingObj?.ok}>{okText}</BnButton>
-        </BnSpace>
-      </>)
+      return (<BnSpace size={12}>
+        {
+          !options.hideCancel && (<BnButton onClick={scoped.cancel} loading={scoped.loadingObj?.cancel}>{cancelText}</BnButton>)
+        }
+        {
+          !options.hideOk && (<BnButton type="primary" onClick={scoped.ok} loading={scoped.loadingObj?.ok}>{okText}</BnButton>)
+        }
+      </BnSpace>)
     }
   }
 
@@ -202,7 +202,7 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     renderTo.appendChild(target)
   })
 
-  
+
 
 
 }
@@ -230,7 +230,7 @@ const registerAllMethods = () => {
             cancelFnArr.forEach(fn => isFunction(fn) && fn())
           }
         })
-      },0)
+      }, 0)
       return {
         ok(...args: MessageBoxChainArgs) {
           if (args.length === 1) {

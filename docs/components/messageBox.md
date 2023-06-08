@@ -4,6 +4,7 @@ lang: zh-CN
 ---
 
 # 弹框 MessageBox
+模拟系统的消息提示框而实现的一套模态对话框组件，用于消息提示、确认消息和提交内容。
 
 ## 基本用法
 ::: demo  MessageBox直接调用即可,type类型有`info`/`success`/`warning`/`strong`/`error`
@@ -47,6 +48,7 @@ messageBox/custom-container
 |okText|弹框确认按钮文本|`string`|`确认`|
 |cancelText|弹框取消按钮文本|`string`|`取消`|
 |hideCancel|是否隐藏删除按钮|`boolean` |`false`|
+|hideOk|是否隐确认除按钮|`boolean` |`false`|
 |mask|是否显示遮罩层|`boolean`|`true`|
 |maskToClose|是否点击遮罩层关闭|`boolean`|`true`|
 |center|是否居中显示|`boolean`|`true`|

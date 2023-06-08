@@ -23,7 +23,8 @@ import { Empty } from './components/empty';
 import { Tabs } from './components/tabs';
 import { TabPane } from './components/tab-pane';
 import { Popconfirm } from './components/popconfirm';
-import {Loading} from './components/loading'
+import {Loading} from './components/loading';
+import { Progress } from './components/progress'
 
 
 // plugin 
@@ -55,7 +56,8 @@ const components = [
   Empty,
   Tabs,
   TabPane,
-  Popconfirm
+  Popconfirm,
+  Progress
 ] as Plugin[];
 
 const plugins = [

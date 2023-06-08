@@ -96,10 +96,10 @@ export default defineComponent({
       const option = cachedOptionsArray.value.find((option) => option.currentValue === value);
       if (option) return option;
     };
-    
+
     const handleClearSelectLabel = () => {
-        emit('update:modelValue','')
-        emit('change','')
+      emit('update:modelValue', '')
+      emit('change', '')
     }
 
     const setSelected = () => {
@@ -160,8 +160,10 @@ export default defineComponent({
     };
 
     const handleOptionSelect = (vm: SelectOptionProxy, byClick: boolean) => {
-      emit('update:modelValue', vm.currentValue);
-      emit('change', vm.currentValue);
+      if (vm.currentValue !== props.modelValue) {
+        emit('update:modelValue', vm.currentValue);
+        emit('change', vm.currentValue);
+      }
 
       nextTick(() => {
         // 激活input

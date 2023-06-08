@@ -43,7 +43,7 @@ import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, reacti
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import { drawerProps } from './drawer'
 import { upperFirstChar } from '../../../shared/utils'
-import { isFunction, isNumber, isPromise } from '../../../utils/is'
+import { isFunction, isPromise } from '../../../utils/is'
 import { useOverflow } from '../../../hooks/use-overflow'
 import BnButton from '../../../components/button/src/button.vue'
 import BnSpace from '../../../components/space/src/space.vue'
@@ -100,9 +100,11 @@ export default defineComponent({
 
     const drawerStyle = computed(() => {
       const style: StyleValue = {
-        zIndex: zIndex.value
+        zIndex: zIndex.value,
+        position: 'fixed'
       }
-      if (!isRenderToBody.value) {
+      // 不是渲染到body上需要修改定位方式
+      if (!isRenderToBody.value && teleportContainer.value) {
         style.position = 'absolute'
         teleportContainer.value!.style.position = 'relative'
       }

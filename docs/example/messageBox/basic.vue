@@ -65,7 +65,8 @@ const warning = () => {
 const error = () => {
   MessageBox({
     title: '这是一条错误信息',
-    type: 'error'
+    type: 'error',
+    hideOk: true,
   })
 }
 

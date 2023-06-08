@@ -3,7 +3,7 @@ import { getComponentNamespace, getNamespace } from '../../../utils/global-confi
 import { tabsProps } from './tabs-props'
 import { tabsInjectionKey } from './context'
 import { isUndefined, isArray } from '../../../utils/is'
-import { isComponent} from '../../../utils/vue-utils'
+import { isComponent } from '../../../utils/vue-utils'
 import { TabPaneData } from './types'
 
 
@@ -19,8 +19,8 @@ export default defineComponent({
 
     const _activeKey = ref()
 
-    const vnodes = {
-      panes: [] as VNode[]
+    const vnodes: Record<string, VNode[]> = {
+      panes: [],
     }
     const panesMap = new Map()
 
@@ -108,13 +108,13 @@ export default defineComponent({
       }
 
       return (
-         <TabNavs
-         tabs={renderTabsNavsData.value}
-         type={props.type}
-         activeKey={computedActiveKey.value}
-         changeActiveKey={handleChangeActiveKey}
-         animation={props.animation}
-       />
+        <TabNavs
+          tabs={renderTabsNavsData.value}
+          type={props.type}
+          activeKey={computedActiveKey.value}
+          changeActiveKey={handleChangeActiveKey}
+          animation={props.animation}
+        />
       )
     }
 

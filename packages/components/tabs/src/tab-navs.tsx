@@ -1,9 +1,10 @@
 
-import { PropType, computed, defineComponent, ref, Ref, watch, nextTick, CSSProperties, onMounted, onUnmounted } from 'vue'
+import { PropType, computed, defineComponent, ref, watch, nextTick, CSSProperties, onMounted, onUnmounted } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config';
 import { TabPaneData, TabsType } from './types'
 import CaretIcon from '../../icon/src/base/caret.vue'
 import { useResizeObserver } from '../../../hooks/use-resize-observer';
+
 
 
 
@@ -53,39 +54,44 @@ export default defineComponent({
     const viewportWidth = ref<number>(0)
     const translateX = ref<number>(0)
 
-    const showSlideIcon = computed(() => scrollWidth.value > wrapperWidth.value)
+    const showSlideIcon = computed(() => {
+      // 注意像素小数点偏差
+      return Math.ceil(scrollWidth.value) > Math.ceil(wrapperWidth.value)
+    })
     const prevDisabled = computed(() => translateX.value <= 0)
     const nextDisabled = computed(() => translateX.value >= scrollWidth.value - viewportWidth.value)
 
 
     const updateSlideIconStatus = () => {
-      scrollWidth.value = panesRef.value?.scrollWidth!
+      scrollWidth.value = panesRef.value?.scrollWidth as number
       wrapperWidth.value = wrapperRef.value?.getBoundingClientRect().width as number
     }
 
     const onResize = () => {
       updateSlideIconStatus()
-      const viewportRect = getViewportRect()
-      viewportWidth.value = viewportRect?.width as number
+      updateNavViewportPosition()
     }
 
     const { createResizeObserver, destroyResizeObserver } = useResizeObserver({
-      elementRef: wrapperRef,
+      elementRef: ref(document.body),
       onResize
     })
 
     onMounted(() => createResizeObserver())
     onUnmounted(() => destroyResizeObserver())
 
-    const getViewportRect = () => viewportRef.value?.getBoundingClientRect()
+    const getViewportRect = (key: keyof DOMRect | undefined) => {
+      const rect = viewportRef.value?.getBoundingClientRect()
+      if(!key) return rect
+      return rect && rect[key] as number
+    }
 
 
-    // 更新nav视口的偏移位置 文字放大导致位置不一致怎么解决。
+    // 更新nav视口的偏移位置
     const updateNavViewportPosition = () => {
       const ele = navItemRefs.value[props.activeKey!]
       if (!ele) return
-      const viewportRect = getViewportRect()
-      viewportWidth.value = viewportRect?.width as number
+      viewportWidth.value = getViewportRect('width') as number
       scrollWidth.value = panesRef.value?.scrollWidth!
       const offsetLeft = ele.offsetLeft
       const { width } = ele.getBoundingClientRect()
