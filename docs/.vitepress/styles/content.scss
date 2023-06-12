@@ -1,0 +1,133 @@
+@use './mixins.scss' as *;
+@use './css-var.scss' as *;
+
+
+.main-wrapper {
+  outline: none;
+
+  @include respond-to('lg') {
+    padding-top: var(--nav-height);
+
+    &.has-sidebar {
+      padding-left: calc(var(--sidebar-width) + 10px);
+
+      @include respond-to('xlg') {
+        padding-left: calc(var(--sidebar-width) - 10px);
+      }
+
+      @include respond-to('xxl') {
+        padding-left: calc((100% - var(--screen-max-width)) / 2 + var(--sidebar-width));
+      }
+    }
+  }
+}
+
+.doc-wrapper {
+  padding: 32px 24px 96px;
+
+  .doc-content {
+    width: 100%;
+    @include respond-to('xxl') {
+      width: var(--content-width);
+    }
+  }
+
+  @include respond-to('md') {
+    padding: 48px 32px 42px;
+  }
+
+  @include respond-to('lg') {
+    padding: 54px 64px 42px;
+  }
+
+  @include respond-to('xxl') {
+    padding: 54px 0 42px 64px;
+    display: flex;
+  }
+
+  @include respond-to('max') {
+    padding: 54px 0 42px 96px;
+    display: flex;
+  }
+}
+
+.toc-wrapper {
+  display: none;
+  padding-left: 64px;
+
+  .toc-content {
+    position: sticky;
+    top: calc(var(--nav-height) + 32px);
+    margin-top: 0;
+    padding: 4px 8px 4px 12px;
+    margin-bottom: 32px;
+    width: 200px;
+
+    .toc-marker {
+      opacity: 0;
+      position: absolute;
+      background-color: var(--brand-color);
+      border-radius: 4px;
+      width: 4px;
+      height: 14px;
+      top: 30px;
+      left: 0;
+      z-index: 0;
+      transition: top 0.25s cubic-bezier(0, 1, 0.5, 1), opacity 0.25s,
+        background-color 0.5s;
+    }
+
+    &__heading {
+      font-size: 12px;
+      color: var(--text-color-light);
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-top: 0;
+    }
+
+    .toc-items {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+      line-height: 1.2;
+
+      .toc-item {
+        margin-top: 10px;
+        font-size: 11px;
+        color: var(--text-color-lighter);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        color: inherit;
+
+        .toc-link {
+          position: relative;
+          color: var(--text-color-lighter);
+          transition: color 0.3s;
+          &.active {
+            color: var(--brand-color);
+          }
+
+          > p {
+            margin: 0;
+          }
+        }
+
+        &.subitem {
+          padding-left: 1rem;
+        }
+      }
+    }
+  }
+
+  @include respond-to('xxl') {
+    display: block;
+  }
+
+  @include respond-to('max') {
+    padding-left: 96px;
+    display: block;
+  }
+}
+
+

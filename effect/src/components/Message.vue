@@ -14,7 +14,7 @@ const handler = (type:IMessageType) => {
     <bn-button @click="handler('success')" type="success">success</bn-button>
     <bn-button @click="handler('warning')" type="warning">warning</bn-button>
     <bn-button @click="handler('strong')" type="strong">strong</bn-button>
-    <bn-button @click="handler('danger')" type="danger">danger</bn-button>
+    <bn-button @click="handler('error')" type="danger">danger</bn-button>
     <bn-button @click="handler('info')">info</bn-button>
 
 

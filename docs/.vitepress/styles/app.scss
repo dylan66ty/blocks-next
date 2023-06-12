@@ -1,3 +1,11 @@
-@use './vars.css';
-@use './code';
-@use './transition';
+@use './vars.scss';
+@use './base.scss';
+@use './code.scss';
+@use './navbar.scss';
+@use './subnav.scss';
+@use './siderbar.scss';
+@use './content.scss';
+@use './scrollbar.scss';
+@use './transition.scss';
+@use './element.scss';
+

@@ -1,5 +1,5 @@
-import type { PropType } from 'vue'
-import {  TabsType} from './types'
+import type { PropType } from 'vue';
+import type { TabsType } from './types';
 export const tabsProps = {
   activeKey: {
     type: [String, Number],
@@ -20,8 +20,7 @@ export const tabsProps = {
   },
   // 隐藏panes
   hidePanes: {
-    type:Boolean,
-    default: true
-  }
-
-}
+    type: Boolean,
+    default: true,
+  },
+};

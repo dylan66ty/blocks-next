@@ -88,7 +88,7 @@
     user-select: none;
     overflow: hidden;
     position: relative;
-    transition:all 0.15s ease;
+    transition: all 0.15s linear;
 
 
     height: var(--bn-button-height);
@@ -129,9 +129,9 @@
         width: 100%;
     }
 
+
     @include when(loading) {
-        --bn-button-opacity: 0.68;
-        // --bn-button-width: calc(100% + 10px)
+        --bn-button-opacity: 0.76;
     }
 
     @include when(mini) {
@@ -461,8 +461,7 @@
 
     @include e(loading) {
         margin-left: 4px;
-        > .bn-icon-loading {
-        }
+        transition: all 0.15s linear;
         &.is-fill {
             position: absolute;
             top: 0;
@@ -484,6 +483,7 @@
 @include b(button-group) {
     display: flex;
     width: min-content;
+
     &>.#{$namespace}-button {
         &:first-child {
             border-top-right-radius: 0;

@@ -65,9 +65,16 @@ input/auto-textarea
 :::
 
 
+
+## 字数统计
+::: demo 设置 max-length 可以限制最大字数，配合 show-word-limit 可以显示字数统计。
+input/limit-length
+:::
+
+
 ## Attributes
 |参数名|描述|可选值|默认值|
-|---|---|---|:---:|
+|-------|-------|---|:---:|
 |v-model|绑定值|`string` / `number`|`-`|
 |type|类型|`text` / `textarea`|`text`|
 |size|尺寸(只对type:`text`生效)|`small` / `normal` / `large`|`normal`|
@@ -76,8 +83,9 @@ input/auto-textarea
 |prefix-icon|输入框头部图标|`string`|`-`|
 |suffix-icon|输入框尾部图标|`string`|`-`|
 |formatter|输入框过滤器|`(val:string) => string`|`-`|
+|maxlength ^(beta)|最大输入长度|`string` / `number`|`-`|
+|show-word-limit ^(beta)|是否显示统计字数|`boolean`|`-`|
 |autosize|自适应内容高度，只对 type="textarea" 有效，可传入对象，如，\{ minRows: 2, maxRows: 6 \}|`object` / `boolean`|`false`|
-|warning|边框和文字颜色danger|`boolean`|`false`|
 |autocomplete|原生属性，自动补全|`on` / `off`|`off`|
 |name|原生属性|`string`|`-`|
 |form|原生属性|`string`|`-`|

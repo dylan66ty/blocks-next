@@ -48,17 +48,18 @@ messageBox/custom-container
 |okText|弹框确认按钮文本|`string`|`确认`|
 |cancelText|弹框取消按钮文本|`string`|`取消`|
 |hideCancel|是否隐藏删除按钮|`boolean` |`false`|
-|hideOk|是否隐确认除按钮|`boolean` |`false`|
+|hideOk ^(beta)|是否隐确认除按钮|`boolean` |`false`|
 |mask|是否显示遮罩层|`boolean`|`true`|
 |maskToClose|是否点击遮罩层关闭|`boolean`|`true`|
 |center|是否居中显示|`boolean`|`true`|
 |top|顶部距离|`number` / `string`|`-`|
 |renderTo|渲染到哪个容器里面|`string` / `HTMLElement`|`body`|
 |onOk|点击确认按钮后触发|`Function`|`(e:Event) => void`|
-|beforeOnOk|点击确认前拦截器|`Function`|`()=> boolean | Promise<boolean>`|
+|beforeOnOk|点击确认前拦截器|`Function`|`()=> boolean \| Promise<boolean>`|
 |onCancel|点击取消按钮后触发|`Function`|`(e:Event) => void`|
-|beforeOnCancel|点击取消前拦截器|`Function`|`()=> boolean | Promise<boolean>`|
+|beforeOnCancel|点击取消前拦截器|`Function`|`()=> boolean \| Promise<boolean>`|
 |popupClass|弹框添加自定义类名|`string`| `-`|
+
 
 
 

@@ -1,14 +1,10 @@
 <script lang="ts" setup>
-
 const ok = () => {
   console.log('ok');
 }
 const cancel = () => {
   console.log('cancel');
 }
-
-
-
 
 </script>
 
@@ -20,5 +16,3 @@ const cancel = () => {
     </template>
   </bn-popconfirm>
 </template>
-
-<style lang="scss"></style>

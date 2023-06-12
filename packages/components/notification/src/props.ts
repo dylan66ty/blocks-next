@@ -1,4 +1,4 @@
-import type { ExtractPropTypes , PropType, RenderFunction } from 'vue'
+import type { ExtractPropTypes , PropType } from 'vue'
 import { NotificationPosition , NotificationType} from './types'
 
 
@@ -21,7 +21,7 @@ export const notificationProps = {
   },
   message: {
     type: String,
-    default: '',
+    default: undefined,
   },
   duration: {
     type: Number,

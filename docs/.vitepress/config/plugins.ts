@@ -5,7 +5,14 @@ import mdContainer from 'markdown-it-container';
 import type Token from 'markdown-it/lib/token';
 import type Renderer from 'markdown-it/lib/renderer';
 import { projRoot } from '../utils/paths';
+// markdown plugin 
+import tag from '../plugins/tag';
+import codeBlock from '../plugins/code-block';
+import TableWrapper from '../plugins/table-wrapper';
+
+
 import { red } from 'kolorist';
+
 import { highlight } from '../utils/highlight';
 
 const localMd = MarkdownIt();
@@ -17,7 +24,8 @@ interface ContainerOpts {
 }
 
 export const mdPlugin = (md: markdownit) => {
-  // markdown-it-container 解析自定义容器 https://github.com/markdown-it/markdown-it-container#readme
+  md.use(tag);
+  md.use(codeBlock);
   md.use(mdContainer, 'demo', {
     // 匹配markdown是否包含容器
     validate(params: string) {
@@ -49,7 +57,6 @@ export const mdPlugin = (md: markdownit) => {
             throw new Error(`example目录不存在: ${sourceFile} 目录或者文件`);
           }
         }
-
         /**
          * 渲染自定义内容
          * @param source
@@ -64,7 +71,9 @@ export const mdPlugin = (md: markdownit) => {
         )}" description="${encodeURIComponent(localMd.render(description))}">`;
       }
 
+
       return '</Demo>';
     },
   } as ContainerOpts);
+  md.use(TableWrapper);
 };

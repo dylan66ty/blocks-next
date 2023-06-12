@@ -4,7 +4,7 @@ import _Notification from './notification.vue'
 import {createVNode, isVNode, render } from 'vue'
 import { getElement } from '../../../utils/dom'
 import type { VNode } from 'vue'
-import { isFunction, isString } from '../../../utils/is'
+import { isFunction } from '../../../utils/is'
 
 const domMap = new WeakMap()
 
@@ -57,7 +57,7 @@ const Notification = (options:NotificationOptions) => {
 
 
   const vm = createVNode(_Notification, {
-    message:isString(options.message) ? options.message : '',
+    message:options.message,
     title: options.title,
     type: options.type,
     offset,

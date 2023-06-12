@@ -4,24 +4,24 @@
 
 首先得有 node，并确保 node 版本是 `v16` 或以上。
 
-``` sh
-node --version
+``` shell
 # v16+
+node --version
 ```
 
 ## 使用
 
-- 1.安装blocks-next
-``` sh
+**安装blocks-next**
+
+``` shell
 pnpm install blocks-next
 ```
 
 
 
-- 2.在vue3项目中注册block-next
+**在vue3项目中注册block-next**
 
-```js
-
+```ts
 // main.ts
 import BlocksNext, {Icon} from blocks-next
 // 引入BlocksNext样式
@@ -33,5 +33,7 @@ app.use(BlocksNext)
 app.use(Icon) 
 
 ```
+
+
 
 

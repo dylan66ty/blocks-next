@@ -1,9 +1,9 @@
 <template>
-  <transition  name="bn-fade-in" @before-leave="$emit('close')" @after-leave="$emit('destroy')">
+  <transition name="bn-fade-in" @before-leave="$emit('close')" @after-leave="$emit('destroy')">
     <div :class="contentCls" :style="contentStyle" v-show="visible">
       <Scrollbar style="max-height: 140px" :class="[`${ns}__content`]">
         <slot name="content">
-          <slot name="content">{{ content }}</slot>
+          <slot name="content">{{ content.value }}</slot>
         </slot>
       </Scrollbar>
 
@@ -13,41 +13,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted, onUnmounted} from 'vue'
+import { defineComponent, computed, ref, onMounted, onUnmounted, watch } from 'vue'
 import { getNamespace } from '../../../utils/global-config'
 import type { StyleValue } from 'vue'
 import Scrollbar from '../../scrollbar/src/scrollbar.vue'
 
 export default defineComponent({
   name: 'TooltipPopup',
-  props: {
-    content: String,
-    effect: String,
-    backgroundColor: String,
-    position: String,
-    popupClass: String
-  },
+  props:['content', 'effect', 'backgroundColor', 'position', 'popupClass', 'size'],
   components: {
     Scrollbar
   },
-  emits:['close', 'destroy'],
+  emits: ['close', 'destroy'],
   setup(props) {
     const ns = getNamespace('tooltip')
     const contentCls = computed(() => [
       ns,
-      `is-${props.effect}`,
+      `is-${props.effect.value}`,
+      props.size.value && `${ns}--${props.size.value}`,
       getNamespace('trigger-popup'),
-      props.popupClass && props.popupClass
+      props.popupClass.value && props.popupClass.value,
     ])
     const arrowStyle = computed(() => {
       const style: StyleValue = {}
-      if (props.backgroundColor) {
-        style['--bn-trigger-arrow-background-color'] = props.backgroundColor
+      if (props.backgroundColor.value) {
+        style['--bn-trigger-arrow-background-color'] = props.backgroundColor.value
       } else {
-        if (props.effect === 'dark') {
+        if (props.effect.value === 'dark') {
           style['--bn-trigger-arrow-background-color'] = 'rgba(0,0,0,.8)'
         }
-        if (props.effect === 'light') {
+        if (props.effect.value === 'light') {
           style['--bn-trigger-arrow-background-color'] = '#fff'
         }
       }
@@ -55,14 +50,14 @@ export default defineComponent({
     })
     const contentStyle = computed(() => {
       const style: StyleValue = {}
-      if (props.backgroundColor) {
-        style.backgroundColor = props.backgroundColor
+      if (props.backgroundColor.value) {
+        style.backgroundColor = props.backgroundColor.value
       } else {
-        if (props.effect === 'dark') {
+        if (props.effect.value === 'dark') {
           style.color = '#fff'
           style['background-color'] = 'rgba(0,0,0,.8)'
         }
-        if (props.effect === 'light') {
+        if (props.effect.value === 'light') {
           style.color = '#000'
           style['background-color'] = '#fff'
           style['box-shadow'] = '0px 8px 40px 0px rgba(100,107,122,0.15)'
@@ -74,13 +69,13 @@ export default defineComponent({
 
     const visible = ref(false)
 
-    const changeVisible = (value:boolean) => {
+    const changeVisible = (value: boolean) => {
       visible.value = value
     }
 
     onMounted(() => {
       visible.value = true
-      
+
     })
 
     onUnmounted(() => {

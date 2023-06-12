@@ -58,15 +58,23 @@ export const inputProps = {
     default: true,
   },
   clearable: {
+    type: Boolean,
+    default: false,
+  },
+  card: {
+    type: Boolean,
+    default: false,
+  },
+  maxlength: {
+    type: [String,Number],
+    default: undefined
+  },
+  showWordLimit:{
     type:Boolean,
     default: false
   },
-  card: {
-    type:Boolean,
-    default:false
-  },
   // 原生input属性
   ...nativeProps,
-} as const;
+} 
 
 export type InputProps = ExtractPropTypes<typeof inputProps>;

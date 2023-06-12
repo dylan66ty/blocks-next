@@ -83,7 +83,8 @@
         },
         {
           "text": "进度条 Progress",
-          "link": "progress"
+          "link": "progress",
+          "promotion": "alpha.25"
         }
       ]
     },

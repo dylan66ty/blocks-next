@@ -1,7 +1,3 @@
-<script lang="ts" setup>
-
-</script>
-
 <template>
   <bn-space direction="vertical">
     <bn-space size="small">
@@ -21,8 +17,5 @@
       <bn-button type="strong" plain>强烈警告</bn-button>
       <bn-button type="danger" plain>危险</bn-button>
     </bn-space>
-
   </bn-space>
 </template>
-
-<style lang="scss"></style>

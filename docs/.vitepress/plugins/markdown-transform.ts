@@ -1,6 +1,4 @@
-import fs from 'fs';
 import path from 'path';
-import glob from 'fast-glob';
 
 import type { Plugin } from 'vite';
 import { projRoot } from '../utils/paths';
@@ -13,7 +11,6 @@ export function MarkdownTransform(): Plugin {
     enforce: 'pre',
     async transform(code, id) {
       if (!id.endsWith('.md')) return;
-
       const componentId = path.basename(id, '.md');
       const filePath = path
         .relative(
@@ -33,6 +30,7 @@ export function MarkdownTransform(): Plugin {
         ],
       };
 
+
       return combineMarkdown(
         code,
         [combineScriptSetup(append.scriptSetups), ...append.headers],
@@ -42,18 +40,27 @@ export function MarkdownTransform(): Plugin {
   };
 }
 
-const combineMarkdown = (code: string, headers: string[], footers: string[]) => {
-  const fileTitle = code.indexOf('---\n\n');
-  const frontmatterEnds = fileTitle < 0 ? 0 : fileTitle + 4;
-  const firstSubheader = code.search(/\n## \w/);
-  const sliceIndex = firstSubheader < 0 ? frontmatterEnds : firstSubheader;
+const combineMarkdown = (
+  code: string,
+  headers: string[],
+  footers: string[]
+) => {
+  const frontmatterEnds = code.indexOf('---\n\n')
+  const firstHeader = code.search(/\n#{1,6}\s.+/)
+  const sliceIndex =
+    firstHeader < 0
+      ? frontmatterEnds < 0
+        ? 0
+        : frontmatterEnds + 4
+      : firstHeader
 
   if (headers.length > 0)
-    code = code.slice(0, sliceIndex) + headers.join('\n') + code.slice(sliceIndex);
-  code += footers.join('\n');
+    code =
+      code.slice(0, sliceIndex) + headers.join('\n') + code.slice(sliceIndex)
+  code += footers.join('\n')
+  return `${code}\n`
+}
 
-  return `${code}\n`;
-};
 
 const combineScriptSetup = (codes: string[]) =>
   `\n\n<script setup>

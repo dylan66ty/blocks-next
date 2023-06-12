@@ -7,7 +7,8 @@ import {
   nextTick,
   watch,
   onUnmounted,
-  onMounted
+  onMounted,
+  toRefs,
 } from 'vue'
 import type { VNode, CSSProperties } from 'vue'
 
@@ -22,6 +23,7 @@ import { Position } from './types'
 import { getElement } from '../../../utils/dom'
 import { useResizeObserver } from '../../../hooks/use-resize-observer'
 
+const defaultStyleBySizes = ['mini']
 
 
 export default defineComponent({
@@ -36,14 +38,20 @@ export default defineComponent({
       return props.modelValue ?? innerVisible.value
     })
 
-    let defaultSlot: VNode[] = slots.default?.() ?? []
+    let defaultSlot: VNode[] | undefined
     let timer = 0
     let popupTarget: HTMLElement | null
     let vm: VNode | null
 
+    const isDefault = computed(() => defaultStyleBySizes.includes(props.size!))
 
-    const translate = getPopupTranslateByPosition()
-    const renderTo = getElement(props.renderTo || document.body)
+    const translate = computed(() => {
+      if (isDefault.value) return [0, 0]
+      return getPopupTranslateByPosition()
+    })
+
+
+    const renderTo = computed(() => getElement(props.renderTo || document.body))
 
     const { zIndex } = usePopupManager('popup', { visible });
 
@@ -54,7 +62,8 @@ export default defineComponent({
     }
 
     const computedPosition = computed(() => {
-      if (!slots['content'] && !props.content.trim().length) {
+      if (isDefault.value) return 'top'
+      if (!slots['content'] && props.content) {
         return getPopupPositionByEmpty(props.position) as Position
       }
       return props.position as Position
@@ -62,14 +71,15 @@ export default defineComponent({
 
 
     const updatePopupStyle = () => {
-      if (!popupTarget) return
+      if (!popupTarget || !defaultSlot) return
       const triggerTarget = getFirstElement(defaultSlot) as HTMLElement
-      const containerRect = renderTo!.getBoundingClientRect()
+      const containerRect = renderTo.value!.getBoundingClientRect()
       const triggerScrollRect = getElementScrollRect(triggerTarget, containerRect)
       const getPopupScrollRect = () => getElementScrollRect(popupTarget as HTMLElement, containerRect)
       const { style, position } = getPopupStyle(computedPosition.value, containerRect, triggerScrollRect, getPopupScrollRect(), {
-        translate: translate as any,
-        autoFitPosition: true
+        translate: translate.value as [number, number],
+        autoFitPosition: true,
+        offset: isDefault.value ? 6 : 0
       })
       const _popupTarget = popupTarget as HTMLElement
       const needStyles: CSSProperties = { ...style, position: 'absolute', 'z-index': zIndex.value }
@@ -77,10 +87,11 @@ export default defineComponent({
         // @ts-ignore
         (_popupTarget.style as any)[key] = needStyles[key]
       })
+
       const arrowStyle = getArrowStyle(position, triggerScrollRect, getPopupScrollRect(), {
         customStyle: {
           position: 'absolute',
-          "border-width": '6px',
+          "border-width": isDefault.value ? '3px' : '6px',
           "border-style": "solid",
           zIndex: 0,
         },
@@ -93,20 +104,29 @@ export default defineComponent({
         arrowNode.style[key] = arrowStyle[key]
       })
 
-
     }
+
+    // 为了确保这些属性是响应式
+    const {
+      content,
+      effect,
+      backgroundColor,
+      popupClass,
+      position,
+      size
+    } = toRefs(props)
 
     // 创建tooltip
     const createTooltip = async () => {
       if (popupTarget) return
       emit('change', true)
-
       vm = createVNode(Popup, {
-        content: props.content,
-        effect: props.effect,
-        backgroundColor: props.backgroundColor,
-        position: props.position,
-        popupClass: props.popupClass,
+        content,
+        effect,
+        backgroundColor,
+        position,
+        popupClass,
+        size,
         onMouseenter: () => clearTimeout(timer),
         onMouseleave: () => beforeClose(),
         onClose: () => {
@@ -115,7 +135,7 @@ export default defineComponent({
         },
         onDestroy: () => {
           destroyTooltip()
-        }
+        },
       },
         {
           content: slots.content ?? null
@@ -125,7 +145,7 @@ export default defineComponent({
       // 必须等待popup组件创建完毕后才能放入容器中。
       await nextTick()
       popupTarget = container.firstChild! as HTMLElement
-      renderTo!.appendChild(popupTarget)
+      renderTo.value!.appendChild(popupTarget)
       updatePopupStyle()
     }
 
@@ -162,7 +182,7 @@ export default defineComponent({
     }
 
     const { createResizeObserver, destroyResizeObserver } = useResizeObserver({
-      elementRef: ref(renderTo),
+      elementRef: renderTo,
       onResize: handleResize,
     });
 
@@ -192,17 +212,16 @@ export default defineComponent({
 
 
     return () => {
+      defaultSlot = slots.default?.()
       mergeFirstChild(defaultSlot, {
         onMouseenter: handleMouseEnter,
         onMouseleave: beforeClose,
         style: {
           cursor: props.disabled ? 'not-allowed' : 'pointer'
         },
-        disabled:props.disabled,
+        disabled: props.disabled,
       })
-      return <>
-        {defaultSlot}
-      </>
+      return defaultSlot
     }
   }
 })

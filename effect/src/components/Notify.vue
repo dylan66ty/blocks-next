@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { Notification } from '@blocks-next/index'
+  import { Notification } from 'blocks-next'
   const handler = () => {
     Notification({
       title: '温馨提示',

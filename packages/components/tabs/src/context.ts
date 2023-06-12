@@ -1,5 +1,5 @@
-import type { InjectionKey } from 'vue'
-import { TabPaneData } from './types'
+import type { InjectionKey } from 'vue';
+import type { TabPaneData } from './types';
 
 export interface TabsContext {
   destroyOnHide: boolean;

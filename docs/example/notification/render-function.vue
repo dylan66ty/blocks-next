@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import { Notification } from 'blocks-next'
-import { h } from 'vue'
-
+import { h , ref} from 'vue'
 const handler = () => {
   Notification({
       title: 'Notification',
       message: h('div',null, '这是一条使用renderFunction渲染的消息'),
       type: 'info',
-      duration: 1000,
+      duration: 3000,
       onClose: () => {
         console.log('close');
       }

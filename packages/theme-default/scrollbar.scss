@@ -3,8 +3,8 @@
 @include b(scrollbar) {
   --bn-scrollbar-track-size: 3px;
   --bn-scrollbar-thumb-color: #EDF1F6;
-  --bn-scrollbar-right: 12px;
-  --bn-scrollbar-bottom:6px;
+  --bn-scrollbar-right: 6px;
+  --bn-scrollbar-bottom: 6px;
   --bn-scrollbar-radius: 2px;
 
   position: relative;
@@ -13,6 +13,11 @@
   @include e(container) {
     overflow: auto;
     height: 100%;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   &:hover {
@@ -20,14 +25,9 @@
       opacity: 1;
     }
   }
-  
 
-  ::-webkit-scrollbar-track{
-    display: none;
-  }
-  ::-webkit-scrollbar{
-    display: none;
-  }
+
+
 
 }
 
@@ -40,7 +40,7 @@
     box-sizing: border-box;
     z-index: 100;
     width: 100%;
-    height:var(--bn-scrollbar-track-size);
+    height: var(--bn-scrollbar-track-size);
   }
 
   @include e(vertical) {
@@ -59,9 +59,11 @@
 @include b(scrollbar-thumb) {
   opacity: 0;
   transition: opacity 0.2s ease;
+
   &.is-dragging {
     opacity: 1;
   }
+
   @include e(horizontal) {
     position: absolute;
     height: 100%;

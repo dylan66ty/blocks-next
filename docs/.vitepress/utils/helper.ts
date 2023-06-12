@@ -1,3 +1,4 @@
+
 export const copyStr = (content:string):Promise<any> => {
   return new Promise((resolve,reject) => {
     const textarea = document.createElement('textarea')
@@ -17,4 +18,24 @@ export const copyStr = (content:string):Promise<any> => {
     
   })
 
+}
+
+
+export const throttleAndDebounce = (fn: () => any, delay: number) => {
+  let timeout: ReturnType<typeof setTimeout>
+  let called = false
+  return () => {
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+    if (!called) {
+      fn()
+      called = true
+      setTimeout(() => {
+        called = false
+      }, delay)
+    } else {
+      timeout = setTimeout(fn, delay)
+    }
+  }
 }

@@ -4,14 +4,12 @@
 </script>
 
 <template>
-  <div style="width: 200px">
     <bn-input
       v-model="textarea"
       type="textarea"
       placeholder="请输入内容"
       :autosize="{ minRows: 8, maxRows: 10 }"
     ></bn-input>
-  </div>
 </template>
 
 <style lang="scss"></style>

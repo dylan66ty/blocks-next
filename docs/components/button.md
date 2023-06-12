@@ -8,7 +8,7 @@ lang: zh-CN
 
 ## 基本使用
 
-::: demo 使用 type、plain来定义按钮的样式
+::: demo 使用 `type` 、`plain` 来定义按钮的样式
 button/basic
 :::
 
@@ -34,7 +34,7 @@ button/card
 
 
 ## 禁用状态
-::: demo 设置属性`disabled`为`true`即可
+::: demo 设置属性**disabled**为`true`即可
 button/disabled
 :::
 
@@ -58,6 +58,7 @@ button/block
 button/loading
 :::
 
+
 ## 组合按钮
 
 ::: demo 通过 `<bu-button-group>` 组件使按钮以组合方式出现。可用在同级多项操作中。
@@ -68,7 +69,7 @@ button/group
 ## Attributes
 
 |参数名|描述|可选值|默认值|
-|---|---|---|:---:|
+|-------|-------|---|:---:|
 |type|类型| `primary` / `success` / `danger` / `warning` / `strong` / `card` |`-`|
 |size|大小|`mini` / `small` / `normal` / `large`   | `normal` |
 |shape|按钮形状|`circle` / `round`|`-`|
@@ -78,6 +79,6 @@ button/group
 |disabled|是否禁用|`boolean`|`false`|
 |block|是否块级按钮|`boolean`|`false`|
 |loading|按钮加载中|`boolean`|`false`|
-|loading-fill|加载中是否全局填充|`boolean`|`false`|
+|loading-fill ^(beta)|加载中是否全局填充|`boolean`|`false`|
 
 

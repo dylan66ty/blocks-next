@@ -62,6 +62,7 @@ const warning = () => {
   })
 }
 
+
 const error = () => {
   MessageBox({
     title: '这是一条错误信息',
@@ -76,7 +77,6 @@ const info = () => {
     type: 'info'
   })
 }
-
 
 
 </script>

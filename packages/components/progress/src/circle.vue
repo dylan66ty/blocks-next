@@ -21,7 +21,7 @@
 import { computed, defineComponent, PropType } from 'vue'
 import { ProgressSize } from './type'
 import { getNamespace } from '../../../utils/global-config';
-import { isFunction, isString } from '../../../utils/is';
+import { isFunction, isString, isUndefined } from '../../../utils/is';
 
 
 const SIZE_MAP = {
@@ -54,7 +54,7 @@ export default defineComponent({
       type: Number,
     },
     width: {
-      type: Number,
+      type: [Number,String],
       default: undefined,
     },
     color: {
@@ -83,7 +83,8 @@ export default defineComponent({
 
 
     const mergedWidth = computed(() => {
-      return props.width ?? SIZE_MAP[props.size];
+      if(isUndefined(props.width)) return SIZE_MAP[props.size]
+      return Number(props.width)
     });
 
 

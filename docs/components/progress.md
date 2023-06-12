@@ -45,7 +45,7 @@ progress/size
 
 ## 进度条轨道颜色
 
-::: demo 通过 `trackColor` 可以通过 trackColor 设置轨道的颜色
+::: demo 通过 `trackColor` 可自定义轨道的颜色
 progress/trackColor
 :::
 

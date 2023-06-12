@@ -1,0 +1,39 @@
+:root {
+
+  // colors
+
+  --text-color: rgba(36, 41, 52, 1);
+  --text-color-light: #646B7A;
+  --text-color-lighter: #909399;
+
+  --brand-color: rgba(0, 86, 255, 1);
+  --brand-color-light: rgba(0, 86, 255, 1);
+  --bg-brand-color: rgba(0, 86, 255, 1);
+
+  --bg-color: #fff;
+  --bg-color-rgb: 255, 255, 255;
+  --bg-color-soft: #fafafa;
+  --bg-color-mute: #f2f2f2;
+  
+  --border-color: #dcdfe6;
+  --border-color-light: #ddd;
+
+  --font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  --font-family-mono: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas,
+    'Courier New', monospace;
+
+
+  --nav-height: 55px;
+  --sidebar-width: 266px;
+  --sidebar-width-small: 266px;
+  --sidebar-width-mobile:320px;
+  --screen-max-width: 1362px;
+
+  --link-active-bg-color: #eef5fe;
+
+  
+  --content-width:800px;
+  --content-min-width: 16rem;
+  --content-max-width: 48rem;
+
+}

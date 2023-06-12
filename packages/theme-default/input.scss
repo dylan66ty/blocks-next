@@ -17,86 +17,118 @@
 }
 
 @include b(input) {
+    display: inline-flex;
     box-sizing: border-box;
     position: relative;
     width: 100%;
-    display: inline-flex;
-    font-size: var(--bn-input-font-size);
 
-    @include when(hover) {
-        .#{$namespace}-input__inner {
-            border-color: var(--bn-input-hover-border-color);
+    @include e(wrapper) {
+        box-sizing: border-box;
+        display: inline-flex;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: center;
+        padding: 0 12px;
+        background-color: var(--bn-input-background-color);
+        background-image: none;
+        border: 1px solid var(--bn-input-border-color);
+        border-radius: var(--bn-input-border-radius);
+        transform: translateZ(0);
+        color: var(--bn-input-color);
+        font-size: var(--bn-input-font-size);
+        box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset;
+        transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+
+        &:hover {
+            border-color: var(--bn-input-hover-border-color)
         }
-    }
 
-    @include when(focus) {
-        .#{$namespace}-input__inner {
+        &.is-focus {
             border-color: var(--bn-primary);
         }
-    }
 
-    @include m(card) {
-        .#{$namespace}-input__inner {
-            border: 0;
-            box-shadow: 0px 2px 5px 0px rgba(36, 41, 52, 0.06);
-            &:hover {
-               --bn-input-placeholder-color:rgba(100, 107, 122, 1);
+
+        &.is-disabled {
+            cursor: not-allowed;
+
+            &:not(.#{$namespace}-input--card) {
+                background-color: var(--bn-input-disabled-background-color);
+                border-color: var(--bn-input-disabled-border-color);
+                color: var(--bn-input-disabled-text-color);
+            }
+
+            &.#{$namespace}-input--card {
+                opacity: 0.8;
             }
         }
+
     }
 
 
     @include e(inner) {
         box-sizing: border-box;
+        flex-grow: 1;
         width: 100%;
-        height: var(--bn-input-height);
-        line-height: var(--bn-input-height);
-        background-color: var(--bn-input-background-color);
-        border-radius: var(--bn-input-border-radius);
-        border: 1px solid var(--bn-input-border-color);
-        color: var(--bn-input-color);
+        height: calc(var(--bn-input-height) - 2px);
+        line-height: 1;
         outline: none;
-        padding: 0 15px;
-        transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
-
+        padding: 0;
+        margin: 0;
 
         &::-webkit-input-placeholder {
             color: var(--bn-input-placeholder-color);
         }
 
+        &:disabled {
+            color: var(--bn-input-disabled-text-color);
+            cursor: not-allowed;
+        }
+
         &:disabled::-webkit-input-placeholder {
-            color: var(--bn-input-disabled-border-color);
+            color: var(--bn-input-placeholder-color);
         }
     }
 
     @include e(icon) {
-        width: 25px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: inherit;
+        color: var(--bn-input-icon-color);
     }
 
     @include e(prefix) {
-        position: absolute;
+        flex-shrink: 0;
         height: 100%;
-        left: 5px;
-        top: 0;
-        text-align: center;
-        color: var(--bn-input-icon-color);
-        transition: all .3s;
         display: flex;
         align-items: center;
         justify-content: center;
+
+        >.#{$namespace}-input__icon {
+            margin-right: 8px;
+        }
     }
 
     @include e(suffix) {
-        position: absolute;
+        flex-shrink: 0;
         height: 100%;
-        right: 5px;
-        top: 0;
-        text-align: center;
-        color: var(--bn-input-icon-color);
-        transition: all .3s;
         display: flex;
         align-items: center;
         justify-content: center;
+
+        >.#{$namespace}input__icon {
+            margin-left: 8px;
+        }
+    }
+
+    @include e(count) {
+        flex-shrink: 0;
+        margin-left: 8px;
+        letter-spacing: -1px;
+        color: var(--bn-color-3);
+
     }
 
     @include e(eye) {
@@ -104,85 +136,8 @@
     }
 
     @include e(clearable) {
-        width: 14px;
-        height: 14px;
-        border: 1px solid #ddd;
-        border-radius: 100%;
-
         cursor: pointer;
-
-        &:hover {
-            border-color: var(--bn-input-hover-border-color);
-
-            &::before,
-            &::after {
-                background-color: var(--bn-input-hover-border-color);
-            }
-        }
-
-        &::before {
-            content: '';
-            position: absolute;
-            width: 1px;
-            height: 8px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-            background-color: #ddd;
-        }
-
-        &::after {
-            content: '';
-            position: absolute;
-            width: 1px;
-            height: 8px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            background-color: #ddd;
-        }
-    }
-
-    @include when(disabled) {
-
-        .#{$namespace}-input__inner,
-        .#{$namespace}-textarea__inner {
-            cursor: not-allowed;
-        }
-
-        &:not(.#{$namespace}-input--card) {
-
-            .#{$namespace}-input__inner,
-            .#{$namespace}-textarea__inner {
-                background-color: var(--bn-input-disabled-background-color);
-                border-color: var(--bn-input-disabled-border-color);
-                color: var(--bn-input-disabled-text-color);
-            }
-        }
-
-        &.#{$namespace}-input--card {
-            opacity: 0.8;
-        }
-
-    }
-
-    @include when(error) {
-        .#{$namespace}-input__inner {
-            border-color: var(--bn-danger);
-            color: var(--bn-danger);
-        }
-    }
-
-    @include m(suffix) {
-        .#{$namespace}-input__inner {
-            padding-right: 30px;
-        }
-    }
-
-    @include m(prefix) {
-        .#{$namespace}-input__inner {
-            padding-left: 30px;
-        }
+        margin-left: 8px;
     }
 
     @include m(small) {
@@ -193,12 +148,41 @@
         --bn-input-height: 48px
     }
 
+    @include m(card) {
+        border: 0;
+        box-shadow: 0px 2px 5px 0px rgba(36, 41, 52, 0.06);
+
+        &:not(.is-disabled):hover {
+            --bn-input-placeholder-color: rgba(100, 107, 122, 1);
+        }
+    }
+
     [readonly] {
         cursor: default;
     }
 }
 
 @include b(textarea) {
+    --bn-input-font-size: var(--bn-font-size);
+    --bn-input-border-color: var(--bn-border-color);
+    --bn-input-border-radius: 4px;
+    --bn-input-placeholder-color: var(--bn-color-3);
+    --bn-input-disabled-border-color: var(--bn-color-5);
+    --bn-input-hover-border-color: rgba(188, 196, 214, 1);
+    --bn-input-color: var(--bn-color-1);
+    --bn-input-disabled-text-color: var(--bn-color-3);
+
+}
+
+
+
+@include b(textarea) {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    vertical-align: bottom;
+    font-size: var(--bn-input-font-size);
+
     @include e(inner) {
         display: block;
         resize: vertical;
@@ -207,7 +191,7 @@
         box-sizing: border-box;
         width: 100%;
         font-size: inherit;
-        color: #606266;
+        color: var(--bn-input-color);
         background-color: #fff;
         background-image: none;
         border: 1px solid var(--bn-input-border-color);
@@ -218,17 +202,38 @@
             color: var(--bn-input-placeholder-color);
         }
 
+        &:disabled {
+            cursor: not-allowed;
+            background-color: var(--bn-input-disabled-background-color);
+            border-color: var(--bn-input-disabled-border-color);
+            color: var(--bn-input-disabled-text-color);
+        }
+
         &:disabled::-webkit-input-placeholder {
             color: var(--bn-input-disabled-border-color);
         }
 
-        &:hover {
+        &:not(:disabled):hover {
             border-color: var(--bn-input-hover-border-color);
         }
 
-        &:focus {
+
+        &:not(:disabled):focus {
             border-color: var(--bn-primary);
         }
+    }
+
+    @include e(count) {
+        flex-shrink: 0;
+        margin-left: 8px;
+        letter-spacing: -1px;
+        color: var(--bn-color-3);
+
+        position: absolute;
+        font-size: 12px;
+        line-height: 14px;
+        bottom: 5px;
+        right: 10px;
     }
 
 }

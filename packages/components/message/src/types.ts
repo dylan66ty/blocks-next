@@ -18,6 +18,7 @@ export interface IMessageOptions {
   offset?:number;
   renderTo?: string | HTMLElement;
   showClose?:Boolean;
+  useHTML?: Boolean;
 }
 
 export interface IMessageHandler {

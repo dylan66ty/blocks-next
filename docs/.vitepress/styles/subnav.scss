@@ -1,0 +1,52 @@
+@use './mixins' as *;
+@use 'css-var.scss' as *;
+
+.subnav-wrapper {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  padding: 0.75rem 32px;
+  justify-content: space-between;
+  z-index: 20;
+  overflow: hidden;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: border-color 0.3s,
+    background-color 0.3s;
+
+  border-bottom: 1px solid var(--border-color);
+
+ .menu-click {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    cursor: pointer;
+ }
+
+  @media (max-width: 767px) {
+    padding: 0.75rem 24px;
+  }
+
+
+
+  .go-back-top {
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 0.3s;
+    color: var(--text-color);
+    font-size: 14px;
+
+    &.show {
+      transform: translateY(0);
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+
+  @include respond-to('lg') {
+    display: none !important;
+  }
+}

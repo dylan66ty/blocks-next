@@ -1,25 +1,30 @@
 import DefaultTheme from 'vitepress/theme';
 import type { Theme } from 'vitepress';
 
-import Demo from '../components/v-demo.vue';
 import message from '../components/message';
+
 import { copyStr } from '../utils/helper'
-import '../styles/app.scss';
+
+import VApp, { globals } from '../components'
 
 import BlocksNext, { Icon } from '@blocks-next/index';
 import '@blocks-next/theme-default/index.scss';
 
 
 export default <Theme>{
-  ...DefaultTheme,
+  NotFound: DefaultTheme.NotFound,
+  Layout: VApp,
   enhanceApp({ app }) {
     // register global components
     app.use(BlocksNext);
     app.use(Icon)
-    app.component('Demo', Demo);
-    
+
+    globals.forEach(([name, Comp]) => {
+      app.component(name, Comp)
+    })
+
     app.config.globalProperties.message = message
     app.config.globalProperties.copyStr = copyStr
-    
+
   },
 };

@@ -31,6 +31,10 @@ export const tooltipProps = {
   },
   popupClass: {
     type:String
+  },
+  size: {
+    type: String as PropType<'mini'>,
+    default: undefined
   }
 }
 

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+
 
 const ok = () => {
   console.log('ok');
@@ -7,13 +9,13 @@ const cancel = () => {
   console.log('cancel');
 }
 
-
+const content = ref('是否确认删除消息？')
 
 
 </script>
 
 <template>
-  <bn-popconfirm content="是否确认删除消息？" @ok="ok" @cancel="cancel">
+  <bn-popconfirm :content="content" @ok="ok" @cancel="cancel">
     <span style="font-size:14px;color:#646B7A">删除内容</span>
   </bn-popconfirm>
 </template>

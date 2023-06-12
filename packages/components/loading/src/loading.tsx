@@ -1,35 +1,43 @@
-import { createApp, defineComponent, Transition, onMounted, nextTick, computed, StyleValue, reactive, onUnmounted } from 'vue'
-import { LoadingOptions } from './type'
-import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
-import LoadingIcon from '../../icon/src/base/loading.vue'
-import { getElement, getStyle, setStyle } from '../../../utils/dom'
-import usePopupManager from '../../../hooks/use-popup-manager'
+import type { StyleValue } from 'vue';
+import {
+  createApp,
+  defineComponent,
+  Transition,
+  onMounted,
+  nextTick,
+  computed,
+  reactive,
+  onUnmounted,
+} from 'vue';
+import { getComponentNamespace, getNamespace } from '../../../utils/global-config';
+import LoadingIcon from '../../icon/src/base/loading.vue';
+import { getElement, getStyle, setStyle } from '../../../utils/dom';
+import usePopupManager from '../../../hooks/use-popup-manager';
+import type { LoadingOptions } from './type';
 
 const getResolveOptions = (options: LoadingOptions) => {
-  const _options:LoadingOptions = {
+  const _options: LoadingOptions = {
     background: options.background,
     text: options.text || '',
     color: options.color,
     customClass: options.customClass,
     renderTo: options.renderTo || document.body,
     iconSize: options.iconSize || 16,
-    fullScreen: options.fullScreen
-  } 
+    fullScreen: options.fullScreen,
+  };
 
-  if(_options.fullScreen) {
-    _options.renderTo = document.body
+  if (_options.fullScreen) {
+    _options.renderTo = document.body;
   }
 
-  return _options
-}
-
+  return _options;
+};
 
 export const createLoadingComponent = (options: LoadingOptions) => {
+  const resolveOptions = getResolveOptions(options);
 
-  const resolveOptions = getResolveOptions(options)
-
-  const mountEle = getElement(resolveOptions.renderTo)
-  if(!mountEle) return 
+  const mountEle = getElement(resolveOptions.renderTo);
+  if (!mountEle) return;
 
   const data = reactive<Record<string, any>>({
     ...resolveOptions,
@@ -37,110 +45,99 @@ export const createLoadingComponent = (options: LoadingOptions) => {
     originalPosition: '',
     originalOverflow: '',
     visible: false,
-  })
+  });
 
   const destroy = () => {
-    resetMountElStyle()
-    vm.$el?.parentNode.removeChild(vm.$el)
-    app.unmount()
-  }
+    resetMountElStyle();
+    vm.$el?.parentNode.removeChild(vm.$el);
+    app.unmount();
+  };
 
   const LoadingComponent = defineComponent({
     name: getComponentNamespace('Loading'),
     setup() {
-      const ns = getNamespace('loading')
+      const ns = getNamespace('loading');
       onMounted(() => {
-        data.visible = true
-      })
+        data.visible = true;
+      });
 
-      const { zIndex } = usePopupManager('message', { runOnMounted: true })
+      const { zIndex } = usePopupManager('message', { runOnMounted: true });
 
       onUnmounted(() => {
-        data.visible = false
-      })
-      const cls = computed(() => [
-        `${ns}__mask`,
-        data.customClass && data.customClass
-      ])
+        data.visible = false;
+      });
+      const cls = computed(() => [`${ns}__mask`, data.customClass && data.customClass]);
 
       const style = computed(() => {
         const style: StyleValue = {
           color: data.color ? data.color : `var(--bn-primary)`,
           background: data.background,
           zIndex: zIndex.value,
-          position: data.fullScreen ? 'fixed' : 'absolute'
-        }
-        return style
-
-      })
-
+          position: data.fullScreen ? 'fixed' : 'absolute',
+        };
+        return style;
+      });
 
       return () => (
-        <Transition name='bn-fade-in' onAfterLeave={destroy}>
-          {data.visible && <div class={cls.value} style={style.value}>
-            <div class={[`${ns}__spinner`]}>
-              <LoadingIcon size={data.iconSize} />
+        <Transition name="bn-fade-in" onAfterLeave={destroy}>
+          {data.visible && (
+            <div class={cls.value} style={style.value}>
+              <div class={[`${ns}__spinner`]}>
+                <LoadingIcon size={data.iconSize} />
+              </div>
+              {data.text && <div class={[`${ns}__text`]}>{data.text}</div>}
             </div>
-            {
-              data.text && (
-                <div class={[`${ns}__text`]}>
-                  {data.text}
-                </div>
-              )
-            }
-          </div>}
+          )}
         </Transition>
-      )
-    }
-  })
+      );
+    },
+  });
 
-  const app = createApp(LoadingComponent)
-  const vm = app.mount(document.createElement('div'))
-
+  const app = createApp(LoadingComponent);
+  const vm = app.mount(document.createElement('div'));
 
   const cancelLoading = () => {
-    data.visible = false
-  }
+    data.visible = false;
+  };
 
   const resetMountElStyle = () => {
-    setStyle(mountEle,
-      {
-        position: data.originalPosition,
-        overflow: data.originalOverflow
-      })
-  }
+    setStyle(mountEle, {
+      position: data.originalPosition,
+      overflow: data.originalOverflow,
+    });
+  };
 
   const addMountElStyle = () => {
-    const position = getStyle(mountEle, 'position')
+    const position = getStyle(mountEle, 'position');
     if (position === 'static') {
-      setStyle(mountEle, { position: 'relative' })
+      setStyle(mountEle, { position: 'relative' });
     } else {
-      data.originalPosition = position
+      data.originalPosition = position;
     }
 
-    const overflow = getStyle(mountEle, 'overflow')
+    const overflow = getStyle(mountEle, 'overflow');
 
     if (overflow == 'visible') {
-      setStyle(mountEle, { overflow: 'hidden' })
+      setStyle(mountEle, { overflow: 'hidden' });
     } else {
-      data.originalOverflow = overflow
+      data.originalOverflow = overflow;
     }
-  }
+  };
 
   const appendLoading = () => {
-    addMountElStyle()
+    addMountElStyle();
     nextTick(() => {
-      mountEle.appendChild(vm.$el)
-    })
-  }
+      mountEle.appendChild(vm.$el);
+    });
+  };
 
-  const updateText = (text:string) => {
-    data.text = text 
-  }
+  const updateText = (text: string) => {
+    data.text = text;
+  };
 
   return {
     cancelLoading,
     appendLoading,
-    updateText
-  }
-}
+    updateText,
+  };
+};

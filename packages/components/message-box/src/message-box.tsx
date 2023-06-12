@@ -1,5 +1,5 @@
 import _Dialog from '../../dialog/src/dialog.vue'
-import { createVNode, render, isVNode, nextTick, ref } from 'vue'
+import { createVNode, render, isVNode, nextTick, ref, createApp } from 'vue'
 import type { RenderFunction, VNode } from 'vue'
 import BnButton from '../../button/src/button.vue'
 import BnSpace from '../../space/src/space.vue'
@@ -32,9 +32,8 @@ import { useOverflow } from '../../../hooks/use-overflow'
 
 const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: MessageBoxOptions): void => {
   const vmMountContainer: HTMLElement = document.createElement('div')
-  const dialogContainer: HTMLElement = document.createElement('div')
 
-  const renderTo = getElement(options?.renderTo || 'body')!
+  const renderTo = getElement(options?.renderTo || document.body)!
 
   const { setOverflowHidden, resetOverflow } = useOverflow(ref(renderTo))
 
@@ -163,7 +162,7 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     width: options?.width ?? 460,
     height: options?.height ?? 'auto',
     modelValue: true,
-    renderTo: dialogContainer,
+    renderTo: renderTo,
     center: options?.top ? false : options?.center ?? true,
     top: options?.top ?? 0,
     mask: options?.mask ?? true,
@@ -187,23 +186,8 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
       footer: defaultFooter()
     }
   )
-
+  
   render(vm, vmMountContainer)
-
-
-  nextTick(() => {
-    const target = dialogContainer.firstElementChild! as HTMLElement
-    if (renderTo !== document.body) {
-      renderTo.style.position = 'relative'
-      target.style.position = 'absolute'
-    } else {
-      target.style.position = 'fixed'
-    }
-    renderTo.appendChild(target)
-  })
-
-
-
 
 }
 

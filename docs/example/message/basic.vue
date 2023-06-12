@@ -6,6 +6,7 @@ const handleInfo = () => {
   Message('今晚加个班')
 }
 
+
 const handleVNode= () => {
   Message.info({
     message: h('p', null, [
@@ -15,12 +16,14 @@ const handleVNode= () => {
   })
 }
 
-const handleVNodeFu = () => {
-  Message({
-    message: () => h('div',{ style: {color: 'red'} }, '我是VNode function'),
-    type: 'strong'
+const handleHTML= () => {
+  Message.info({
+    message: '<div style="color:red;">Danger 注意XSS</div>',
+    useHTML: true
   })
 }
+
+
 
 </script>
 
@@ -28,7 +31,7 @@ const handleVNodeFu = () => {
     <bn-space>
       <bn-button  size="small" @click="handleInfo">打开消息提示</bn-button>
       <bn-button  size="small" @click="handleVNode">VNode</bn-button>
-      <bn-button  size="small" @click="handleVNodeFu">VNode函数形式</bn-button>
+      <bn-button  size="small" @click="handleHTML">use HTML</bn-button>
     </bn-space>
 </template>
 

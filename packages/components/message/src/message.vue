@@ -2,7 +2,8 @@
   <transition name="bn-message-slide-top" @before-leave="onClose" @after-leave="$emit('destroy')">
     <div :class="cls" :style="styles" v-show="visible">
       <slot>
-        <span>{{ message }}</span>
+        <span v-if="useHTML" v-html="message"></span>
+        <span v-else>{{ message }}</span>
         <span :class="[`${ns}__close-icon`]" v-if="showClose" @click="handleClose"></span>
       </slot>
     </div>
@@ -10,8 +11,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType , computed, ref, onMounted, onUnmounted} from "vue";
-import { IMessageType , IMessage} from "./types";
+import { defineComponent, PropType, computed, ref, onMounted, onUnmounted } from "vue";
+import { IMessageType, IMessage } from "./types";
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import usePopupManager from '../../../hooks/use-popup-manager'
 
@@ -24,7 +25,7 @@ export default defineComponent({
       default: "",
     },
     message: {
-      type: [String,Number,Object] as PropType<IMessage>,
+      type: [String, Number, Object] as PropType<IMessage>,
       default: "",
     },
     type: {
@@ -41,7 +42,7 @@ export default defineComponent({
     },
     onClose: {
       type: Function as PropType<() => void>,
-      default: () => {},
+      default: () => { },
     },
     offset: {
       type: Number,
@@ -49,19 +50,20 @@ export default defineComponent({
     },
     zIndex: {
       type: Number,
-      default:0
+      default: 0
     },
     showClose: {
-      type:Boolean,
+      type: Boolean,
       default: false
-    }
+    },
+    useHTML: Boolean
   },
   emits: ['destroy'],
   setup(props) {
     const ns = getNamespace('message')
     const cls = computed(() => {
       return [
-         ns,
+        ns,
         `${ns}--${props.type}`,
         props.center && 'is-center',
         props.showClose && !props.center && `${ns}__show-close`
@@ -72,14 +74,14 @@ export default defineComponent({
 
 
     const startTimer = () => {
-     timer = setTimeout(() => {
+      timer = setTimeout(() => {
         visible.value = false
-      },props.duration)
+      }, props.duration)
     }
 
     onMounted(() => {
       visible.value = true
-      if(props.duration !== 0) {
+      if (props.duration !== 0) {
         startTimer()
       }
     })
@@ -88,8 +90,8 @@ export default defineComponent({
       clearTimeout(timer)
     })
 
-    const {zIndex} = usePopupManager('message', {runOnMounted:true})
-    
+    const { zIndex } = usePopupManager('message', { runOnMounted: true })
+
     const styles = computed(() => {
       return {
         top: `${props.offset}px`,
@@ -110,5 +112,5 @@ export default defineComponent({
       handleClose
     }
   }
-  });
+});
 </script>

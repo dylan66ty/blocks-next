@@ -71,7 +71,7 @@ export default defineComponent({
     const dialogStyle = computed(() => {
       const style: StyleValue = {}
       if (!teleportContainer.value) return style
-      if (teleportContainer.value !== document.body && !props.messageBox) {
+      if (teleportContainer.value !== document.body) {
         teleportContainer.value!.style.position = 'relative'
         style.position = 'absolute'
       }

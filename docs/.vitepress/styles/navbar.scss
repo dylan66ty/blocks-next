@@ -1,0 +1,61 @@
+@use './mixins' as *;
+@use './css-var.scss' as *;
+
+.navbar-wrapper {
+  border-bottom: 1px solid #dcdfe6;
+  height: var(--nav-height);
+  padding: 0 12px 0 24px;
+  background-image: radial-gradient(transparent 1px, #fff 1px);
+  background-size: 4px 4px;
+  backdrop-filter: saturate(50%) blur(4px);
+  top: 0;
+
+  @include respond-to('lg') {
+    position: sticky;
+    width: 100%;
+    z-index: 100;
+  }
+
+
+  @include respond-to('md') {
+    padding: 0 12px 0 32px;
+  }
+
+  @include respond-to('xlg') {
+    padding: 0 32px;
+  }
+}
+
+.navbar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+
+  @include respond-to('xxl') {
+    max-width: calc(var(--screen-max-width));
+  }
+
+  @include respond-to('max') {
+    max-width: calc(var(--screen-max-width));
+  }
+}
+
+
+.navbar-content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+}
+
+.navbar-menu {
+  display: none;
+
+  @include respond-to('sm') {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+}

@@ -1,4 +1,4 @@
-import type { RenderFunction, VNodeChild , Slots, VNode} from 'vue'
+import type { RenderFunction, VNode } from 'vue';
 
 export interface TableData {
   key?: string;
@@ -9,7 +9,7 @@ export interface TableData {
   [name: string]: any;
 }
 
-export type ClassName = string
+export type ClassName = string;
 
 export interface TableSortable {
   sortDirections: ('ascend' | 'descend')[];
@@ -17,10 +17,10 @@ export interface TableSortable {
     | ((
         a: TableData,
         b: TableData,
-        extra: { dataIndex: string; direction: 'ascend' | 'descend' }
+        extra: { dataIndex: string; direction: 'ascend' | 'descend' },
       ) => number)
     | boolean;
- 
+
   sortOrder?: 'ascend' | 'descend' | '';
 }
 
@@ -34,16 +34,15 @@ export interface TableFilterable {
   filter: (filteredValue: string[], record: TableData) => boolean;
   multiple?: boolean;
   filteredValue?: string[];
-  defaultFilteredValue?: string[]
+  defaultFilteredValue?: string[];
 }
 
-export const tableColumnTypes = ['checkbox', 'index']
+export const tableColumnTypes = ['checkbox', 'index'];
 
-export type TableColumnTypes = (typeof tableColumnTypes)[number]
-
+export type TableColumnTypes = (typeof tableColumnTypes)[number];
 
 export interface TableColumnData {
-  type?: TableColumnTypes,
+  type?: TableColumnTypes;
   prop?: string;
   title?: string;
   width?: number;
@@ -60,16 +59,15 @@ export interface TableColumnData {
     column: TableColumnData;
     rowIndex: number;
   }) => VNode | string | number;
-  renderHeader?: (data: { column: TableColumnData}) => VNode | string | number;
-  renderIndex?: (data: {column:TableColumnData,index:number}) => number ;
+  renderHeader?: (data: { column: TableColumnData }) => VNode | string | number;
+  renderIndex?: (data: { column: TableColumnData; index: number }) => number;
   slotName?: string;
   headerSlotName?: string;
-  hiddenCheckboxAll?:boolean;
-  
+  hiddenCheckboxAll?: boolean;
+
   hidden?: boolean;
   disabled?: boolean;
-  checked?:boolean;
-
+  checked?: boolean;
 
   // private
   isLastLeftFixed?: boolean;
@@ -81,7 +79,7 @@ export interface TableColumnData {
 }
 
 export interface TableDataWithRaw {
-  raw?: TableData
+  raw?: TableData;
   // private
   key?: string;
   disabled?: boolean;

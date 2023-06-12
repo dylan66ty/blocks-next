@@ -10,6 +10,7 @@ export default defineComponent({
   props: iconProps,
   inheritAttrs:false
 });
+
 </script>
 
 <template>

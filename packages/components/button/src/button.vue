@@ -2,13 +2,14 @@
   import type { PropType } from 'vue';
   import { getCurrentInstance, reactive, computed, defineComponent } from 'vue';
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config';
-  import Loading from '../../icon/src/base/loading.vue';
   import { isFunction, isPromise } from '../../../utils/is';
+  // 方便添加动画
+  import LoadingIcon from './LoadingIcon';
 
   export default defineComponent({
     name: getComponentNamespace('Button'),
     components: {
-      Loading,
+      LoadingIcon,
     },
     props: {
       disabled: Boolean,
@@ -102,21 +103,11 @@
     type="button"
     :disabled="disabled"
     :hover="!disabled"
-    @click.stop.prevent="handleClick"
+    @click="handleClick"
   >
     <span>
       <slot></slot>
     </span>
-    <span
-      v-if="isLoading"
-      :class="[
-        `${ns}__loading`,
-        {
-          'is-fill': loadingFill,
-        },
-      ]"
-    >
-      <Loading />
-    </span>
+    <LoadingIcon :loading="isLoading" :ns="ns" />
   </button>
 </template>

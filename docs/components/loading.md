@@ -43,11 +43,11 @@ loading/fullScreen
 |名称|说明|类型|默认|
 |---|---|---|---|
 |text|显示在加载图标下方的加载文案|`string`|`-`|
-|background|说明|加载中背景颜色|`rgba(255,255,255,0.7)`|
+|background|加载中背景颜色|`string`|`rgba(255,255,255,0.7)`|
 |color|加载字体颜色|`string`|`-`|
-|iconSize|加载图标大小|`string`|`16`|
+|iconSize|加载图标大小|`number` / `string`|`16`|
 |customClass|Loading 的自定义类名|`string`|`-`|
-|target|Loading 需要覆盖的 DOM 节点。 可传入一个 DOM 对象或字符串|`string`|`-`|
+|target|Loading 需要覆盖的 DOM 节点。 可传入一个 DOM 对象或字符串|`string`/`HTMLElement` |`body`|
 
 
 

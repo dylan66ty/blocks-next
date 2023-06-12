@@ -1,7 +1,3 @@
-<script lang="ts" setup>
-
-</script>
-
 <template>
   <bn-space direction="vertical">
     <bn-space size="small">
@@ -23,5 +19,3 @@
     </bn-space>
   </bn-space>
 </template>
-
-<style lang="scss"></style>

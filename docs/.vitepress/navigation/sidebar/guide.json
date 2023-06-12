@@ -1,7 +1,6 @@
 {
   "/guide/": [
     {
-      "collapsible": true,
       "items": [
         {
           "text": "快速开始",
@@ -16,8 +15,8 @@
           "link": "component-prompt"
         },
         {
-          "text": "变更记录",
-          "link": "change-logs"
+          "text": "更新日志",
+          "link": "changelogs"
         }
       ]
     }

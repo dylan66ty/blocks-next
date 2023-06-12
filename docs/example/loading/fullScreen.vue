@@ -25,7 +25,6 @@
       instance.close()
     }, 2000);
   }
-
 </script>
 
 <template>

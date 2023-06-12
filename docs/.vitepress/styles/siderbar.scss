@@ -1,0 +1,77 @@
+@use './mixins.scss' as *;
+@use './css-var.scss' as *;
+
+.sidebar-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 40;
+  width: var(--sidebar-width);
+  background-color: var(--bg-color);
+  padding: 48px 32px 0;
+  overflow-y: auto;
+  transform: translate(-100%);
+  transition: background-color 0.15s, opacity 0.25s,
+    transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+
+  &.open {
+    transform: translate(0);
+  }
+
+  .sidebar-groups {
+    padding: 0 0 5rem;
+
+    .sidebar-group__title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 24px;
+    }
+
+    .sidebar-group + .sidebar-group {
+      padding-top: 24px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    width: calc(var(--sidebar-width-mobile) - 14px);
+  }
+
+  @include respond-to('md') {
+    width: calc(var(--sidebar-width-small));
+  }
+
+  @include respond-to('lg') {
+    top: var(--nav-height);
+    transform: translate(0);
+  }
+
+  @include respond-to('xxl') {
+    // 6px stands for 3px sidebar scrollbar width + 3 content scrollbar width
+    padding: 48px 32px 96px calc((100vw - var(--screen-max-width)) / 2);
+
+    width: calc(
+      (100vw - var(--screen-max-width)) / 2 + var(--sidebar-width-small)
+    );
+  }
+
+  @include respond-to('max') {
+    padding: 48px 48px 96px calc((100vw - var(--screen-max-width)) / 2);
+
+    width: calc(
+      (100vw - var(--screen-max-width)) / 2 + var(--sidebar-width-small)
+    );
+  }
+
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.6);
+  z-index: 30;
+}

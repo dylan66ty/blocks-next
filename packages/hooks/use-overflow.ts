@@ -1,4 +1,4 @@
-import {  Ref} from 'vue';
+import type { Ref } from 'vue';
 import { getScrollBarWidth, isScroll } from '../utils/dom';
 
 export const useOverflow = (elementRef: Ref<HTMLElement | undefined>) => {
@@ -8,7 +8,6 @@ export const useOverflow = (elementRef: Ref<HTMLElement | undefined>) => {
     width: '',
     boxSizing: '',
   };
-
 
   const setOverflowHidden = () => {
     if (elementRef.value) {
@@ -46,4 +45,3 @@ export const useOverflow = (elementRef: Ref<HTMLElement | undefined>) => {
     resetOverflow,
   };
 };
-

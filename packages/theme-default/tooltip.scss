@@ -1,19 +1,36 @@
 @import './mixins/bem.scss';
+@import './mixins/config.scss';
 
 
+@include b(tooltip) {
+  --bn-tooltip-padding: 16px 0 16px 16px;
+  --bn-tooltip-padding-right: 16px;
+  --bn-tooltip-font-size: var(--bn-font-size);
+  --bn-tooltip-line-height: 20px;
+  --bn-tooltip-border-radius: 4px;
+}
 
 @include b(tooltip) {
   box-sizing: border-box;
   max-width: 494px;
   width: max-content;
-  border-radius: 4px;
-  padding: 16px 0 16px 16px;
+  border-radius: var(--bn-tooltip-border-radius);
+  padding: var(--bn-tooltip-padding);
   color: #fff;
   @include e(content) {
-    padding-right: 16px;
-    line-height: 20px;
-    font-size: 14px;
+    padding-right: var(--bn-tooltip-padding-right);
+    line-height: var(--bn-tooltip-line-height);
+    font-size: var(--bn-tooltip-font-size);
     word-wrap: break-word;
   }
+
+  @include m(mini) {
+    --bn-tooltip-padding:8px 0 8px 12px;
+    --bn-tooltip-padding-right:12px;
+    --bn-tooltip-font-size: 12px;
+    --bn-tooltip-border-radius:3px;
+    --bn-tooltip-line-height:14px;
+  }
+
 }
 
