@@ -1,18 +1,17 @@
-import DefaultTheme from 'vitepress/theme';
 import type { Theme } from 'vitepress';
 
 import message from '../components/message';
 
 import { copyStr } from '../utils/helper'
 
-import VApp, { globals } from '../components'
+import VApp, { globals , VNotFound} from '../components'
 
 import BlocksNext, { Icon } from '@blocks-next/index';
 import '@blocks-next/theme-default/index.scss';
 
 
 export default <Theme>{
-  NotFound: DefaultTheme.NotFound,
+  NotFound: VNotFound,
   Layout: VApp,
   enhanceApp({ app }) {
     // register global components

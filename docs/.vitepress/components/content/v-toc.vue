@@ -52,10 +52,3 @@ useActiveSidebarLinks(container, marker)
     </nav>
   </aside>
 </template>
-<style scoped lang="scss">
-.sponsors-button:deep {
-  button {
-    width: 100%;
-  }
-}
-</style>
