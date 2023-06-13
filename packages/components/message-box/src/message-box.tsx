@@ -1,5 +1,5 @@
 import _Dialog from '../../dialog/src/dialog.vue'
-import { createVNode, render, isVNode, nextTick, ref, createApp } from 'vue'
+import { createVNode, render, isVNode } from 'vue'
 import type { RenderFunction, VNode } from 'vue'
 import BnButton from '../../button/src/button.vue'
 import BnSpace from '../../space/src/space.vue'
@@ -27,19 +27,16 @@ import {
 } from './types'
 import { isFunction } from '../../../utils/is'
 import { getElement } from '../../../utils/dom'
-import { useOverflow } from '../../../hooks/use-overflow'
 
 
 const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: MessageBoxOptions): void => {
   const vmMountContainer: HTMLElement = document.createElement('div')
 
-  const renderTo = getElement(options?.renderTo || document.body)!
+  const renderTo = options?.renderTo ?? 'body'
 
-  const { setOverflowHidden, resetOverflow } = useOverflow(ref(renderTo))
 
   const onDestroy = () => {
     render(null, vmMountContainer)
-    resetOverflow()
   }
 
   const onBeforeCancel = (action: MessageBoxFooterAction) => {
@@ -162,7 +159,7 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     width: options?.width ?? 460,
     height: options?.height ?? 'auto',
     modelValue: true,
-    renderTo: renderTo,
+    renderTo,
     center: options?.top ? false : options?.center ?? true,
     top: options?.top ?? 0,
     mask: options?.mask ?? true,
@@ -176,9 +173,7 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     },
     // 等待动画完全结束后销毁vm
     onClosed: onDestroy,
-    onOpened: () => {
-      setOverflowHidden()
-    }
+    onOpened: () => {}
   },
     {
       title: defaultHeader(),

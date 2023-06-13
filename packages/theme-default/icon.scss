@@ -1,16 +1,20 @@
 @import './mixins/bem.scss';
 
 @include b(icon) {
+  height: 1em;
+  width: 1em;
+  line-height: 1em;
   display: inline-flex;
-  color: inherit;
-  font-size: inherit;
-  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  fill: currentColor;
   
   > svg {
     fill: currentColor;
     width: 1em;
     height: 1em;
-    outline: none;
+    vertical-align: bottom;
   }
 
   &-loading {

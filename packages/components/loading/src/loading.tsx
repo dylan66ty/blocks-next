@@ -11,7 +11,7 @@ import {
 } from 'vue';
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config';
 import LoadingIcon from '../../icon/src/base/loading.vue';
-import { getElement, getStyle, setStyle } from '../../../utils/dom';
+import { getElement, getScrollBarWidth, getStyle, setStyle } from '../../../utils/dom';
 import usePopupManager from '../../../hooks/use-popup-manager';
 import type { LoadingOptions } from './type';
 
@@ -41,9 +41,6 @@ export const createLoadingComponent = (options: LoadingOptions) => {
 
   const data = reactive<Record<string, any>>({
     ...resolveOptions,
-
-    originalPosition: '',
-    originalOverflow: '',
     visible: false,
   });
 
@@ -100,10 +97,19 @@ export const createLoadingComponent = (options: LoadingOptions) => {
     data.visible = false;
   };
 
+
+  const originStyle = {
+    position: '',
+    overflow: '',
+    width: ''
+  }
+
   const resetMountElStyle = () => {
     setStyle(mountEle, {
-      position: data.originalPosition,
-      overflow: data.originalOverflow,
+      overflow: originStyle.overflow,
+      width: originStyle.width,
+      // @ts-ignore
+      position: originStyle.position
     });
   };
 
@@ -112,16 +118,15 @@ export const createLoadingComponent = (options: LoadingOptions) => {
     if (position === 'static') {
       setStyle(mountEle, { position: 'relative' });
     } else {
-      data.originalPosition = position;
+      originStyle.position = position;
     }
 
     const overflow = getStyle(mountEle, 'overflow');
-
-    if (overflow == 'visible') {
-      setStyle(mountEle, { overflow: 'hidden' });
-    } else {
-      data.originalOverflow = overflow;
+    if (overflow !== 'visible') {
+      originStyle.overflow = overflow;
     }
+
+    setStyle(mountEle, { overflow: 'hidden', width: `calc(100% - ${getScrollBarWidth(mountEle)}px)` });
   };
 
   const appendLoading = () => {

@@ -14,13 +14,13 @@ $scrollbar-size: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #edf1f6;
   border-radius: 10px;
   transition: all 0.2s ease-in-out;
 
   &:hover {
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: #edf1f6;
   }
 }
 

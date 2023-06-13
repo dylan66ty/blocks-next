@@ -23,6 +23,9 @@ export * from './tabs';
 export * from './tab-pane';
 export * from './popconfirm';
 export * from './progress';
+export * from './tag';
+export * from './badge';
+export * from './cascader';
 
 // methods
 export * from './message';

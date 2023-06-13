@@ -1,47 +1,49 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+import { ref } from 'vue';
 
-  const form = ref({
-    data: {
-      user: {
-        name: '',
-        age: '',
-      },
+const form = ref({
+  data: {
+    user: {
+      name: '',
+      age: '',
     },
-  });
+  },
+});
 
-  const rules = {
-    'data.user.name': [
-      {
-        required: true,
-        message: 'name error 3-5',
-        min: 3,
-        max: 5,
-        trigger: 'change',
-      },
-    ],
-    'data.user.age': [
-      {
-        required: true,
-        message: 'age error',
-        trigger: 'change',
-      },
-    ],
-  };
+const rules = {
+  'data.user.name': [
+    {
+      required: true,
+      message: 'name error 3-5',
+      min: 3,
+      max: 5,
+      trigger: 'change',
+    },
+  ],
+  'data.user.age': [
+    {
+      required: true,
+      message: 'age error',
+      trigger: 'change',
+    },
+  ],
+};
 
-  const formRef = ref();
+const formRef = ref();
 
-  const submitForm = async () => {
-    const isValid = await formRef.value.validate();
-    if (isValid) {
+const submitForm = () => {
+  formRef.value.validate(valid => {
+    if (valid) {
       console.log('submit');
       return;
     }
-  };
+  });
 
-  const resetForm = () => {
-    formRef.value.resetFields();
-  };
+};
+
+const resetForm = () => {
+  formRef.value.resetFields();
+};
 </script>
 
 <template>

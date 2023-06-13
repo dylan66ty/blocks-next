@@ -27,11 +27,13 @@
 
   import Progress from './components/Progress.vue'
 
+  import Cascader from './components/Cascader.vue'
+
 
 </script>
 
 <template>
-  <Progress />
+  <Cascader />
 </template>
 
 <style></style>

@@ -37,13 +37,15 @@ const rules = {
 
 const formRef = ref();
 
-const submitForm = async () => {
-    const isValid = await formRef.value.validate();
-    if (isValid) {
+const submitForm = () => {
+  formRef.value.validate(valid => {
+    if (valid) {
       console.log('submit');
       return;
     }
-  };
+  });
+
+};
 
 </script>
 

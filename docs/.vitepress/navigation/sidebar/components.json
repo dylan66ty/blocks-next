@@ -110,6 +110,16 @@
         {
           "text": "文字气泡 Tooltip",
           "link": "tooltip"
+        },
+        {
+          "text": "标签 Tag",
+          "link": "tag",
+          "promotion": "alpha.27"
+        },
+        {
+          "text": "数字角标 Badge",
+          "link": "badge",
+          "promotion": "alpha.27"
         }
       ]
     },

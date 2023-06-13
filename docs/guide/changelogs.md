@@ -1,5 +1,17 @@
 # 更新日志
 
+## 1.0.1-alpha.26
+`2023-06-12`
+
+- Components [Tag] (feat) 新增Tag组件
+- Components [Badge] (feat) 新增Badge组件
+- Components [Dialog] (pref) 优化dialog弹出层抖动
+
+
+
+
+
+
 ## 1.0.1-alpha.25
 `2023-06-12`
 - Components [Progress] (feat) 新增Progress组件
@@ -8,9 +20,6 @@
 - Components [MessageBox] (fix) 页面加载时渲染报错 undefined style[🔨]
 - Components [Button] (feat) 新增加载loading过渡动画
 - Components [Message] (feat) 新增useHTML属性
-
-
-
 
 
 ## 1.0.1-alpha.24

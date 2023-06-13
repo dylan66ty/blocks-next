@@ -1,5 +1,5 @@
 <template>
-  <transition name="bn-fade-in" @before-leave="$emit('close')" @after-leave="$emit('destroy')">
+  <transition name="bn-fade-in-standard" appear  @before-leave="$emit('close')" @after-leave="$emit('destroy')">
     <div :class="contentCls" :style="contentStyle" v-show="visible">
       <Scrollbar style="max-height: 140px" :class="[`${ns}__content`]">
         <slot name="content">
@@ -7,20 +7,20 @@
         </slot>
       </Scrollbar>
 
-      <div :class="[`${ns}__arrow`]" :style="arrowStyle"></div>
+      <div class="arrow" :style="arrowStyle"></div>
     </div>
   </transition>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted, onUnmounted, watch } from 'vue'
+import { defineComponent, computed, ref, onUnmounted } from 'vue'
 import { getNamespace } from '../../../utils/global-config'
 import type { StyleValue } from 'vue'
 import Scrollbar from '../../scrollbar/src/scrollbar.vue'
 
 export default defineComponent({
   name: 'TooltipPopup',
-  props:['content', 'effect', 'backgroundColor', 'position', 'popupClass', 'size'],
+  props: ['content', 'effect', 'backgroundColor', 'position', 'popupClass', 'size'],
   components: {
     Scrollbar
   },
@@ -67,16 +67,11 @@ export default defineComponent({
       return style
     })
 
-    const visible = ref(false)
+    const visible = ref(true)
 
     const changeVisible = (value: boolean) => {
       visible.value = value
     }
-
-    onMounted(() => {
-      visible.value = true
-
-    })
 
     onUnmounted(() => {
       visible.value = false

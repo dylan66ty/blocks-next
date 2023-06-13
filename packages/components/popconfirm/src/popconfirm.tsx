@@ -15,7 +15,7 @@ import { getFirstElement, mergeFirstChild } from '../../../utils/vue-utils';
 
 import { getPopupStyle, getElementScrollRect, getArrowStyle } from '../../trigger/src/utils';
 
-import { getElement, off, on } from '../../../utils/dom';
+import { getElement, off, on, setStyle } from '../../../utils/dom';
 
 import usePopupManager from '../../../hooks/use-popup-manager';
 
@@ -88,7 +88,7 @@ export default defineComponent({
 
     const { zIndex } = usePopupManager('popup', { visible: computedVisible });
 
-    const updatePopupStyle = () => {
+    const updatePopupStyle = async () => {
       if (!popupTarget || !defaultSlot) return;
       const triggerTarget = getFirstElement(defaultSlot) as HTMLElement;
       const containerRect = renderTo!.getBoundingClientRect();
@@ -105,29 +105,23 @@ export default defineComponent({
           offset: 16,
         },
       );
-      const _popupTarget = popupTarget as HTMLElement;
-      
-      const needStyles: CSSProperties = { ...style, position: 'absolute', 'z-index': zIndex.value };
-      Object.keys(needStyles).forEach((key) => {
-        // @ts-ignore
-        (_popupTarget.style as any)[key] = needStyles[key];
-      });
 
-      nextTick(() => {
-        const arrowStyle = getArrowStyle(position, triggerScrollRect, getPopupScrollRect(), {
-          customStyle: {
-            position: 'absolute',
-            'border-width': '6px',
-            'border-style': 'solid',
-            zIndex: 0,
-          },
-        });
-        const arrowNode = popupTarget?.querySelector('.bn-popconfirm__arrow');
-        Object.keys(arrowStyle).forEach((key) => {
-          // @ts-ignore
-          arrowNode.style[key] = arrowStyle[key];
-        });
+      const popupStyle: CSSProperties = { ...style, position: 'absolute', 'z-index': zIndex.value };
+      setStyle(popupTarget, popupStyle)
+
+      await nextTick()
+
+      const arrowStyle = getArrowStyle(position, triggerScrollRect, getPopupScrollRect(), {
+        customStyle: {
+          position: 'absolute',
+          'border-width': '6px',
+          'border-style': 'solid',
+          zIndex: 0,
+        },
       });
+      const arrowNode = getElement('.arrow',popupTarget) as HTMLElement
+
+      setStyle(arrowNode,arrowStyle)
     };
 
     const handleResize = () => {
@@ -158,14 +152,13 @@ export default defineComponent({
       content
     };
 
-    const createPopup = async () => {
+    const createPopup = () => {
       if (popupTarget) return;
       vm = createVNode(Popup, popupProps, {
         content: slots.content
       });
       render(vm, container);
 
-      await nextTick();
       popupTarget = container.firstChild! as HTMLElement;
       renderTo!.appendChild(popupTarget);
       updatePopupStyle();

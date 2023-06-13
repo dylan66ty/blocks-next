@@ -17,10 +17,11 @@
 }
 
 @include b(input) {
-    display: inline-flex;
+    width: 100%;
+    display:inline-flex;
     box-sizing: border-box;
     position: relative;
-    width: 100%;
+    vertical-align: middle;
 
     @include e(wrapper) {
         box-sizing: border-box;
@@ -36,7 +37,6 @@
         transform: translateZ(0);
         color: var(--bn-input-color);
         font-size: var(--bn-input-font-size);
-        box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset;
         transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
 
         &:hover {
@@ -74,6 +74,9 @@
         outline: none;
         padding: 0;
         margin: 0;
+        border: 0;
+        background: 0 0;
+
 
         &::-webkit-input-placeholder {
             color: var(--bn-input-placeholder-color);
@@ -90,10 +93,7 @@
     }
 
     @include e(icon) {
-        height: 100%;
         display: flex;
-        align-items: center;
-        justify-content: center;
         flex-shrink: 0;
         font-size: inherit;
         color: var(--bn-input-icon-color);
@@ -106,7 +106,7 @@
         align-items: center;
         justify-content: center;
 
-        >.#{$namespace}-input__icon {
+        .#{$namespace}-input__icon {
             margin-right: 8px;
         }
     }
@@ -117,8 +117,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
-        >.#{$namespace}input__icon {
+        flex-wrap: nowrap;
+        .#{$namespace}-input__icon {
             margin-left: 8px;
         }
     }
@@ -137,7 +137,6 @@
 
     @include e(clearable) {
         cursor: pointer;
-        margin-left: 8px;
     }
 
     @include m(small) {
@@ -197,6 +196,7 @@
         border: 1px solid var(--bn-input-border-color);
         border-radius: var(--bn-input-border-radius);
         transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+        outline: none;
 
         &::-webkit-input-placeholder {
             color: var(--bn-input-placeholder-color);

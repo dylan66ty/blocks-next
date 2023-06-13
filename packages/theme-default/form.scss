@@ -88,8 +88,8 @@
   }
 
   @include when(error) {
-
-    .#{$namespace}-input__inner,
+  
+    .#{$namespace}-input__wrapper,
     .#{$namespace}-textarea__inner {
       border-color: var(--bn-form-item-error-color);
     }

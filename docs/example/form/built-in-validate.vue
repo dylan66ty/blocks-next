@@ -1,55 +1,56 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+import { ref } from 'vue';
 
-  const form = ref({
-    mobile: '',
-    email: '',
-    url: '',
-  });
+const form = ref({
+  mobile: '',
+  email: '',
+  url: '',
+});
 
-  // validator支持 string =>  (email ｜ url | mobile | chinese | number)
-  // 也可以是function =>  (rule,value,callback) => {}
-  // 验证细节参考 async-validator
-  const rules = {
-    mobile: [
-      {
-        validator: 'mobile',
-        required: true,
-        message: 'mobile error',
-        trigger: 'change',
-      },
-    ],
-    email: [
-      {
-        validator: 'email',
-        required: true,
-        message: 'email error',
-        trigger: 'change',
-      },
-    ],
-    url: [
-      {
-        validator: 'url',
-        required: true,
-        message: 'url error',
-        trigger: 'change',
-      },
-    ],
-  };
+// validator支持 string =>  (email ｜ url | mobile | chinese | number)
+// 也可以是function =>  (rule,value,callback) => {}
+// 验证细节参考 async-validator
+const rules = {
+  mobile: [
+    {
+      validator: 'mobile',
+      required: true,
+      message: 'mobile error',
+      trigger: 'change',
+    },
+  ],
+  email: [
+    {
+      validator: 'email',
+      required: true,
+      message: 'email error',
+      trigger: 'change',
+    },
+  ],
+  url: [
+    {
+      validator: 'url',
+      required: true,
+      message: 'url error',
+      trigger: 'change',
+    },
+  ],
+};
 
-  const formRef = ref();
+const formRef = ref();
 
-  const submitForm = async () => {
-    const isValid = await formRef.value.validate();
-    if (isValid) {
+const submitForm = () => {
+  formRef.value.validate(valid => {
+    if (valid) {
       console.log('submit');
       return;
     }
-  };
+  })
+};
 
-  const resetForm = () => {
-    formRef.value.resetFields();
-  };
+const resetForm = () => {
+  formRef.value.resetFields();
+};
 </script>
 
 <template>

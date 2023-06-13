@@ -23,6 +23,7 @@ export default defineComponent({
   },
   props: inputProps,
   emits: ['update:modelValue', 'input', 'change', 'focus', 'blur', 'clear'],
+  inheritAttrs:false,
   setup(props, { emit, slots }) {
     const inputNs = getNamespace('input');
     const textareaNs = getNamespace('textarea')
@@ -84,13 +85,12 @@ export default defineComponent({
     });
 
     const hasPasswordIcon = computed(() => {
-      if (props.showPassword && computedModelValue.value) return true
+      return props.showPassword && computedModelValue.value
     })
 
     const showInputInnerSuffixArea = computed(() => {
       return hasSuffixIcon.value || hasClearableIcon.value || props.showWordLimit || props.showPassword
     })
-
 
     // 输入文本字数
     const currentValueLength = computed<number>(() => {
@@ -264,21 +264,18 @@ export default defineComponent({
           @change="handleChange" @focus="handleFocus" @blur="handleBlur" />
 
         <span :class="[`${inputNs}__suffix`]" v-if="showInputInnerSuffixArea">
-          <span :class="[`${inputNs}__icon`]">
-            <template v-if="hasPasswordIcon">
-              <EyeOpenIcon :class="[`${inputNs}__eye`]" v-if="eyeStatus" @click.stop="handleEye" />
-              <EyeCloseIcon :class="[`${inputNs}__eye`]" v-else @click.stop="handleEye" />
-            </template>
-            <template v-if="hasClearableIcon">
-              <ClearableIcon :class="[`${inputNs}__clearable`]" color="#d9dbe2" @click.stop="handleClear" />
-            </template>
-            <template v-if="!showPassword && hasSuffixIcon && !hasClearableIcon">
-              <slot name="suffix-icon">
-                <component :is="suffixIcon"></component>
-              </slot>
-            </template>
+          <span :class="[`${inputNs}__icon`, `${inputNs}__eye`]" v-if="hasPasswordIcon" @click.stop="handleEye">
+            <EyeOpenIcon v-if="eyeStatus" />
+            <EyeCloseIcon v-else />
           </span>
-
+          <span :class="[`${inputNs}__icon`, `${inputNs}__clearable`]" v-if="hasClearableIcon" @click.stop="handleClear">
+            <ClearableIcon color="#d9dbe2" />
+          </span>
+          <span :class="[`${inputNs}__icon`]" v-if="!showPassword && hasSuffixIcon && !hasClearableIcon">
+            <slot name="suffix-icon">
+              <component :is="suffixIcon"></component>
+            </slot>
+          </span>
           <span :class="[`${inputNs}__count`]" v-if="showWordLimit">
             {{ currentValueLength }} / {{ maxlength }}
           </span>

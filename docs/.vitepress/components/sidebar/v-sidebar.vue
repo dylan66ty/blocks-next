@@ -1,12 +1,15 @@
 <script lang="ts" setup>
 import { useSidebar } from '../hooks/useSidebar'
 import VLink from './v-link.vue'
+
 const { hasSidebar, sidebars } = useSidebar()
+
 
 defineProps({
   showMenu: Boolean
 })
 defineEmits(['toggle-menu'])
+
 
 
 
@@ -21,7 +24,7 @@ defineEmits(['toggle-menu'])
           <p class="sidebar-group__title">
             {{ item.text }}
           </p>
-          <VLink v-for="(child, childKey) in item.items" :key="childKey" :item="child" @close="$emit('close')" />
+          <VLink v-for="(child, childKey) in item.items" :key="childKey" :item="child" @close="$emit('toggle-menu', false)" />
         </section>
       </div>
       <slot name="bottom" />

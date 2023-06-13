@@ -11,7 +11,7 @@ export const tooltipProps = {
   },
   position: {
     type:String as PropType<Position> ,
-    default: 'tl'
+    default: 'top'
   },
   backgroundColor: {
     type: String,

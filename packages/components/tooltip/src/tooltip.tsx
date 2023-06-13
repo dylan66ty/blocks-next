@@ -20,7 +20,7 @@ import { getPopupStyle, getElementScrollRect, getArrowStyle } from '../../trigge
 import { getPopupTranslateByPosition, getPopupPositionByEmpty } from './utils'
 import usePopupManager from '../../../hooks/use-popup-manager'
 import { Position } from './types'
-import { getElement } from '../../../utils/dom'
+import { getElement, setStyle } from '../../../utils/dom'
 import { useResizeObserver } from '../../../hooks/use-resize-observer'
 
 const defaultStyleBySizes = ['mini']
@@ -63,14 +63,14 @@ export default defineComponent({
 
     const computedPosition = computed(() => {
       if (isDefault.value) return 'top'
-      if (!slots['content'] && props.content) {
+      if (!slots['content'] && !props.content) {
         return getPopupPositionByEmpty(props.position) as Position
       }
       return props.position as Position
     })
 
 
-    const updatePopupStyle = () => {
+    const updatePopupStyle = async () => {
       if (!popupTarget || !defaultSlot) return
       const triggerTarget = getFirstElement(defaultSlot) as HTMLElement
       const containerRect = renderTo.value!.getBoundingClientRect()
@@ -81,13 +81,12 @@ export default defineComponent({
         autoFitPosition: true,
         offset: isDefault.value ? 6 : 0
       })
-      const _popupTarget = popupTarget as HTMLElement
-      const needStyles: CSSProperties = { ...style, position: 'absolute', 'z-index': zIndex.value }
-      Object.keys(needStyles).forEach(key => {
-        // @ts-ignore
-        (_popupTarget.style as any)[key] = needStyles[key]
-      })
+      const popupTargetStyle: CSSProperties = { ...style, position: 'absolute', 'z-index': zIndex.value }
+      // 设置弹出层样式
+      setStyle(popupTarget, popupTargetStyle)
 
+      // 把弹出层放入body中，等弹出层更新完样式后才可以更新arrow样式。
+      await nextTick()
       const arrowStyle = getArrowStyle(position, triggerScrollRect, getPopupScrollRect(), {
         customStyle: {
           position: 'absolute',
@@ -96,13 +95,9 @@ export default defineComponent({
           zIndex: 0,
         },
       })
-
-      const arrowNode = popupTarget?.querySelector('.bn-tooltip__arrow')!
-
-      Object.keys(arrowStyle).forEach(key => {
-        // @ts-ignore
-        arrowNode.style[key] = arrowStyle[key]
-      })
+      const arrowNode = getElement('.arrow', popupTarget) as HTMLElement
+      // 设置弹出层箭头样式
+      setStyle(arrowNode, arrowStyle)
 
     }
 
@@ -117,7 +112,7 @@ export default defineComponent({
     } = toRefs(props)
 
     // 创建tooltip
-    const createTooltip = async () => {
+    const createTooltip = () => {
       if (popupTarget) return
       emit('change', true)
       vm = createVNode(Popup, {
@@ -142,8 +137,7 @@ export default defineComponent({
         }
       )
       render(vm, container)
-      // 必须等待popup组件创建完毕后才能放入容器中。
-      await nextTick()
+
       popupTarget = container.firstChild! as HTMLElement
       renderTo.value!.appendChild(popupTarget)
       updatePopupStyle()
@@ -176,6 +170,7 @@ export default defineComponent({
         changeVisible(false)
       }, 100)
     }
+
 
     const handleResize = () => {
       updatePopupStyle()

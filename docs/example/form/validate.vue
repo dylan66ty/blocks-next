@@ -1,100 +1,102 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+import { ref } from 'vue';
 
-  const form = ref({
-    name: '',
-    birth: '',
-    age: '',
-    hobby: [],
-    contact: '',
-    suggest: '',
-    isAddFriends: false,
-    lang: '',
-  });
+const form = ref({
+  name: '',
+  birth: '',
+  age: '',
+  hobby: [],
+  contact: '',
+  suggest: '',
+  isAddFriends: false,
+  lang: '',
+});
 
-  // validator支持 string =>  (email ｜ url | mobile | chinese | number)
-  // 也可以是function =>  (rule,value,callback) => {}
-  // 验证细节参考 async-validator
-  const rules = {
-    name: [
-      {
-        required: true,
-        min: 2,
-        max: 5,
-        message: '姓名2-5汉字',
-        trigger: 'change',
-      },
-    ],
-    birth: [
-      {
-        required: true,
-        message: '生日必填项',
-        trigger: 'change',
-      },
-    ],
-    age: [
-      {
-        required: true,
-        message: '年龄必填项',
-      },
-    ],
-    hobby: [
-      {
-        type: 'array',
-        required: true,
-        message: '爱好至少选一项',
-      },
-    ],
-    contact: [
-      {
-        required: true,
-        message: '联系方式必填项',
-      },
-    ],
-    isAddFriends: [
-      {
-        required: true,
-        message: '勾选允许添加好友',
-        validator(rule,value,callback) {
-          if(!value) {
-           return callback(new Error(rule.message))
-          }
-          callback()
-          
+// validator支持 string =>  (email ｜ url | mobile | chinese | number)
+// 也可以是function =>  (rule,value,callback) => {}
+// 验证细节参考 async-validator
+const rules = {
+  name: [
+    {
+      required: true,
+      min: 2,
+      max: 5,
+      message: '姓名2-5汉字',
+      trigger: 'change',
+    },
+  ],
+  birth: [
+    {
+      required: true,
+      message: '生日必填项',
+      trigger: 'change',
+    },
+  ],
+  age: [
+    {
+      required: true,
+      message: '年龄必填项',
+    },
+  ],
+  hobby: [
+    {
+      type: 'array',
+      required: true,
+      message: '爱好至少选一项',
+    },
+  ],
+  contact: [
+    {
+      required: true,
+      message: '联系方式必填项',
+    },
+  ],
+  isAddFriends: [
+    {
+      required: true,
+      message: '勾选允许添加好友',
+      validator(rule, value, callback) {
+        if (!value) {
+          return callback(new Error(rule.message))
         }
-      },
-    ],
-    suggest: [
-      {
-        required: true,
-        min: 3,
-        max: 20,
-        message: '3-20字',
-        trigger: 'change',
-      },
-    ],
-    lang: [
-      {
-        required: true,
-        message: '请选择框架',
-        trigger: 'change',
-      },
-    ],
-  };
+        callback()
 
-  const formRef = ref();
+      }
+    },
+  ],
+  suggest: [
+    {
+      required: true,
+      min: 3,
+      max: 20,
+      message: '3-20字',
+      trigger: 'change',
+    },
+  ],
+  lang: [
+    {
+      required: true,
+      message: '请选择框架',
+      trigger: 'change',
+    },
+  ],
+};
 
-  const submitForm = async () => {
-    const isValid = await formRef.value.validate();
-    if (isValid) {
+const formRef = ref();
+
+const submitForm = () => {
+  formRef.value.validate(valid => {
+    if (valid) {
       console.log('submit');
       return;
     }
-  };
+  });
 
-  const resetForm = () => {
-    formRef.value.resetFields();
-  };
+};
+
+const resetForm = () => {
+  formRef.value.resetFields();
+};
 </script>
 
 <template>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      width:200px;
+      height:200px;
+      border:0.4rem solid #ddd;
+      box-sizing: border-box;
+      padding: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+
+  <script>
+    const box = document.querySelector('.box')
+
+   const w =  getComputedStyle(box).borderLeftWidth
+   console.log(w);
+    
+    console.log(box.offsetWidth);
+    console.log(box.clientWidth);
+    
+  </script>
+  
+</body>
+</html>

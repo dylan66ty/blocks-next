@@ -99,10 +99,15 @@ export const isScroll = (element: HTMLElement) => {
     : element.scrollHeight > element.offsetHeight;
 };
 
+
 export const getScrollBarWidth = (element: HTMLElement) => {
-  return element.tagName === 'BODY'
-    ? window.innerWidth - (document.documentElement.offsetWidth || document.body.offsetWidth)
-    : element.offsetWidth - element.clientWidth;
+  if(element.tagName === 'BODY') {
+    return window.innerWidth - (document.documentElement.offsetWidth || document.body.offsetWidth)
+  }
+  const {borderLeftWidth, borderRightWidth} = window.getComputedStyle(element)
+  const borderWidth = Number(borderLeftWidth.replace('px', '')) +  Number(borderRightWidth.replace('px', ''))
+  const scrollbarWidth = element.offsetWidth - (element.clientWidth + borderWidth);
+  return scrollbarWidth
 };
 
 export const getStyle = (

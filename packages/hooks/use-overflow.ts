@@ -3,12 +3,11 @@ import { getScrollBarWidth, isScroll } from '../utils/dom';
 
 export const useOverflow = (elementRef: Ref<HTMLElement | undefined>) => {
   let isSetOverflow = false;
+
   const originStyle = {
     overflow: '',
-    width: '',
-    boxSizing: '',
+    width: ''
   };
-
   const setOverflowHidden = () => {
     if (elementRef.value) {
       const element = elementRef.value;
@@ -17,12 +16,8 @@ export const useOverflow = (elementRef: Ref<HTMLElement | undefined>) => {
         if (scrollBarWidth > 0 || isScroll(element)) {
           originStyle.overflow = element.style.overflow;
           originStyle.width = element.style.width;
-          originStyle.boxSizing = element.style.boxSizing;
           element.style.overflow = 'hidden';
-          // element.style.width = `${element.offsetWidth - scrollBarWidth}px`;
-          element.style.width = `100%`;
-          element.style.boxSizing = 'border-box';
-
+          element.style.width = `calc(100% - ${scrollBarWidth}px)`;
           isSetOverflow = true;
         }
       }
@@ -34,11 +29,11 @@ export const useOverflow = (elementRef: Ref<HTMLElement | undefined>) => {
       const element = elementRef.value;
       element.style.overflow = originStyle.overflow;
       element.style.width = originStyle.width;
-      element.style.boxSizing = originStyle.boxSizing;
-
       isSetOverflow = false;
     }
   };
+
+  
 
   return {
     setOverflowHidden,

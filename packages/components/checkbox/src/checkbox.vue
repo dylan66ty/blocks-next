@@ -20,7 +20,7 @@
       const ns = getNamespace('checkbox');
       const checkboxGroup = inject<CheckboxGroupContext | null>(checkboxGroupContextKey, null);
       const isGroup = computed(() => !!checkboxGroup);
-      const selfModel = ref<unknown>(false);
+      const selfModel = ref<boolean>(false);
 
       const model = computed({
         get() {

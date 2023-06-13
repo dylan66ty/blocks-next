@@ -1,28 +1,27 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
 
+  const content = ref(`Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, provident exercitationem ex, numquam nam reiciendis sapiente, 
+   illum dignissimos esse magni quasi iure molestiae quas ad quis perspiciatis nihil eveniet dicta.`)
 </script>
 
 <template>
   <bn-scrollbar class="scroll-container">
-   <div>
-   {{ `Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, provident exercitationem ex, numquam nam reiciendis sapiente, 
-   illum dignissimos esse magni quasi iure molestiae quas ad quis perspiciatis nihil eveniet dicta.`.repeat(6)}}
-   </div>
+    {{ content.repeat(6) }}
   </bn-scrollbar>
 
   <div style="margin-top: 20px;"></div>
 
   <bn-scrollbar class="scroll-container">
    <div style="white-space: nowrap;">
-   {{ `Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, provident exercitationem ex, numquam nam reiciendis sapiente, 
-   illum dignissimos esse magni quasi iure molestiae quas ad quis perspiciatis nihil eveniet dicta.`}}
+    {{ content }}
    </div>
   </bn-scrollbar>
 </template>
 
 <style lang="scss">
 .scroll-container {
-  height: 200px;
+  max-height: 200px;
   background-color: rgba(0,0,0,0.8);
   color: #fff;
   padding: 12px;

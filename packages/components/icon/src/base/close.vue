@@ -15,12 +15,6 @@ export default defineComponent({
 
 <template>
   <IconComponent v-bind="{...$props,...$attrs}">
-    <svg viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg">
-      <g id="编组-19" transform="translate(3.678149, 3.646447)">
-        <polygon points="0.707106781 0 8.70710678 8 8 8.70710678 0 0.707106781"></polygon>
-        <polygon transform="translate(4.353553, 4.353553) scale(-1, 1) translate(-4.353553, -4.353553) "
-          points="0.707106781 0 8.70710678 8 8 8.70710678 0 0.707106781"></polygon>
-      </g>
-    </svg>
+    <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg>
   </IconComponent>
 </template>

@@ -5,7 +5,7 @@ import { getComponentNamespace, getNamespace } from '../../../utils/global-confi
 import { isObject } from '../../../utils/is';
 import ResizeObserver from '../../../shared/resize-observer';
 import { scrollbarProps } from './scrollbar';
-import { TRACK_SIZE, THUMB_MIN_SIZE } from './constant';
+import { TRACK_SIZE } from './constant';
 import Thumb from './thumb.vue';
 
 import type { ThumbData } from './types';
@@ -69,13 +69,13 @@ export default defineComponent({
 
         const horizontalThumbWidth = Math.round(
           horizontalTrackWidth /
-          Math.min(scrollWidth / clientWidth, horizontalTrackWidth / THUMB_MIN_SIZE),
+          Math.min(scrollWidth / clientWidth, horizontalTrackWidth),
         );
         const maxHorizontalOffset = horizontalTrackWidth - horizontalThumbWidth;
         const horizontalRatio = (scrollWidth - clientWidth) / maxHorizontalOffset;
         const verticalThumbHeight = Math.round(
           verticalTrackHeight /
-          Math.min(scrollHeight / clientHeight, verticalTrackHeight / THUMB_MIN_SIZE),
+          Math.min(scrollHeight / clientHeight, verticalTrackHeight),
         );
         const maxVerticalOffset = verticalTrackHeight - verticalThumbHeight;
         const verticalRatio = (scrollHeight - clientHeight) / maxVerticalOffset;

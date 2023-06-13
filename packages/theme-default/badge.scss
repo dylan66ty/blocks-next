@@ -1,0 +1,66 @@
+@import './mixins/bem.scss';
+@import './common/var.scss';
+
+@include b(badge) {
+  --bn-badge-color: #fff;
+  --bn-badge-background-color:var(--bn-danger);
+  --bn-badge-padding: 0 6px;
+  --bn-badge-radius: 10px;
+
+}
+
+@mixin set-type ($type) {
+  @include m($type) {
+    --bn-badge-background-color: var(--bn-#{$type});
+  }
+}
+
+@mixin set-light-effect($type) {
+  &.#{$namespace}-badge--#{$type} {
+    --bn-badge-background-color: var(--bn-#{$type}-8);
+    --bn-badge-color: var(--bn-#{$type});
+  }
+}
+
+@include b(badge) { 
+  position: relative;
+  display: inline-flex;
+
+  @include e(content) {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    padding: var(--bn-badge-padding);
+    border-radius: var(--bn-badge-radius);
+    transform: translate(100%,-50%);
+    background-color: var(--bn-badge-background-color);
+    font-size: 12px;
+    color: var(--bn-badge-color);    
+    text-align: center;
+
+    &.is-dot {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      right: 5px;
+
+    }
+
+    &.is-light {
+      @include set-light-effect(primary);
+      @include set-light-effect(success);
+      @include set-light-effect(warning);
+      @include set-light-effect(strong);
+      @include set-light-effect(danger);
+    }
+
+
+  }
+
+ @include set-type (primary);  
+ @include set-type (success);  
+ @include set-type (warning);  
+ @include set-type (strong);  
+ @include set-type (danger);  
+}

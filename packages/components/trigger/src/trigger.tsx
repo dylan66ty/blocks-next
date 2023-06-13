@@ -45,7 +45,9 @@ export default defineComponent({
     const teleportContainer = computed(() => props.popupContainer || 'body');
     const containerRef = ref<HTMLElement>();
 
-    onMounted(() => (containerRef.value = document.documentElement));
+    onMounted(() => {
+      containerRef.value = document.documentElement
+    });
 
     // 用于多个trigger嵌套时，保持打开状态
     const childrenRefs = new Set<Ref<HTMLElement>>();

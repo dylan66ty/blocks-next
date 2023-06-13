@@ -1,13 +1,13 @@
 <template>
   <teleport :to="teleportContainer" :disabled="teleportDisabled">
-    <div :class="cls" :style="dialogStyle" v-show="outerVisible" v-if="!destroyOnClosed || outerVisible">
+    <div :class="cls" :style="dialogStyle" v-show="animationVisible" v-if="!destroyOnClosed || animationVisible">
       <transition name="bn-fade-in-standard" appear>
-        <div :class="[`${ns}__mask`]" v-if="mask" v-show="innerVisible"></div>
+        <div :class="[`${ns}__mask`]" v-if="mask" v-show="computedVisible"></div>
       </transition>
       <div :class="[`${ns}__wrapper`, { 'is-center': center }]" @click.self="handleMaskClick">
         <transition name="bn-zoom-in" appear @after-enter="afterEnter" @after-leave="afterLeave">
           <div :class="[`${ns}__container`, { 'is-fullscreen': fullscreen }]" :style="containerStyle"
-            v-show="innerVisible">
+            v-show="computedVisible">
             <div :class="[`${messageBox ? messageBoxNs : ns}__header`]">
               <div :class="[`${ns}__header-title`]" v-if="!$slots['title']">
                 {{ title }}
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, reactive, ref, toRef, watch } from 'vue'
+import { computed, defineComponent, onBeforeUnmount, reactive, ref, watch } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import { dialogProps } from './dialog'
 import type { StyleValue } from 'vue'
@@ -62,8 +62,7 @@ export default defineComponent({
     const teleportContainer = ref<HTMLElement>()
     const teleportDisabled = computed(() => props.disabled || !teleportContainer.value)
 
-    watch(() => props.renderTo, async (newRenderTo) => {
-      await nextTick()
+    watch(() => props.renderTo, (newRenderTo) => {
       teleportContainer.value = getElement(newRenderTo)
     }, { immediate: true })
 
@@ -96,15 +95,15 @@ export default defineComponent({
     })
 
 
-    const innerVisible = computed(() => props.modelValue);
-    const outerVisible = computed(() => innerVisible.value || animation.value)
-    const animation = ref(innerVisible.value)
+    const computedVisible = computed(() => props.modelValue);
+    const animationVisible = computed(() => computedVisible.value || animation.value)
+    const animation = ref(computedVisible.value)
 
 
 
 
     const { zIndex, isLastDialog } = usePopupManager('dialog', {
-      visible: innerVisible,
+      visible: computedVisible,
     });
 
     const { setOverflowHidden, resetOverflow } = useOverflow(teleportContainer);
@@ -129,7 +128,6 @@ export default defineComponent({
     // 动画加载后触发打开
     const afterEnter = () => {
       // 隐藏滚动条
-      setOverflowHidden()
       emit('opened')
     }
 
@@ -193,12 +191,8 @@ export default defineComponent({
       off(document.documentElement, 'keydown', handleGlobalKeyDown);
     };
 
-    onMounted(() => {
-      if (innerVisible.value) {
-        setOverflowHidden()
-        props.escToClose && addGlobalKeyDownListener();
-      }
-    })
+    
+
     // 页面意外关闭
     onBeforeUnmount(() => {
       resetOverflow();
@@ -207,15 +201,16 @@ export default defineComponent({
 
 
 
-    watch(() => innerVisible.value, (val) => {
+    watch(() => computedVisible.value, (val) => {
       if (val) {
         emit('open')
+        setOverflowHidden()
         animation.value = true
         addGlobalKeyDownListener();
       } else {
         removeGlobalKeyDownListener()
       }
-    })
+    }, {immediate: true})
 
 
     return {
@@ -226,8 +221,8 @@ export default defineComponent({
       dialogStyle,
       teleportContainer,
       teleportDisabled,
-      innerVisible,
-      outerVisible,
+      computedVisible,
+      animationVisible,
       interceptClose,
       afterLeave,
       afterEnter,

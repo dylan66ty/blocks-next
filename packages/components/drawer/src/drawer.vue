@@ -186,7 +186,6 @@ export default defineComponent({
 
     onMounted(() => {
       if (innerVisible.value) {
-        setOverflowHidden()
         props.escToClose && addGlobalKeyDownListener();
       }
     })
@@ -201,6 +200,7 @@ export default defineComponent({
     watch(() => innerVisible.value, (val) => {
       if (val) {
         emit('open')
+        setOverflowHidden()
         animation.value = true
         // 监听键盘事件
         addGlobalKeyDownListener();

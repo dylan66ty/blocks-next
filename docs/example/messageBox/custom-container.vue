@@ -1,20 +1,22 @@
 <script lang="ts" setup>
-  import { MessageBox } from 'blocks-next'
-  const open = () => {
-    MessageBox({
-      title: '自定义渲染到哪个容器里面',
-      type:'success',
-      renderTo: '.custom-container'
-    })
-  }
+import { MessageBox } from 'blocks-next'
+import { onMounted } from 'vue';
+const open = () => {
+  MessageBox({
+    title: '自定义渲染到哪个容器里面',
+    type: 'success',
+    renderTo: '.custom-container'
+  })
+}
+
+
+onMounted(open)
+
 </script>
 
 <template>
-
   <div class="custom-container">custom container</div>
-
-   <bn-button  size="small" @click="open" style="margin-top:20px;">打开弹框</bn-button>
-    
+  <bn-button size="small" @click="open" style="margin-top:20px;">打开弹框</bn-button>
 </template> 
 
 <style lang="scss">

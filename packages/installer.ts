@@ -24,8 +24,10 @@ import { Tabs } from './components/tabs';
 import { TabPane } from './components/tab-pane';
 import { Popconfirm } from './components/popconfirm';
 import {Loading} from './components/loading';
-import { Progress } from './components/progress'
-
+import { Progress } from './components/progress';
+import { Tag } from './components/tag';
+import { Badge } from './components/badge';
+import { Cascader } from './components/cascader'
 
 // plugin 
 import { Message } from './components/message'
@@ -57,7 +59,10 @@ const components = [
   Tabs,
   TabPane,
   Popconfirm,
-  Progress
+  Progress,
+  Tag,
+  Badge,
+  Cascader
 ] as Plugin[];
 
 const plugins = [

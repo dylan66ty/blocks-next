@@ -1,0 +1,153 @@
+@import './mixins/bem.scss';
+@import './common/var.scss';
+
+@include b(tag) {
+  --bn-tag-padding: 0 9px;
+  --bn-tag-border-color: var(--bn-border-color);
+  --bn-tag-color: var(--bn-color-1);
+  --bn-tag-background-color: #fff;
+  --bn-tag-border-radius: 3px;
+  --bn-tag-font-size: 12px;
+  --bn-tag-height: 24px;
+  --bn-tag-padding-right: 5px;
+
+  --bn-tag-close-margin-left: 4px;
+  --bn-tag-icon-size: calc(var(--bn-tag-font-size) + 2px);
+  --bn-tag-icon-color: var(--bn-color-3)
+}
+
+@mixin set-type ($type) {
+  --bn-tag-border-color: var(--bn-#{$type}-9);
+  --bn-tag-background-color: var(--bn-#{$type}-9);
+  --bn-tag-color: var(--bn-#{$type});
+  --bn-tag-icon-color: var(--bn-#{$type});
+}
+
+@mixin set-dark-effect ($type) {
+  &.#{$namespace}-tag--#{$type} {
+    --bn-tag-border-color: var(--bn-#{$type});
+    --bn-tag-background-color: var(--bn-#{$type});
+    --bn-tag-color: #fff;
+    --bn-tag-icon-color: rgba(255, 255, 255, 0.3);
+
+  }
+}
+
+@mixin set-plain-effect ($type) {
+  &.#{$namespace}-tag--#{$type} {
+    --bn-tag-border-color: var(--bn-#{$type});
+    --bn-tag-background-color: #fff;
+    --bn-tag-color: var(--bn-#{$type});
+    --bn-tag-icon-color: var(--bn-#{$type});
+
+    &:hover {
+      --bn-tag-background-color: var(--bn-#{$type}-9);
+    }
+  }
+}
+
+@include b(tag) {
+  box-sizing: border-box;
+  user-select: none;
+  height: var(--bn-tag-height);
+  line-height: 1;
+  padding: var(--bn-tag-padding);
+  border-radius: var(--bn-tag-border-radius);
+  border: 1px solid var(--bn-tag-border-color);
+  background-color: var(--bn-tag-background-color);
+  color: var(--bn-tag-color);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--bn-tag-font-size);
+
+
+
+  @include when(closeable) {
+    padding-right: var(--bn-tag-padding-right);
+  }
+
+  @include e(prefix-icon) {
+    margin-right: 6px;
+    display: flex;
+  }
+
+  @include e(close) {
+    width: var(--bn-tag-icon-size);
+    height: var(--bn-tag-icon-size);
+    margin-left: var(--bn-tag-close-margin-left);
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: calc(var(--bn-tag-icon-size) - 2px);
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: var(--bn-tag-icon-color);
+      color: #fff;
+    }
+  }
+
+  @include m(primary) {
+    @include set-type(primary)
+  }
+
+  @include m(success) {
+    @include set-type(success)
+  }
+
+  @include m(warning) {
+    @include set-type(warning)
+  }
+
+  @include m(strong) {
+    @include set-type(strong)
+  }
+
+  @include m(danger) {
+    @include set-type((danger))
+  }
+
+  @include m(small) {
+    --bn-tag-height: 20px;
+    --bn-tag-font-size: 12px;
+    --bn-tag-padding: 0 7px;
+    --bn-tag-padding-right: 4px;
+    --bn-tag-close-margin-left: 4px;
+    --bn-tag-border-radius: 2px;
+  }
+
+  @include m(large) {
+    --bn-tag-height: 32px;
+    --bn-tag-font-size: 14px;
+    --bn-tag-padding: 0 12px;
+    --bn-tag-padding-right: 7px;
+    --bn-tag-close-margin-left: 6px;
+    --bn-tag-border-radius: 4px;
+
+  }
+
+  @include when(dark) {
+    @include set-dark-effect(primary);
+    @include set-dark-effect(success);
+    @include set-dark-effect(warning);
+    @include set-dark-effect(strong);
+    @include set-dark-effect(danger);
+  }
+
+  @include when(plain) {
+    @include set-plain-effect(primary);
+    @include set-plain-effect(success);
+    @include set-plain-effect(warning);
+    @include set-plain-effect(strong);
+    @include set-plain-effect(danger);
+  }
+
+  @include when(round) {
+    --bn-tag-border-radius: var(--bn-tag-height);
+  }
+
+}

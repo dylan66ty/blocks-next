@@ -36,7 +36,8 @@ export default defineComponent({
 
     const paneComponents = ref<number[]>([]);
 
-    const getPaneComponents = () => {
+    const getPaneComponents = async () => {
+      await nextTick()
       const _paneComponents: number[] = [];
       const traverse = (vns: VNode[]) => {
         vns.forEach((vn) => {
@@ -157,7 +158,6 @@ export default defineComponent({
 
     return () => {
       vnodes.panes = slots.default?.() || [];
-
       return (
         <div class={[ns]}>
           {renderNav()}

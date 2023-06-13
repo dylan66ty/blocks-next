@@ -1,6 +1,6 @@
 <script lang="ts">
 import { StyleValue, reactive } from 'vue';
-import { computed, defineComponent, onMounted, onUnmounted, ref } from 'vue';
+import { computed, defineComponent, onUnmounted, ref } from 'vue';
 import { getNamespace } from '../../../utils/global-config';
 import BnSpace from '../../space/src/space.vue';
 import BnButton from '../../button/src/button.vue';
@@ -41,7 +41,7 @@ export default defineComponent({
       return style;
     });
 
-    const visible = ref(false);
+    const visible = ref(true);
 
     const loadingObj = reactive({
       ok: false,
@@ -93,11 +93,6 @@ export default defineComponent({
         emit('cancel', e);
       }
     };
-
-    onMounted(() => {
-      visible.value = true;
-    });
-
     onUnmounted(() => {
       visible.value = false;
     });
@@ -117,7 +112,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <transition name="bn-fade-in" @before-leave="$emit('close')" @after-leave="$emit('destroy')">
+  <transition name="bn-fade-in-standard" appear @before-leave="$emit('close')" @after-leave="$emit('destroy')">
     <div v-show="visible" :class="popupCls" :style="popupStyle">
       <div :class="[`${ns}__content`]">
         <slot name="content">
@@ -131,7 +126,7 @@ export default defineComponent({
           <BnButton size="small" type="primary" :loading="loadingObj.ok" @click="handleOk">{{ okText }}</BnButton>
         </BnSpace>
       </div>
-      <div :class="[`${ns}__arrow`]"></div>
+      <div class="arrow"></div>
     </div>
   </transition>
 </template>
