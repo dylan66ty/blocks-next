@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch } from 'vue';
+import { computed, defineComponent, nextTick, onMounted, ref, watch } from 'vue';
 import type { StyleValue } from 'vue';
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config';
 import { isObject } from '../../../utils/is';
@@ -109,6 +109,8 @@ export default defineComponent({
       getContainerSize();
     });
 
+
+
     const handleVerticalScroll = (offset: number) => {
       if (containerRef.value) {
         containerRef.value.scrollTo({
@@ -208,11 +210,10 @@ export default defineComponent({
   <div :class="cls" :style="style">
     <ResizeObserver @resize="handleResize">
       <div ref="containerRef" :class="`${ns}__container`" v-bind="$attrs" @scroll="handleScroll">
-        <ResizeObserver @resize="handleResize">
-          <slot></slot>
-        </ResizeObserver>
+        <slot></slot>
       </div>
     </ResizeObserver>
+
     <Thumb v-if="!hide && hasHorizontalScrollbar" ref="horizontalThumbRef" :data="horizontalData" direction="horizontal"
       :both="isBoth" @scroll="handleHorizontalScroll" />
     <Thumb v-if="!hide && hasVerticalScrollbar" ref="verticalThumbRef" :data="verticalData" direction="vertical"

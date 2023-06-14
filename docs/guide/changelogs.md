@@ -1,11 +1,17 @@
 # 更新日志
 
-## 1.0.1-alpha.26
-`2023-06-12`
+## 1.0.1-alpha.27
+`2023-06-16`
+- Components [Drawer] (fix) 当drawer在微前端子应用打开时，子应用的body宽度计算修复[🔨]
 
+
+## 1.0.1-alpha.27
+`2023-06-14`
 - Components [Tag] (feat) 新增Tag组件
 - Components [Badge] (feat) 新增Badge组件
 - Components [Dialog] (pref) 优化dialog弹出层抖动
+- Components [Select] (fix) select的popup在非window下滚动位置不更新[🔨]
+
 
 
 

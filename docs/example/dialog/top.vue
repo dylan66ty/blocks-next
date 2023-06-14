@@ -19,7 +19,8 @@ const tops = [10, '40px', '15vh']
     <bn-dialog 
        v-model="visible"
        :top="top"
-       title="距离产生美"
+       title="This is the dialog title"
+       width="400"
      >
       
 

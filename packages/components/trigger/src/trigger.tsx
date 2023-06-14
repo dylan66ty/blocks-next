@@ -27,6 +27,7 @@ import type { TriggerEvent } from './_trigger';
 import { triggerInjectionKey } from './constant';
 
 import ResizeObserver from '../../../shared/resize-observer';
+import ParentScrollObserver from '../../../shared/parent-scroll-observer';
 
 import {
   getArrowStyle,
@@ -42,7 +43,7 @@ export default defineComponent({
   setup(props, { emit, slots, attrs }) {
     const ns = getNamespace('trigger');
 
-    const teleportContainer = computed(() => props.popupContainer || 'body');
+    const teleportContainer = computed(() => props.popupContainer || document.body);
     const containerRef = ref<HTMLElement>();
 
     onMounted(() => {
@@ -106,7 +107,7 @@ export default defineComponent({
 
     const updatePopupStyle = () => {
 
-      
+
       if (!firstElement.value || !popupRef.value || !containerRef.value) {
         return;
       }
@@ -414,7 +415,15 @@ export default defineComponent({
       });
       return (
         <>
-          {children.value}
+          {props.autoFixPosition ? (
+            <ResizeObserver onResize={handleResize}>
+              <ParentScrollObserver onScroll={handleResize}>
+                {children.value}
+              </ParentScrollObserver>
+            </ResizeObserver>
+          ) : (
+            children.value
+          )}
           <Teleport to={teleportContainer.value} disabled={!props.renderToBody}>
             {props.unmountOnClose && !computedVisible.value && !mounted.value ? null : (
               <ResizeObserver onResize={handleResize}>

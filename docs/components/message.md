@@ -32,8 +32,8 @@ message/text-center
 message/render-container
 :::
 
-## 手动关闭
-::: demo 
+## 可关闭的消息提示
+::: demo 默认的 `Message` 是不可以被人工关闭的。 如果你需要手动关闭功能，你可以把 `showClose` 设置为 true ，把 `duration` 这个属性的值设置为0便表示该消息不会被自动关闭。
 message/close
 :::
 

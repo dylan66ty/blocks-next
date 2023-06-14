@@ -1,21 +1,19 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+import { ref } from 'vue';
 
-  const langs = ['Vue', 'React', 'Angular', 'Java', 'Python', 'JavaScript', 'Golang'];
+const langs = ['Vue', 'React', 'Angular', 'Java', 'Python', 'JavaScript', 'Golang'];
 
-  const model = ref('Vue');
+const model = ref('Vue');
 
-  const handleChange = (val) => {
-    console.log(val);
-  }
+const handleChange = (val) => {
+  console.log(val);
+}
 </script>
 
 <template>
-  <div style="width: 200px">
-    <bn-select v-model="model" placeholder="请选择" @change="handleChange">
-      <bn-option v-for="lang in langs" :key="lang" :label="lang" :value="lang"> </bn-option>
-    </bn-select>
-  </div>
+  <bn-select v-model="model" placeholder="请选择" @change="handleChange">
+    <bn-option v-for="lang in langs" :key="lang" :label="lang" :value="lang"> </bn-option>
+  </bn-select>
 </template>
 
 <style lang="scss"></style>

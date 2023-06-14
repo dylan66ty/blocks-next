@@ -27,6 +27,8 @@
 
   import Progress from './components/Progress.vue'
 
+  import selectInContainerScroll from './components/select-in-container-scroll.vue'
+
   import Cascader from './components/Cascader.vue'
 
 

@@ -1,7 +1,7 @@
 @import './mixins/bem.scss';
 
 @include b(scrollbar) {
-  --bn-scrollbar-track-size: 8px;
+  --bn-scrollbar-track-size: 6px;
   --bn-scrollbar-track-background-color: transparent;
 
   --bn-scrollbar-thumb-color: #EDF1F6;

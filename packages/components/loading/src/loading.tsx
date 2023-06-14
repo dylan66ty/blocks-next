@@ -8,12 +8,14 @@ import {
   computed,
   reactive,
   onUnmounted,
+  ref,
 } from 'vue';
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config';
 import LoadingIcon from '../../icon/src/base/loading.vue';
 import { getElement, getScrollBarWidth, getStyle, setStyle } from '../../../utils/dom';
 import usePopupManager from '../../../hooks/use-popup-manager';
 import type { LoadingOptions } from './type';
+import { useOverflow } from '../../../hooks/use-overflow';
 
 const getResolveOptions = (options: LoadingOptions) => {
   const _options: LoadingOptions = {
@@ -37,6 +39,7 @@ export const createLoadingComponent = (options: LoadingOptions) => {
   const resolveOptions = getResolveOptions(options);
 
   const mountEle = getElement(resolveOptions.renderTo);
+  const loadingRef = ref<HTMLElement>()
   if (!mountEle) return;
 
   const data = reactive<Record<string, any>>({
@@ -44,8 +47,10 @@ export const createLoadingComponent = (options: LoadingOptions) => {
     visible: false,
   });
 
+  const { setOverflowHidden ,resetOverflow } = useOverflow(ref(mountEle),loadingRef)
+
   const destroy = () => {
-    resetMountElStyle();
+    resetOverflow();
     vm.$el?.parentNode.removeChild(vm.$el);
     app.unmount();
   };
@@ -78,7 +83,7 @@ export const createLoadingComponent = (options: LoadingOptions) => {
       return () => (
         <Transition name="bn-fade-in" onAfterLeave={destroy}>
           {data.visible && (
-            <div class={cls.value} style={style.value}>
+            <div class={cls.value} style={style.value} ref={loadingRef}>
               <div class={[`${ns}__spinner`]}>
                 <LoadingIcon size={data.iconSize} />
               </div>
@@ -98,39 +103,9 @@ export const createLoadingComponent = (options: LoadingOptions) => {
   };
 
 
-  const originStyle = {
-    position: '',
-    overflow: '',
-    width: ''
-  }
-
-  const resetMountElStyle = () => {
-    setStyle(mountEle, {
-      overflow: originStyle.overflow,
-      width: originStyle.width,
-      // @ts-ignore
-      position: originStyle.position
-    });
-  };
-
-  const addMountElStyle = () => {
-    const position = getStyle(mountEle, 'position');
-    if (position === 'static') {
-      setStyle(mountEle, { position: 'relative' });
-    } else {
-      originStyle.position = position;
-    }
-
-    const overflow = getStyle(mountEle, 'overflow');
-    if (overflow !== 'visible') {
-      originStyle.overflow = overflow;
-    }
-
-    setStyle(mountEle, { overflow: 'hidden', width: `calc(100% - ${getScrollBarWidth(mountEle)}px)` });
-  };
 
   const appendLoading = () => {
-    addMountElStyle();
+    setOverflowHidden()
     nextTick(() => {
       mountEle.appendChild(vm.$el);
     });

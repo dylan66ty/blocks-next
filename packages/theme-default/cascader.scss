@@ -1,0 +1,44 @@
+@import './mixins/bem.scss';
+
+@include b(cascader) {
+  display: inline-block;
+
+
+  @include e(icon-caret) {
+    transition: transform 0.3s ease;
+
+    &.is-rotate {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+@include b(cascader-panel) {
+  background: #fff;
+  box-shadow: 0px 8px 40px 0px rgba(100, 107, 122, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+
+  @include e(content) {
+    display: flex;
+  }
+
+  @include e(column) {
+    width: 160px;
+    height: 224px;
+  }
+
+  @include e(list) {
+    margin: 0;
+    padding: 0;
+  }
+
+  @include e(footer) {
+    box-sizing: border-box;
+    border-top: 1px solid var(--bn-border-color);
+    padding: 12px 24px;
+
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -13,8 +13,8 @@ const openDialog = () => {
   <div>
     <bn-button  size="small" @click="openDialog">click open the dialog</bn-button>
 
-    <bn-dialog v-model="visible" title="This is the title" popupClass="test">
-      <div>最美的相遇，不言过往；最好的离别，不问归期。</div>
+    <bn-dialog v-model="visible" title="This is the title" popupClass="test" width="400">
+      <div>This is the dialog content</div>
       <template #footer>
         <bn-space>
           <bn-button  @click="visible = false">取消</bn-button>

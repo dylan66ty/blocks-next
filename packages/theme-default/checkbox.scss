@@ -1,6 +1,4 @@
 @import './mixins/bem.scss';
-@import './common/var.scss';
-
 
 @include b(checkbox) {
   cursor: pointer;

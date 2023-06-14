@@ -1,5 +1,4 @@
 @import './mixins/bem.scss';
-@import './common/var.scss';
 
 @include b(progress) {
   --bn-progress-track-background-color: #e5e6eb;

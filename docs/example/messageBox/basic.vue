@@ -73,7 +73,7 @@ const error = () => {
 
 const info = () => {
   MessageBox({
-    title: '优于别人，并不高贵，真正的高贵应该是优于过去的自己。',
+    title: 'This is the message ',
     type: 'info'
   })
 }

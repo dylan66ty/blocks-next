@@ -1,5 +1,4 @@
 @import './mixins/bem.scss';
-@import './common/var.scss';
 
 @include b(badge) {
   --bn-badge-color: #fff;

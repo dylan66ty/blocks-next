@@ -3,7 +3,6 @@ import { getFirstElementFromChildren } from '../utils/vue-utils';
 import type { SlotChildren } from '../utils/types';
 
 export const useFirstElement = () => {
-  // only save VNodes reference, not use ref
   const children: SlotChildren = {};
   const firstElement = ref<HTMLElement>();
 

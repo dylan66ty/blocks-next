@@ -4,21 +4,12 @@ import { useFirstElement } from '../hooks/use-first-element';
 
 export default defineComponent({
   name: 'ResizeObserver',
-  props: {
-    watchOnUpdated: Boolean,
-  },
-  emits: [
-    /**
-     * resize 事件
-     */
-    'resize',
-  ],
+  emits: ['resize' ],
   setup(props, { emit, slots }) {
     const { children, firstElement } = useFirstElement();
     let resizeObserver: ResizeObserver | null;
 
     const createResizeObserver = (target: HTMLElement) => {
-      if (!target) return;
       resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
         const entry = entries[0];
         emit('resize', entry);

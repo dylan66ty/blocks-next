@@ -1,13 +1,13 @@
 <template>
   <teleport :to="teleportContainer" :disabled="teleportDisabled">
-    <div :class="cls" :style="dialogStyle" v-show="animationVisible" v-if="!destroyOnClosed || animationVisible">
+    <div :class="cls" ref="dialogRef" :style="dialogStyle" v-show="mergeVisible" v-if="!destroyOnClosed || mergeVisible">
       <transition name="bn-fade-in-standard" appear>
-        <div :class="[`${ns}__mask`]" v-if="mask" v-show="computedVisible"></div>
+        <div :class="[`${ns}__mask`]" v-if="mask" v-show="modelVisible"></div>
       </transition>
       <div :class="[`${ns}__wrapper`, { 'is-center': center }]" @click.self="handleMaskClick">
         <transition name="bn-zoom-in" appear @after-enter="afterEnter" @after-leave="afterLeave">
           <div :class="[`${ns}__container`, { 'is-fullscreen': fullscreen }]" :style="containerStyle"
-            v-show="computedVisible">
+            v-show="modelVisible">
             <div :class="[`${messageBox ? messageBoxNs : ns}__header`]">
               <div :class="[`${ns}__header-title`]" v-if="!$slots['title']">
                 {{ title }}
@@ -59,22 +59,18 @@ export default defineComponent({
       props.popupClass && props.popupClass
     ])
 
-    const teleportContainer = ref<HTMLElement>()
+    const teleportContainer = computed(() => getElement(props.renderTo))
+    const dialogRef = ref<HTMLElement>()
     const teleportDisabled = computed(() => props.disabled || !teleportContainer.value)
 
-    watch(() => props.renderTo, (newRenderTo) => {
-      teleportContainer.value = getElement(newRenderTo)
-    }, { immediate: true })
+
+
 
 
     const dialogStyle = computed(() => {
-      const style: StyleValue = {}
-      if (!teleportContainer.value) return style
-      if (teleportContainer.value !== document.body) {
-        teleportContainer.value!.style.position = 'relative'
-        style.position = 'absolute'
+      const style: StyleValue = {
+        zIndex:zIndex.value
       }
-      style.zIndex = zIndex.value
       return style
     })
 
@@ -94,19 +90,18 @@ export default defineComponent({
       return style
     })
 
-
-    const computedVisible = computed(() => props.modelValue);
-    const animationVisible = computed(() => computedVisible.value || animation.value)
-    const animation = ref(computedVisible.value)
+    const animation = ref(false)
+    const modelVisible = computed(() => props.modelValue);
+    const mergeVisible = computed(() => modelVisible.value || animation.value)
 
 
 
 
     const { zIndex, isLastDialog } = usePopupManager('dialog', {
-      visible: computedVisible,
+      visible: modelVisible,
     });
 
-    const { setOverflowHidden, resetOverflow } = useOverflow(teleportContainer);
+    const { setOverflowHidden, resetOverflow } = useOverflow(teleportContainer,dialogRef)
 
 
     const emitToClose = (action: 'cancel' | 'ok', e?: Event) => {
@@ -201,7 +196,7 @@ export default defineComponent({
 
 
 
-    watch(() => computedVisible.value, (val) => {
+    watch(() => modelVisible.value, (val) => {
       if (val) {
         emit('open')
         setOverflowHidden()
@@ -219,10 +214,11 @@ export default defineComponent({
       messageBoxNs,
       containerStyle,
       dialogStyle,
+      dialogRef,
       teleportContainer,
       teleportDisabled,
-      computedVisible,
-      animationVisible,
+      modelVisible,
+      mergeVisible,
       interceptClose,
       afterLeave,
       afterEnter,

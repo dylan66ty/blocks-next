@@ -3,14 +3,15 @@
 
 
 @include b(select) {
-  font-size: 14px;
+  display: inline-block;
+  font-size: var(--bn-font-size);
 
   @include e(icon-caret) {
     transform: rotate(0);
     transition: transform 0.3s ease;
 
     &.is-rotate {
-      transform: rotate(-180deg);
+      transform: rotate(180deg);
     }
   }
 
@@ -35,7 +36,7 @@
   box-sizing: border-box;
   overflow: hidden;
 
-  --bn-mene-hover-background-color:#f8faff;
+  --bn-menu-hover-background-color:#f8faff;
   --bn-menu-disabled-color:#a8abb2;
   --bn-menu-item-height:40px;
 
@@ -54,7 +55,7 @@
     cursor: pointer;
 
     &.is-hover {
-      background-color:var(--bn-mene-hover-background-color);
+      background-color:var(--bn-menu-hover-background-color);
     }
 
     &.is-disabled {

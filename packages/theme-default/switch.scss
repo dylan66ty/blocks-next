@@ -1,5 +1,4 @@
 @import './mixins/bem.scss';
-@import './common/var.scss';
 
 @include b(switch) {
   --bn-switch-font-size:14px;

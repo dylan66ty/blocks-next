@@ -10,7 +10,8 @@ const handler = () => {
 </script>
 
 <template>
- <div class="custom-container">custom-container</div>
+ <div class="custom-container">custom-container
+ </div>
 
 
   <bn-space>
@@ -34,5 +35,6 @@ const handler = () => {
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+  overflow: hidden;
 }
 </style>

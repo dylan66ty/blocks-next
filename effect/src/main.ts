@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import './reset.scss'
 
 // 1、本地调试
 import BlocksNext, { Icon } from '@blocks-next/index';

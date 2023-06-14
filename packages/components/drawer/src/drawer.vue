@@ -1,13 +1,13 @@
 <template>
   <teleport :to="teleportContainer" :disabled="disabled || !teleportContainer">
-    <div v-if="!destroyOnClosed || outerVisible" v-show="outerVisible" :class="[`${ns}`, popupClass]" :style="drawerStyle"
+    <div ref="drawerRef" v-if="!destroyOnClosed || mergeVisible" v-show="mergeVisible" :class="[`${ns}`, popupClass]" :style="drawerStyle"
       v-bind="$attrs">
       <transition name="bn-fade-in-standard" appear>
-        <div v-if="mask" v-show="innerVisible" :class="`${ns}__mask`" @click.self="handleMask" />
+        <div v-if="mask" v-show="modelVisible" :class="`${ns}__mask`" @click.self="handleMask" />
       </transition>
       <transition :name="`bn-slide-${placement}`" appear @after-enter="afterEnter" @after-leave="afterLeave">
         <div :class="[`${ns}__container`, `is-${placement}`, !$slots.default && 'is-template']" :style="containerStyle"
-          v-show="innerVisible">
+          v-show="modelVisible">
           <slot>
             <div :class="[`${ns}__header`]">
               <!-- title插槽 -->
@@ -66,7 +66,7 @@ export default defineComponent({
   props: drawerProps,
   inheritAttrs: false,
   emits: ['update:modelValue', 'close', 'closed', 'open', 'opened'],
-  setup(props, { slots, emit }) {
+  setup(props, { emit }) {
     const ns = getNamespace('drawer')
 
     const containerStyle = computed(() => {
@@ -81,32 +81,23 @@ export default defineComponent({
       return style
     })
 
-    const innerVisible = computed(() => props.modelValue)
-    const outerVisible = computed(() => innerVisible.value || animation.value)
-    const animation = ref(innerVisible.value)
+    const modelVisible = computed(() => props.modelValue)
+    const animation = ref(false)
+    const mergeVisible = computed(() => modelVisible.value || animation.value)
 
-    const teleportContainer = ref<HTMLElement>()
+    const teleportContainer = computed(() => getElement(props.renderTo))
+    const drawerRef = ref<HTMLElement>()
 
 
     const { zIndex, isLastDialog } = usePopupManager('dialog', {
-      visible: innerVisible
+      visible: modelVisible
     })
 
-
-    // 隐藏滚动条
-    const { setOverflowHidden, resetOverflow } = useOverflow(teleportContainer)
-
-    const isRenderToBody = computed(() => teleportContainer.value === document.body)
+    const { setOverflowHidden, resetOverflow } = useOverflow(teleportContainer,drawerRef)
 
     const drawerStyle = computed(() => {
       const style: StyleValue = {
         zIndex: zIndex.value,
-        position: 'fixed'
-      }
-      // 不是渲染到body上需要修改定位方式
-      if (!isRenderToBody.value && teleportContainer.value) {
-        style.position = 'absolute'
-        teleportContainer.value!.style.position = 'relative'
       }
       return style
     })
@@ -149,8 +140,6 @@ export default defineComponent({
     }
 
     const afterEnter = () => {
-      // 隐藏滚动条
-      setOverflowHidden()
       emit('opened')
     }
 
@@ -185,7 +174,7 @@ export default defineComponent({
 
 
     onMounted(() => {
-      if (innerVisible.value) {
+      if (modelVisible.value) {
         props.escToClose && addGlobalKeyDownListener();
       }
     })
@@ -197,29 +186,20 @@ export default defineComponent({
       removeGlobalKeyDownListener();
     });
 
-    watch(() => innerVisible.value, (val) => {
+    watch(() => modelVisible.value, (val) => {
       if (val) {
         emit('open')
         setOverflowHidden()
         animation.value = true
         // 监听键盘事件
         addGlobalKeyDownListener();
-
-        if(!isRenderToBody.value) {
-          setOverflowHidden()
-        }
-
+        
       } else {
         // 移除键盘事件
         removeGlobalKeyDownListener()
       }
     })
 
-
-    watch(() => props.renderTo, async (newRenderTo) => {
-      await nextTick()
-      teleportContainer.value = getElement(newRenderTo)
-    }, { immediate: true })
 
 
     // footer按钮内部控制
@@ -233,11 +213,11 @@ export default defineComponent({
     return {
       ns,
       containerStyle,
-      animation,
       drawerStyle,
       teleportContainer,
-      innerVisible,
-      outerVisible,
+      drawerRef,
+      modelVisible,
+      mergeVisible,
       handleMask,
       afterEnter,
       afterLeave,
