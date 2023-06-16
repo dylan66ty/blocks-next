@@ -190,7 +190,7 @@
       });
 
       // 执行验证器
-      const doValidate = async (rules: RuleItem[]): Promise<true> => {
+      const doValidate = async (rules: RuleItem[]): Promise<boolean> => {
         const modelName = propString.value;
         // 创建校验对象
         const validator = new AsyncValidator({
@@ -260,19 +260,7 @@
         isResettingField = false;
       };
 
-      // const addInputId: FormItemContext['addInputId'] = (id: string) => {
-      //   if (!inputIds.value.includes(id)) {
-      //     inputIds.value.push(id)
-      //   }
-      // }
-
-      // const removeInputId: FormItemContext['removeInputId'] = (id: string) => {
-      //   inputIds.value = inputIds.value.filter((listId) => listId !== id)
-      // }
-
-      /**
-       *  向下面的input组件 注入FormItemContext 主要是验证器 validate 对象
-       */
+      // 向下面的input组件 注入FormItemContext 主要是验证器 validate 对象
       const context = reactive({
         $el: formItemRef,
         validateState,

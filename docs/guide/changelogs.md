@@ -1,8 +1,12 @@
 # 更新日志
 
-## 1.0.1-alpha.27
-`2023-06-16`
-- Components [Drawer] (fix) 当drawer在微前端子应用打开时，子应用的body宽度计算修复[🔨]
+## 1.0.1-alpha.28
+`2023-06-15`
+- Components [Drawer] (fix) 当Drawer在微前端子应用打开时，子应用的body宽度计算修复[🔨]
+- Components [Dialog] (fix) 当Dialog在微前端子应用打开时，子应用的body宽度计算修复[🔨]
+- Components [MessageBox] (fix) 当MessageBox在微前端子应用打开时，子应用的body宽度计算修复[🔨]
+- Components [Loading] (fix) 当Loading在微前端子应用fullScreen打开时，子应用的body宽度计算修复[🔨]
+
 
 
 ## 1.0.1-alpha.27

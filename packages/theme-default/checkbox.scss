@@ -9,6 +9,7 @@
   vertical-align: middle;
 
   @include e(icon) {
+    box-sizing: border-box;
     width: 16px;
     height: 16px;
     border-radius: 2px;
@@ -78,7 +79,7 @@
     pointer-events: none;
 
     .#{$namespace}-checkbox__label {
-      color: var(--bn-c-disabled);
+      color: var(--bn-color-4);
     }
 
     .#{$namespace}-checkbox__icon {

@@ -14,7 +14,7 @@ const rules = {
   mobile: [
     {
       validator: 'mobile',
-      required: true,
+      required: false,
       message: 'mobile error',
       trigger: 'change',
     },

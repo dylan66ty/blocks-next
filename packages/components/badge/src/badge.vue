@@ -1,7 +1,6 @@
 <template>
   <div :class="[ns]">
     <slot></slot>
-
     <span :class="contentCls" v-show="!hidden && (content || isDot)">
       {{ content }}
     </span>

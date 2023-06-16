@@ -41,6 +41,10 @@
           "link": "select"
         },
         {
+          "text": "级联选择 Cascader",
+          "link": "cascader"
+        },
+        {
           "text": "开关 Switch",
           "link": "switch"
         },

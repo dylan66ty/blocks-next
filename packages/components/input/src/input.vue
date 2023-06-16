@@ -130,7 +130,7 @@ export default defineComponent({
       emit('change', (e.target as TargetElement).value);
     };
 
-    const handleFocus = (e: Event) => {
+    const handleFocus = (e?: Event) => {
       isFocus.value = true;
       emit('focus', e);
     };
@@ -250,7 +250,7 @@ export default defineComponent({
   <div :class="containerCls" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
     <!-- input -->
     <template v-if="type === 'text'">
-      <div :class="inputWrapperCls">
+      <div :class="inputWrapperCls" >
         <span v-if="hasPrefixIcon" :class="[`${inputNs}__prefix`]">
           <span :class="[`${inputNs}__icon`]">
             <slot name="prefix-icon">
@@ -261,7 +261,7 @@ export default defineComponent({
 
         <input ref="inputRef" :class="[`${inputNs}__inner`]" v-bind="$attrs" :placeholder="placeholder"
           :disabled="mergeDisable" :type="inputType" :value="computedModelValue" :readonly="readonly" @input="handleInput"
-          @change="handleChange" @focus="handleFocus" @blur="handleBlur" />
+          @change="handleChange" @focus="handleFocus" @blur="handleBlur"/>
 
         <span :class="[`${inputNs}__suffix`]" v-if="showInputInnerSuffixArea">
           <span :class="[`${inputNs}__icon`, `${inputNs}__eye`]" v-if="hasPasswordIcon" @click.stop="handleEye">

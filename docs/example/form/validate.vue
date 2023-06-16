@@ -18,7 +18,7 @@ const form = ref({
 const rules = {
   name: [
     {
-      required: true,
+      required: false,
       min: 2,
       max: 5,
       message: '姓名2-5汉字',
@@ -53,7 +53,7 @@ const rules = {
   ],
   isAddFriends: [
     {
-      required: true,
+      required: false,
       message: '勾选允许添加好友',
       validator(rule, value, callback) {
         if (!value) {

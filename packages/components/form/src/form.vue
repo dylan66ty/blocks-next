@@ -59,7 +59,7 @@
       const isValidatable = computed(() => {
         const hasModel = !!props.model;
         if (!hasModel) {
-          console.log('model is required for validate to work.');
+          console.log('请传入form上model数据');
         }
         return hasModel;
       });

@@ -7,8 +7,16 @@ export const cascaderProps = {
     default: () => []
   },
   modelValue: {
-    type:Array,
-    default: () => []
+    type:[Array] as PropType<string[] | string[][]>,
+    default: undefined
+  },
+  multiple: {
+    type:Boolean,
+    default:false
+  },
+  checkStrictly:{
+    type:Boolean,
+    default:false
   },
   placeholder: {
     type:String,
@@ -20,4 +28,15 @@ export const cascaderProps = {
   },
   clearable:Boolean,
   disabled:Boolean,
+  // 输入框格式化函数
+  inputLabelFormat: {
+    type:Function as PropType<((labels: string[]) => string)>,
+    default:undefined
+  },
+  separator:{
+    type:String,
+    default: '/'
+  },
+  showFooter: Boolean
+  
 }

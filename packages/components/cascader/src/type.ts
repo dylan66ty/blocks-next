@@ -1,6 +1,6 @@
 import type { RenderFunction } from 'vue'
 export interface CascaderData {
-  value?: string | number | Record<string, any>;
+  value?: string | number;
   label?: string;
   render?: RenderFunction;
   disabled?: boolean;
@@ -15,23 +15,20 @@ export interface CascaderNode {
   raw: CascaderData;
 
   label?: string;
-  value?: string | number | Record<string, any>;
+  value?: string | number;
   render?: RenderFunction;
   isLeaf?: boolean;
-  disabled?:boolean
-
-  checked?: boolean;
-  indeterminate?: boolean;
-  checkValues?: [],
-  enabledNodes?: CascaderNode[],
-
+  disabled?:boolean  
   level: number;
   index: number;
   pathNodes: CascaderNode[];
-  pathValue?: any[],
-  pathLabel?: string[],
+  pathValue?: any[];
+  pathLabel?: string[];
 
   children?: CascaderNode[];
-  hasChildren?: boolean
+  hasChildren?: boolean;
+  selectionDisabled?:boolean;
+
+  totalLeafNumber?:number
 }
 
