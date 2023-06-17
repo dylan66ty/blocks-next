@@ -42,6 +42,7 @@ export default defineComponent({
     const isLoading = ref(false)
 
     const handlePathChange = () => {
+      
       cascaderContext.setSelectedPath?.(props.node.key);
     }
 

@@ -260,7 +260,7 @@ export default defineComponent({
         </span>
 
         <input ref="inputRef" :class="[`${inputNs}__inner`]" v-bind="$attrs" :placeholder="placeholder"
-          :disabled="mergeDisable" :type="inputType" :value="computedModelValue" :readonly="readonly" @input="handleInput"
+          :disabled="mergeDisable" :type="inputType" :value="computedModelValue" :readonly="readonly" :autocomplete="autocomplete" @input="handleInput"
           @change="handleChange" @focus="handleFocus" @blur="handleBlur"/>
 
         <span :class="[`${inputNs}__suffix`]" v-if="showInputInnerSuffixArea">

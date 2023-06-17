@@ -1,6 +1,6 @@
 {
   "name": "blocks-next",
-  "version": "1.0.1-alpha.28.1",
+  "version": "1.0.1-alpha.29",
   "workspaces": [
     "packages",
     "docs",

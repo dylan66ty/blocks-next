@@ -7,9 +7,10 @@ import { CascaderNode } from "./type"
 
 export const useSelectedPath = (
   dataTree: Ref<CascaderNode[]>,
-  { dataMap }:
+  { dataMap , expandChild}:
     {
-      dataMap: Map<string, CascaderNode>
+      dataMap: Map<string, CascaderNode>,
+      expandChild:Ref<boolean>
     }) => {
   // select node key 
   const selectedPath = ref<string[]>([])
@@ -33,13 +34,12 @@ export const useSelectedPath = (
 
   const getTargetNode = (nodeKey?: string) => {
     let node = nodeKey ? dataMap.get(nodeKey) : undefined;
-    // if (expandChild.value) {
-    //   while (target && target.children && target.children.length > 0) {
-    //     // eslint-disable-next-line prefer-destructuring
-    //     target = target.children[0];
-    //   }
-    // }
-    // return target;
+    if (expandChild.value) {
+      while (node && node.children && node.children.length > 0) {
+        // eslint-disable-next-line prefer-destructuring
+        node = node.children[0];
+      }
+    }
     return node
   };
 

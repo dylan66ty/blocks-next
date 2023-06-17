@@ -4,9 +4,9 @@
       animation-name="bn-slide-dynamic-origin" :popup-offset="8" :disabled="mergeDisabled">
       <template #default>
         <div :class="[`${ns}__trigger`]">
-          <Input :style="{ height: inputHeight }" ref="inputRef" :disabled="mergeDisabled"
+          <Input :style="{ height: inputHeight }" ref="inputRef" :validateEvent="false" :disabled="mergeDisabled"
             :model-value="computedInputLabel" :size="mergeSize" :readonly="inputReadonly" :placeholder="mergePlaceholder"
-            :clearable="clearable" @clear="handleClear">
+            :clearable="clearable" @clear="handleClear" >
           <template #suffix-icon>
             <CaretIcon :class="[{ 'is-rotate': states.popupVisible }, `${ns}__icon-caret`]" />
           </template>
@@ -21,32 +21,36 @@
       </template>
 
       <template #content>
-        <BasePanel :renderColumns="renderColumns" :selectedPath="selectedPath" :activeKey="activeKey" :multiple="multiple"
-          :checkStrictly="checkStrictly" :totalLevel="totalLevel" :showFooter="showFooter"/>
+        <BasePanel :class="[popupClass]" :renderColumns="renderColumns" :selectedPath="selectedPath" :activeKey="activeKey" :multiple="multiple"
+          :checkStrictly="checkStrictly" :totalLevel="totalLevel" :showFooter="showFooter" />
       </template>
     </Trigger>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, watch, provide, nextTick } from 'vue'
+import { computed, defineComponent, reactive, ref, watch, provide, nextTick, toRefs } from 'vue';
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config';
 
 import Scrollbar from '../../scrollbar/src/scrollbar.vue';
 import Trigger from '../../trigger/src/trigger';
 import { Input, InputInstance } from '../../input';
 import CaretIcon from '../../icon/src/base/caret.vue';
-import CloseIcon from '../../icon/src/base/close.vue'
+import CloseIcon from '../../icon/src/base/close.vue';
 
 
-import BasePanel from './base-panel'
+import BasePanel from './base-panel';
 
-import { cascaderProps } from './props'
-import { transData, formatModelValue, getLeafNodes, getLeafNodeKeys, getNodeKey } from './utils'
+import { cascaderProps } from './props';
+import { transData, formatModelValue, getLeafNodes, getLeafNodeKeys, getNodeKey } from './utils';
 
-import type { CascaderData, CascaderNode } from './type'
-import { useSelectedPath } from './use-selected-path'
-import { cascaderInjectionKey } from './context'
+import type { CascaderData, CascaderNode } from './type';
+import { useSelectedPath } from './use-selected-path';
+import { cascaderInjectionKey } from './context';
+
+import { useFormItem } from '../../form/src/hooks/use-form-item';
+import { NOOP } from '../../../shared/utils';
+
 
 
 
@@ -64,6 +68,8 @@ export default defineComponent({
   emits: ['update:modelValue', 'change'],
   setup(props, { slots, emit }) {
     const ns = getNamespace('cascader')
+
+    const { formItem } = useFormItem();
 
     const states = reactive({
       popupVisible: false
@@ -107,13 +113,14 @@ export default defineComponent({
       return values
     })
 
+    const { expandChild } = toRefs(props)
     const {
       renderColumns,
       selectedPath,
       setSelectedPath,
       activeKey,
       setActiveKey
-    } = useSelectedPath(dataTree, { dataMap })
+    } = useSelectedPath(dataTree, { dataMap, expandChild })
 
     const computedInputLabel = computed(() => {
       if (!props.multiple && pathValueToNodeKeys.value.length) {
@@ -171,8 +178,9 @@ export default defineComponent({
     });
 
 
+
     watch(() => props.data, (newData: CascaderData[]) => {
-      dataTree.value = transData(newData, { dataMap ,totalLevel})
+      dataTree.value = transData(newData, { dataMap, totalLevel })
 
     }, { immediate: true, deep: true })
 
@@ -184,6 +192,12 @@ export default defineComponent({
       emit('update:modelValue', pathValue)
       emit('change', pathValue)
       selfModel.value = pathValue
+
+
+      // 表单验证
+      if (props.validateEvent) {
+        formItem?.validate?.('change').catch(NOOP);
+      }
     }
 
     // 清空事件
@@ -191,7 +205,7 @@ export default defineComponent({
       updatePathValue([])
       setActiveKey()
       setSelectedPath()
-      
+
     }
 
     // 删除多选时的标签
@@ -246,7 +260,7 @@ export default defineComponent({
     }
 
     const manualFocusInput = () => {
-      nextTick(() => inputRef.value?.handleFocus())
+      nextTick(() => inputRef.value?.inputRef?.focus())
     }
 
     const footerOps = {

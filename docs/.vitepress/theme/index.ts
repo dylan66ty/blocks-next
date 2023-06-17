@@ -9,6 +9,7 @@ import VApp, { globals , VNotFound} from '../components'
 import BlocksNext, { Icon } from '@blocks-next/index';
 import '@blocks-next/theme-default/index.scss';
 
+import 'animate.css'
 
 export default <Theme>{
   NotFound: VNotFound,

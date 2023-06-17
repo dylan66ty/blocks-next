@@ -67,13 +67,13 @@
     border-radius: 2px;
     box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
     margin-bottom: 8px;
-    color: var(--vp-c-green);
-    background: var(--vp-c-bg);
-    border-color: var(--vp-c-bg);
+    color: green;
+    background: #f2f9ec;
+    border-color: #ddd;
   }
 
   .demoblock-message-error .demoblock-message-content {
-    color: var(--vp-c-red);
+    color: #000;
   }
 
   .demoblock-message {

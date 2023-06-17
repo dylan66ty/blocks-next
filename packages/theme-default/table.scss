@@ -20,12 +20,6 @@
   position: relative;
   
 
-  &:hover {
-    .#{$namespace}-table__setting {
-      display: flex;
-    }
-  }
-
   @include when(border) {
     .#{$namespace}-th:not(:last-child),
     .#{$namespace}-td:not(:last-child) {
@@ -142,7 +136,7 @@
     background: #fff;
     box-shadow: -10px 0px 20px 0px rgba(36, 41, 52, 0.05);
     z-index: 5;
-    display: none;
+    display: flex;
 
     align-items: center;
     justify-content: center;
@@ -387,6 +381,7 @@
     align-items: center;
     font-size: 14px;
     user-select: none;
+    cursor: pointer;
 
     &:not(.is-disabled):hover {
       background-color: #f8faff;
@@ -394,6 +389,8 @@
 
     @include when(disabled) {
       color: #9CA6B9;
+      cursor: not-allowed;
+
     }
   }
 

@@ -37,6 +37,18 @@ export const cascaderProps = {
     type:String,
     default: '/'
   },
-  showFooter: Boolean
-  
+  showFooter: Boolean,
+  expandChild: {
+    type:Boolean,
+    default: false
+  },
+  // 表单验证
+  validateEvent:{
+    type:Boolean,
+    default: true
+  },
+  popupClass: {
+    type:String,
+    default:undefined
+  }
 }

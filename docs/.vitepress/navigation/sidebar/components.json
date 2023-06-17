@@ -42,7 +42,8 @@
         },
         {
           "text": "级联选择 Cascader",
-          "link": "cascader"
+          "link": "cascader",
+          "promotion": "alpha"
         },
         {
           "text": "开关 Switch",
@@ -87,8 +88,7 @@
         },
         {
           "text": "进度条 Progress",
-          "link": "progress",
-          "promotion": "alpha.25"
+          "link": "progress"
         }
       ]
     },
@@ -117,13 +117,11 @@
         },
         {
           "text": "标签 Tag",
-          "link": "tag",
-          "promotion": "alpha.27"
+          "link": "tag"
         },
         {
           "text": "数字角标 Badge",
-          "link": "badge",
-          "promotion": "alpha.27"
+          "link": "badge"
         }
       ]
     },

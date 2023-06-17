@@ -163,23 +163,26 @@ export default defineComponent({
                 ]}
                 {...(!column.disabled
                   ? {
-                      onDragenter(e) {
-                        dragTargetEvent.onDragenter(e, column, index);
-                      },
-                      onDragover(e) {
-                        dragTargetEvent.onDragover(e);
-                      },
-                      onDrop(e) {
-                        dragTargetEvent.onDrop(e);
-                      },
-                    }
+                    onDragenter(e) {
+                      dragTargetEvent.onDragenter(e, column, index);
+                    },
+                    onDragover(e) {
+                      dragTargetEvent.onDragover(e);
+                    },
+                    onDrop(e) {
+                      dragTargetEvent.onDrop(e);
+                    },
+                  }
                   : {})}
+                onClick={() => handleCheckboxChange(column, !column.checked)}
               >
                 <div class={[`${ns}__list-item-left`]}>
                   <Checkbox
                     modelValue={column.checked}
                     disabled={column.disabled}
                     onChange={(status: boolean) => handleCheckboxChange(column, status)}
+                    // @ts-ignore
+                    onClick={(e: Event) => e.stopPropagation()}
                   />
                   <span class={[`${ns}__list-item-title`]}>{column.title}</span>
                 </div>
@@ -190,6 +193,7 @@ export default defineComponent({
                     draggable
                     onDragstart={(e) => dragSourceEvent.onDragstart(e, column, index)}
                     onDragend={(e) => dragSourceEvent.onDragend(e)}
+                    onClick={(e:Event) => e.stopPropagation()}
                   >
                     <div class="line"></div>
                     <div class="line"></div>

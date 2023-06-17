@@ -259,8 +259,8 @@ export default defineComponent({
       <template #default>
         <div :class="[`${ns}__trigger`]">
           <div v-if="multiple" :class="[`${ns}__multiple-wrapper`]"></div>
-          <Input v-model="states.selectedLabel" :disabled="mergeDisabled" :size="mergeSize" :readonly="inputReadonly"
-            :placeholder="placeholder" :clearable="clearable" ref="inputRef" @clear="handleClearSelectLabel">
+          <Input v-model="states.selectedLabel" ref="inputRef" :disabled="mergeDisabled" :validateEvent="false" :size="mergeSize" :readonly="inputReadonly"
+            :placeholder="placeholder" :clearable="clearable" @clear="handleClearSelectLabel">
           <template #suffix-icon>
             <CaretIcon :class="[{ 'is-rotate': states.popupVisible }, `${ns}__icon-caret`]" />
           </template>

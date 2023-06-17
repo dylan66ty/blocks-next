@@ -31,7 +31,7 @@ export default defineComponent({
     multiple: Boolean,
     checkStrictly: Boolean,
     loading: Boolean,
-    showFooter: Boolean
+    showFooter: Boolean,
   },
   setup(props) {
     const ns = getNamespace('cascader-panel')

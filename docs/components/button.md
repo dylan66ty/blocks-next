@@ -18,7 +18,7 @@ button/shape
 :::
 
 ## 文字按钮
-::: demo 设置属性 **type**为 `text` 即可
+::: demo 设置属性 `link` 即可
 button/text
 :::
 

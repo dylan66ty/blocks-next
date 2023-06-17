@@ -35,7 +35,7 @@ cascader/inputLabelFormat
 cascader/option-disabled
 :::
 
-## 是否开启Footer
+## 开启Footer
 ::: warning
 注意：该属性只在多选模式中生效。
 :::
@@ -47,3 +47,52 @@ cascader/footer
 ::: demo 你可以通过 scoped slot 自定义节点的内容。 您可以访问 scope 中的 node 和 data 属性，分别表示当前节点的 Node 对象和当前节点的数据。
 cascader/custom-node-value
 :::
+
+## 展开子菜单
+::: demo 通过设置 expand-child 可以在选择时展开第一个子菜单
+cascader/expand-child
+:::
+
+
+## Attributes
+|参数名|描述|可选值|默认值|
+|-------|-------|---|:---:|
+|v-model|双向绑定的值|`array`|`-`|
+|data|级联选择器的选项数据|`array`|`-`|
+|multiple|是否为多选状态|`boolean`|`false`|
+|expand-child|是否展开子菜单|`boolean`|
+|disabled|是否禁用|`boolean`|`false`|
+|placeholder|占位符|`string`|`请选择`|
+|inputLabelFormat|格式化展示内容|`(labels:string[]) => string`|`-`|
+|clearable|是否可清空|`boolean`|`-`|
+|separator|用于分隔选项的字符|`string`|`/`|
+|showFooter|是否展示底部区域，只在开启多选时生效|`boolean`|`false`|
+|popupClass|自定义弹出层类名|`string`|`-`|
+
+
+
+## Option
+|属性|描述|可选值|默认值|
+|---|---|---|:---:|
+|label|选项文本|`string`|`-`|
+|value|选项值|`string`|`-`|
+|disabled|是否禁用|`boolean`|`false`|
+|children|下一级选项|`array`|`-`|
+|isLeaf|是否是叶子节点|`boolean`|`false`|
+|render|自定义渲染|`RenderFunction`|`-`|
+
+
+
+
+## Events
+|name|描述|回调参数|
+|---|---|---|
+|change|选中值改变时触发|`(value: []string)`|
+
+
+## Slots
+|name|描述|scoped|
+|---|---|---|
+|default|自定义备选项的节点内容，分别为当前节点的 Node 对象和数据|`{ node: any, data: any }`|
+|footer|底部区域自定义|`{ok:() => void , cancel: () => void}`|
+

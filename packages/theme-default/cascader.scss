@@ -97,7 +97,8 @@
   @include e(column) {
     box-sizing: border-box;
     min-width: 180px;
-    max-height: 220px;
+    min-height: 220px;
+    max-height: 200px;
     position: relative;
     background-color: #fff;
     border-right: 1px solid transparent;

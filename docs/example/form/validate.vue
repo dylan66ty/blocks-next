@@ -10,6 +10,7 @@ const form = ref({
   suggest: '',
   isAddFriends: false,
   lang: '',
+  region: []
 });
 
 // validator支持 string =>  (email ｜ url | mobile | chinese | number)
@@ -80,7 +81,41 @@ const rules = {
       trigger: 'change',
     },
   ],
+  region: [
+    {
+      type: 'array',
+      required: true,
+      message: '选择地区',
+    },
+  ],
 };
+
+const cascaderData = ref([
+  {
+    label: '安徽',
+    value: 'anhui',
+    children: [
+      {
+        label: '合肥',
+        value: 'hefei',
+        children: [
+          {
+            label: '瑶海区',
+            value: 'yaohai'
+          },
+          {
+            label: '包河区',
+            value: 'baohe'
+          },
+          {
+            label: '庐阳区',
+            value: 'luyang'
+          }
+        ]
+      }
+    ]
+  }
+])
 
 const formRef = ref();
 
@@ -133,6 +168,9 @@ const resetForm = () => {
           <bn-option label="React" value="react"></bn-option>
           <bn-option label="Angular" value="angular"></bn-option>
         </bn-select>
+      </bn-form-item>
+      <bn-form-item label="地区" prop="region">
+        <bn-cascader v-model="form.region" :data="cascaderData" clearable></bn-cascader>
       </bn-form-item>
       <bn-form-item label="联系方式" prop="contact">
         <bn-radio-group v-model="form.contact">

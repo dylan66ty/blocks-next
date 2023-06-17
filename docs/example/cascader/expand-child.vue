@@ -15,12 +15,22 @@ const data = ref([
           {
             value: '1-1-1',
             label: '分组1-1-1'
+          },
+          {
+            value: '1-1-2',
+            label: '分组1-1-2'
           }
         ]
       },
       {
         value: '1-2',
         label: '分组1-2',
+        children: [
+          {
+            value: '1-2-1',
+            label: '分组1-2-1'
+          }
+        ]
       }
     ]
   },
@@ -60,7 +70,6 @@ const data = ref([
 
 <template>
   <bn-space :size="20">
-    <bn-cascader :data="data" v-model="model" popupClass="test"></bn-cascader>
-    <bn-cascader :data="data" v-model="model" disabled></bn-cascader>
+    <bn-cascader :data="data" v-model="model" expandChild></bn-cascader>
   </bn-space>
 </template>
