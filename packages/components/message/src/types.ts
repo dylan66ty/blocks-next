@@ -1,24 +1,22 @@
-import type { VNode  } from 'vue'
+import type { VNode } from 'vue'
 
-export const messageTypes = ['success' ,'warning' ,'error' , 'strong' ,'info'] as const
+export const messageTypes = ['success', 'warning', 'error', 'strong', 'info'] as const
 
 export type IMessageType = (typeof messageTypes)[number]
-
-
 
 export type IMessage = string | number | undefined | VNode
 
 export interface IMessageOptions {
-  id?:string;
-  message?:IMessage;
-  type?: IMessageType;
-  duration?: number;
-  center?:boolean;
-  onClose?: (vm?:VNode) => void;
-  offset?:number;
-  renderTo?: string | HTMLElement;
-  showClose?:Boolean;
-  useHTML?: Boolean;
+  id?: string
+  message?: IMessage
+  type?: IMessageType
+  duration?: number
+  center?: boolean
+  onClose?: (vm?: VNode) => void
+  offset?: number
+  renderTo?: string | HTMLElement
+  showClose?: Boolean
+  useHTML?: Boolean
 }
 
 export interface IMessageHandler {
@@ -26,16 +24,15 @@ export interface IMessageHandler {
 }
 
 export interface IMessageCaller {
-  (options:IMessageParams): IMessageHandler
+  (options: IMessageParams): IMessageHandler
 }
 
 export interface IMessageMethods {
-  success(message:IMessage | IMessageOptions):IMessageHandler;
-  error(message:IMessage | IMessageOptions):IMessageHandler;
-  warning(message:IMessage | IMessageOptions):IMessageHandler;
-  strong(message:IMessage | IMessageOptions):IMessageHandler;
-  info(message:IMessage | IMessageOptions):IMessageHandler;
+  success(message: IMessage | IMessageOptions): IMessageHandler
+  error(message: IMessage | IMessageOptions): IMessageHandler
+  warning(message: IMessage | IMessageOptions): IMessageHandler
+  strong(message: IMessage | IMessageOptions): IMessageHandler
+  info(message: IMessage | IMessageOptions): IMessageHandler
 }
-
 
 export type IMessageParams = IMessageOptions | string

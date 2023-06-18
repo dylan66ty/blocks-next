@@ -1,92 +1,82 @@
 <script lang="ts">
-  import {
-    computed,
-    defineComponent,
-    getCurrentInstance,
-    inject,
-    reactive,
-    toRefs,
-    onBeforeUnmount,
-    watch,
-    ref,
-  } from 'vue';
-  import { getComponentNamespace, getNamespace } from '../../../utils/global-config';
-  import { isUndefined } from '../../../utils/is';
-  import { tabsInjectionKey } from './context';
+  import { computed, defineComponent, getCurrentInstance, inject, reactive, toRefs, onBeforeUnmount, watch, ref } from 'vue'
+  import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
+  import { isUndefined } from '../../../utils/is'
+  import { tabsInjectionKey } from './context'
 
   export default defineComponent({
     name: getComponentNamespace('TabPane'),
     props: {
       disabled: {
         type: Boolean,
-        default: false,
+        default: false
       },
       title: {
         type: String,
-        default: '',
+        default: ''
       },
       destroyOnHide: {
         type: Boolean,
-        default: undefined,
-      },
+        default: undefined
+      }
     },
     setup(props, { slots }) {
-      const { title, disabled } = toRefs(props);
-      const ns = getNamespace('tabs');
-      const instance = getCurrentInstance();
-      const key = computed(() => instance?.vnode.key as string | number);
+      const { title, disabled } = toRefs(props)
+      const ns = getNamespace('tabs')
+      const instance = getCurrentInstance()
+      const key = computed(() => instance?.vnode.key as string | number)
 
-      const tabsContext = inject(tabsInjectionKey);
+      const tabsContext = inject(tabsInjectionKey)
 
-      const isActive = computed(() => tabsContext?.activeKey === key.value);
+      const isActive = computed(() => tabsContext?.activeKey === key.value)
 
       const mergeDestroyOnHide = computed(() => {
-        if (!isUndefined(props.destroyOnHide)) return props.destroyOnHide;
-        if (!isUndefined(tabsContext?.destroyOnHide)) return tabsContext?.destroyOnHide;
-        return false;
-      });
+        if (!isUndefined(props.destroyOnHide)) return props.destroyOnHide
+        if (!isUndefined(tabsContext?.destroyOnHide)) return tabsContext?.destroyOnHide
+        return false
+      })
 
-      const mounted = ref(!mergeDestroyOnHide.value);
+      const mounted = ref(!mergeDestroyOnHide.value)
 
       const data = reactive({
         key,
         title,
         disabled,
-        paneSlots: slots,
-      });
+        paneSlots: slots
+      })
 
       if (instance?.uid) {
-        tabsContext?.addPane(instance.uid, data);
+        tabsContext?.addPane(instance.uid, data)
       }
 
       onBeforeUnmount(() => {
         if (instance?.uid) {
-          tabsContext?.removePane?.(instance.uid);
+          tabsContext?.removePane?.(instance.uid)
         }
-      });
+      })
 
       const cls = computed(() => {
-        return [`${ns}__pane`, isActive.value && `is-active`];
-      });
+        return [`${ns}__pane`, isActive.value && `is-active`]
+      })
 
       watch(isActive, (active) => {
         if (active) {
           if (!mounted.value) {
-            mounted.value = true;
+            mounted.value = true
           }
         } else if (props.destroyOnHide || tabsContext?.destroyOnHide) {
-          mounted.value = false;
+          mounted.value = false
         }
-      });
+      })
 
       return {
         cls,
         ns,
         isActive,
-        mounted,
-      };
-    },
-  });
+        mounted
+      }
+    }
+  })
 </script>
 
 <template>

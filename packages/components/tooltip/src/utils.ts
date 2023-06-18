@@ -17,18 +17,17 @@ export const getPopupTranslateByPosition = () => {
     rt: [TRANSLATE_Y, -TRANSLATE_X],
     rb: [TRANSLATE_Y, TRANSLATE_X],
     right: [TRANSLATE_Y, 0]
-
   }
   return translate
 }
 
 const startsWithMap = {
-  't': 'top',
-  'r': 'right',
-  'b': 'bottom',
-  'l': 'left'
+  t: 'top',
+  r: 'right',
+  b: 'bottom',
+  l: 'left'
 }
 
 export const getPopupPositionByEmpty = (position: Position) => {
-  return startsWithMap[position.slice(0,1) as 't'|'r'| 'b' | 'l']
+  return startsWithMap[position.slice(0, 1) as 't' | 'r' | 'b' | 'l']
 }

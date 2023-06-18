@@ -1,1 +1,1 @@
-export const TRACK_SIZE = 6;
+export const TRACK_SIZE = 6

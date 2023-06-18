@@ -1,37 +1,24 @@
-import {
-  defineComponent,
-  render,
-  createVNode,
-  ref,
-  computed,
-  nextTick,
-  watch,
-  onUnmounted,
-  onMounted,
-  toRefs,
-} from 'vue'
+import { defineComponent, render, createVNode, ref, computed, nextTick, watch, onUnmounted, onMounted, toRefs } from 'vue'
 import type { VNode, CSSProperties } from 'vue'
 
 import { getComponentNamespace } from '../../../utils/global-config'
 import { mergeFirstChild, getFirstElement } from '../../../utils/vue-utils'
-import Popup from './popup.vue'
-import { tooltipProps } from './props'
 import { getPopupStyle, getElementScrollRect, getArrowStyle } from '../../trigger/src/utils'
-import { getPopupTranslateByPosition, getPopupPositionByEmpty } from './utils'
 import usePopupManager from '../../../hooks/use-popup-manager'
-import { Position } from './types'
 import { getElement, setStyle } from '../../../utils/dom'
 import { useResizeObserver } from '../../../hooks/use-resize-observer'
+import Popup from './popup.vue'
+import { tooltipProps } from './props'
+import { getPopupTranslateByPosition, getPopupPositionByEmpty } from './utils'
+import type { Position } from './types'
 
 const defaultStyleBySizes = ['mini']
-
 
 export default defineComponent({
   name: getComponentNamespace('Tooltip'),
   props: tooltipProps,
   emits: ['update:modelValue', 'change'],
   setup(props, { slots, emit }) {
-
     const innerVisible = ref(false)
 
     const visible = computed(() => {
@@ -50,10 +37,9 @@ export default defineComponent({
       return getPopupTranslateByPosition()
     })
 
-
     const renderTo = computed(() => getElement(props.renderTo || document.body))
 
-    const { zIndex } = usePopupManager('popup', { visible });
+    const { zIndex } = usePopupManager('popup', { visible })
 
     const container = document.createElement('div')
 
@@ -68,7 +54,6 @@ export default defineComponent({
       }
       return props.position as Position
     })
-
 
     const updatePopupStyle = async () => {
       if (!popupTarget || !defaultSlot) return
@@ -90,48 +75,42 @@ export default defineComponent({
       const arrowStyle = getArrowStyle(position, triggerScrollRect, getPopupScrollRect(), {
         customStyle: {
           position: 'absolute',
-          "border-width": isDefault.value ? '3px' : '6px',
-          "border-style": "solid",
-          zIndex: 0,
-        },
+          'border-width': isDefault.value ? '3px' : '6px',
+          'border-style': 'solid',
+          zIndex: 0
+        }
       })
       const arrowNode = getElement('.arrow', popupTarget) as HTMLElement
       // 设置弹出层箭头样式
       setStyle(arrowNode, arrowStyle)
-
     }
 
     // 为了确保这些属性是响应式
-    const {
-      content,
-      effect,
-      backgroundColor,
-      popupClass,
-      position,
-      size
-    } = toRefs(props)
+    const { content, effect, backgroundColor, popupClass, position, size } = toRefs(props)
 
     // 创建tooltip
     const createTooltip = () => {
       if (popupTarget) return
       emit('change', true)
-      vm = createVNode(Popup, {
-        content,
-        effect,
-        backgroundColor,
-        position,
-        popupClass,
-        size,
-        onMouseenter: () => clearTimeout(timer),
-        onMouseleave: () => beforeClose(),
-        onClose: () => {
-          // Trap!!! 不能在这里更改状态。因为动画有延迟时间，如果在这个时机恰好多次创建tooltip的话就会有bug，状态就会锁死。只能在动画执行结束后才能更改状态。
-          // 状态统一用状态控制器来控制。不论是受控状态还是非受控状态。
+      vm = createVNode(
+        Popup,
+        {
+          content,
+          effect,
+          backgroundColor,
+          position,
+          popupClass,
+          size,
+          onMouseenter: () => clearTimeout(timer),
+          onMouseleave: () => beforeClose(),
+          onClose: () => {
+            // Trap!!! 不能在这里更改状态。因为动画有延迟时间，如果在这个时机恰好多次创建tooltip的话就会有bug，状态就会锁死。只能在动画执行结束后才能更改状态。
+            // 状态统一用状态控制器来控制。不论是受控状态还是非受控状态。
+          },
+          onDestroy: () => {
+            destroyTooltip()
+          }
         },
-        onDestroy: () => {
-          destroyTooltip()
-        },
-      },
         {
           content: slots.content ?? null
         }
@@ -171,26 +150,26 @@ export default defineComponent({
       }, 100)
     }
 
-
     const handleResize = () => {
       updatePopupStyle()
     }
 
     const { createResizeObserver, destroyResizeObserver } = useResizeObserver({
       elementRef: renderTo,
-      onResize: handleResize,
-    });
+      onResize: handleResize
+    })
 
     // 监听器控制tooltip显示
-    watch(() => visible.value, (val) => {
-      if (props.disabled) return
-      if (val) {
-        nextTick(createTooltip)
-      } else {
-        changeVisible(false)
-      }
-
-    },
+    watch(
+      () => visible.value,
+      (val) => {
+        if (props.disabled) return
+        if (val) {
+          nextTick(createTooltip)
+        } else {
+          changeVisible(false)
+        }
+      },
       {
         immediate: true
       }
@@ -205,7 +184,6 @@ export default defineComponent({
       destroyResizeObserver()
     })
 
-
     return () => {
       defaultSlot = slots.default?.()
       mergeFirstChild(defaultSlot, {
@@ -214,7 +192,7 @@ export default defineComponent({
         style: {
           cursor: props.disabled ? 'not-allowed' : 'pointer'
         },
-        disabled: props.disabled,
+        disabled: props.disabled
       })
       return defaultSlot
     }

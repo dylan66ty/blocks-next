@@ -1,5 +1,5 @@
 import { computed, defineComponent } from 'vue'
-import { getComponentNamespace, getNamespace } from '../../../utils/global-config';
+import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 
 import ProgressLine from './line.vue'
 import ProgressCircle from './circle.vue'
@@ -11,11 +11,7 @@ export default defineComponent({
   props: progressProps,
   setup(props, { slots }) {
     const ns = getNamespace('progress')
-    const cls = computed(() => [
-      ns,
-    ])
-
-
+    const cls = computed(() => [ns])
 
     const computedPercent = computed(() => {
       let percent = Number((props.percent * 100).toFixed(2))
@@ -24,25 +20,25 @@ export default defineComponent({
       return percent
     })
 
-    
-
     const renderContent = () => {
       if (props.type === 'line') {
-        return (<ProgressLine
-          v-slots={{
-            text: slots.text
-          }}
-          percent={computedPercent.value}
-          animation={props.animation}
-          size={props.size}
-          strokeWidth={props.strokeWidth}
-          width={props.width}
-          color={props.color}
-          trackColor={props.trackColor}
-          status={props.status}
-          showText={props.showText}
-          formatText={props.formatText}
-        />)
+        return (
+          <ProgressLine
+            v-slots={{
+              text: slots.text
+            }}
+            percent={computedPercent.value}
+            animation={props.animation}
+            size={props.size}
+            strokeWidth={props.strokeWidth}
+            width={props.width}
+            color={props.color}
+            trackColor={props.trackColor}
+            status={props.status}
+            showText={props.showText}
+            formatText={props.formatText}
+          />
+        )
       }
 
       if (props.type === 'circle') {
@@ -60,7 +56,6 @@ export default defineComponent({
             status={props.status}
             showText={props.showText}
             formatText={props.formatText}
-
           />
         )
       }
@@ -69,11 +64,7 @@ export default defineComponent({
     }
 
     return () => {
-      return (
-        <div class={cls.value} >
-          {renderContent()}
-        </div>
-      )
+      return <div class={cls.value}>{renderContent()}</div>
     }
   }
 })

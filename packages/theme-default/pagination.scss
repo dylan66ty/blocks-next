@@ -93,6 +93,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 
   &:hover:not(.is-disabled) {
     border-color: var(--bn-pagination-btn-focus-color);
@@ -125,7 +126,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  cursor: pointer;
   
   &:focus:not(.is-disabled){
     border-color: var(--bn-pagination-btn-focus-color);

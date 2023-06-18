@@ -1,3 +1,3 @@
-export const isClient = typeof window !== 'undefined';
+export const isClient = typeof window !== 'undefined'
 
-export const isFirefox = (): boolean => isClient && /firefox/i.test(window.navigator.userAgent);
+export const isFirefox = (): boolean => isClient && /firefox/i.test(window.navigator.userAgent)

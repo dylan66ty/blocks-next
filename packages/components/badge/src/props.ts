@@ -1,8 +1,8 @@
-import { PropType } from "vue";
+import type { PropType } from 'vue'
 
 export const badgeProps = {
   value: {
-    type:[String,Number]
+    type: [String, Number]
   },
   effect: {
     type: String as PropType<'dark' | 'light'>,
@@ -15,7 +15,7 @@ export const badgeProps = {
   isDot: Boolean,
   max: {
     type: Number,
-    default: 99,
+    default: 99
   },
-  hidden: Boolean,
+  hidden: Boolean
 }

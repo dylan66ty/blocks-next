@@ -1,11 +1,11 @@
-import type { InjectionKey } from 'vue';
-import type { TabPaneData } from './types';
+import type { InjectionKey } from 'vue'
+import type { TabPaneData } from './types'
 
 export interface TabsContext {
-  destroyOnHide: boolean;
-  activeKey: string | number;
-  addPane: (id: number, data: TabPaneData) => void;
-  removePane: (id: number) => void;
+  destroyOnHide: boolean
+  activeKey: string | number
+  addPane: (id: number, data: TabPaneData) => void
+  removePane: (id: number) => void
 }
 
-export const tabsInjectionKey: InjectionKey<TabsContext> = Symbol('tabs');
+export const tabsInjectionKey: InjectionKey<TabsContext> = Symbol('tabs')

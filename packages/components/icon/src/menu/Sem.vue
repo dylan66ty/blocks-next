@@ -1,34 +1,37 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
-import IconComponent from '../icon-component.vue';
-import { iconProps } from '../icon-props';
-export default defineComponent({
-  name: 'AppSem',
-  components: {
-    IconComponent,
-  },
-  props:iconProps,
-  inheritAttrs:false
-});
+  import { defineComponent } from 'vue'
+  import IconComponent from '../icon-component.vue'
+  import { iconProps } from '../icon-props'
+  export default defineComponent({
+    name: 'AppSem',
+    components: {
+      IconComponent
+    },
+    inheritAttrs: false,
+    props: iconProps
+  })
 </script>
 
 <template>
-  <IconComponent v-bind="{...$props,...$attrs}">
+  <IconComponent v-bind="{ ...$props, ...$attrs }">
     <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>销售中心</title>
-    <g id="图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <title>销售中心</title>
+      <g id="图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="图标1" transform="translate(-726.000000, -203.000000)" fill="#242934">
-            <g id="一级-销售中心" transform="translate(704.000000, 189.000000)">
-                <g id="销售中心" transform="translate(22.000000, 14.000000)">
-                    <path d="M14,5 L14,7 L5,7 L5,19 L18,19 L18,11 L20,11 L20,19 C20,20.1045695 19.1045695,21 18,21 L5,21 C3.8954305,21 3,20.1045695 3,19 L3,7 C3,5.8954305 3.8954305,5 5,5 L14,5 Z" id="形状结合"></path>
-                    <rect id="矩形" x="8" y="12" width="2" height="4"></rect>
-                    <rect id="矩形" x="12" y="10" width="2" height="6"></rect>
-                    <rect id="矩形" x="18" y="3" width="2" height="6"></rect>
-                    <rect id="矩形" x="16" y="5" width="6" height="2"></rect>
-                </g>
+          <g id="一级-销售中心" transform="translate(704.000000, 189.000000)">
+            <g id="销售中心" transform="translate(22.000000, 14.000000)">
+              <path
+                id="形状结合"
+                d="M14,5 L14,7 L5,7 L5,19 L18,19 L18,11 L20,11 L20,19 C20,20.1045695 19.1045695,21 18,21 L5,21 C3.8954305,21 3,20.1045695 3,19 L3,7 C3,5.8954305 3.8954305,5 5,5 L14,5 Z"
+              ></path>
+              <rect id="矩形" x="8" y="12" width="2" height="4"></rect>
+              <rect id="矩形" x="12" y="10" width="2" height="6"></rect>
+              <rect id="矩形" x="18" y="3" width="2" height="6"></rect>
+              <rect id="矩形" x="16" y="5" width="6" height="2"></rect>
             </g>
+          </g>
         </g>
-    </g>
-</svg>
+      </g>
+    </svg>
   </IconComponent>
-  </template>
+</template>

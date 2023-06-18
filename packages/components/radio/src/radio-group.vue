@@ -1,55 +1,58 @@
 <script lang="ts">
-  import type { PropType } from 'vue';
-  import { defineComponent, computed, provide, watch } from 'vue';
-  import { getNamespace, getComponentNamespace } from '../../../utils/global-config';
-  import { useFormItem } from '../../form/src/hooks/use-form-item';
-  import { NOOP } from '../../../shared/utils';
-  import { radioGroupKey } from './constant';
+  import type { PropType } from 'vue'
+  import { defineComponent, computed, provide, watch } from 'vue'
+  import { getNamespace, getComponentNamespace } from '../../../utils/global-config'
+  import { useFormItem } from '../../form/src/hooks/use-form-item'
+  import { NOOP } from '../../../shared/utils'
+  import { radioGroupKey } from './constant'
 
   export default defineComponent({
     name: getComponentNamespace('RadioGroup'),
     props: {
-      modelValue: [Number, String] as PropType<number | string>,
+      modelValue: {
+        type: [Number, String] as PropType<number | string>,
+        default: ''
+      },
       validateEvent: {
         type: Boolean,
-        default: true,
-      },
+        default: true
+      }
     },
     emits: ['change', 'update:modelValue'],
     setup(props, ctx) {
-      const modelValue = computed(() => props.modelValue);
+      const modelValue = computed(() => props.modelValue)
       const changeEvent = (val: any) => {
-        ctx.emit('change', val);
-        ctx.emit('update:modelValue', val);
-      };
+        ctx.emit('change', val)
+        ctx.emit('update:modelValue', val)
+      }
 
-      const ns = getNamespace('radio-group');
+      const ns = getNamespace('radio-group')
 
       const cls = computed(() => {
-        return [ns];
-      });
+        return [ns]
+      })
 
-      const { formItem } = useFormItem();
+      const { formItem } = useFormItem()
 
       watch(
         () => props.modelValue,
         () => {
           if (props.validateEvent) {
-            formItem?.validate('change').catch(NOOP);
+            formItem?.validate('change').catch(NOOP)
           }
-        },
-      );
+        }
+      )
 
       provide(radioGroupKey, {
         modelValue,
-        changeEvent,
-      });
+        changeEvent
+      })
 
       return {
-        cls,
-      };
-    },
-  });
+        cls
+      }
+    }
+  })
 </script>
 
 <template>

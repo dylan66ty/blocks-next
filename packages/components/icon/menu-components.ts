@@ -9,17 +9,6 @@ import Cleat from './src/menu/Cleat.vue'
 import BI from './src/menu/BI.vue'
 import Market from './src/menu/Market.vue'
 
-const components = [
-  Home,
-  OA,
-  Customer,
-  Pie,
-  Sem,
-  Building,
-  Money,
-  Cleat,
-  BI,
-  Market
-]
+const components = [Home, OA, Customer, Pie, Sem, Building, Money, Cleat, BI, Market]
 
-export default components 
+export default components

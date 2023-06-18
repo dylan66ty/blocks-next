@@ -1,31 +1,31 @@
 export interface SelectContext {
   props: {
-    valueKey?: string;
-    multiple?: boolean;
-    modelValue?: string | number | unknown | unknown[];
-    popperClass?: string;
-  };
-  optionsArray: [];
-  optionItemCreate(vm: SelectOptionProxy): void;
-  optionItemDestroy(key: ValueKey, vm: SelectOptionProxy): void;
-  handleOptionSelect(vm: SelectOptionProxy, byClick: boolean): void;
-  optionsItemHoverIndexChange(vm: SelectOptionProxy): void;
+    valueKey?: string
+    multiple?: boolean
+    modelValue?: string | number | unknown | unknown[]
+    popperClass?: string
+  }
+  optionsArray: []
+  optionItemCreate(vm: SelectOptionProxy): void
+  optionItemDestroy(key: ValueKey, vm: SelectOptionProxy): void
+  handleOptionSelect(vm: SelectOptionProxy, byClick: boolean): void
+  optionsItemHoverIndexChange(vm: SelectOptionProxy): void
 }
 
-export type ValueKey = string | number | Record<string, string>;
+export type ValueKey = string | number | Record<string, string>
 
 export interface SelectOptionProxy {
-  value: ValueKey;
-  label: string | number;
-  created: boolean;
-  disabled: boolean;
-  currentLabel: string;
-  currentValue: ValueKey;
-  itemSelected: boolean;
-  isDisabled: boolean;
-  select: SelectContext;
-  hoverItem: () => void;
-  visible: boolean;
-  isHover: boolean;
-  selectOptionClick: () => void;
+  value: ValueKey
+  label: string | number
+  created: boolean
+  disabled: boolean
+  currentLabel: string
+  currentValue: ValueKey
+  itemSelected: boolean
+  isDisabled: boolean
+  select: SelectContext
+  hoverItem: () => void
+  visible: boolean
+  isHover: boolean
+  selectOptionClick: () => void
 }

@@ -1,65 +1,65 @@
-import type { PropType, ExtractPropTypes } from 'vue';
+import type { PropType, ExtractPropTypes } from 'vue'
 
 export const switchProps = {
   modelValue: {
     type: [Boolean, String, Number],
-    default: false,
+    default: false
   },
   value: {
     type: [Boolean, String, Number],
-    default: false,
+    default: false
   },
   disabled: {
     type: Boolean,
-    default: false,
+    default: false
   },
   width: {
     type: [String, Number],
-    default: '',
+    default: ''
   },
   activeText: {
     type: String,
-    default: '',
+    default: ''
   },
   inactiveText: {
     type: String,
-    default: '',
+    default: ''
   },
   activeColor: {
     type: String,
-    default: '',
+    default: ''
   },
   inactiveColor: {
     type: String,
-    default: '',
+    default: ''
   },
   trueValue: {
     type: [Boolean, String, Number],
-    default: true,
+    default: true
   },
   falseValue: {
     type: [Boolean, String, Number],
-    default: false,
+    default: false
   },
   beforeChange: {
-    type: Function as PropType<() => Promise<boolean> | boolean>,
+    type: Function as PropType<() => Promise<boolean> | boolean>
   },
   type: {
     type: String as PropType<'line' | 'circle'>,
-    default: 'circle',
+    default: 'circle'
   },
   inlinePrompt: {
     type: Boolean,
-    default: false,
+    default: false
   },
   name: {
     type: String,
-    default: '',
+    default: ''
   },
   validateEvent: {
     type: Boolean,
-    default: true,
-  },
-};
+    default: true
+  }
+}
 
-export type SwitchProps = ExtractPropTypes<typeof switchProps>;
+export type SwitchProps = ExtractPropTypes<typeof switchProps>

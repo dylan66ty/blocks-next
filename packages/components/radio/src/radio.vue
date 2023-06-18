@@ -1,70 +1,67 @@
 <script lang="ts">
-  import { computed, defineComponent, inject, nextTick, ref, shallowRef } from 'vue';
-  import type { PropType } from 'vue';
-  import { getNamespace, getComponentNamespace } from '../../../utils/global-config';
-  import { radioGroupKey } from './constant';
+  import { computed, defineComponent, inject, nextTick, ref, shallowRef } from 'vue'
+  import type { PropType } from 'vue'
+  import { getNamespace, getComponentNamespace } from '../../../utils/global-config'
+  import { radioGroupKey } from './constant'
 
-  import type { RadioGroupContext } from './types';
+  import type { RadioGroupContext } from './types'
 
   export default defineComponent({
     name: getComponentNamespace('Radio'),
     props: {
       modelValue: {
         type: [Boolean, Number, String] as PropType<boolean | number | string>,
+        default: ''
       },
       label: {
         type: [Boolean, Number, String] as PropType<boolean | number | string>,
+        default: ''
       },
       disabled: {
         type: Boolean,
-        default: false,
+        default: false
       },
       // native
       name: {
         type: String,
-        default: '',
-      },
+        default: ''
+      }
     },
     emits: ['update:modelValue', 'change', 'focus', 'blur'],
     setup(props, { emit }) {
-      const ns = getNamespace('radio');
-      const radioGroup = inject<RadioGroupContext | null>(radioGroupKey, null);
-      const isGroup = computed(() => !!radioGroup);
+      const ns = getNamespace('radio')
+      const radioGroup = inject<RadioGroupContext | null>(radioGroupKey, null)
+      const isGroup = computed(() => !!radioGroup)
 
-      const radioRef = shallowRef<HTMLInputElement>();
+      const radioRef = shallowRef<HTMLInputElement>()
       const model = computed({
         get() {
-          const store = radioGroup ? radioGroup.modelValue?.value : props.modelValue;
-          return isGroup.value ? store : props.modelValue;
+          const store = radioGroup ? radioGroup.modelValue?.value : props.modelValue
+          return isGroup.value ? store : props.modelValue
         },
         set(val) {
           if (isGroup.value) {
-            radioGroup?.changeEvent?.(val);
+            radioGroup?.changeEvent?.(val)
           } else {
-            emit('update:modelValue', val);
+            emit('update:modelValue', val)
           }
           // 同步原生radio input checked的状态
-          radioRef.value!.checked = props.modelValue === props.label;
-        },
-      });
+          radioRef.value!.checked = props.modelValue === props.label
+        }
+      })
 
       const isChecked = computed(() => {
-        return model.value === props.label;
-      });
+        return model.value === props.label
+      })
 
-      const isFocused = ref(false);
+      const isFocused = ref(false)
 
-      const cls = computed(() => [
-        ns,
-        isChecked.value && 'is-checked',
-        props.disabled && 'is-disabled',
-        isFocused.value && 'is-focus',
-      ]);
+      const cls = computed(() => [ns, isChecked.value && 'is-checked', props.disabled && 'is-disabled', isFocused.value && 'is-focus'])
 
       // evt
       const handleChange = () => {
-        nextTick(() => emit('change', model.value));
-      };
+        nextTick(() => emit('change', model.value))
+      }
 
       return {
         cls,
@@ -72,10 +69,10 @@
         handleChange,
         isChecked,
         isFocused,
-        radioRef,
-      };
-    },
-  });
+        radioRef
+      }
+    }
+  })
 </script>
 
 <template>
@@ -84,7 +81,7 @@
       class="bn-radio__input"
       :class="{
         'is-checked': isChecked,
-        'is-disabled': disabled,
+        'is-disabled': disabled
       }"
     >
       <slot name="icon" :checked="isChecked" :disabled="disabled">

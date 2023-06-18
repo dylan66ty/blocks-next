@@ -1,20 +1,20 @@
-import { createVNode, defineComponent } from 'vue';
-import { getNamespace } from '../../../../utils/global-config';
+import { createVNode, defineComponent } from 'vue'
+import { getNamespace } from '../../../../utils/global-config'
 
 export default defineComponent({
   name: 'Tbody',
   setup(_, { slots }) {
-    const ns = getNamespace('tbody');
+    const ns = getNamespace('tbody')
     return () => {
       return createVNode(
         'tbody',
         {
-          class: [ns],
+          class: [ns]
         },
         {
-          default: slots.default,
-        },
-      );
-    };
-  },
-});
+          default: slots.default
+        }
+      )
+    }
+  }
+})

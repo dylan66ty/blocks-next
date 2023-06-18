@@ -1,45 +1,45 @@
 import type { PropType } from 'vue'
-import type {ProgressType, ProgressSize,ProgressStatus} from './type'
+import type { ProgressType, ProgressSize, ProgressStatus } from './type'
 
 export const progressProps = {
   type: {
     type: String as PropType<ProgressType>,
-    default: 'line',
+    default: 'line'
   },
   size: {
-    type: String as PropType<ProgressSize>,
+    type: String as PropType<ProgressSize>
   },
   percent: {
     type: Number,
-    default: 0,
+    default: 0
   },
   steps: {
     type: Number,
-    default: 0,
+    default: 0
   },
   animation: {
     type: Boolean,
-    default: false,
+    default: false
   },
   strokeWidth: {
-    type: Number,
+    type: Number
   },
   width: {
-    type: [Number, String],
+    type: [Number, String]
   },
   color: {
-    type: [String, Function],
+    type: [String, Function]
   },
   trackColor: String,
   showText: {
     type: Boolean,
-    default: true,
+    default: true
   },
   status: {
     type: String as PropType<ProgressStatus>,
     default: 'primary'
   },
-  formatText:{
-    type:Function
+  formatText: {
+    type: Function
   }
 }

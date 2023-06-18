@@ -1,5 +1,5 @@
-import { defineComponent } from 'vue';
-import LoadingIcon from '../../../icon/src/base/loading.vue';
+import { defineComponent } from 'vue'
+import LoadingIcon from '../../../icon/src/base/loading.vue'
 
 export default defineComponent({
   name: 'Loading',
@@ -9,7 +9,7 @@ export default defineComponent({
         <div class={['bn-table__loading']}>
           <LoadingIcon />
         </div>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})

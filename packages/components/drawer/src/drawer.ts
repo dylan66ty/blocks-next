@@ -14,7 +14,7 @@ export const drawerProps = {
     default: 'right'
   },
   title: {
-    type:String,
+    type: String,
     default: ''
   },
   mask: {
@@ -37,35 +37,34 @@ export const drawerProps = {
   },
   width: {
     type: [Number, String],
-    default: 340,
+    default: 340
   },
   height: {
     type: [Number, String],
-    default: 340,
+    default: 340
   },
   okText: {
-    type:String,
+    type: String,
     default: ''
   },
-  cancelText:{
-    type:String,
+  cancelText: {
+    type: String,
     default: ''
   },
   onBeforeOk: {
-    type: Function as PropType<() => boolean | Promise<boolean>>,
+    type: Function as PropType<(action: 'ok' | 'cancel') => boolean | Promise<boolean>>
   },
   onBeforeCancel: {
-    type: Function as PropType<() => boolean | Promise<boolean>>,
+    type: Function as PropType<(action: 'cancel' | 'ok') => boolean | Promise<boolean>>
   },
   renderTo: {
     type: [String, Object] as PropType<string | HTMLElement>,
-    default: 'body',
+    default: 'body'
   },
   popupClass: {
-    type:String,
+    type: String,
     default: undefined
   }
 }
-
 
 export type DrawerProps = ExtractPropTypes<typeof drawerProps>

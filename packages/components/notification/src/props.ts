@@ -1,44 +1,43 @@
-import type { ExtractPropTypes , PropType } from 'vue'
-import { NotificationPosition , NotificationType} from './types'
-
+import type { ExtractPropTypes, PropType } from 'vue'
+import type { NotificationPosition, NotificationType } from './types'
 
 export const notificationProps = {
   position: {
     type: String as PropType<NotificationPosition>,
-    default: 'top-right',
+    default: 'top-right'
   },
   offset: {
     type: Number,
-    default: 0,
+    default: 0
   },
   title: {
     type: String,
-    default: '',
+    default: ''
   },
   type: {
     type: String as PropType<NotificationType>,
-    default: 'info',
+    default: 'info'
   },
   message: {
     type: String,
-    default: undefined,
+    default: undefined
   },
   duration: {
     type: Number,
-    default: 3000,
+    default: 3000
   },
   showClose: {
-    type:Boolean,
+    type: Boolean,
     default: true
   },
   onClose: {
     type: Function as PropType<() => void>,
-    default: () => {},
+    default: () => {}
   },
   renderToBody: {
-    type:Boolean, 
-    default:false
-  } 
+    type: Boolean,
+    default: false
+  }
 }
 
 export type NotificationProps = ExtractPropTypes<typeof notificationProps>

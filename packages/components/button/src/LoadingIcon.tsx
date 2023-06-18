@@ -1,35 +1,35 @@
-import { defineComponent, nextTick, Transition } from 'vue';
-import Loading from '../../icon/src/base/loading.vue';
+import { defineComponent, nextTick, Transition } from 'vue'
+import Loading from '../../icon/src/base/loading.vue'
 
 const getCollapsedWidth = (node: HTMLSpanElement) => {
   if (node) {
-    node.style.width = '0px';
-    node.style.opacity = '0';
-    node.style.transform = 'scale(0)';
+    node.style.width = '0px'
+    node.style.opacity = '0'
+    node.style.transform = 'scale(0)'
   }
-};
+}
 const getRealWidth = (node: HTMLSpanElement) => {
   nextTick(() => {
     if (node) {
-      node.style.width = `${node.scrollWidth}px`;
-      node.style.opacity = '1';
-      node.style.transform = 'scale(1)';
+      node.style.width = `${node.scrollWidth}px`
+      node.style.opacity = '1'
+      node.style.transform = 'scale(1)'
     }
-  });
-};
+  })
+}
 const resetStyle = (node: HTMLSpanElement) => {
   if (node && node.style) {
-    node.style.width = '';
-    node.style.opacity = '';
-    node.style.transform = '';
+    node.style.width = ''
+    node.style.opacity = ''
+    node.style.transform = ''
   }
-};
+}
 export default defineComponent({
   name: 'LoadingIcon',
   props: {
     loading: Boolean,
     // eslint-disable-next-line vue/require-default-prop
-    ns: String,
+    ns: String
   },
   setup(props) {
     return () => {
@@ -41,8 +41,8 @@ export default defineComponent({
           onAfterEnter={resetStyle}
           onLeave={(node: HTMLSpanElement) => {
             setTimeout(() => {
-              getCollapsedWidth(node);
-            }, 16);
+              getCollapsedWidth(node)
+            }, 16)
           }}
           onAfterLeave={resetStyle}
         >
@@ -52,7 +52,7 @@ export default defineComponent({
             </span>
           ) : null}
         </Transition>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})

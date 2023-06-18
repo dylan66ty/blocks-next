@@ -1,22 +1,22 @@
-import type { PropType, ExtractPropTypes } from 'vue';
-import type { Direction, ThumbData } from './types';
+import type { PropType, ExtractPropTypes } from 'vue'
+import type { Direction, ThumbData } from './types'
 
 export const thumbProps = {
   data: {
-    type: Object as PropType<ThumbData>,
+    type: Object as PropType<ThumbData>
   },
   direction: {
     type: String as PropType<Direction>,
-    default: 'horizontal',
+    default: 'horizontal'
   },
   alwaysShow: {
     type: Boolean,
-    default: false,
+    default: false
   },
   both: {
     type: Boolean,
-    default: false,
-  },
-};
+    default: false
+  }
+}
 
-export type ThumbProps = ExtractPropTypes<typeof thumbProps>;
+export type ThumbProps = ExtractPropTypes<typeof thumbProps>

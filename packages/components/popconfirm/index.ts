@@ -1,7 +1,7 @@
-import { withInstall } from '../../utils/vue-utils';
-import _Popconfirm from './src/popconfirm';
+import { withInstall } from '../../utils/vue-utils'
+import _Popconfirm from './src/popconfirm'
 
-export const Popconfirm = withInstall(_Popconfirm);
+export const Popconfirm = withInstall(_Popconfirm)
 
-export type PopconfirmInstance = InstanceType<typeof _Popconfirm>;
-export default PopconfirmInstance;
+export type PopconfirmInstance = InstanceType<typeof _Popconfirm>
+export default PopconfirmInstance

@@ -1,39 +1,31 @@
-import _Dialog from '../../dialog/src/dialog.vue'
 import { createVNode, render, isVNode } from 'vue'
 import type { RenderFunction, VNode } from 'vue'
+import _Dialog from '../../dialog/src/dialog.vue'
 import BnButton from '../../button/src/button.vue'
 import BnSpace from '../../space/src/space.vue'
-
 
 import WarningIcon from '../../icon/src/base/warning.vue'
 import InfoIcon from '../../icon/src/base/prompt.vue'
 import SuccessIcon from '../../icon/src/base/success.vue'
 import ErrorIcon from '../../icon/src/base/close-fill.vue'
 
+import { isFunction } from '../../../utils/is'
 
-
-
-import {
+import type {
   MessageBoxOptions,
   MessageBoxFooterAction,
   MessageBoxFooterScoped,
   MessageBoxMethods,
-  messageBoxStaticMethods,
   MessageBoxStaticMethod,
   MessageBoxCaller,
   MessageBoxBeforeAction,
   MessageBoxChainArgs,
   MessageBoxContent
 } from './types'
-import { isFunction } from '../../../utils/is'
-import { getElement } from '../../../utils/dom'
-
+import { messageBoxStaticMethods } from './types'
 
 const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: MessageBoxOptions): void => {
   const vmMountContainer: HTMLElement = document.createElement('div')
-
-  const renderTo = options?.renderTo ?? 'body'
-
 
   const onDestroy = () => {
     render(null, vmMountContainer)
@@ -52,7 +44,6 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
       }
       return true
     }
-
   }
 
   const onClose = (action: MessageBoxFooterAction, e: Event) => {
@@ -65,38 +56,31 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     }
   }
 
-
   const defaultRenderIcon = (type: MessageBoxStaticMethod) => {
-    let vnode: VNode;
+    let vnode: VNode
     switch (type) {
       case 'warning':
         vnode = <WarningIcon size="60px" color="#f6c64b" />
-        break;
+        break
       case 'strong':
         vnode = <WarningIcon size="60px" color="#ee793c" />
-        break;
+        break
       case 'error':
         vnode = <ErrorIcon size="60px" color="#e24f48" />
-        break;
+        break
       case 'success':
         vnode = <SuccessIcon size="60px" color="#68d1ab" />
-        break;
+        break
       case 'info':
         vnode = <InfoIcon size="60px" color="#2355f5" />
-        break;
-
+        break
     }
     return vnode!
   }
 
-
   const defaultHeader = () => {
     return () => {
-      return (
-        <>
-          {defaultRenderIcon(options.type || 'success')}
-        </>
-      )
+      return <>{defaultRenderIcon(options.type || 'success')}</>
     }
   }
 
@@ -107,7 +91,7 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
         const vnode = title()
         return isVNode(vnode) ? vnode : null
       }
-      return (<div class="bn-message-box__title"> {title} </div>)
+      return <div class="bn-message-box__title"> {title} </div>
     }
 
     const renderContent = (content: RenderFunction | string) => {
@@ -116,17 +100,13 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
         const vnode = content()
         return isVNode(vnode) ? vnode : null
       }
-      return (<div class="bn-message-box__content"> {options.content} </div>)
+      return <div class="bn-message-box__content"> {options.content} </div>
     }
 
     return () => (
       <>
-        {
-          options.title && renderTitle(options.title)
-        }
-        {
-          options.content && renderContent(options.content)
-        }
+        {options.title && renderTitle(options.title)}
+        {options.content && renderContent(options.content)}
       </>
     )
   }
@@ -140,53 +120,55 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: Mess
     const cancelText = options?.cancelText || '取消'
     const okText = options?.okText || '确认'
     return (scoped: MessageBoxFooterScoped) => {
-      return (<BnSpace size={12}>
-        {
-          !options.hideCancel && (<BnButton onClick={scoped.cancel} loading={scoped.loadingObj?.cancel}>{cancelText}</BnButton>)
-        }
-        {
-          !options.hideOk && (<BnButton type="primary" onClick={scoped.ok} loading={scoped.loadingObj?.ok}>{okText}</BnButton>)
-        }
-      </BnSpace>)
+      return (
+        <BnSpace size={12}>
+          {!options.hideCancel && (
+            <BnButton onClick={scoped.cancel} loading={scoped.loadingObj?.cancel}>
+              {cancelText}
+            </BnButton>
+          )}
+          {!options.hideOk && (
+            <BnButton type="primary" onClick={scoped.ok} loading={scoped.loadingObj?.ok}>
+              {okText}
+            </BnButton>
+          )}
+        </BnSpace>
+      )
     }
   }
 
-
-
-
-  const vm = createVNode(_Dialog, {
-    messageBox: true,
-    width: options?.width ?? 460,
-    height: options?.height ?? 'auto',
-    modelValue: true,
-    renderTo,
-    center: options?.top ? false : options?.center ?? true,
-    top: options?.top ?? 0,
-    mask: options?.mask ?? true,
-    maskToClose: options?.maskToClose ?? true,
-    popupClass: options.popupClass,
-    onClose,
-    onBeforeCancel,
-    'onUpdate:modelValue': () => {
-      // hack:如果你有更好的写法 欢迎pr
-      vm.component!.props.modelValue = false
+  const vm = createVNode(
+    _Dialog,
+    {
+      messageBox: true,
+      width: options?.width ?? 460,
+      height: options?.height ?? 'auto',
+      modelValue: true,
+      renderTo: options?.renderTo,
+      center: options?.top ? false : options?.center ?? true,
+      top: options?.top ?? 0,
+      mask: options?.mask ?? true,
+      maskToClose: options?.maskToClose ?? true,
+      popupClass: options.popupClass,
+      onClose,
+      onBeforeCancel,
+      'onUpdate:modelValue': () => {
+        // hack:如果你有更好的写法 欢迎pr
+        vm.component!.props.modelValue = false
+      },
+      // 等待动画完全结束后销毁vm
+      onClosed: onDestroy,
+      onOpened: () => {}
     },
-    // 等待动画完全结束后销毁vm
-    onClosed: onDestroy,
-    onOpened: () => {}
-  },
     {
       title: defaultHeader(),
       default: defaultBody(),
       footer: defaultFooter()
     }
   )
-  
+
   render(vm, vmMountContainer)
-
 }
-
-
 
 const registerAllMethods = () => {
   messageBoxStaticMethods.forEach((method: MessageBoxStaticMethod) => {
@@ -203,10 +185,10 @@ const registerAllMethods = () => {
           beforeOnCancel: _beforeCancelFn,
           beforeOnOk: _beforeOkFn,
           onOk: () => {
-            okFnArr.forEach(fn => isFunction(fn) && fn())
+            okFnArr.forEach((fn) => isFunction(fn) && fn())
           },
           onCancel: () => {
-            cancelFnArr.forEach(fn => isFunction(fn) && fn())
+            cancelFnArr.forEach((fn) => isFunction(fn) && fn())
           }
         })
       }, 0)
@@ -234,12 +216,8 @@ const registerAllMethods = () => {
       }
     }
   })
-
 }
 
 registerAllMethods()
-
-
-
 
 export default MessageBox as MessageBoxMethods

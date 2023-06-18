@@ -1,20 +1,20 @@
-import type { CSSProperties } from 'vue';
-import { isArray } from '../../../utils/is';
-import type { TriggerPosition, TriggerPopupTranslate } from './_trigger';
+import type { CSSProperties } from 'vue'
+import { isArray } from '../../../utils/is'
+import type { TriggerPosition, TriggerPopupTranslate } from './_trigger'
 
 interface Size {
-  height: number;
-  width: number;
+  height: number
+  width: number
 }
 
 const getDocumentSize = (): Size => {
-  const { body } = document;
-  const html = document.documentElement;
-  let topBody;
+  const { body } = document
+  const html = document.documentElement
+  let topBody
   try {
-    const topWindow = window.top || window.self || window;
-    topBody = topWindow.document.body;
-  } catch(e) {
+    const topWindow = window.top || window.self || window
+    topBody = topWindow.document.body
+  } catch (e) {
     //@eslint-disabled
   }
 
@@ -26,7 +26,7 @@ const getDocumentSize = (): Size => {
       html.scrollHeight,
       html.offsetHeight,
       topBody?.scrollHeight || 0,
-      topBody?.clientHeight || 0,
+      topBody?.clientHeight || 0
     ),
     width: Math.max(
       body.scrollWidth,
@@ -35,46 +35,46 @@ const getDocumentSize = (): Size => {
       html.scrollWidth,
       html.offsetWidth,
       topBody?.scrollWidth || 0,
-      topBody?.clientWidth || 0,
-    ),
-  };
+      topBody?.clientWidth || 0
+    )
+  }
 
-  return size;
-};
+  return size
+}
 
 const getViewPortSize = (): Size => {
-  const { height, width } = getDocumentSize();
+  const { height, width } = getDocumentSize()
 
   return {
     width: Math.min(width, window.innerWidth),
-    height: Math.min(height, window.innerHeight),
-  };
-};
+    height: Math.min(height, window.innerHeight)
+  }
+}
 
 export interface ElementRect {
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-  width: number;
-  height: number;
+  top: number
+  bottom: number
+  left: number
+  right: number
+  width: number
+  height: number
 }
 
 interface ScrollRect {
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-  scrollTop: number;
-  scrollBottom: number;
-  scrollLeft: number;
-  scrollRight: number;
-  width: number;
-  height: number;
+  top: number
+  bottom: number
+  left: number
+  right: number
+  scrollTop: number
+  scrollBottom: number
+  scrollLeft: number
+  scrollRight: number
+  width: number
+  height: number
 }
 
 export const getElementScrollRect = (element: HTMLElement, containerRect: DOMRect) => {
-  const rect = element.getBoundingClientRect();
+  const rect = element.getBoundingClientRect()
 
   return {
     top: rect.top,
@@ -86,15 +86,15 @@ export const getElementScrollRect = (element: HTMLElement, containerRect: DOMRec
     scrollLeft: rect.left - containerRect.left,
     scrollRight: rect.right - containerRect.left,
     width: element.offsetWidth ?? element.clientWidth,
-    height: element.offsetHeight ?? element.clientHeight,
-  };
-};
+    height: element.offsetHeight ?? element.clientHeight
+  }
+}
 
-type BasePosition = 'top' | 'left' | 'bottom' | 'right';
+type BasePosition = 'top' | 'left' | 'bottom' | 'right'
 
 interface PositionOffset {
-  left: number;
-  top: number;
+  left: number
+  top: number
 }
 
 const getBoundaryPosition = (position: TriggerPosition): BasePosition => {
@@ -102,74 +102,74 @@ const getBoundaryPosition = (position: TriggerPosition): BasePosition => {
     case 'top':
     case 'tl':
     case 'tr':
-      return 'top';
+      return 'top'
     case 'bottom':
     case 'bl':
     case 'br':
-      return 'bottom';
+      return 'bottom'
     case 'left':
     case 'lt':
     case 'lb':
-      return 'left';
+      return 'left'
     case 'right':
     case 'rt':
     case 'rb':
-      return 'right';
+      return 'right'
     default:
-      return 'top';
+      return 'top'
   }
-};
+}
 
 const changePosition = (position: TriggerPosition, direction: BasePosition): TriggerPosition => {
   switch (direction) {
     case 'top':
       switch (position) {
         case 'bottom':
-          return 'top';
+          return 'top'
         case 'bl':
-          return 'tl';
+          return 'tl'
         case 'br':
-          return 'tr';
+          return 'tr'
         default:
-          return position;
+          return position
       }
     case 'bottom':
       switch (position) {
         case 'top':
-          return 'bottom';
+          return 'bottom'
         case 'tl':
-          return 'bl';
+          return 'bl'
         case 'tr':
-          return 'br';
+          return 'br'
         default:
-          return position;
+          return position
       }
     case 'left':
       switch (position) {
         case 'right':
-          return 'left';
+          return 'left'
         case 'rt':
-          return 'lt';
+          return 'lt'
         case 'rb':
-          return 'lb';
+          return 'lb'
         default:
-          return position;
+          return position
       }
     case 'right':
       switch (position) {
         case 'left':
-          return 'right';
+          return 'right'
         case 'lt':
-          return 'rt';
+          return 'rt'
         case 'lb':
-          return 'rb';
+          return 'rb'
         default:
-          return position;
+          return position
       }
     default:
-      return position;
+      return position
   }
-};
+}
 
 const getFitPosition = (
   position: TriggerPosition,
@@ -179,18 +179,17 @@ const getFitPosition = (
     triggerRect,
     popupRect,
     offset,
-    translate,
+    translate
   }: {
-    containerRect: DOMRect;
-    triggerRect: ScrollRect;
-    popupRect: ScrollRect;
-    offset: number;
-    translate: TriggerPopupTranslate;
-  },
+    containerRect: DOMRect
+    triggerRect: ScrollRect
+    popupRect: ScrollRect
+    offset: number
+    translate: TriggerPopupTranslate
+  }
 ) => {
-  const direction = getBoundaryPosition(position);
-  const viewPortSize = getViewPortSize();
-
+  const direction = getBoundaryPosition(position)
+  const viewPortSize = getViewPortSize()
 
   // Boundary value of pop-up box and window
   const viewPortBoundary = {
@@ -199,20 +198,20 @@ const getFitPosition = (
     bottom: viewPortSize.height - (containerRect.top + popupPosition.top + popupRect.height),
     left: containerRect.left + popupPosition.left,
     // prettier-ignore
-    right: viewPortSize.width - (containerRect.left + popupPosition.left + popupRect.width),
-  };
+    right: viewPortSize.width - (containerRect.left + popupPosition.left + popupRect.width)
+  }
 
-  let finalPosition = position;
+  let finalPosition = position
   if (direction === 'top' && viewPortBoundary.top < 0) {
     if (triggerRect.top > popupRect.height) {
       // Adjust the pop-up box to snap to the top of the window
-      popupPosition.top = -containerRect.top;
+      popupPosition.top = -containerRect.top
     } else {
       const fitPosition = getPopupOffset('bottom', triggerRect, popupRect, {
         offset,
-        translate,
-      });
-      
+        translate
+      })
+
       // prettier-ignore
       if (viewPortSize.height - (containerRect.top + fitPosition.top + popupRect.height) > 0) {
         finalPosition = changePosition(position, 'bottom');
@@ -228,23 +227,23 @@ const getFitPosition = (
     } else {
       const fitPosition = getPopupOffset('top', triggerRect, popupRect, {
         offset,
-        translate,
-      });
+        translate
+      })
       if (containerRect.top + fitPosition.top > 0) {
-        finalPosition = changePosition(position, 'top');
-        popupPosition.top = fitPosition.top;
+        finalPosition = changePosition(position, 'top')
+        popupPosition.top = fitPosition.top
       }
     }
   }
   if (direction === 'left' && viewPortBoundary.left < 0) {
     if (triggerRect.left > popupRect.width) {
       // Adjust the pop-up box to snap to the left side of the window
-      popupPosition.left = -containerRect.left;
+      popupPosition.left = -containerRect.left
     } else {
       const fitPosition = getPopupOffset('right', triggerRect, popupRect, {
         offset,
-        translate,
-      });
+        translate
+      })
       // prettier-ignore
       if (viewPortSize.width - (containerRect.left + fitPosition.left + popupRect.width) > 0) {
         finalPosition = changePosition(position, 'right');
@@ -260,18 +259,18 @@ const getFitPosition = (
     } else {
       const fitPosition = getPopupOffset('left', triggerRect, popupRect, {
         offset,
-        translate,
-      });
+        translate
+      })
       if (containerRect.left + fitPosition.left > 0) {
-        finalPosition = changePosition(position, 'left');
-        popupPosition.left = fitPosition.left;
+        finalPosition = changePosition(position, 'left')
+        popupPosition.left = fitPosition.left
       }
     }
   }
 
   if (direction === 'top' || direction === 'bottom') {
     if (viewPortBoundary.left < 0) {
-      popupPosition.left = -containerRect.left;
+      popupPosition.left = -containerRect.left
     } else if (viewPortBoundary.right < 0) {
       // prettier-ignore
       popupPosition.left = -containerRect.left + (viewPortSize.width - popupRect.width);
@@ -279,7 +278,7 @@ const getFitPosition = (
   }
   if (direction === 'left' || direction === 'right') {
     if (viewPortBoundary.top < 0) {
-      popupPosition.top = -containerRect.top;
+      popupPosition.top = -containerRect.top
     } else if (viewPortBoundary.bottom < 0) {
       // prettier-ignore
       popupPosition.top = -containerRect.top + (viewPortSize.height - popupRect.height);
@@ -287,9 +286,9 @@ const getFitPosition = (
   }
   return {
     popupPosition,
-    position: finalPosition,
-  };
-};
+    position: finalPosition
+  }
+}
 
 const getPopupOffset = (
   position: TriggerPosition,
@@ -297,11 +296,11 @@ const getPopupOffset = (
   popupRect: ScrollRect,
   {
     offset = 0,
-    translate = [0, 0],
+    translate = [0, 0]
   }: {
-    offset?: number;
-    translate?: TriggerPopupTranslate;
-  } = {},
+    offset?: number
+    translate?: TriggerPopupTranslate
+  } = {}
 ): PositionOffset => {
   // prettier-ignore
   const _translate = (isArray(translate) ? translate : translate[position]) ?? [0, 0];
@@ -309,103 +308,87 @@ const getPopupOffset = (
   switch (position) {
     case 'top':
       return {
-        left:
-          triggerRect.scrollLeft +
-          Math.round(triggerRect.width / 2) -
-          Math.round(popupRect.width / 2) +
-          _translate[0],
-        top: triggerRect.scrollTop - popupRect.height - offset + _translate[1],
-      };
+        left: triggerRect.scrollLeft + Math.round(triggerRect.width / 2) - Math.round(popupRect.width / 2) + _translate[0],
+        top: triggerRect.scrollTop - popupRect.height - offset + _translate[1]
+      }
     case 'tl':
       return {
         left: triggerRect.scrollLeft + _translate[0],
-        top: triggerRect.scrollTop - popupRect.height - offset + _translate[1],
-      };
+        top: triggerRect.scrollTop - popupRect.height - offset + _translate[1]
+      }
     case 'tr':
       return {
         left: triggerRect.scrollRight - popupRect.width + _translate[0],
-        top: triggerRect.scrollTop - popupRect.height - offset + _translate[1],
-      };
+        top: triggerRect.scrollTop - popupRect.height - offset + _translate[1]
+      }
     case 'bottom':
       return {
-        left:
-          triggerRect.scrollLeft +
-          Math.round(triggerRect.width / 2) -
-          Math.round(popupRect.width / 2) +
-          _translate[0],
-        top: triggerRect.scrollBottom + offset + _translate[1],
-      };
+        left: triggerRect.scrollLeft + Math.round(triggerRect.width / 2) - Math.round(popupRect.width / 2) + _translate[0],
+        top: triggerRect.scrollBottom + offset + _translate[1]
+      }
     case 'bl':
       return {
         left: triggerRect.scrollLeft + _translate[0],
-        top: triggerRect.scrollBottom + offset + _translate[1],
-      };
+        top: triggerRect.scrollBottom + offset + _translate[1]
+      }
     case 'br':
       return {
         left: triggerRect.scrollRight - popupRect.width + _translate[0],
-        top: triggerRect.scrollBottom + offset + _translate[1],
-      };
+        top: triggerRect.scrollBottom + offset + _translate[1]
+      }
     case 'left':
       return {
         left: triggerRect.scrollLeft - popupRect.width - offset + _translate[0],
-        top:
-          triggerRect.scrollTop +
-          Math.round(triggerRect.height / 2) -
-          Math.round(popupRect.height / 2) +
-          _translate[1],
-      };
+        top: triggerRect.scrollTop + Math.round(triggerRect.height / 2) - Math.round(popupRect.height / 2) + _translate[1]
+      }
     case 'lt':
       return {
         left: triggerRect.scrollLeft - popupRect.width - offset + _translate[0],
-        top: triggerRect.scrollTop + _translate[1],
-      };
+        top: triggerRect.scrollTop + _translate[1]
+      }
     case 'lb':
       return {
         left: triggerRect.scrollLeft - popupRect.width - offset + _translate[0],
-        top: triggerRect.scrollBottom - popupRect.height + _translate[1],
-      };
+        top: triggerRect.scrollBottom - popupRect.height + _translate[1]
+      }
     case 'right':
       return {
         left: triggerRect.scrollRight + offset + _translate[0],
-        top:
-          triggerRect.scrollTop +
-          Math.round(triggerRect.height / 2) -
-          Math.round(popupRect.height / 2) +
-          _translate[1],
-      };
+        top: triggerRect.scrollTop + Math.round(triggerRect.height / 2) - Math.round(popupRect.height / 2) + _translate[1]
+      }
     case 'rt':
       return {
         left: triggerRect.scrollRight + offset + _translate[0],
-        top: triggerRect.scrollTop + _translate[1],
-      };
+        top: triggerRect.scrollTop + _translate[1]
+      }
     case 'rb':
       return {
         left: triggerRect.scrollRight + offset + _translate[0],
-        top: triggerRect.scrollBottom - popupRect.height + _translate[1],
-      };
+        top: triggerRect.scrollBottom - popupRect.height + _translate[1]
+      }
     default:
       return {
         left: 0,
-        top: 0,
-      };
+        top: 0
+      }
   }
-};
+}
 
 export const getTransformOrigin = (position: TriggerPosition) => {
-  let originX = '0';
+  let originX = '0'
   if (['top', 'bottom'].includes(position)) {
-    originX = '50%';
+    originX = '50%'
   } else if (['left', 'lt', 'lb', 'tr', 'br'].includes(position)) {
-    originX = '100%';
+    originX = '100%'
   }
-  let originY = '0';
+  let originY = '0'
   if (['left', 'right'].includes(position)) {
-    originY = '50%';
+    originY = '50%'
   } else if (['top', 'tl', 'tr', 'lt', 'rt'].includes(position)) {
-    originY = '100%';
+    originY = '100%'
   }
-  return `${originX} ${originY}`;
-};
+  return `${originX} ${originY}`
+}
 
 export const getPopupStyle = (
   position: TriggerPosition,
@@ -416,63 +399,61 @@ export const getPopupStyle = (
     offset = 0,
     translate = [0, 0],
     customStyle = {},
-    autoFitPosition = false,
+    autoFitPosition = false
   }: {
-    offset?: number;
-    translate?: TriggerPopupTranslate;
-    customStyle?: CSSProperties;
-    autoFitPosition?: boolean;
-  } = {},
+    offset?: number
+    translate?: TriggerPopupTranslate
+    customStyle?: CSSProperties
+    autoFitPosition?: boolean
+  } = {}
 ): { style: CSSProperties; position: TriggerPosition } => {
-  let finalPosition = position;
+  let finalPosition = position
   let popupPosition = getPopupOffset(position, triggerRect, popupRect, {
     offset,
-    translate,
-  });
+    translate
+  })
   if (autoFitPosition) {
     const result = getFitPosition(position, popupPosition, {
       containerRect,
       popupRect,
       triggerRect,
       offset,
-      translate,
-    });
-    popupPosition = result.popupPosition;
-    finalPosition = result.position;
+      translate
+    })
+    popupPosition = result.popupPosition
+    finalPosition = result.position
   }
 
   const style = {
     left: `${popupPosition.left}px`,
     top: `${popupPosition.top}px`,
-    ...customStyle,
-  };
+    ...customStyle
+  }
 
   return {
     style,
-    position: finalPosition,
-  };
-};
+    position: finalPosition
+  }
+}
 
 export const getArrowStyle = (
   position: TriggerPosition,
   triggerRect: ScrollRect,
   popupRect: ScrollRect,
   {
-    customStyle = {},
+    customStyle = {}
   }: {
-    customStyle?: CSSProperties;
-  },
+    customStyle?: CSSProperties
+  }
 ): CSSProperties => {
   if (['top', 'tl', 'tr', 'bottom', 'bl', 'br'].includes(position)) {
-    let offsetLeft = Math.abs(
-      triggerRect.scrollLeft + triggerRect.width / 2 - popupRect.scrollLeft,
-    );
+    let offsetLeft = Math.abs(triggerRect.scrollLeft + triggerRect.width / 2 - popupRect.scrollLeft)
 
     if (offsetLeft > popupRect.width - 8) {
       if (triggerRect.width > popupRect.width) {
-        offsetLeft = popupRect.width / 2;
+        offsetLeft = popupRect.width / 2
       } else {
-        offsetLeft = popupRect.width - 8;
+        offsetLeft = popupRect.width - 8
       }
     }
     if (['top', 'tl', 'tr'].includes(position)) {
@@ -480,26 +461,26 @@ export const getArrowStyle = (
         left: `${offsetLeft}px`,
         bottom: '0',
         transform: 'translate(-50%,100%)',
-        "border-color": 'var(--bn-trigger-arrow-background-color) transparent transparent transparent',
-        ...customStyle,
-      };
+        'border-color': 'var(--bn-trigger-arrow-background-color) transparent transparent transparent',
+        ...customStyle
+      }
     }
     // bottom bl br
     return {
       left: `${offsetLeft}px`,
       top: '0',
       transform: 'translate(-50%,-100%)',
-      "border-color": 'transparent transparent var(--bn-trigger-arrow-background-color) transparent', 
-      ...customStyle,
-    };
+      'border-color': 'transparent transparent var(--bn-trigger-arrow-background-color) transparent',
+      ...customStyle
+    }
   }
-  let offsetTop = Math.abs(triggerRect.scrollTop + triggerRect.height / 2 - popupRect.scrollTop);
+  let offsetTop = Math.abs(triggerRect.scrollTop + triggerRect.height / 2 - popupRect.scrollTop)
 
   if (offsetTop > popupRect.height - 8) {
     if (triggerRect.height > popupRect.height) {
-      offsetTop = popupRect.height / 2;
+      offsetTop = popupRect.height / 2
     } else {
-      offsetTop = popupRect.height - 8;
+      offsetTop = popupRect.height - 8
     }
   }
 
@@ -508,32 +489,32 @@ export const getArrowStyle = (
       top: `${offsetTop}px`,
       right: '0',
       transform: 'translate(100%,-50%)',
-      "border-color": 'transparent transparent transparent var(--bn-trigger-arrow-background-color)',
-      ...customStyle,
-    };
+      'border-color': 'transparent transparent transparent var(--bn-trigger-arrow-background-color)',
+      ...customStyle
+    }
   }
   // right rl rb
   return {
     top: `${offsetTop}px`,
     left: '0',
     transform: 'translate(-100%,-50%)',
-    "border-color": 'transparent var(--bn-trigger-arrow-background-color) transparent transparent',
-    ...customStyle,
-  };
-};
+    'border-color': 'transparent var(--bn-trigger-arrow-background-color) transparent transparent',
+    ...customStyle
+  }
+}
 
 export const isScrollElement = (element: HTMLElement) => {
-  return element.scrollHeight > element.offsetHeight || element.scrollWidth > element.offsetWidth;
-};
+  return element.scrollHeight > element.offsetHeight || element.scrollWidth > element.offsetWidth
+}
 
 export const getScrollElements = (container: HTMLElement | undefined) => {
-  const scrollElements: HTMLElement[] = [];
-  let element: HTMLElement | undefined = container;
+  const scrollElements: HTMLElement[] = []
+  let element: HTMLElement | undefined = container
   while (element && element !== document.documentElement) {
     if (isScrollElement(element)) {
-      scrollElements.push(element);
+      scrollElements.push(element)
     }
-    element = element.parentElement ?? undefined;
+    element = element.parentElement ?? undefined
   }
-  return scrollElements;
-};
+  return scrollElements
+}

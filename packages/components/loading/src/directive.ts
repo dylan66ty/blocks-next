@@ -1,10 +1,8 @@
 import type { ObjectDirective, DirectiveBinding } from 'vue'
-import { LoadingOptions , LoadingInstance} from './type'
+import type { LoadingOptions, LoadingInstance } from './type'
 import { createLoadingComponent } from './loading'
 
 const LOADING_KEY = Symbol('loading')
-
-
 
 export type LoadingEl = HTMLElement & {
   [LOADING_KEY]?: {
@@ -15,10 +13,7 @@ export type LoadingEl = HTMLElement & {
 
 export type LoadingBinding = boolean | LoadingOptions
 
-
-
 const createInstance = (el: LoadingEl, binding: DirectiveBinding<LoadingBinding>) => {
-
   const getAttributeValue = <K extends keyof LoadingOptions>(key: K) => {
     return el.getAttribute(`bn-loading-${key}`) || ''
   }
@@ -26,7 +21,6 @@ const createInstance = (el: LoadingEl, binding: DirectiveBinding<LoadingBinding>
   const getBindingValue = <K extends keyof LoadingOptions>(key: K) => {
     return binding.modifiers[key]
   }
-
 
   const options: LoadingOptions = {
     background: getAttributeValue('background'),
@@ -59,13 +53,13 @@ export const vLoading: ObjectDirective = {
       if (binding.value && !binding.oldValue) {
         createInstance(el, binding)
       } else if (binding.value && binding.oldValue) {
-        console.log('update option');
+        console.log('update option')
       } else {
         instance?.instance.cancelLoading()
       }
     }
   },
-  unmounted(el){
+  unmounted(el) {
     el[LOADING_KEY]?.instance.cancelLoading()
   }
 }

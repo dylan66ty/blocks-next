@@ -1,58 +1,53 @@
-import { computed, ref } from "vue"
+import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
-import { CascaderNode } from "./type"
-
-
-
+import type { CascaderNode } from './type'
 
 export const useSelectedPath = (
   dataTree: Ref<CascaderNode[]>,
-  { dataMap , expandChild}:
-    {
-      dataMap: Map<string, CascaderNode>,
-      expandChild:Ref<boolean>
-    }) => {
-  // select node key 
+  {
+    dataMap,
+    expandChild
+  }: {
+    dataMap: Map<string, CascaderNode>
+    expandChild: Ref<boolean>
+  }
+) => {
+  // select node key
   const selectedPath = ref<string[]>([])
-  
+
   // active node key
   const activeKey = ref<string>()
 
-
-
-  // cascader panel 渲染二维数组 
+  // cascader panel 渲染二维数组
   const renderColumns = computed(() => {
-    const columns: CascaderNode[][] = [dataTree.value];
+    const columns: CascaderNode[][] = [dataTree.value]
     for (const key of selectedPath.value) {
-      const option = dataMap.get(key);
+      const option = dataMap.get(key)
       if (option?.hasChildren) {
-        columns.push(option.children!);
+        columns.push(option.children!)
       }
     }
-    return columns;
+    return columns
   })
 
   const getTargetNode = (nodeKey?: string) => {
-    let node = nodeKey ? dataMap.get(nodeKey) : undefined;
+    let node = nodeKey ? dataMap.get(nodeKey) : undefined
     if (expandChild.value) {
       while (node && node.children && node.children.length > 0) {
-        // eslint-disable-next-line prefer-destructuring
-        node = node.children[0];
+        node = node.children[0]
       }
     }
     return node
-  };
-
-
-  const setSelectedPath = (nodeKey?: string) => {
-    const node = getTargetNode(nodeKey);
-    selectedPath.value = node?.pathNodes.map((n) => n.key) ?? [];
-  };
-
-  const setActiveKey = (nodeKey?:string) => {
-    activeKey.value = nodeKey
   }
 
+  const setSelectedPath = (nodeKey?: string) => {
+    const node = getTargetNode(nodeKey)
+    selectedPath.value = node?.pathNodes.map((n) => n.key) ?? []
+  }
+
+  const setActiveKey = (nodeKey?: string) => {
+    activeKey.value = nodeKey
+  }
 
   return {
     renderColumns,
@@ -61,5 +56,4 @@ export const useSelectedPath = (
     activeKey,
     setActiveKey
   }
-
 }

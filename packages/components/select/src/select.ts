@@ -1,56 +1,56 @@
-import type { PropType, ExtractPropTypes } from 'vue';
+import type { PropType, ExtractPropTypes } from 'vue'
 export const selectProps = {
   modelValue: {
     type: [Array, String, Number, Boolean, Object],
-    default: undefined,
+    default: undefined
   },
   multiple: Boolean,
   loading: Boolean,
-  clearable:Boolean,
+  clearable: Boolean,
   loadingText: {
     type: String,
-    default: '加载中',
+    default: '加载中'
   },
   noDataText: {
     type: String,
-    default: '暂无数据',
+    default: '暂无数据'
   },
   noMatchText: {
     type: String,
-    default: '暂无匹配项',
+    default: '暂无匹配项'
   },
   valueKey: {
     type: String,
-    default: 'value',
+    default: 'value'
   },
   labelKey: {
     type: String,
-    default: 'label',
+    default: 'label'
   },
   popperClass: {
     type: String,
-    default: '',
+    default: ''
   },
   size: {
     type: String as PropType<'small' | 'normal' | 'large'>,
-    default: '',
+    default: ''
   },
   placeholder: {
     type: String,
-    default: '请选择',
+    default: '请选择'
   },
   disabled: Boolean,
   // input native
   name: {
     type: String,
-    default: '',
+    default: ''
   },
   autocomplete: {
     type: String as PropType<'off' | 'no'>,
-    default: 'off',
+    default: 'off'
   },
   //表单验证
-  validateEvent: Boolean,
-};
+  validateEvent: Boolean
+}
 
-export type InputProps = ExtractPropTypes<typeof selectProps>;
+export type InputProps = ExtractPropTypes<typeof selectProps>

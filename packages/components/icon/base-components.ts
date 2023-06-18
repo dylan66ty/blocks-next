@@ -18,13 +18,13 @@ import Setting from './src/base/setting.vue'
 import Empty from './src/base/empty.vue'
 
 const components = [
-  EyeOpen, 
-  EyeClose, 
-  Plus, 
-  Minus, 
-  Search, 
-  Time, 
-  Loading, 
+  EyeOpen,
+  EyeClose,
+  Plus,
+  Minus,
+  Search,
+  Time,
+  Loading,
   Caret,
   CaretFill,
   Prompt,
@@ -36,6 +36,6 @@ const components = [
   Delete,
   Setting,
   Empty
-];
+]
 
 export default components

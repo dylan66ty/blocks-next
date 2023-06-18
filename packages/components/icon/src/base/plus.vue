@@ -1,17 +1,16 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
-import IconComponent from '../icon-component.vue';
-import { iconProps } from '../icon-props';
+  import { defineComponent } from 'vue'
+  import IconComponent from '../icon-component.vue'
+  import { iconProps } from '../icon-props'
 
-
-export default defineComponent({
-  name: 'Plus',
-  components: {
-    IconComponent,
-  },
-  props: iconProps,
-  inheritAttrs: false
-});
+  export default defineComponent({
+    name: 'Plus',
+    components: {
+      IconComponent
+    },
+    inheritAttrs: false,
+    props: iconProps
+  })
 </script>
 
 <template>

@@ -1,4 +1,5 @@
-import { computed, defineComponent, h } from 'vue'
+import { computed, defineComponent, h, toRefs } from 'vue'
+import type { VNode } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import { paginationProps } from './_pagination'
 
@@ -9,23 +10,17 @@ import LayoutComponentPrev from './layout/prev.vue'
 import LayoutComponentSizes from './layout/sizes.vue'
 import LayoutComponentJumper from './layout/jumper.vue'
 
-import type { VNode } from 'vue'
 import type { LayoutKey } from './types'
 
 export default defineComponent({
   name: getComponentNamespace('Pagination'),
   props: paginationProps,
-  emits: [
-    'page-change',
-    'page-size-change',
-    'prev',
-    'next'
-  ],
-  setup(props, {emit}) {
+  emits: ['page-change', 'page-size-change', 'prev', 'next'],
+  setup(props, { emit }) {
     const ns = getNamespace('pagination')
-    const cls = computed(() => [
-      ns,
-    ])
+    const cls = computed(() => [ns])
+
+    const { pageConfig } = toRefs(props)
 
     // page
     const currentPageBridge = computed<number>({
@@ -39,8 +34,8 @@ export default defineComponent({
         } else if (v > pageCountBridge.value) {
           newCurrentPage = pageCountBridge.value
         }
-        props.pageConfig.page = newCurrentPage
-      },
+        pageConfig.value.page = newCurrentPage
+      }
     })
 
     // pageSize
@@ -48,14 +43,14 @@ export default defineComponent({
       get() {
         return props.pageConfig.pageSize
       },
-      set(v: number) {  
-        props.pageConfig.pageSize = v
-      },
+      set(v: number) {
+        pageConfig.value.pageSize = v
+      }
     })
 
     // 一共多少页
     const pageCountBridge = computed<number>(() => {
-      let pageCount = Math.max(1, Math.ceil((props.pageConfig.total as number) / pageSizeBridge.value!))
+      const pageCount = Math.max(1, Math.ceil((props.pageConfig.total as number) / pageSizeBridge.value!))
       return pageCount
     })
 
@@ -66,14 +61,13 @@ export default defineComponent({
         // pageSize发生变化了 将page直接设为1
         currentPageBridge.value = 1
       }
-      emit('page-size-change', pageSizeBridge.value )
+      emit('page-size-change', pageSizeBridge.value)
     }
 
     // event
-    const handleCurrentChange = (val:number) => {
+    const handleCurrentChange = (val: number) => {
       currentPageBridge.value = val
       emit('page-change', currentPageBridge.value)
-
     }
 
     const prev = () => {
@@ -93,14 +87,14 @@ export default defineComponent({
     return () => {
       if (!props.layout) return null
 
-      const renderChildren:Array<VNode | VNode[] | null> = []
-      const layoutRenderMap: Record<string,VNode> = {
-        jumper:h(LayoutComponentJumper, {
+      const renderChildren: Array<VNode | VNode[] | null> = []
+      const layoutRenderMap: Record<string, VNode> = {
+        jumper: h(LayoutComponentJumper, {
           onChange: handleCurrentChange,
           currentPage: currentPageBridge.value,
           pageCount: pageCountBridge.value,
           disabled: props.disabled,
-          pageSize: pageSizeBridge.value,
+          pageSize: pageSizeBridge.value
         }),
         sizes: h(LayoutComponentSizes, {
           pageSize: pageSizeBridge.value,
@@ -111,39 +105,33 @@ export default defineComponent({
         prev: h(LayoutComponentPrev, {
           disabled: props.disabled,
           currentPage: currentPageBridge.value,
-          onClick: prev,
+          onClick: prev
         }),
         next: h(LayoutComponentNext, {
           disabled: props.disabled,
           currentPage: currentPageBridge.value,
           pageCount: pageCountBridge.value,
-          onClick: next,
+          onClick: next
         }),
         pager: h(LayoutComponentPager, {
           currentPage: currentPageBridge.value,
           pageCount: pageCountBridge.value,
           pagerCount: 7,
           onChange: handleCurrentChange,
-          disabled: props.disabled,
+          disabled: props.disabled
         }),
-        total: h(LayoutComponentTotal, { total: props.pageConfig.total || 0 }),
+        total: h(LayoutComponentTotal, { total: props.pageConfig.total || 0 })
       }
 
-      const needRenderComponents = props.layout
-      .split(',')
-      .map((item: string) => item.trim()) as LayoutKey[]
+      const needRenderComponents = props.layout.split(',').map((item: string) => item.trim()) as LayoutKey[]
 
       needRenderComponents.forEach((layoutName: LayoutKey) => {
-        if(layoutRenderMap[layoutName]) {
+        if (layoutRenderMap[layoutName]) {
           renderChildren.push(layoutRenderMap[layoutName])
         }
       })
 
-      return <div class={cls.value}>
-        { renderChildren }
-      </div>
+      return <div class={cls.value}>{renderChildren}</div>
     }
-
   }
-
 })

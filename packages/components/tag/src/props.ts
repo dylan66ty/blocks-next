@@ -1,11 +1,11 @@
-import { PropType } from "vue";
+import type { PropType } from 'vue'
 
 export const tagProps = {
   type: {
-    type: String as PropType<'primary' | 'success' | 'waning' | 'strong' | 'danger' >,
+    type: String as PropType<'primary' | 'success' | 'waning' | 'strong' | 'danger'>,
     default: undefined
   },
-  closeable:{
+  closeable: {
     type: Boolean,
     default: false
   },
@@ -14,16 +14,15 @@ export const tagProps = {
     default: undefined
   },
   effect: {
-    type:String as PropType<'dark' | 'plain' | 'light'>,
+    type: String as PropType<'dark' | 'plain' | 'light'>,
     default: undefined
   },
   round: {
-    type:Boolean,
-    default:false
+    type: Boolean,
+    default: false
   },
   icon: {
-    type:String,
+    type: String,
     default: undefined
   }
-
 }

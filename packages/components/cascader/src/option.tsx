@@ -1,57 +1,45 @@
 import { computed, defineComponent, ref, inject } from 'vue'
 import type { PropType, VNode, VNodeChild } from 'vue'
 import { getNamespace } from '../../../utils/global-config'
-import type { CascaderNode } from './type'
 import LoadingIcon from '../../icon/src/base/loading.vue'
 import CaretIcon from '../../icon/src/base/caret.vue'
 import Checkbox from '../../checkbox/src/checkbox.vue'
 
+import { isFunction } from '../../../utils/is'
 import { type CascaderContext, cascaderInjectionKey } from './context'
 
 import { getCheckedStatus } from './utils'
-import { isFunction } from '../../../utils/is'
-
-
+import type { CascaderNode } from './type'
 
 export default defineComponent({
-  name: 'cascaderOption',
+  name: 'CascaderOption',
   props: {
     node: {
       type: Object as PropType<CascaderNode>,
-      required: true,
+      required: true
     },
     active: Boolean,
     multiple: Boolean,
-    checkStrictly: Boolean,
+    checkStrictly: Boolean
   },
   setup(props) {
     const ns = getNamespace('cascader-panel')
 
-    const cls = computed(() => [
-      `${ns}__option`,
-      props.active && 'is-active',
-      props.node.disabled && 'is-disabled'
-
-    ])
-    const cascaderContext = inject<Partial<CascaderContext>>(
-      cascaderInjectionKey,
-      {}
-    );
-
+    const cls = computed(() => [`${ns}__option`, props.active && 'is-active', props.node.disabled && 'is-disabled'])
+    const cascaderContext = inject<Partial<CascaderContext>>(cascaderInjectionKey, {})
 
     const isLoading = ref(false)
 
     const handlePathChange = () => {
-      
-      cascaderContext.setSelectedPath?.(props.node.key);
+      cascaderContext.setSelectedPath?.(props.node.key)
     }
 
-    const events: Record<string, any> = {};
+    const events: Record<string, any> = {}
 
     if (!props.node.disabled) {
-      events.onMouseenter = [];
+      events.onMouseenter = []
       events.onMouseleave = []
-      events.onClick = [];
+      events.onClick = []
 
       events.onMouseenter.push(() => {
         handlePathChange()
@@ -60,7 +48,7 @@ export default defineComponent({
       if (props.node.isLeaf && !props.multiple) {
         events.onClick.push(() => {
           cascaderContext.emitPath?.(props.node)
-        });
+        })
       }
 
       if (props.multiple) {
@@ -68,7 +56,6 @@ export default defineComponent({
           cascaderContext.emitPath?.(props.node, !checkedStatus.value.checked)
         })
       }
-
     }
 
     const handleCheckedChange = () => {
@@ -87,32 +74,28 @@ export default defineComponent({
         render = defaultSlot({ node: props.node, data: props.node.raw })
       }
 
-      return (
-        <span>
-          {render}
-        </span>
-      )
+      return <span>{render}</span>
     }
 
     const renderContentRightIcon = () => {
       if (isLoading.value) {
-        return <LoadingIcon />;
+        return <LoadingIcon />
       }
       if (!props.node.isLeaf) {
-        return <CaretIcon rotate={-90} />;
+        return <CaretIcon rotate={-90} />
       }
-      return null;
+      return null
     }
 
     const checkedStatus = computed(() => {
       if (props.checkStrictly) {
         return {
           checked: cascaderContext.nodeKeys?.includes(props.node.key),
-          indeterminate: false,
-        };
+          indeterminate: false
+        }
       }
-      return getCheckedStatus(props.node, cascaderContext.nodeKeys);
-    });
+      return getCheckedStatus(props.node, cascaderContext.nodeKeys)
+    })
 
     const renderOps = () => {
       if (props.multiple) {
@@ -123,35 +106,23 @@ export default defineComponent({
             disabled={props.node.disabled}
             validateEvent={false}
             onChange={handleCheckedChange}
-            // @ts-ignore
             onClick={(ev: Event) => ev.stopPropagation()}
           />
-
         )
       }
     }
 
     return () => {
       return (
-        <li
-          class={cls.value}
-          {...events}
-        >
-          {
-            renderOps()
-          }
+        <li class={cls.value} {...events}>
+          {renderOps()}
 
           <div class={[`${ns}__option-label`]}>
-            {
-              renderContent()
-            }
-            {
-              renderContentRightIcon()
-            }
+            {renderContent()}
+            {renderContentRightIcon()}
           </div>
         </li>
       )
     }
   }
-
 })

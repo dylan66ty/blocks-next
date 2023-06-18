@@ -6,6 +6,63 @@ const handler = () => {
   visible.value = true
 }
 
+const data = ref()
+
+setTimeout(() => {
+  data.value = [
+    {
+      label: '分组1',
+      value: '1',
+      children: [
+        {
+          value: '1-1',
+          label: '分组1-1',
+          children: [
+            {
+              value: '1-1-1',
+              label: '分组1-1-1'
+            }
+          ]
+        },
+        {
+          value: '1-2',
+          label: '分组1-2',
+        }
+      ]
+    },
+    {
+      label: '分组2',
+      value: '2',
+      children: [
+        {
+          label: '分组2-1',
+          value: '2-1'
+        }
+      ]
+    },
+    {
+      label: '分组3',
+      value: '3'
+    },
+    {
+      label: '分组4',
+      value: '4',
+      children: [
+        {
+          label: '分组4-1',
+          value: '4-1',
+          children: [
+            {
+              label: '分组4-1-1',
+              value: '4-1-1'
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}, 100);
+
 
 
 </script>
@@ -22,7 +79,7 @@ const handler = () => {
      popupClass="test"
      >
      <template #body>
-      你可以使用body插槽来插入你想要的内容
+      <bn-cascader :data="data"  popupClass="test"></bn-cascader>
      </template>
      </bn-drawer>
 </template>

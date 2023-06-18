@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { getComponentNamespace } from '../../../utils/global-config';
+  import { defineComponent } from 'vue'
+  import { getComponentNamespace } from '../../../utils/global-config'
 
   export default defineComponent({
-    name: getComponentNamespace('ButtonGroup'),
-  });
+    name: getComponentNamespace('ButtonGroup')
+  })
 </script>
 
 <template>

@@ -1,20 +1,20 @@
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import IconComponent from '../icon-component.vue';
-  import { iconProps } from '../icon-props';
+  import { defineComponent } from 'vue'
+  import IconComponent from '../icon-component.vue'
+  import { iconProps } from '../icon-props'
 
   export default defineComponent({
     name: 'Caret',
     components: {
-      IconComponent,
+      IconComponent
     },
-    props:iconProps,
-    inheritAttrs:false
-  });
+    inheritAttrs: false,
+    props: iconProps
+  })
 </script>
 
 <template>
-  <IconComponent v-bind="{...$props,...$attrs}">
+  <IconComponent v-bind="{ ...$props, ...$attrs }">
     <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
       <path
         fill="currentColor"

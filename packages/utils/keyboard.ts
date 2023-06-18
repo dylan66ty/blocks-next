@@ -1,4 +1,4 @@
-import { isString } from './is';
+import { isString } from './is'
 
 export const KEYBOARD_KEY = {
   ENTER: 'Enter',
@@ -9,20 +9,20 @@ export const KEYBOARD_KEY = {
   ARROW_UP: 'ArrowUp',
   ARROW_DOWN: 'ArrowDown',
   ARROW_LEFT: 'ArrowLeft',
-  ARROW_RIGHT: 'ArrowRight',
-};
+  ARROW_RIGHT: 'ArrowRight'
+}
 
 export interface CodeKey {
   /** Keyboard key */
-  key: string;
+  key: string
   /** Ctrl / ⌃ */
-  ctrl?: boolean;
+  ctrl?: boolean
   /** Shift key */
-  shift?: boolean;
+  shift?: boolean
   /** Alt / ⌥ */
-  alt?: boolean;
+  alt?: boolean
   /** meta ⌘ / ⊞ */
-  meta?: boolean;
+  meta?: boolean
 }
 
 const stringifyCodeKey = (k: CodeKey) => {
@@ -31,17 +31,17 @@ const stringifyCodeKey = (k: CodeKey) => {
     ctrl: Boolean(k.ctrl),
     shift: Boolean(k.shift),
     alt: Boolean(k.alt),
-    meta: Boolean(k.meta),
-  });
-};
+    meta: Boolean(k.meta)
+  })
+}
 
 export const getKeyDownHandler = (codeKeyMap: Map<CodeKey | string, (e: Event) => void>) => {
-  const map: Record<string, (e: Event) => void> = {};
+  const map: Record<string, (e: Event) => void> = {}
 
   codeKeyMap.forEach((callback, codeKey) => {
-    const _codeKey = isString(codeKey) ? { key: codeKey } : codeKey;
-    map[stringifyCodeKey(_codeKey)] = callback;
-  });
+    const _codeKey = isString(codeKey) ? { key: codeKey } : codeKey
+    map[stringifyCodeKey(_codeKey)] = callback
+  })
 
   return (event: KeyboardEvent): void => {
     const key = stringifyCodeKey({
@@ -49,13 +49,13 @@ export const getKeyDownHandler = (codeKeyMap: Map<CodeKey | string, (e: Event) =
       ctrl: event.ctrlKey,
       shift: event.shiftKey,
       alt: event.altKey,
-      meta: event.metaKey,
-    });
-    const callback = map[key];
+      meta: event.metaKey
+    })
+    const callback = map[key]
 
     if (callback) {
-      event.stopPropagation();
-      callback(event);
+      event.stopPropagation()
+      callback(event)
     }
-  };
-};
+  }
+}

@@ -1,21 +1,11 @@
-import type { StyleValue } from 'vue';
-import {
-  createApp,
-  defineComponent,
-  Transition,
-  onMounted,
-  nextTick,
-  computed,
-  reactive,
-  onUnmounted,
-  ref,
-} from 'vue';
-import { getComponentNamespace, getNamespace } from '../../../utils/global-config';
-import LoadingIcon from '../../icon/src/base/loading.vue';
-import { getElement, getScrollBarWidth, getStyle, setStyle } from '../../../utils/dom';
-import usePopupManager from '../../../hooks/use-popup-manager';
-import type { LoadingOptions } from './type';
-import { useOverflow } from '../../../hooks/use-overflow';
+import type { StyleValue } from 'vue'
+import { createApp, defineComponent, Transition, onMounted, nextTick, computed, reactive, onUnmounted, ref } from 'vue'
+import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
+import LoadingIcon from '../../icon/src/base/loading.vue'
+import { getElement } from '../../../utils/dom'
+import usePopupManager from '../../../hooks/use-popup-manager'
+import { useOverflow } from '../../../hooks/use-overflow'
+import type { LoadingOptions } from './type'
 
 const getResolveOptions = (options: LoadingOptions) => {
   const _options: LoadingOptions = {
@@ -25,60 +15,60 @@ const getResolveOptions = (options: LoadingOptions) => {
     customClass: options.customClass,
     renderTo: options.renderTo || document.body,
     iconSize: options.iconSize || 16,
-    fullScreen: options.fullScreen,
-  };
-
-  if (_options.fullScreen) {
-    _options.renderTo = document.body;
+    fullScreen: options.fullScreen
   }
 
-  return _options;
-};
+  if (_options.fullScreen) {
+    _options.renderTo = document.body
+  }
+
+  return _options
+}
 
 export const createLoadingComponent = (options: LoadingOptions) => {
-  const resolveOptions = getResolveOptions(options);
+  const resolveOptions = getResolveOptions(options)
 
-  const mountEle = getElement(resolveOptions.renderTo);
+  const mountEle = getElement(resolveOptions.renderTo)
   const loadingRef = ref<HTMLElement>()
-  if (!mountEle) return;
+  if (!mountEle) return
 
   const data = reactive<Record<string, any>>({
     ...resolveOptions,
-    visible: false,
-  });
+    visible: false
+  })
 
-  const { setOverflowHidden ,resetOverflow } = useOverflow(ref(mountEle),loadingRef)
+  const { setOverflowHidden, resetOverflow } = useOverflow(ref(mountEle), loadingRef)
 
   const destroy = () => {
-    resetOverflow();
-    vm.$el?.parentNode.removeChild(vm.$el);
-    app.unmount();
-  };
+    resetOverflow()
+    vm.$el?.parentNode.removeChild(vm.$el)
+    app.unmount()
+  }
 
   const LoadingComponent = defineComponent({
     name: getComponentNamespace('Loading'),
     setup() {
-      const ns = getNamespace('loading');
+      const ns = getNamespace('loading')
       onMounted(() => {
-        data.visible = true;
-      });
+        data.visible = true
+      })
 
-      const { zIndex } = usePopupManager('message', { runOnMounted: true });
+      const { zIndex } = usePopupManager('message', { runOnMounted: true })
 
       onUnmounted(() => {
-        data.visible = false;
-      });
-      const cls = computed(() => [`${ns}__mask`, data.customClass && data.customClass]);
+        data.visible = false
+      })
+      const cls = computed(() => [`${ns}__mask`, data.customClass && data.customClass])
 
       const style = computed(() => {
         const style: StyleValue = {
           color: data.color ? data.color : `var(--bn-primary)`,
           background: data.background,
           zIndex: zIndex.value,
-          position: data.fullScreen ? 'fixed' : 'absolute',
-        };
-        return style;
-      });
+          position: data.fullScreen ? 'fixed' : 'absolute'
+        }
+        return style
+      })
 
       return () => (
         <Transition name="bn-fade-in" onAfterLeave={destroy}>
@@ -91,33 +81,31 @@ export const createLoadingComponent = (options: LoadingOptions) => {
             </div>
           )}
         </Transition>
-      );
-    },
-  });
+      )
+    }
+  })
 
-  const app = createApp(LoadingComponent);
-  const vm = app.mount(document.createElement('div'));
+  const app = createApp(LoadingComponent)
+  const vm = app.mount(document.createElement('div'))
 
   const cancelLoading = () => {
-    data.visible = false;
-  };
-
-
+    data.visible = false
+  }
 
   const appendLoading = () => {
     setOverflowHidden()
     nextTick(() => {
-      mountEle.appendChild(vm.$el);
-    });
-  };
+      mountEle.appendChild(vm.$el)
+    })
+  }
 
   const updateText = (text: string) => {
-    data.text = text;
-  };
+    data.text = text
+  }
 
   return {
     cancelLoading,
     appendLoading,
-    updateText,
-  };
-};
+    updateText
+  }
+}

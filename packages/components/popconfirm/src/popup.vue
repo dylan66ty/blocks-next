@@ -1,114 +1,118 @@
 <script lang="ts">
-import { StyleValue, reactive } from 'vue';
-import { computed, defineComponent, onUnmounted, ref } from 'vue';
-import { getNamespace } from '../../../utils/global-config';
-import BnSpace from '../../space/src/space.vue';
-import BnButton from '../../button/src/button.vue';
-import { addUnit } from '../../../shared/utils';
-import PromptIcon from '../../icon/src/base/prompt.vue';
-import { isFunction, isPromise } from '../../../utils/is';
+  import type { StyleValue } from 'vue'
+  import { reactive, computed, defineComponent, onUnmounted, ref } from 'vue'
+  import { getNamespace } from '../../../utils/global-config'
+  import BnSpace from '../../space/src/space.vue'
+  import BnButton from '../../button/src/button.vue'
+  import { addUnit } from '../../../shared/utils'
+  import PromptIcon from '../../icon/src/base/prompt.vue'
+  import { isFunction, isPromise } from '../../../utils/is'
 
-export default defineComponent({
-  name: 'PopconfirmPopup',
-  components: {
-    BnSpace,
-    BnButton,
-    PromptIcon,
-  },
-  props: {
-    width: [String, Number],
-    content: Object,
-    okText: String,
-    cancelText: String,
-    popupClass: String,
-    onBeforeCancel: Function,
-    onBeforeOk: Function,
-    type: String,
-  },
-  emits: ['ok', 'cancel', 'close', 'destroy'],
-  setup(props, { emit }) {
-    const ns = getNamespace('popconfirm');
-    const popupCls = computed(() => [
-      ns,
-      props.popupClass && props.popupClass,
-      props.type && `is-${props.type}`,
-    ]);
+  export default defineComponent({
+    name: 'PopconfirmPopup',
+    components: {
+      BnSpace,
+      BnButton,
+      PromptIcon
+    },
+    props: {
+      // eslint-disable-next-line vue/require-default-prop
+      width: [String, Number],
+      // eslint-disable-next-line vue/require-default-prop
+      content: Object,
+      // eslint-disable-next-line vue/require-default-prop
+      okText: String,
+      // eslint-disable-next-line vue/require-default-prop
+      cancelText: String,
+      // eslint-disable-next-line vue/require-default-prop
+      popupClass: String,
+      // eslint-disable-next-line vue/require-default-prop
+      onBeforeCancel: Function,
+      // eslint-disable-next-line vue/require-default-prop
+      onBeforeOk: Function,
+      // eslint-disable-next-line vue/require-default-prop
+      type: String
+    },
+    emits: ['ok', 'cancel', 'close', 'destroy'],
+    setup(props, { emit }) {
+      const ns = getNamespace('popconfirm')
+      const popupCls = computed(() => [ns, props.popupClass && props.popupClass, props.type && `is-${props.type}`])
 
-    const popupStyle = computed(() => {
-      const style: StyleValue = {};
-      style['--bn-trigger-arrow-background-color'] = '#fff';
-      style.width = addUnit(props.width);
-      return style;
-    });
+      const popupStyle = computed(() => {
+        const style: StyleValue = {}
+        style['--bn-trigger-arrow-background-color'] = '#fff'
+        style.width = addUnit(props.width)
+        return style
+      })
 
-    const visible = ref(true);
+      const visible = ref(true)
 
-    const loadingObj = reactive({
-      ok: false,
-      cancel: false
-    })
+      const loadingObj = reactive({
+        ok: false,
+        cancel: false
+      })
 
-    const changeVisible = (value: boolean) => {
-      visible.value = value;
-    };
+      const changeVisible = (value: boolean) => {
+        visible.value = value
+      }
 
-    const handleOk = (e: Event) => {
-      const beforeOk = props.onBeforeOk;
-      let ret = true;
-      if (isFunction(beforeOk)) {
-        ret = beforeOk();
-        if (isPromise(ret)) {
-          loadingObj.ok = true
-          ret.then(valid => {
-            loadingObj.ok = false
-            if (valid) {
-              emit('ok', e);
-            }
-          })
-          return;
+      const handleOk = (e: Event) => {
+        const beforeOk = props.onBeforeOk
+        let ret = true
+        if (isFunction(beforeOk)) {
+          ret = beforeOk()
+          if (isPromise(ret)) {
+            loadingObj.ok = true
+            ret.then((valid) => {
+              loadingObj.ok = false
+              if (valid) {
+                emit('ok', e)
+              }
+            })
+            return
+          }
+        }
+        if (ret) {
+          emit('ok', e)
         }
       }
-      if (ret) {
-        emit('ok', e);
-      }
-    };
-    
-    const handleCancel = (e: Event) => {
-      const beforeCancel = props.onBeforeCancel;
-      let ret = true;
-      if (isFunction(beforeCancel)) {
-        ret = beforeCancel();
-        if (isPromise(ret)) {
-          loadingObj.cancel = true
-          ret.then(valid => {
-            loadingObj.cancel = false
-            if (valid) {
-              emit('cancel', e);
-            }
-          })
-          return;
+
+      const handleCancel = (e: Event) => {
+        const beforeCancel = props.onBeforeCancel
+        let ret = true
+        if (isFunction(beforeCancel)) {
+          ret = beforeCancel()
+          if (isPromise(ret)) {
+            loadingObj.cancel = true
+            ret.then((valid) => {
+              loadingObj.cancel = false
+              if (valid) {
+                emit('cancel', e)
+              }
+            })
+            return
+          }
+        }
+        if (ret) {
+          emit('cancel', e)
         }
       }
-      if (ret) {
-        emit('cancel', e);
-      }
-    };
-    onUnmounted(() => {
-      visible.value = false;
-    });
+      onUnmounted(() => {
+        visible.value = false
+      })
 
-    return {
-      ns,
-      visible,
-      popupCls,
-      popupStyle,
-      changeVisible,
-      handleOk,
-      handleCancel,
-      loadingObj,
-    };
-  },
-});
+      return {
+        ns,
+        visible,
+        popupCls,
+        popupStyle,
+        changeVisible,
+        handleOk,
+        handleCancel,
+        loadingObj
+      }
+    }
+  })
 </script>
 
 <template>

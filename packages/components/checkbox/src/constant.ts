@@ -1,4 +1,4 @@
-import type { InjectionKey } from 'vue';
-import type { CheckboxGroupContext } from './types';
+import type { InjectionKey } from 'vue'
+import type { CheckboxGroupContext } from './types'
 
-export const checkboxGroupContextKey: InjectionKey<CheckboxGroupContext> = Symbol('radioGroupKey');
+export const checkboxGroupContextKey: InjectionKey<CheckboxGroupContext> = Symbol('radioGroupKey')

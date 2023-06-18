@@ -1,23 +1,25 @@
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'SorterPopup',
   props: {
     sortChange: {
       type: Function,
+      default: () => {}
     },
     activeSort: {
       type: String,
+      default: ''
     },
     hitColumnProp: {
-      type: Boolean,
-    },
+      type: Boolean
+    }
   },
   setup(props) {
     const list = [
       { label: '升序', value: 'ascend' },
-      { label: '降序', value: 'descend' },
-    ];
+      { label: '降序', value: 'descend' }
+    ]
 
     return () => {
       return (
@@ -27,9 +29,8 @@ export default defineComponent({
               class={[
                 'bn-table__sort-item',
                 {
-                  'bn-table__sort-item-active':
-                    props.activeSort === item.value && props.hitColumnProp,
-                },
+                  'bn-table__sort-item-active': props.activeSort === item.value && props.hitColumnProp
+                }
               ]}
               onClick={() => props.sortChange!(item.value)}
             >
@@ -37,7 +38,7 @@ export default defineComponent({
             </div>
           ))}
         </div>
-      );
-    };
-  },
-});
+      )
+    }
+  }
+})

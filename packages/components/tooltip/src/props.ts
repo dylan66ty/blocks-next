@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType} from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 import type { Position } from './types'
 export const tooltipProps = {
   modelValue: {
@@ -6,11 +6,11 @@ export const tooltipProps = {
     default: undefined
   },
   content: {
-    type:String,
+    type: String,
     default: ''
   },
   position: {
-    type:String as PropType<Position> ,
+    type: String as PropType<Position>,
     default: 'top'
   },
   backgroundColor: {
@@ -18,19 +18,19 @@ export const tooltipProps = {
     default: undefined
   },
   renderTo: {
-    type: [String,Object] as PropType<string | HTMLElement>,
+    type: [String, Object] as PropType<string | HTMLElement>,
     default: 'body'
   },
   disabled: {
-    type:Boolean,
+    type: Boolean,
     default: false
   },
   effect: {
-    type:String as PropType<'dark' | 'light'>,
+    type: String as PropType<'dark' | 'light'>,
     default: 'dark'
   },
   popupClass: {
-    type:String
+    type: String
   },
   size: {
     type: String as PropType<'mini'>,
@@ -38,7 +38,4 @@ export const tooltipProps = {
   }
 }
 
-
 export type TooltipProps = ExtractPropTypes<typeof tooltipProps>
-
-
