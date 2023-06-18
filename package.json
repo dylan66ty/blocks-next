@@ -10,7 +10,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "create-comp": "bash ./script/template.sh",
+    "create-comp1": "bash ./script/template.sh",
     "clean": "rimraf ./dist",
     "dev": "pnpm run -C effect dev",
     "test": "vitest",

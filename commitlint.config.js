@@ -21,7 +21,7 @@ module.exports = {
   extends: ['@jsxiaosi/commitlint-config'],
   prompt: {
     // 范围设置
-    scopes: [...scopes, 'mock'],
+    scopes: [...scopes],
     // 范围是否可以多选
     enableMultipleScopes: true,
     // 多选范围后用标识符隔开

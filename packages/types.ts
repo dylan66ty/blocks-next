@@ -6,4 +6,5 @@ export type SFCInstallWithContext<T> = SFCWithInstall<T> & {
   _context: AppContext | null
 }
 
-export type PublicProps<T, U = {}> = Readonly<T> & U // vue 的公共 props
+// vue 的公共 props
+export type PublicProps<T, U = {}> = Readonly<T> & U
