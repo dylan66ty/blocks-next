@@ -2,6 +2,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+  "stylelint.validate": ["css", "scss"],
   "cSpell.words": [
     "Cascader",
     "popconfirm"

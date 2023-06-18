@@ -18,7 +18,7 @@ const subjectComplete = gitStatus
   ?.match(/packages%%((\w|-)*)/)?.[1]
 
 module.exports = {
-  extends: ['@jsxiaosi/commitlint-config'],
+  extends: ['@dylan66ty/commitlint-config'],
   prompt: {
     // 范围设置
     scopes: [...scopes],

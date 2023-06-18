@@ -38,10 +38,10 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
+    "@dylan66ty/commitlint-config": "^0.0.1",
     "@dylan66ty/eslint-config-vue": "^0.0.6",
     "@dylan66ty/prettier-config": "^0.0.2",
     "@jsdevtools/version-bump-prompt": "^6.1.0",
-    "@jsxiaosi/commitlint-config": "^0.0.14",
     "@types/node": "*",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
@@ -100,9 +100,6 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write"
-    ],
-    "{!(package)*.json,*.code-snippets,.!(browserslist)*rc}": [
-      "prettier --write--parser json"
     ],
     "package.json": [
       "prettier --write"
