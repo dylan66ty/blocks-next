@@ -3,7 +3,6 @@ $state-prefix: 'is-';
 $modifier-separator: '--';
 $element-separator: '__';
 
-
 // .bn-button
 @mixin b($block) {
   $B: $namespace + '-' + $block;
@@ -11,7 +10,6 @@ $element-separator: '__';
     @content;
   }
 }
-
 
 // .bn-button.is-disabled
 @mixin when($state) {
@@ -34,7 +32,7 @@ $element-separator: '__';
 // &__header => bn-button__header
 @mixin e($element) {
   @at-root {
-    #{& + $element-separator+$element} {
+    #{& + $element-separator + $element} {
       @content;
     }
   }

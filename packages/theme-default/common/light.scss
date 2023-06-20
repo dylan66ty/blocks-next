@@ -1,39 +1,33 @@
 :root {
-  --bn-primary: rgba(0, 86, 255, 1);
-  --bn-success: rgba(46, 212, 169, 1);
-  --bn-danger: rgba(241, 37, 37, 1);
-  --bn-strong: rgba(255, 113, 37, 1);
-  --bn-warning: rgba(255, 196, 32, 1);
-
-  --bn-primary-1: rgba(0, 70, 208, 1);
-  --bn-primary-3: rgba(0, 77, 229, 1);
-  --bn-primary-6: rgba(0, 77, 229, 0.3);
-  --bn-primary-8: rgba(0, 86, 255, 0.18);
-  --bn-primary-9: rgba(0, 86, 255, 0.05);
-
-  --bn-success-1: rgba(24, 192, 148, 1);
-  --bn-success-8: rgba(46, 212, 169, 0.18);
-  --bn-success-9: rgba(46, 212, 169, 0.05);
-
-  --bn-danger-1: rgba(191, 23, 23, 1);
-  --bn-danger-3: rgba(216, 33, 33, 1);
-  --bn-dander-6: rgba(191, 23, 23, 0.3);
-  --bn-danger-8: rgba(241, 37, 37, 0.18);
-  --bn-danger-9: rgba(241, 37, 37, 0.05);
-
-  --bn-strong-8: rgba(255, 113, 37, 0.18);
-  --bn-strong-9: rgba(255, 113, 37, 0.05);
-
-  --bn-warning-8: rgba(255, 196, 32, 0.18);
-  --bn-warning-9: rgba(255, 196, 32, 0.05);
-
-  --bn-color-1: rgba(36, 41, 52, 1);
-  --bn-color-2: rgba(100, 107, 122, 1);
-  --bn-color-3: rgba(156, 166, 185, 1);
-  --bn-color-4: rgba(188, 196, 214, 1);
-  --bn-color-5: rgba(225, 228, 232, 1);
-  --bn-color-6: rgba(237, 241, 246, 1);
-  --bn-color-7: rgba(245, 247, 251, 1);
+  --bn-primary: rgb(0 86 255 / 100%);
+  --bn-success: rgb(46 212 169 / 100%);
+  --bn-danger: rgb(241 37 37 / 100%);
+  --bn-strong: rgb(255 113 37 / 100%);
+  --bn-warning: rgb(255 196 32 / 100%);
+  --bn-primary-1: rgb(0 70 208 / 100%);
+  --bn-primary-3: rgb(0 77 229 / 100%);
+  --bn-primary-6: rgb(0 77 229 / 30%);
+  --bn-primary-8: rgb(0 86 255 / 18%);
+  --bn-primary-9: rgb(0 86 255 / 5%);
+  --bn-success-1: rgb(24 192 148 / 100%);
+  --bn-success-8: rgb(46 212 169 / 18%);
+  --bn-success-9: rgb(46 212 169 / 5%);
+  --bn-danger-1: rgb(191 23 23 / 100%);
+  --bn-danger-3: rgb(216 33 33 / 100%);
+  --bn-dander-6: rgb(191 23 23 / 30%);
+  --bn-danger-8: rgb(241 37 37 / 18%);
+  --bn-danger-9: rgb(241 37 37 / 5%);
+  --bn-strong-8: rgb(255 113 37 / 18%);
+  --bn-strong-9: rgb(255 113 37 / 5%);
+  --bn-warning-8: rgb(255 196 32 / 18%);
+  --bn-warning-9: rgb(255 196 32 / 5%);
+  --bn-color-1: rgb(36 41 52 / 100%);
+  --bn-color-2: rgb(100 107 122 / 100%);
+  --bn-color-3: rgb(156 166 185 / 100%);
+  --bn-color-4: rgb(188 196 214 / 100%);
+  --bn-color-5: rgb(225 228 232 / 100%);
+  --bn-color-6: rgb(237 241 246 / 100%);
+  --bn-color-7: rgb(245 247 251 / 100%);
 
   // base
   --bn-font-size: 14px;

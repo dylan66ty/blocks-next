@@ -15,8 +15,7 @@
 
 .bn-slide-dynamic-origin-enter-active,
 .bn-slide-dynamic-origin-appear-active {
-  transition: transform 0.2s ease,
-    opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .bn-slide-dynamic-origin-leave-from {
@@ -32,8 +31,7 @@
 }
 
 .bn-slide-dynamic-origin-leave-active {
-  transition: transform 0.2s ease,
-    opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 // used by drawer
