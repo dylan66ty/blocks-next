@@ -6,7 +6,7 @@
 
   @include e(icon-caret) {
     transform: rotate(0);
-    transition: transform 0.3s ease;
+    transition: transform .3s ease;
 
     &.is-rotate {
       transform: rotate(180deg);

@@ -11,11 +11,11 @@
   box-sizing: border-box;
 
   &.is-top {
-    transition: top 0.2s, transform 0.2s ease, opacity 0.2s;
+    transition: top .2s, transform .2s ease, opacity .2s;
   }
 
   &.is-bottom {
-    transition: bottom 0.2s, transform 0.2s ease, opacity 0.2s;
+    transition: bottom .2s, transform .2s ease, opacity .2s;
   }
 
   @include e(icon) {

@@ -33,7 +33,7 @@
     font-size: var(--bn-input-font-size);
     color: var(--bn-input-color);
     background-color: var(--bn-input-background-color);
-    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
     box-sizing: border-box;
     flex-grow: 1;
     background-image: none;
@@ -57,7 +57,7 @@
       }
 
       &.#{$namespace}-input--card {
-        opacity: 0.8;
+        opacity: .8;
       }
     }
   }
@@ -185,7 +185,7 @@
     background-color: #fff;
     outline: none;
     resize: vertical;
-    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
     line-height: 1.5;
     box-sizing: border-box;
     background-image: none;

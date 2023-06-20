@@ -227,7 +227,7 @@
       width: 8px;
       height: 100%;
       box-shadow: none;
-      transition: box-shadow 0.1s cubic-bezier(0, 0, 1, 1);
+      transition: box-shadow .1s cubic-bezier(0, 0, 1, 1);
       content: '';
       pointer-events: none;
     }
@@ -255,7 +255,7 @@
       width: 8px;
       height: 100%;
       box-shadow: none;
-      transition: box-shadow 0.1s cubic-bezier(0, 0, 1, 1);
+      transition: box-shadow .1s cubic-bezier(0, 0, 1, 1);
       content: '';
       pointer-events: none;
     }
@@ -394,7 +394,7 @@
       width: 12px;
       height: 1px;
       background: #9ca6b9;
-      opacity: 0.6;
+      opacity: .6;
 
       &:not(:last-child) {
         margin-bottom: 2px;
