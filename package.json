@@ -105,8 +105,7 @@
       "prettier --write"
     ],
     "*.{scss,less,styl,html}": [
-      "stylelint --fix",
-      "prettier --write"
+      "stylelint --fix"
     ],
     "*.md": [
       "prettier --write"
