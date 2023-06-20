@@ -1,4 +1,4 @@
-@import './mixins/bem.scss';
+@use './mixins/bem.scss' as *;
 
 @include b('radio') {
   position: relative;
@@ -35,7 +35,6 @@
           }
         }
       }
-
     }
 
     @include when(checked) {
@@ -46,57 +45,54 @@
         }
       }
     }
-
   }
 
   @include e(origin) {
-    opacity: 0;
-    outline: none;
     position: absolute;
+    z-index: -1;
     margin: 0;
     width: 0;
     height: 0;
-    z-index: -1;
+    opacity: 0;
+    outline: none;
   }
 
-
   @include e(inner) {
-    width: 16px;
-    height: 16px;
-    border: 1px solid #9CA6B9;
-    border-radius: 100%;
-    background-color: #fff;
     position: relative;
     display: inline-flex;
-    box-sizing: border-box;
+    border: 1px solid #9ca6b9;
+    border-radius: 100%;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
     transition: all 0.15s ease-in;
+    box-sizing: border-box;
 
     &:hover {
       border-color: var(--bn-primary);
     }
 
     &::after {
-      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 100%;
       width: 6px;
       height: 6px;
-      border-radius: 100%;
       background-color: #fff;
-      position: absolute;
-      left: 50%;
-      top: 50%;
+      transition: transform 0.15s ease-in;
+      content: '';
       transform: translate(-50%, -50%) scale(0);
-      transition: transform .15s ease-in;
     }
   }
 
   @include e(label) {
     padding-left: 8px;
   }
-
 }
 
 @include b(radio-group) {
-  .#{$namespace}-radio+.#{$namespace}-radio {
+  .#{$namespace}-radio + .#{$namespace}-radio {
     margin-left: 15px;
   }
 }

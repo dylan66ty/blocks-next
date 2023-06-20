@@ -245,12 +245,13 @@
       // 向下面的input组件 注入FormItemContext 主要是验证器 validate 对象
       const context = reactive({
         $el: formItemRef,
+        prop: props.prop,
         validateState,
         validate,
         resetField,
         clearValidate
       })
-      provide(formItemContextKey, context)
+      provide(formItemContextKey, context as any)
 
       onBeforeUnmount(() => {
         formContext?.removeField(context as any)
@@ -295,13 +296,13 @@
 
     <div :class="contentCls" :style="contentStyle">
       <slot></slot>
-      <transition-group>
+      <transition name="bn-slide-bottom">
         <slot v-if="shouldShowError" name="error" :error="validateMessage">
           <div class="bn-form-item__error">
             {{ validateMessage }}
           </div>
         </slot>
-      </transition-group>
+      </transition>
     </div>
   </div>
 </template>

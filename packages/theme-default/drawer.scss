@@ -1,29 +1,22 @@
-@import './mixins/bem.scss';
+@use './mixins/bem.scss' as *;
 
 @include b(drawer) {
-  --bn-mask-background-color: rgba(29, 33, 41, .6);
+  --bn-mask-background-color: rgb(29 33 41 / 60%);
 
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
 
   @include e(mask) {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     background-color: var(--bn-mask-background-color);
-
   }
 
   @include e(container) {
     position: absolute;
     overflow: auto;
     background-color: #fff;
-    box-shadow: -10px 0px 40px 0px rgba(100, 107, 122, 0.15);
+    box-shadow: -10px 0 40px 0 rgb(100 107 122 / 15%);
 
     &.is-template {
       display: inline-flex;
@@ -38,28 +31,27 @@
 
     &.is-left {
       top: 0;
-      left: 0;
       bottom: 0;
+      left: 0;
     }
 
     &.is-top {
       top: 0;
-      left: 0;
       right: 0;
+      left: 0;
     }
 
     &.is-bottom {
+      right: 0;
       bottom: 0;
       left: 0;
-      right: 0;
     }
-
   }
 
   @include e(close-icon) {
     position: absolute;
-    right: 28px;
     top: 26px;
+    right: 28px;
     width: 16px;
     height: 16px;
     cursor: pointer;
@@ -72,7 +64,7 @@
       transform: translate(-50%, -50%) rotate(45deg);
       width: 1px;
       height: 100%;
-      background-color: #9CA6B9;
+      background-color: #9ca6b9;
     }
 
     &::after {
@@ -83,32 +75,31 @@
       transform: translate(-50%, -50%) rotate(-45deg);
       width: 1px;
       height: 100%;
-      background-color: #9CA6B9;
+      background-color: #9ca6b9;
     }
   }
 
   @include e(header) {
-    box-sizing: border-box;
-    height: 68px;
-    line-height: 68px;
+    border-bottom: 1px solid #edf1f6;
     padding-left: 28px;
-    border-bottom: 1px solid #EDF1F6;
+    height: 68px;
+    box-sizing: border-box;
+    line-height: 68px;
   }
 
-
   @include e(title) {
-    color: #242934;
-    font-weight: 600;
     font-size: 18px;
+    font-weight: 600;
+    color: #242934;
     line-height: 1;
   }
 
   @include e(footer) {
-    box-sizing: border-box;
-    padding: 20px 28px;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 40px 0px rgba(100, 107, 122, 0.15);
     margin-top: auto;
+    padding: 20px 28px;
+    background: #fff;
+    box-shadow: 0 0 40px 0 rgb(100 107 122 / 15%);
+    box-sizing: border-box;
 
     &.is-left,
     &.is-top,
@@ -117,6 +108,4 @@
       justify-content: flex-end;
     }
   }
-
-
 }

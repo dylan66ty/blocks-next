@@ -1,15 +1,14 @@
-@import './mixins/bem.scss';
-
+@use './mixins/bem.scss' as *;
 
 @include b(notification) {
-  box-sizing: border-box;
+  position: relative;
+  border-radius: 8px;
+  padding: 24px 20px;
   width: max-content;
   width: 420px;
-  padding: 24px 20px;
   background: #fff;
-  box-shadow: 0px 8px 40px 0px rgba(100, 107, 122, 0.15);
-  border-radius: 8px;
-  position: relative;
+  box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
+  box-sizing: border-box;
 
   &.is-top {
     transition: top 0.2s, transform 0.2s ease, opacity 0.2s;
@@ -48,9 +47,9 @@
   }
 
   @include e(title) {
+    font-size: 18px;
     font-weight: 600;
     color: #242934;
-    font-size: 18px;
     line-height: 1;
   }
 
@@ -59,14 +58,14 @@
     margin-top: 12px;
     font-size: 14px;
     font-weight: 400;
-    color: #646B7A;
+    color: #646b7a;
     line-height: 1;
   }
 
   @include e(close-icon) {
     position: absolute;
-    right: 20px;
     top: 20px;
+    right: 20px;
     width: 14px;
     height: 14px;
     cursor: pointer;
@@ -79,7 +78,7 @@
       transform: translate(-50%, -50%) rotate(45deg);
       width: 1px;
       height: 100%;
-      background-color: #9CA6B9;
+      background-color: #9ca6b9;
     }
 
     &::after {
@@ -90,10 +89,9 @@
       transform: translate(-50%, -50%) rotate(-45deg);
       width: 1px;
       height: 100%;
-      background-color: #9CA6B9;
+      background-color: #9ca6b9;
     }
   }
-
 }
 
 .bn-notification-slide-right-enter-from {
@@ -113,14 +111,11 @@
 }
 
 .bn-notification-slide-right-leave-from,
-.bn-notification-slide-left-leave-from
-{
+.bn-notification-slide-left-leave-from {
   opacity: 1;
 }
 
 .bn-notification-slide-right-leave-to,
-.bn-notification-slide-left-leave-to
-{
+.bn-notification-slide-left-leave-to {
   opacity: 0;
 }
-

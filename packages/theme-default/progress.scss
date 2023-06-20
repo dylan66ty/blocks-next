@@ -1,4 +1,4 @@
-@import './mixins/bem.scss';
+@use './mixins/bem.scss' as *;
 
 @include b(progress) {
   --bn-progress-track-background-color: #e5e6eb;
@@ -17,55 +17,62 @@
   max-width: 100%;
   height: 100%;
 
-
   @include e(track) {
-    background-color: var(--bn-progress-track-background-color);
-    border-radius: 100px;
-    width: 100%;
     position: relative;
     display: inline-block;
     overflow: hidden;
+    border-radius: 100px;
+    width: 100%;
+    background-color: var(--bn-progress-track-background-color);
   }
 
   @include e(buffer) {
     position: absolute;
-    background-color: var(--bn-progress-buffer-background-color);
-    height: 100%;
     top: 0;
     left: 0;
+    z-index: 2;
     border-radius: 0 100px 100px 0;
     max-width: 100%;
-    transition: all .6s cubic-bezier(.34, .69, .1, 1);
-    z-index: 2;
+    height: 100%;
+    background-color: var(--bn-progress-buffer-background-color);
+    transition: all 0.6s cubic-bezier(0.34, 0.69, 0.1, 1);
 
     &.is-animation {
-      background-image: linear-gradient(45deg, rgba(0, 0, 0, .1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .1) 50%, rgba(0, 0, 0, .1) 75%, transparent 75%, transparent);
+      background-image: linear-gradient(
+        45deg,
+        rgb(0 0 0 / 10%) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgb(0 0 0 / 10%) 50%,
+        rgb(0 0 0 / 10%) 75%,
+        transparent 75%,
+        transparent
+      );
       background-size: 1.25em 1.25em;
       animation: progress-flow 6s linear infinite;
     }
   }
 
   @include e(bar) {
-    height: 100%;
-    border-radius: 100px;
-    background-color: var(--bn-progress-bar-background-color);
     position: relative;
-    transition: width .6s cubic-bezier(.34, .69, .1, 1), background .3s cubic-bezier(.34, .69, .1, 1);
+    border-radius: 100px;
     max-width: 100%;
+    height: 100%;
+    background-color: var(--bn-progress-bar-background-color);
+    transition: width 0.6s cubic-bezier(0.34, 0.69, 0.1, 1), background 0.3s cubic-bezier(0.34, 0.69, 0.1, 1);
   }
 
   @include e(text) {
-    font-size: var(--bn-progress-text-font-size);
     margin-left: 8px;
-    color: var(--bn-progress-text-color);
-    white-space: nowrap;
+    min-width: 32px;
+    font-size: var(--bn-progress-text-font-size);
     text-align: right;
+    white-space: nowrap;
+    color: var(--bn-progress-text-color);
     flex-grow: 1;
     flex-shrink: 0;
-    min-width: 32px;
   }
 }
-
 
 @keyframes progress-flow {
   0% {
@@ -90,18 +97,16 @@
 
   @include e(bar) {
     stroke: var(--bn-progress-bar-background-color);
-    transition: stroke-dashoffset .6s cubic-bezier(0, 0, 1, 1) 0s, stroke .6s cubic-bezier(0, 0, 1, 1);
+    transition: stroke-dashoffset 0.6s cubic-bezier(0, 0, 1, 1) 0s, stroke 0.6s cubic-bezier(0, 0, 1, 1);
   }
 
   @include e(text) {
     position: absolute;
-    left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    left: 50%;
     font-size: var(--bn-progress-text-font-size);
-    color: var(--bn-progress-text-color);
     white-space: nowrap;
+    color: var(--bn-progress-text-color);
+    transform: translate(-50%, -50%);
   }
 }
-
-

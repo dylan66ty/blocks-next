@@ -1,63 +1,58 @@
-@import './mixins/bem.scss';
+@use './mixins/bem.scss' as *;
 
 @include b(switch) {
-  --bn-switch-font-size:14px;
-  // line
+  --bn-switch-font-size: 14px;
   --bn-switch-line-width: 36px;
   --bn-switch-line-height: 10px;
   --bn-switch-line-radius: 6px;
-  // circle
   --bn-switch-circle-width: 40px;
   --bn-switch-circle-height: 20px;
-  --bn-switch-line-radius: 10px;
-  --bn-switch-block-gap: 2px;
-
-  --bn-switch-transition-duration: 0.3s;
-  --bn-switch-inactiveColor-color: #E1E4E8;
-  --bn-switch-active-color: var(--bn-success);
+  --bn-switch-circle-radius: 10px;
   --bn-switch-block-size: 16px;
+  --bn-switch-block-gap: 2px;
+  --bn-switch-transition-duration: 0.3s;
+  --bn-switch-inactive-color-color: #e1e4e8;
+  --bn-switch-active-color: var(--bn-success);
   --bn-switch-disabled-opacity: 0.6;
   --bn-switch-label-gap: 8px;
 }
 
 @include b(switch) {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  position: relative;
-  vertical-align: middle;
   font-size: var(--bn-switch-font-size);
-  position: relative;
+  vertical-align: middle;
   user-select: none;
   cursor: pointer;
 
-  
   @include e(input) {
-    opacity: 0;
-    outline: none;
     position: absolute;
+    z-index: -1;
     margin: 0;
     width: 0;
     height: 0;
-    z-index: -1;
+    opacity: 0;
+    outline: none;
   }
 
   @include e(core-line) {
+    position: relative;
     display: inline-flex;
+    border-radius: var(--bn-switch-line-radius);
     min-width: var(--bn-switch-line-width);
     height: var(--bn-switch-line-height);
-    background-color: var(--bn-switch-inactiveColor-color);
-    border-radius: var(--bn-switch-line-radius);
-    position: relative;
+    background-color: var(--bn-switch-inactive-color-color);
     transition: all var(--bn-switch-transition-duration);
-
   }
+
   @include e(core-circle) {
+    position: relative;
     display: inline-flex;
+    border-radius: var(--bn-switch-circle-radius);
     min-width: var(--bn-switch-circle-width);
     height: var(--bn-switch-circle-height);
-    background-color: var(--bn-switch-inactiveColor-color);
-    border-radius: var(--bn-switch-line-radius);
-    position: relative;
+    background-color: var(--bn-switch-inactive-color-color);
     transition: all var(--bn-switch-transition-duration);
   }
 
@@ -67,6 +62,7 @@
 
   @include e(label--right) {
     margin-left: var(--bn-switch-label-gap);
+
     &.is-active {
       color: var(--bn-switch-active-color);
     }
@@ -74,55 +70,55 @@
 
   @include e(label--left) {
     margin-right: var(--bn-switch-label-gap);
+
     &.is-active {
       color: var(--bn-switch-active-color);
     }
   }
 
-
-
   @include e(block-circle) {
     position: absolute;
-    left: 0;
     top: 50%;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
     width: var(--bn-switch-block-size);
     height: var(--bn-switch-block-size);
-    transform: translate(var(--bn-switch-block-gap), -50%);
     background: #fff;
-    border-radius: 100%;
-    box-shadow: 0px 1px 6px 0px rgba(75, 88, 122, 0.2);
+    box-shadow: 0 1px 6px 0 rgb(75 88 122 / 20%);
     transition: all var(--bn-switch-transition-duration);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transform: translate(var(--bn-switch-block-gap), -50%);
   }
 
   @include e(block-line) {
     position: absolute;
-    left: 0;
     top: 50%;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
     width: var(--bn-switch-block-size);
     height: var(--bn-switch-block-size);
-    transform: translate(0, -50%);
     background: #fff;
-    border-radius: 100%;
-    box-shadow: 0px 1px 6px 0px rgba(75, 88, 122, 0.2);
+    box-shadow: 0 1px 6px 0 rgb(75 88 122 / 20%);
     transition: all var(--bn-switch-transition-duration);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transform: translate(0, -50%);
   }
 
   @include e(inline) {
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     padding: 0 4px 0 18px;
+    width: 100%;
+    height: 100%;
     transition: all var(--bn-switch-transition-duration);
-     > .is-text {
+
+    > .is-text {
       color: #fff;
     }
   }
@@ -135,6 +131,7 @@
           left: calc(100% - var(--bn-switch-block-size) + 1px);
         }
       }
+
       &-circle {
         background-color: var(--bn-switch-active-color);
         .#{$namespace}-switch__block {

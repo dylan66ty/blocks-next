@@ -280,7 +280,7 @@ export default defineComponent({
 
     const handleMouseLeaveWithContext = (e: MouseEvent) => {
       triggerCtx?.onMouseleave(e)
-      handleMouseLeave(e)
+      handleMouseLeave()
     }
 
     // focus

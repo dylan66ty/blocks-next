@@ -57,7 +57,6 @@
       // 通过props来筛选可以进行验证表单对象
       const obtainValidateFields = (props: Arrayable<FormItemProp>) => {
         if (fields.length === 0) return []
-
         const filteredFields = filterFields(fields, props)
         if (!filteredFields.length) {
           console.error('请传入正确的校验属性，检查form上的rules对象和form-item上的prop属性')

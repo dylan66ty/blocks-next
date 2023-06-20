@@ -1,6 +1,4 @@
-@import './mixins/bem.scss';
-
-
+@use './mixins/bem.scss' as *;
 
 @include b(select) {
   display: inline-block;
@@ -16,46 +14,43 @@
   }
 
   @include e(empty-text) {
-    min-height: 70px;
-    height: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: 70px;
     font-size: 14px;
     color: #a8abb2;
   }
 }
 
-
-
 @include b(select-menu) {
-  max-height: 224px;
-  background: #FFFFFF;
-  box-shadow: 0px 8px 40px 0px rgba(100, 107, 122, 0.15);
-  border-radius: 8px;
-  box-sizing: border-box;
   overflow: hidden;
+  border-radius: 8px;
+  max-height: 224px;
+  background: #fff;
+  box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
+  box-sizing: border-box;
 
-  --bn-menu-hover-background-color:#f8faff;
-  --bn-menu-disabled-color:#a8abb2;
-  --bn-menu-item-height:40px;
-
+  --bn-menu-hover-background-color: #f8faff;
+  --bn-menu-disabled-color: #a8abb2;
+  --bn-menu-item-height: 40px;
 
   @include e(item) {
-    font-size: 14px;
-    padding: 0 32px 0 20px;
     position: relative;
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-    color: var(--bn-default-text-color);
+    padding: 0 32px 0 20px;
     height: var(--bn-menu-item-height);
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--bn-default-text-color);
     line-height: var(--bn-menu-item-height);
     box-sizing: border-box;
     cursor: pointer;
 
     &.is-hover {
-      background-color:var(--bn-menu-hover-background-color);
+      background-color: var(--bn-menu-hover-background-color);
     }
 
     &.is-disabled {
@@ -63,11 +58,8 @@
       color: var(--bn-menu-disabled-color);
     }
 
-
-
     &.is-selected {
       color: var(--bn-primary);
     }
   }
-
 }

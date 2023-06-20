@@ -1,507 +1,509 @@
-@import './mixins/bem.scss';
+@use './mixins/bem.scss' as *;
 
 @include b(button) {
-    --bn-button-width: auto;
-    --bn-button-height: 40px;
-    --bn-button-font-weight: 400;
-    --bn-button-font-size: 14px;
-    --bn-button-padding: 0 26px;
-    --bn-button-border-radius: 4px;
-    --bn-button-opacity: 1;
-
-
-    --bn-button-border-color: var(--bn-border-color);
-    --bn-button-background-color: var(--bn-background-color);
-    --bn-button-color: var(--bn-text-color);
-
-
-    --bn-button-mini-height: 24px;
-    --bn-button-mini-font-size: 12px;
-    --bn-button-mini-padding: 0 8px;
-    --bn-button-mini-border-radius: 4px;
-
-
-    --bn-button-small-height: 36px;
-    --bn-button-small-font-size: 14px;
-    --bn-button-small-padding: 0 13px;
-    --bn-button-small-border-radius: 4px;
-
-
-    --bn-button-large-height: 48px;
-    --bn-button-large-font-size: 14px;
-    --bn-button-large-padding: 0 16px;
-    --bn-button-large-border-radius: 6px;
-
+  --bn-button-width: auto;
+  --bn-button-height: 40px;
+  --bn-button-font-weight: 400;
+  --bn-button-font-size: 14px;
+  --bn-button-padding: 0 26px;
+  --bn-button-border-radius: 4px;
+  --bn-button-opacity: 1;
+  --bn-button-border-color: var(--bn-border-color);
+  --bn-button-background-color: var(--bn-background-color);
+  --bn-button-color: var(--bn-text-color);
+  --bn-button-mini-height: 24px;
+  --bn-button-mini-font-size: 12px;
+  --bn-button-mini-padding: 0 8px;
+  --bn-button-mini-border-radius: 4px;
+  --bn-button-small-height: 36px;
+  --bn-button-small-font-size: 14px;
+  --bn-button-small-padding: 0 13px;
+  --bn-button-small-border-radius: 4px;
+  --bn-button-large-height: 48px;
+  --bn-button-large-font-size: 14px;
+  --bn-button-large-padding: 0 16px;
+  --bn-button-large-border-radius: 6px;
 }
 
+@mixin button-type($color, $bgColor, $borderColor, $hoverColor, $hoverBgColor, $hoverBorderColor, $activeColor, $activeBgColor, $activeBorderColor) {
+  --bn-button-background-color: #{$bgColor};
+  --bn-button-color: #{$color};
+  --bn-button-border-color: #{$borderColor};
 
+  &:not(.is-disabled):hover {
+    --bn-button-background-color: #{$hoverBgColor};
+    --bn-button-color: #{$hoverColor};
+    --bn-button-border-color: #{$hoverBorderColor};
+  }
 
-@mixin button-type ($color,
-    $bgColor,
-    $borderColor,
-    $hoverColor,
-    $hoverBgColor,
-    $hoverBorderColor,
-    $activeColor,
-    $activeBgColor,
-    $activeBorderColor) {
-    --bn-button-background-color: #{$bgColor};
-    --bn-button-color: #{$color};
-    --bn-button-border-color: #{$borderColor};
-
-    &:not(.is-disabled):hover {
-        --bn-button-background-color: #{$hoverBgColor};
-        --bn-button-color: #{$hoverColor};
-        --bn-button-border-color: #{$hoverBorderColor};
-    }
-
-    &:not(.is-disabled):active {
-        --bn-button-background-color: #{$activeBgColor};
-        --bn-button-color: #{$activeColor};
-        --bn-button-border-color: #{$activeBorderColor};
-    }
+  &:not(.is-disabled):active {
+    --bn-button-background-color: #{$activeBgColor};
+    --bn-button-color: #{$activeColor};
+    --bn-button-border-color: #{$activeBorderColor};
+  }
 }
 
-
-
-@mixin get-button-type ($type) {
-    &.#{$namespace}-button--#{$type} {
-        @content
-    }
+@mixin get-button-type($type) {
+  &.#{$namespace}-button--#{$type} {
+    @content;
+  }
 }
-
-
 
 @include b(button) {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    outline: none;
-    margin: 0;
-    line-height: 1;
-    user-select: none;
-    appearance: none;
-    white-space: nowrap;
-    cursor: pointer;
-    user-select: none;
-    overflow: hidden;
-    position: relative;
-    transition: all 0.15s linear;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 0;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--bn-button-border-color);
+  border-radius: var(--bn-button-border-radius);
+  padding: var(--bn-button-padding);
+  width: var(--bn-button-width);
+  height: var(--bn-button-height);
+  font-size: var(--bn-button-font-size);
+  font-weight: var(--bn-button-font-weight);
+  white-space: nowrap;
+  color: var(--bn-button-color);
+  background-color: var(--bn-button-background-color);
+  opacity: var(--bn-button-opacity);
+  outline: none;
+  transition: all 0.15s linear;
+  box-sizing: border-box;
+  line-height: 1;
+  appearance: none;
+  cursor: pointer;
+  user-select: none;
 
+  @include button-type(
+    var(--bn-text-color),
+    #fff,
+    var(--bn-border-color),
+    var(--bn-text-color),
+    var(--bn-background-color),
+    var(--bn-border-color),
+    var(--bn-text-color),
+    var(--bn-background-color),
+    var(--bn-color-4)
+  );
+
+  @include when(disabled) {
+    --bn-button-opacity: 0.4;
+
+    cursor: not-allowed;
+  }
+
+  @include when(block) {
+    display: block;
+    width: 100%;
+  }
+
+  @include when(loading) {
+    --bn-button-opacity: 0.76;
+  }
+
+  @include when(mini) {
+    --bn-button-height: var(--bn-button-mini-height);
+    --bn-button-font-size: var(--bn-button-mini-font-size);
+    --bn-button-padding: var(--bn-button-mini-padding);
+    --bn-button-border-radius: var(--bn-button-mini-border-radius);
+  }
+
+  @include when(small) {
+    --bn-button-height: var(--bn-button-small-height);
+    --bn-button-font-size: var(--bn-button-small-font-size);
+    --bn-button-padding: var(--bn-button-small-padding);
+    --bn-button-border-radius: var(--bn-button-small-border-radius);
+  }
+
+  @include when(large) {
+    --bn-button-height: var(--bn-button-large-height);
+    --bn-button-font-size: var(--bn-button-large-font-size);
+    --bn-button-padding: var(--bn-button-large-padding);
+    --bn-button-border-radius: var(--bn-button-large-border-radius);
+  }
+
+  @include when(plain) {
+    --bn-button-font-weight: 500;
+
+    @include get-button-type(primary) {
+      @include button-type(
+        var(--bn-primary),
+        var(--bn-primary-9),
+        var(--bn-primary),
+        #fff,
+        var(--bn-primary),
+        var(--bn-primary),
+        #fff,
+        var(--bn-primary-1),
+        var(--bn-primary-1)
+      );
+    }
+
+    @include get-button-type(success) {
+      &.#{$namespace}-button--success {
+        @include button-type(
+          var(--bn-success),
+          var(--bn-success-9),
+          var(--bn-success),
+          #fff,
+          var(--bn-success),
+          var(--bn-success),
+          #fff,
+          var(--bn-success-1),
+          var(--bn-success)
+        );
+      }
+    }
+
+    @include get-button-type(warning) {
+      @include button-type(
+        var(--bn-warning),
+        var(--bn-warning-9),
+        var(--bn-warning),
+        #fff,
+        var(--bn-warning),
+        var(--bn-warning),
+        #fff,
+        var(--bn-warning),
+        var(--bn-warning)
+      );
+    }
+
+    @include get-button-type(strong) {
+      @include button-type(
+        var(--bn-strong),
+        var(--bn-strong-9),
+        var(--bn-strong),
+        #fff,
+        var(--bn-strong),
+        var(--bn-strong),
+        #fff,
+        var(--bn-strong),
+        var(--bn-strong)
+      );
+    }
+
+    @include get-button-type(danger) {
+      @include button-type(
+        var(--bn-danger),
+        var(--bn-danger-9),
+        var(--bn-danger),
+        #fff,
+        var(--bn-danger),
+        var(--bn-danger),
+        #fff,
+        var(--bn-danger-1),
+        var(--bn-danger-1)
+      );
+    }
+  }
+
+  @include when(round) {
+    --bn-button-padding: 0 38px;
+    --bn-button-border-radius: 24px;
 
     height: var(--bn-button-height);
-    width: var(--bn-button-width);
-    padding: var(--bn-button-padding);
-    border-style: solid;
-    border-width: 1px;
-    border-color: var(--bn-button-border-color);
-    border-radius: var(--bn-button-border-radius);
-    background-color: var(--bn-button-background-color);
+  }
+
+  @include when(circle) {
+    --bn-button-padding: 0;
+    --bn-button-border-radius: 100%;
+
+    width: var(--bn-button-height);
+    height: var(--bn-button-height);
+  }
+
+  @include when(link) {
+    --bn-button-font-weight: 500;
+
+    border-color: transparent;
+    padding: 2px;
+    height: auto;
     color: var(--bn-button-color);
-    font-size: var(--bn-button-font-size);
-    font-weight: var(--bn-button-font-weight);
-    opacity: var(--bn-button-opacity);
+    background: transparent;
 
-
-    @include button-type(var(--bn-text-color),
-        #fff,
-        var(--bn-border-color),
-        var(--bn-text-color),
-        var(--bn-background-color),
-        var(--bn-border-color),
-        var(--bn-text-color),
-        var(--bn-background-color),
-        var(--bn-color-4));
-
-
-
-
-    @include when(disabled) {
-        --bn-button-opacity: 0.4;
-        cursor: not-allowed;
-
+    @include get-button-type(primary) {
+      @include button-type(
+        var(--bn-primary),
+        var(--bn-primary),
+        var(--bn-primary),
+        var(--bn-primary-3),
+        var(--bn-primary-3),
+        var(--bn-primary-3),
+        var(--bn-primary-1),
+        var(--bn-primary-1),
+        var(--bn-primary-1)
+      );
     }
 
-    @include when(block) {
-        display: block;
-        width: 100%;
+    @include get-button-type(success) {
+      @include button-type(
+        var(--bn-success),
+        var(--bn-success),
+        var(--bn-success),
+        var(--bn-success),
+        var(--bn-success),
+        var(--bn-success),
+        var(--bn-success),
+        var(--bn-success),
+        var(--bn-success)
+      );
     }
 
-
-    @include when(loading) {
-        --bn-button-opacity: 0.76;
+    @include get-button-type(warning) {
+      @include button-type(
+        var(--bn-warning),
+        var(--bn-warning),
+        var(--bn-warning),
+        var(--bn-warning),
+        var(--bn-warning),
+        var(--bn-warning),
+        var(--bn-warning),
+        var(--bn-warning),
+        var(--bn-warning)
+      );
     }
 
-    @include when(mini) {
-        --bn-button-height: var(--bn-button-mini-height);
-        --bn-button-font-size: var(--bn-button-mini-font-size);
-        --bn-button-padding: var(--bn-button-mini-padding);
-        --bn-button-border-radius: var(--bn-button-mini-border-radius);
+    @include get-button-type(strong) {
+      @include button-type(
+        var(--bn-strong),
+        var(--bn-strong),
+        var(--bn-strong),
+        var(--bn-strong),
+        var(--bn-strong),
+        var(--bn-strong),
+        var(--bn-strong),
+        var(--bn-strong),
+        var(--bn-strong)
+      );
     }
 
-    @include when(small) {
-        --bn-button-height: var(--bn-button-small-height);
-        --bn-button-font-size: var(--bn-button-small-font-size);
-        --bn-button-padding: var(--bn-button-small-padding);
-        --bn-button-border-radius: var(--bn-button-small-border-radius);
+    @include get-button-type(danger) {
+      @include button-type(
+        var(--bn-danger),
+        var(--bn-danger),
+        var(--bn-danger),
+        var(--bn-danger-3),
+        var(--bn-danger-3),
+        var(--bn-danger-3),
+        var(--bn-danger-1),
+        var(--bn-danger-1),
+        var(--bn-danger-1)
+      );
+    }
+  }
+
+  @include when(hide-border) {
+    --bn-button-font-weight: 500;
+
+    @include get-button-type(primary) {
+      @include button-type(
+        var(--bn-primary),
+        var(--bn-primary-9),
+        transparent,
+        var(--bn-primary),
+        var(--bn-primary-9),
+        var(--bn-primary-6),
+        var(--bn-primary),
+        var(--bn-primary-9),
+        var(--bn-primary-1)
+      );
     }
 
-    @include when(large) {
-        --bn-button-height: var(--bn-button-large-height);
-        --bn-button-font-size: var(--bn-button-large-font-size);
-        --bn-button-padding: var(--bn-button-large-padding);
-        --bn-button-border-radius: var(--bn-button-large-border-radius);
+    @include get-button-type(danger) {
+      @include button-type(
+        var(--bn-danger),
+        var(--bn-danger-9),
+        transparent,
+        var(--bn-danger),
+        var(--bn-danger-9),
+        var(--bn-danger-6),
+        var(--bn-danger),
+        var(--bn-danger-9),
+        var(--bn-danger-1)
+      );
     }
 
-    @include when(plain) {
-        --bn-button-font-weight: 500;
-
-        @include get-button-type(primary) {
-            @include button-type(var(--bn-primary),
-                var(--bn-primary-9),
-                var(--bn-primary),
-                #fff,
-                var(--bn-primary),
-                var(--bn-primary),
-                #fff,
-                var(--bn-primary-1),
-                var(--bn-primary-1));
-        }
-
-        @include get-button-type(success) {
-            &.#{$namespace}-button--success {
-                @include button-type(var(--bn-success),
-                    var(--bn-success-9),
-                    var(--bn-success),
-                    #fff,
-                    var(--bn-success),
-                    var(--bn-success),
-                    #fff,
-                    var(--bn-success-1),
-                    var(--bn-success));
-            }
-        }
-
-        @include get-button-type(warning) {
-            @include button-type(var(--bn-warning),
-                var(--bn-warning-9),
-                var(--bn-warning),
-                #fff,
-                var(--bn-warning),
-                var(--bn-warning),
-                #fff,
-                var(--bn-warning),
-                var(--bn-warning));
-        }
-
-        @include get-button-type(strong) {
-            @include button-type(var(--bn-strong),
-                var(--bn-strong-9),
-                var(--bn-strong),
-                #fff,
-                var(--bn-strong),
-                var(--bn-strong),
-                #fff,
-                var(--bn-strong),
-                var(--bn-strong));
-        }
-
-        @include get-button-type(danger) {
-            @include button-type(var(--bn-danger),
-                var(--bn-danger-9),
-                var(--bn-danger),
-                #fff,
-                var(--bn-danger),
-                var(--bn-danger),
-                #fff,
-                var(--bn-danger-1),
-                var(--bn-danger-1))
-        }
-
-
-
-
+    @include get-button-type(success) {
+      @include button-type(
+        var(--bn-success),
+        var(--bn-success-9),
+        transparent,
+        var(--bn-success),
+        var(--bn-success-9),
+        var(--bn-success-6),
+        var(--bn-success),
+        var(--bn-success-9),
+        var(--bn-success-1)
+      );
     }
 
-    @include when(round) {
-        --bn-button-padding: 0 38px;
-        --bn-button-border-radius: 24px;
-        height: var(--bn-button-height);
+    @include get-button-type(warning) {
+      @include button-type(
+        var(--bn-warning),
+        var(--bn-warning-9),
+        transparent,
+        var(--bn-warning),
+        var(--bn-warning-9),
+        var(--bn-warning-6),
+        var(--bn-warning),
+        var(--bn-warning-9),
+        var(--bn-warning-1)
+      );
     }
 
-    @include when(circle) {
-        --bn-button-padding: 0;
-        --bn-button-border-radius: 100%;
-        width: var(--bn-button-height);
-        height: var(--bn-button-height);
+    @include get-button-type(strong) {
+      @include button-type(
+        var(--bn-strong),
+        var(--bn-strong-9),
+        transparent,
+        var(--bn-strong),
+        var(--bn-strong-9),
+        var(--bn-strong-6),
+        var(--bn-strong),
+        var(--bn-strong-9),
+        var(--bn-strong-1)
+      );
     }
+  }
 
-    @include when(link) {
-        --bn-button-font-weight: 500;
+  @include m(primary) {
+    @include button-type(
+      #fff,
+      var(--bn-primary),
+      var(--bn-primary),
+      #fff,
+      var(--bn-primary-3),
+      var(--bn-primary-3),
+      #fff,
+      var(--bn-primary-1),
+      var(--bn-primary-1)
+    );
+  }
 
-        border-color: transparent;
-        color: var(--bn-button-color);
-        background: transparent;
-        padding: 2px;
-        height: auto;
+  @include m(success) {
+    @include button-type(
+      #fff,
+      var(--bn-success),
+      var(--bn-success),
+      #fff,
+      var(--bn-success),
+      var(--bn-success),
+      #fff,
+      var(--bn-success),
+      var(--bn-success)
+    );
+  }
 
-        @include get-button-type(primary) {
-            @include button-type(var(--bn-primary),
-                var(--bn-primary),
-                var(--bn-primary),
-                var(--bn-primary-3),
-                var(--bn-primary-3),
-                var(--bn-primary-3),
-                var(--bn-primary-1),
-                var(--bn-primary-1),
-                var(--bn-primary-1));
-        }
+  @include m(danger) {
+    @include button-type(
+      #fff,
+      var(--bn-danger),
+      var(--bn-danger),
+      #fff,
+      var(--bn-danger-3),
+      var(--bn-danger-3),
+      #fff,
+      var(--bn-danger-1),
+      var(--bn-danger-1)
+    );
+  }
 
-        @include get-button-type(success) {
-            @include button-type(var(--bn-success),
-                var(--bn-success),
-                var(--bn-success),
-                var(--bn-success),
-                var(--bn-success),
-                var(--bn-success),
-                var(--bn-success),
-                var(--bn-success),
-                var(--bn-success));
-        }
+  @include m(strong) {
+    @include button-type(
+      #fff,
+      var(--bn-strong),
+      var(--bn-strong),
+      #fff,
+      var(--bn-strong),
+      var(--bn-strong),
+      #fff,
+      var(--bn-strong),
+      var(--bn-strong)
+    );
+  }
 
-        @include get-button-type(warning) {
-            @include button-type(var(--bn-warning),
-                var(--bn-warning),
-                var(--bn-warning),
-                var(--bn-warning),
-                var(--bn-warning),
-                var(--bn-warning),
-                var(--bn-warning),
-                var(--bn-warning),
-                var(--bn-warning));
-        }
+  @include m(warning) {
+    @include button-type(
+      #fff,
+      var(--bn-warning),
+      var(--bn-warning),
+      #fff,
+      var(--bn-warning),
+      var(--bn-warning),
+      #fff,
+      var(--bn-warning),
+      var(--bn-warning)
+    );
+  }
 
-        @include get-button-type(strong) {
-            @include button-type(var(--bn-strong),
-                var(--bn-strong),
-                var(--bn-strong),
-                var(--bn-strong),
-                var(--bn-strong),
-                var(--bn-strong),
-                var(--bn-strong),
-                var(--bn-strong),
-                var(--bn-strong));
-        }
+  @include m(card) {
+    --bn-button-height: 48px;
+    --bn-button-font-weight: 500;
+    --bn-button-padding: 0 34px;
 
-        @include get-button-type(danger) {
-            @include button-type(var(--bn-danger),
-                var(--bn-danger),
-                var(--bn-danger),
-                var(--bn-danger-3),
-                var(--bn-danger-3),
-                var(--bn-danger-3),
-                var(--bn-danger-1),
-                var(--bn-danger-1),
-                var(--bn-danger-1));
-        }
+    box-shadow: 0 2px 5px 0 rgb(36 41 52 / 6%);
 
+    @include button-type(
+      var(--bn-color-3),
+      #fff,
+      transparent,
+      var(--bn-text-color),
+      #fff,
+      transparent,
+      var(--bn-text-color),
+      #fff,
+      var(--bn-border-color)
+    );
 
+    &.is-disabled {
+      --bn-button-opacity: 0.8;
     }
+  }
 
-    @include when(hide-border) {
-        --bn-button-font-weight: 500;
+  @include e(loading) {
+    display: flex;
+    margin-left: 4px;
+    transition: all 0.15s linear;
 
-        @include get-button-type(primary) {
-            @include button-type(var(--bn-primary),
-                var(--bn-primary-9),
-                transparent,
-                var(--bn-primary),
-                var(--bn-primary-9),
-                var(--bn-primary-6),
-                var(--bn-primary),
-                var(--bn-primary-9),
-                var(--bn-primary-1));
-        }
-
-        @include get-button-type(danger) {
-            @include button-type(var(--bn-danger),
-                var(--bn-danger-9),
-                transparent,
-                var(--bn-danger),
-                var(--bn-danger-9),
-                var(--bn-danger-6),
-                var(--bn-danger),
-                var(--bn-danger-9),
-                var(--bn-danger-1));
-        }
-
-        @include get-button-type(success) {
-            @include button-type(var(--bn-success),
-                var(--bn-success-9),
-                transparent,
-                var(--bn-success),
-                var(--bn-success-9),
-                var(--bn-success-6),
-                var(--bn-success),
-                var(--bn-success-9),
-                var(--bn-success-1));
-        }
-
-        @include get-button-type(warning) {
-            @include button-type(var(--bn-warning),
-                var(--bn-warning-9),
-                transparent,
-                var(--bn-warning),
-                var(--bn-warning-9),
-                var(--bn-warning-6),
-                var(--bn-warning),
-                var(--bn-warning-9),
-                var(--bn-warning-1));
-        }
-
-
-        @include get-button-type(strong) {
-            @include button-type(var(--bn-strong),
-                var(--bn-strong-9),
-                transparent,
-                var(--bn-strong),
-                var(--bn-strong-9),
-                var(--bn-strong-6),
-                var(--bn-strong),
-                var(--bn-strong-9),
-                var(--bn-strong-1));
-        }
-
-
+    &.is-fill {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 0;
+      color: var(--bn-button-color);
+      background-color: var(--bn-button-background-color);
     }
-
-    @include m(primary) {
-        @include button-type(#fff,
-            var(--bn-primary),
-            var(--bn-primary),
-            #fff,
-            var(--bn-primary-3),
-            var(--bn-primary-3),
-            #fff,
-            var(--bn-primary-1),
-            var(--bn-primary-1));
-    }
-
-    @include m(success) {
-        @include button-type(#fff,
-            var(--bn-success),
-            var(--bn-success),
-            #fff,
-            var(--bn-success),
-            var(--bn-success),
-            #fff,
-            var(--bn-success),
-            var(--bn-success));
-    }
-
-    @include m(danger) {
-        @include button-type(#fff,
-            var(--bn-danger),
-            var(--bn-danger),
-            #fff,
-            var(--bn-danger-3),
-            var(--bn-danger-3),
-            #fff,
-            var(--bn-danger-1),
-            var(--bn-danger-1));
-    }
-
-    @include m(strong) {
-        @include button-type(#fff,
-            var(--bn-strong),
-            var(--bn-strong),
-            #fff,
-            var(--bn-strong),
-            var(--bn-strong),
-            #fff,
-            var(--bn-strong),
-            var(--bn-strong));
-
-    }
-
-    @include m(warning) {
-        @include button-type(#fff,
-            var(--bn-warning),
-            var(--bn-warning),
-            #fff,
-            var(--bn-warning),
-            var(--bn-warning),
-            #fff,
-            var(--bn-warning),
-            var(--bn-warning));
-
-    }
-
-    @include m(card) {
-        --bn-button-height: 48px;
-        --bn-button-font-weight: 500;
-        --bn-button-padding: 0 34px;
-        box-shadow: 0px 2px 5px 0px rgba(36, 41, 52, 0.06);
-        @include button-type(var(--bn-color-3),
-            #fff,
-            transparent,
-            var(--bn-text-color),
-            #fff,
-            transparent,
-            var(--bn-text-color),
-            #fff,
-            var(--bn-border-color));
-
-        &.is-disabled {
-            --bn-button-opacity: 0.8;
-        }
-    }
-
-    @include e(loading) {
-        margin-left: 4px;
-        transition: all 0.15s linear;
-        display: flex;
-        &.is-fill {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background-color: var(--bn-button-background-color);
-            margin-left: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--bn-button-color);
-        }
-    }
-
+  }
 }
 
-
 @include b(button-group) {
-    display: flex;
-    width: min-content;
+  display: flex;
+  width: min-content;
 
-    &>.#{$namespace}-button {
-        &:first-child {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        &:last-child {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-            border-left-color: hsla(0, 0%, 100%, .5);
-            margin-left: -1px;
-        }
-
-        &:not(:first-child):not(:last-child) {
-            border-left-color: hsla(0, 0%, 100%, .5);
-            border-right-color: hsla(0, 0%, 100%, .5);
-            border-radius: 0;
-            margin-left: -1px;
-        }
+  & > .#{$namespace}-button {
+    &:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
     }
+
+    &:last-child {
+      margin-left: -1px;
+      border-left-color: hsl(0deg 0% 100% / 50%);
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &:not(:first-child, :last-child) {
+      margin-left: -1px;
+      border-right-color: hsl(0deg 0% 100% / 50%);
+      border-left-color: hsl(0deg 0% 100% / 50%);
+      border-radius: 0;
+    }
+  }
 }

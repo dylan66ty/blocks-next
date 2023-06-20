@@ -1,8 +1,6 @@
-@import './mixins/bem.scss';
+@use './mixins/bem.scss' as *;
 
 @include b('trigger-popup') {
   --bn-trigger-arrow-background-color: #ccc;
   --bn-trigger-arrow-size: 8px;
 }
-
-

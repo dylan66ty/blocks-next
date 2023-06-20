@@ -1,28 +1,25 @@
-@import './mixins/bem.scss';
-
-
+@use './mixins/bem.scss' as *;
 
 @include b(popconfirm) {
-  box-sizing: border-box;
-  padding: 28px 22px;
-  background-color: #fff;
-  box-shadow: 0px 8px 40px 0px rgba(100, 107, 122, 0.15);
-  border-radius: 8px;
-
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 8px;
+  padding: 28px 22px;
+  background-color: #fff;
+  box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
+  box-sizing: border-box;
+  flex-direction: column;
 
   --bn-popconfirm-icon-color: var(--bn-danger);
 
-
   @include e(content) {
-    width: 100%;
     display: flex;
     align-items: center;
+    width: 100%;
     line-height: 1;
   }
+
   @include e(title) {
     flex-grow: 1;
     margin-left: 8px;
@@ -30,7 +27,7 @@
     color: var(--bn-color-1);
   }
 
-  @include e(footer){
+  @include e(footer) {
     margin-top: 28px;
   }
 
@@ -39,20 +36,22 @@
   }
 
   @include when(warning) {
-    --bn-popconfirm-icon-color: var(--bn-warning)
-  } 
+    --bn-popconfirm-icon-color: var(--bn-warning);
+  }
+
   @include when(success) {
-    --bn-popconfirm-icon-color: var(--bn-success)
-  } 
+    --bn-popconfirm-icon-color: var(--bn-success);
+  }
+
   @include when(primary) {
-    --bn-popconfirm-icon-color: var(--bn-primary)
-  } 
+    --bn-popconfirm-icon-color: var(--bn-primary);
+  }
+
   @include when(strong) {
-    --bn-popconfirm-icon-color: var(--bn-strong)
-  } 
+    --bn-popconfirm-icon-color: var(--bn-strong);
+  }
+
   @include when(danger) {
-    --bn-popconfirm-icon-color: var(--bn-danger)
-  } 
-
-
+    --bn-popconfirm-icon-color: var(--bn-danger);
+  }
 }

@@ -1,56 +1,48 @@
-@import './mixins/bem.scss';
-
-
+@use './mixins/bem.scss' as *;
 
 @include b(message) {
   --bn-message-height: 56px;
   --bn-message-width: 420px;
   --bn-border-radius: 8px;
-
-  --bn-success-background-color: #EFFCF9;
-  --bn-success-color: #2ED4A9;
-
-  --bn-warning-background-color: #FFFBEE;
-  --bn-warning-color: #FFC420;
-
-  --bn-strong-background-color: #FFF4EE;
-  --bn-strong-color: #FF7125;
-
-  --bn-error-background-color: #FEF2F2;
-  --bn-error-color: #F12525;
-
+  --bn-success-background-color: #effcf9;
+  --bn-success-color: #2ed4a9;
+  --bn-warning-background-color: #fffbee;
+  --bn-warning-color: #ffc420;
+  --bn-strong-background-color: #fff4ee;
+  --bn-strong-color: #ff7125;
+  --bn-error-background-color: #fef2f2;
+  --bn-error-color: #f12525;
   --bn-info-background-color: #edf2fc;
   --bn-info-color: #909399;
-  
-
-  
 
   position: fixed;
   left: 50%;
-  width: var(--bn-message-width);
-  height: var(--bn-message-height);
-  border-radius: var(--bn-border-radius);
-  padding: 0 16px 0 24px;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  transform: translate(-50%,0);
+  border-radius: var(--bn-border-radius);
+  padding: 0 16px 0 24px;
+  width: var(--bn-message-width);
+  height: var(--bn-message-height);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  transform: translate(-50%, 0);
 
   @include e(show-close) {
     justify-content: space-between;
   }
 
   @include e(close-icon) {
+    position: relative;
     display: inline-block;
+    border-radius: 100%;
     width: 16px;
     height: 16px;
-    border-radius: 100%;
-    position: relative;
     cursor: pointer;
-    &:hover{
+
+    &:hover {
       background-color: #c5c9d4;
     }
+
     &:hover::before,
     &:hover::after {
       height: 70%;
@@ -58,67 +50,64 @@
     }
 
     &::before {
-      content: '';
       position: absolute;
       top: 50%;
       left: 50%;
-      height: 70%;
       width: 1px;
+      height: 70%;
       background-color: #bfc5d2;
-      transform: translate(-50%,-50%) rotate(45deg);
       transition: background-color 0.2s;
+      content: '';
+      transform: translate(-50%, -50%) rotate(45deg);
     }
+
     &::after {
-      content: '';
       position: absolute;
       top: 50%;
       left: 50%;
-      height: 70%;
       width: 1px;
+      height: 70%;
       background-color: #bfc5d2;
-      transform: translate(-50%,-50%) rotate(-45deg);
       transition: background-color 0.2s;
+      content: '';
+      transform: translate(-50%, -50%) rotate(-45deg);
     }
   }
-  
+
   @include m(success) {
-    background-color: var(--bn-success-background-color);
-    color: var(--bn-success-color);
     font-weight: 600;
+    color: var(--bn-success-color);
+    background-color: var(--bn-success-background-color);
   }
 
   @include m(warning) {
-    background-color: var(--bn-warning-background-color);
-    color: var(--bn-warning-color);
     font-weight: 600;
+    color: var(--bn-warning-color);
+    background-color: var(--bn-warning-background-color);
   }
 
   @include m(strong) {
-    background-color: var(--bn-strong-background-color);
-    color: var(--bn-strong-color);
     font-weight: 600;
+    color: var(--bn-strong-color);
+    background-color: var(--bn-strong-background-color);
   }
 
   @include m(error) {
-    background-color: var(--bn-error-background-color);
-    color: var(--bn-error-color);
     font-weight: 600;
+    color: var(--bn-error-color);
+    background-color: var(--bn-error-background-color);
   }
 
   @include m(info) {
-    background-color: var(--bn-info-background-color);
-    color: var(--bn-info-color);
     font-weight: 600;
+    color: var(--bn-info-color);
+    background-color: var(--bn-info-background-color);
   }
-
-
 
   @include when(center) {
     justify-content: center;
   }
 }
-
-
 
 .#{$namespace}-message-slide-top-enter-from,
 .#{$namespace}-message-slide-top-leave-to {
@@ -128,5 +117,5 @@
 
 .#{$namespace}-message-slide-top-enter-to {
   opacity: 1;
-  transform: translate(-50%, 0)
+  transform: translate(-50%, 0);
 }

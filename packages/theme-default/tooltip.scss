@@ -1,5 +1,4 @@
-@import './mixins/bem.scss';
-
+@use './mixins/bem.scss' as *;
 
 @include b(tooltip) {
   --bn-tooltip-padding: 16px 0 16px 16px;
@@ -10,12 +9,13 @@
 }
 
 @include b(tooltip) {
-  box-sizing: border-box;
-  max-width: 494px;
-  width: max-content;
   border-radius: var(--bn-tooltip-border-radius);
   padding: var(--bn-tooltip-padding);
+  width: max-content;
+  max-width: 494px;
   color: #fff;
+  box-sizing: border-box;
+
   @include e(content) {
     padding-right: var(--bn-tooltip-padding-right);
     line-height: var(--bn-tooltip-line-height);
@@ -24,12 +24,10 @@
   }
 
   @include m(mini) {
-    --bn-tooltip-padding:8px 0 8px 12px;
-    --bn-tooltip-padding-right:12px;
+    --bn-tooltip-padding: 8px 0 8px 12px;
+    --bn-tooltip-padding-right: 12px;
     --bn-tooltip-font-size: 12px;
-    --bn-tooltip-border-radius:3px;
-    --bn-tooltip-line-height:14px;
+    --bn-tooltip-border-radius: 3px;
+    --bn-tooltip-line-height: 14px;
   }
-
 }
-

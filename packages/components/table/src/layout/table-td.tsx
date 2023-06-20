@@ -108,6 +108,7 @@ export default defineComponent({
               onChange={(checked: boolean) => tableContext?.opsStore?.toggleSelect!(props.record.raw!, checked)}
               disabled={Boolean(props.record.disabled)}
               validateEvent={false}
+              // @ts-ignore: click
               onClick={(ev: Event) => ev.stopPropagation()}
             />
           )

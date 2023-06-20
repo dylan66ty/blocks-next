@@ -1,10 +1,9 @@
-@import './mixins/bem.scss';
+@use './mixins/bem.scss' as *;
 
 @include b(scrollbar) {
   --bn-scrollbar-track-size: 6px;
   --bn-scrollbar-track-background-color: transparent;
-
-  --bn-scrollbar-thumb-color: #EDF1F6;
+  --bn-scrollbar-thumb-color: #edf1f6;
   --bn-scrollbar-right: 4px;
   --bn-scrollbar-bottom: 4px;
   --bn-scrollbar-radius: 3px;
@@ -31,12 +30,11 @@
   @include e(track) {
     --bn-scrollbar-track-background-color: #ddd;
   }
-
 }
-
 
 @include b(scrollbar-track) {
   background-color: var(--bn-scrollbar-track-background-color);
+
   @include e(horizontal) {
     position: absolute;
     bottom: var(--bn-scrollbar-bottom);
@@ -69,20 +67,18 @@
   @include e(horizontal) {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    border-radius: var(--bn-scrollbar-radius);
     height: calc(100% - 2px);
     background-color: var(--bn-scrollbar-thumb-color);
-    border-radius: var(--bn-scrollbar-radius);
+    transform: translateY(-50%);
   }
 
   @include e(vertical) {
     position: absolute;
     left: 50%;
-    transform:translateX(-50%);
+    border-radius: var(--bn-scrollbar-radius);
     width: calc(100% - 2px);
     background-color: var(--bn-scrollbar-thumb-color);
-    border-radius: var(--bn-scrollbar-radius);
-
+    transform: translateX(-50%);
   }
-
 }

@@ -81,6 +81,7 @@ export default defineComponent({
             disabled={checkboxStatus.value.disabled}
             validateEvent={false}
             onChange={tableContext?.opsStore?.toggleSelectAll}
+            // @ts-ignore: click
             onClick={(ev: Event) => ev.stopPropagation()}
           />
         )
@@ -118,12 +119,14 @@ export default defineComponent({
                 class={['bn-table__sort-ascend']}
                 rotate={180}
                 size={12}
+                // @ts-ignore: click
                 onClick={() => handlerSort('ascend')}
               ></CaretArrow>
               <CaretArrow
                 color={hitColumnProp.value && activeSort.value === 'descend' ? activeColor : defColor}
                 class={['bn-table__sort-descend']}
                 size={12}
+                // @ts-ignore: click
                 onClick={() => handlerSort('descend')}
               ></CaretArrow>
             </span>

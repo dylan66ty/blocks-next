@@ -1,24 +1,22 @@
-@import './mixins/bem.scss';
+@use './mixins/bem.scss' as *;
 
 @include b(table) {
   --bn-table-radius: 12px;
   --bn-table-height: 68px;
-  --bn-table-header-title-color: #9CA6B9;
+  --bn-table-header-title-color: #9ca6b9;
   --bn-table-body-cell-color: #242934;
-  --bn-table-border-color: #EDF1F6;
+  --bn-table-border-color: #edf1f6;
   --bn-table-header-background-color: #f2f3f5;
   --bn-table-hover-background-color: #f7f8fa;
   --bn-table-fixed-column-box-shadow-color: #eeeeee85;
-
 }
 
 @include b(table) {
-  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--bn-table-border-color);
   border-radius: var(--bn-table-radius);
-  overflow: hidden;
-  position: relative;
-  
+  box-sizing: border-box;
 
   @include when(border) {
     .#{$namespace}-th:not(:last-child),
@@ -29,10 +27,10 @@
 
   @include e(header) {
     position: relative;
+    z-index: 2;
     height: var(--bn-table-height);
     background: #fff;
-    box-shadow: 0px 10px 24px 0px rgba(36, 41, 52, 0.05);
-    z-index: 2;
+    box-shadow: 0 10px 24px 0 rgb(36 41 52 / 5%);
   }
 
   @include e(header-title) {
@@ -52,11 +50,10 @@
 
     .#{$namespace}-scrollbar {
       --bn-scrollbar-track-size: 8px;
-      --bn-scrollbar-thumb-color: #EDF1F6;
+      --bn-scrollbar-thumb-color: #edf1f6;
       --bn-scrollbar-right: 0;
       --bn-scrollbar-bottom: 0;
       --bn-scrollbar-radius: 4px;
-
     }
   }
 
@@ -64,9 +61,17 @@
     .#{$namespace}-table__body {
       .#{$namespace}-tr:hover {
         .#{$namespace}-td {
-          background-color: var(--bn-table-hover-background-color);
-        }
+          background-color: #ddd;
 
+          // &:first-child {
+          //   border-top-left-radius: 10px;
+          //   border-bottom-left-radius: 10px;
+          // }
+
+          // &:last-child {
+
+          // }
+        }
       }
     }
   }
@@ -86,26 +91,25 @@
     overflow-y: hidden;
   }
 
-
   @include e(cell) {
-    box-sizing: border-box;
-    padding: 9px 16px;
     display: inline-flex;
     align-items: center;
+    padding: 9px 16px;
+    box-sizing: border-box;
   }
 
   @include e(element) {
-    width: 100%;
     margin: 0;
+    width: 100%;
     border-collapse: separate;
     border-spacing: 0;
   }
 
   @include e(sort) {
+    position: relative;
+    margin-left: 2px;
     width: 12px;
     height: 20px;
-    margin-left: 2px;
-    position: relative;
   }
 
   @include e(sort-ascend) {
@@ -119,34 +123,32 @@
     bottom: 0;
     left: 0;
   }
-  
+
   @include e(sort-arrow-center) {
     position: absolute;
     top: 5px;
     left: 4px;
   }
 
-
   @include e(setting) {
     position: absolute;
     top: 0;
     right: 0;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 52px;
     height: 100%;
     background: #fff;
-    box-shadow: -10px 0px 20px 0px rgba(36, 41, 52, 0.05);
-    z-index: 5;
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
+    box-shadow: -10px 0 20px 0 rgb(36 41 52 / 5%);
     cursor: pointer;
   }
 
   @include e(setting-icon) {
     .line {
       height: 1px;
-      background: #9CA6B9;
+      background: #9ca6b9;
     }
 
     .line-1 {
@@ -154,8 +156,8 @@
     }
 
     .line-2 {
-      width: 15px;
       margin: 5px 0;
+      width: 15px;
     }
 
     .line-3 {
@@ -163,56 +165,49 @@
     }
   }
 
-
   @include e(external-footer) {
-    box-sizing: border-box;
-    padding: 24px 32px;
-    border-top: 1px solid #EDF1F6;
     display: flex;
     justify-content: flex-end;
-
+    border-top: 1px solid #edf1f6;
+    padding: 24px 32px;
+    box-sizing: border-box;
   }
 
   @include e(sort-popup) {
-    box-sizing: border-box;
-    width: 128px;
-    padding:23px 12px;
-    background: #FFFFFF;
-    box-shadow: 0px 8px 40px 0px rgba(100, 107, 122, 0.15);
     border-radius: 8px;
+    padding: 23px 12px;
+    width: 128px;
+    background: #fff;
+    box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
+    box-sizing: border-box;
   }
 
   @include e(sort-item) {
-    box-sizing: border-box;
+    border-radius: 8px;
     padding: 13px 0;
-    text-align: center;
     font-size: 14px;
     font-weight: 500;
+    text-align: center;
+    box-sizing: border-box;
     line-height: 14px;
-    border-radius: 8px;
     cursor: pointer;
   }
 
   @include e(sort-item-active) {
+    color: #0056ff;
     background-color: #f8faff;
-    color: #0056FF;
   }
 
   @include e(loading) {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, .6);
-    color: var(--bn-primary);
-    font-size: 20px;
+    inset: 0;
     z-index: 6;
-    
     display: flex;
-    align-items: center;
     justify-content: center;
-
+    align-items: center;
+    font-size: 20px;
+    color: var(--bn-primary);
+    background-color: rgb(255 255 255 / 60%);
   }
 
   // 固定列相关
@@ -225,16 +220,16 @@
 
   .is-fixed-left-last {
     &::after {
-      content: "";
       position: absolute;
       top: 0;
       right: 0;
-      height: 100%;
-      width: 8px;
-      box-shadow: none;
-      transition: box-shadow .1s cubic-bezier(0, 0, 1, 1);
-      pointer-events: none;
       z-index: 4;
+      width: 8px;
+      height: 100%;
+      box-shadow: none;
+      transition: box-shadow 0.1s cubic-bezier(0, 0, 1, 1);
+      content: '';
+      pointer-events: none;
     }
 
     &.is-scroll-position-right,
@@ -245,7 +240,6 @@
     }
   }
 
-
   .is-fixed-right {
     position: sticky;
     right: 0;
@@ -254,16 +248,16 @@
 
   .is-fixed-right-first {
     &::after {
-      content: "";
       position: absolute;
       top: 0;
       left: 0;
-      height: 100%;
-      width: 8px;
-      box-shadow: none;
-      transition: box-shadow .1s cubic-bezier(0, 0, 1, 1);
-      pointer-events: none;
       z-index: 4;
+      width: 8px;
+      height: 100%;
+      box-shadow: none;
+      transition: box-shadow 0.1s cubic-bezier(0, 0, 1, 1);
+      content: '';
+      pointer-events: none;
     }
 
     &.is-scroll-position-left,
@@ -273,23 +267,17 @@
       }
     }
   }
-
-
-
-
-
 }
 
 @include b(td) {
-  box-sizing: border-box;
-  color: var(--bn-table-body-cell-color);
-  font-size: 14px;
-  line-height: 1;
-  word-break: break-all;
-  background-color: #fff;
   position: relative;
   overflow: hidden;
-  
+  font-size: 14px;
+  color: var(--bn-table-body-cell-color);
+  background-color: #fff;
+  box-sizing: border-box;
+  line-height: 1;
+  word-break: break-all;
 
   @include when(align-left) {
     text-align: left;
@@ -303,22 +291,17 @@
     text-align: right;
   }
 
-
   @include when(resize) {
-    border-right-color: #0056FF !important;
+    border-right-color: #0056ff !important;
   }
-
-
 }
 
 @include b(th) {
   position: relative;
-  box-sizing: border-box;
-  font-size: 14px;
-  position: relative;
-  background-color: #fff;
   overflow: hidden;
-  
+  font-size: 14px;
+  background-color: #fff;
+  box-sizing: border-box;
 
   @include when(align-left) {
     text-align: left;
@@ -357,29 +340,29 @@
 
 @include b(table-setting) {
   @include e(popup) {
+    border-radius: 8px;
     width: 244px;
     // max-height: 393px;
-    background: #FFFFFF;
-    box-shadow: 0px 8px 40px 0px rgba(100, 107, 122, 0.15);
-    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
   }
 
   @include e(list) {
-    list-style: none;
     margin: 0;
-    box-sizing: border-box;
+    border-bottom: 1px solid #edf1f6;
     padding: 18px 12px;
-    border-bottom: 1px solid #EDF1F6;
+    list-style: none;
+    box-sizing: border-box;
   }
 
   @include e(list-item) {
-    box-sizing: border-box;
-    padding: 12px;
-    border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 8px;
+    padding: 12px;
     font-size: 14px;
+    box-sizing: border-box;
     user-select: none;
     cursor: pointer;
 
@@ -388,9 +371,8 @@
     }
 
     @include when(disabled) {
-      color: #9CA6B9;
+      color: #9ca6b9;
       cursor: not-allowed;
-
     }
   }
 
@@ -411,7 +393,7 @@
     .line {
       width: 12px;
       height: 1px;
-      background: #9CA6B9;
+      background: #9ca6b9;
       opacity: 0.6;
 
       &:not(:last-child) {
@@ -421,10 +403,10 @@
   }
 
   @include e(footer) {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 20px;
     display: flex;
     justify-content: center;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
   }
 }

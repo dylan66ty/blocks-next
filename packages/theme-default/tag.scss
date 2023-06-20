@@ -1,4 +1,4 @@
-@import './mixins/bem.scss';
+@use './mixins/bem.scss' as *;
 
 @include b(tag) {
   --bn-tag-padding: 0 9px;
@@ -9,30 +9,28 @@
   --bn-tag-font-size: 12px;
   --bn-tag-height: 24px;
   --bn-tag-padding-right: 5px;
-
   --bn-tag-close-margin-left: 4px;
   --bn-tag-icon-size: calc(var(--bn-tag-font-size) + 2px);
-  --bn-tag-icon-color: var(--bn-color-3)
+  --bn-tag-icon-color: var(--bn-color-3);
 }
 
-@mixin set-type ($type) {
+@mixin set-type($type) {
   --bn-tag-border-color: var(--bn-#{$type}-9);
   --bn-tag-background-color: var(--bn-#{$type}-9);
   --bn-tag-color: var(--bn-#{$type});
   --bn-tag-icon-color: var(--bn-#{$type});
 }
 
-@mixin set-dark-effect ($type) {
+@mixin set-dark-effect($type) {
   &.#{$namespace}-tag--#{$type} {
     --bn-tag-border-color: var(--bn-#{$type});
     --bn-tag-background-color: var(--bn-#{$type});
     --bn-tag-color: #fff;
-    --bn-tag-icon-color: rgba(255, 255, 255, 0.3);
-
+    --bn-tag-icon-color: rgb(255 255 255 / 30%);
   }
 }
 
-@mixin set-plain-effect ($type) {
+@mixin set-plain-effect($type) {
   &.#{$namespace}-tag--#{$type} {
     --bn-tag-border-color: var(--bn-#{$type});
     --bn-tag-background-color: #fff;
@@ -46,68 +44,66 @@
 }
 
 @include b(tag) {
-  box-sizing: border-box;
-  user-select: none;
-  height: var(--bn-tag-height);
-  line-height: 1;
-  padding: var(--bn-tag-padding);
-  border-radius: var(--bn-tag-border-radius);
-  border: 1px solid var(--bn-tag-border-color);
-  background-color: var(--bn-tag-background-color);
-  color: var(--bn-tag-color);
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid var(--bn-tag-border-color);
+  border-radius: var(--bn-tag-border-radius);
+  padding: var(--bn-tag-padding);
+  height: var(--bn-tag-height);
   font-size: var(--bn-tag-font-size);
-
-
+  color: var(--bn-tag-color);
+  background-color: var(--bn-tag-background-color);
+  box-sizing: border-box;
+  user-select: none;
+  line-height: 1;
 
   @include when(closeable) {
     padding-right: var(--bn-tag-padding-right);
   }
 
   @include e(prefix-icon) {
-    margin-right: 6px;
     display: flex;
+    margin-right: 6px;
   }
 
   @include e(close) {
-    width: var(--bn-tag-icon-size);
-    height: var(--bn-tag-icon-size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-left: var(--bn-tag-close-margin-left);
     border-radius: 50%;
-    background-color: transparent;
-    cursor: pointer;
+    width: var(--bn-tag-icon-size);
+    height: var(--bn-tag-icon-size);
     font-size: calc(var(--bn-tag-icon-size) - 2px);
+    background-color: transparent;
     transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    cursor: pointer;
 
     &:hover {
-      background-color: var(--bn-tag-icon-color);
       color: #fff;
+      background-color: var(--bn-tag-icon-color);
     }
   }
 
   @include m(primary) {
-    @include set-type(primary)
+    @include set-type(primary);
   }
 
   @include m(success) {
-    @include set-type(success)
+    @include set-type(success);
   }
 
   @include m(warning) {
-    @include set-type(warning)
+    @include set-type(warning);
   }
 
   @include m(strong) {
-    @include set-type(strong)
+    @include set-type(strong);
   }
 
   @include m(danger) {
-    @include set-type((danger))
+    @include set-type((danger));
   }
 
   @include m(small) {
@@ -126,7 +122,6 @@
     --bn-tag-padding-right: 7px;
     --bn-tag-close-margin-left: 6px;
     --bn-tag-border-radius: 4px;
-
   }
 
   @include when(dark) {
@@ -148,5 +143,4 @@
   @include when(round) {
     --bn-tag-border-radius: var(--bn-tag-height);
   }
-
 }

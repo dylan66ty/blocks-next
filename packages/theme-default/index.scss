@@ -1,41 +1,31 @@
-@import './common/var.scss';
-@import './button.scss';
-@import './icon.scss';
-@import './space.scss';
-@import './input.scss';
-@import './checkbox.scss';
-@import './radio.scss';
-@import './form.scss';
-@import './switch.scss';
-@import './trigger.scss';
-@import './select.scss';
-@import './scrollbar.scss';
-@import './message.scss';
-@import './pagination.scss';
-@import './dialog.scss';
-@import './tooltip.scss';
-@import './message-box.scss';
-@import './drawer.scss';
-@import './notification.scss';
-@import './table.scss';
-@import './empty.scss';
-@import './tabs.scss';
-@import './popconfirm.scss';
-@import './loading.scss';
-@import './progress.scss';
-@import './tag.scss';
-@import './badge.scss';
-@import './cascader.scss';
+@use './common/var.scss';
+@use './button.scss';
+@use './icon.scss';
+@use './space.scss';
+@use './input.scss';
+@use './checkbox.scss';
+@use './radio.scss';
+@use './form.scss';
+@use './switch.scss';
+@use './trigger.scss';
+@use './select.scss';
+@use './scrollbar.scss';
+@use './message.scss';
+@use './pagination.scss';
+@use './dialog.scss';
+@use './tooltip.scss';
+@use './message-box.scss';
+@use './drawer.scss';
+@use './notification.scss';
+@use './table.scss';
+@use './empty.scss';
+@use './tabs.scss';
+@use './popconfirm.scss';
+@use './loading.scss';
+@use './progress.scss';
+@use './tag.scss';
+@use './badge.scss';
+@use './cascader.scss';
 
-//animation
-@import './animation/index.scss';
-
-
-
-
-
-
-
-
-
-
+// animation
+@use './animation/index.scss';

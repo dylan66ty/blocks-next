@@ -194,6 +194,7 @@ export default defineComponent({
                 }
               ]}
               rotate={90}
+              // @ts-ignore: click
               onClick={() => handleSlide('prev')}
             />
           )}
@@ -210,7 +211,7 @@ export default defineComponent({
                   ]}
                   key={`${props.type!}__${item.key}`}
                   onClick={() => handleNavItem(item.key)}
-                  onMouseenter={(e) => handleMouseenter(e, item.key)}
+                  onMouseenter={(e) => handleMouseenter(e)}
                   ref={(el: HTMLElement) => {
                     navItemRefs.value[item.key] = el
                   }}
@@ -231,6 +232,7 @@ export default defineComponent({
                 }
               ]}
               rotate={-90}
+              // @ts-ignore: click
               onClick={() => handleSlide('next')}
             />
           )}

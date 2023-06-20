@@ -106,6 +106,7 @@ export default defineComponent({
             disabled={props.node.disabled}
             validateEvent={false}
             onChange={handleCheckedChange}
+            // @ts-ignore: click
             onClick={(ev: Event) => ev.stopPropagation()}
           />
         )

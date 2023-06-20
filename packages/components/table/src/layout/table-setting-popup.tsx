@@ -172,6 +172,7 @@ export default defineComponent({
                     modelValue={column.checked}
                     disabled={column.disabled}
                     onChange={(status: boolean) => handleCheckboxChange(column, status)}
+                    // @ts-ignore: click
                     onClick={(e: Event) => e.stopPropagation()}
                   />
                   <span class={[`${ns}__list-item-title`]}>{column.title}</span>

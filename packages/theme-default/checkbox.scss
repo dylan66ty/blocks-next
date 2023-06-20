@@ -1,4 +1,4 @@
-@import './mixins/bem.scss';
+@use './mixins/bem.scss' as *;
 
 @include b(checkbox) {
   cursor: pointer;
@@ -9,48 +9,50 @@
   vertical-align: middle;
 
   @include e(icon) {
-    box-sizing: border-box;
+    position: relative;
+    border: 1px solid #9ca6b9;
+    border-radius: 2px;
     width: 16px;
     height: 16px;
-    border-radius: 2px;
-    position: relative;
-    border: 1px solid #9CA6B9;
+    box-sizing: border-box;
+
     &:hover {
       border-color: var(--bn-primary);
     }
+
     &--half {
       &::after {
-        content: '';
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        border-radius: 1px;
         width: 6px;
         height: 6px;
         background-color: var(--bn-primary);
-        border-radius: 1px;
+        content: '';
+        transform: translate(-50%, -50%);
       }
     }
 
     &--checked {
-      background-color: var(--bn-primary);
       border-color: var(--bn-primary);
+      background-color: var(--bn-primary);
+
       &::after {
-        box-sizing: content-box;
-        content: "";
-        border: 2px solid #fff;
-        border-left: 0;
-        border-top: 0;
         position: absolute;
-        left: 5px;
         top: 1px;
-        height: 7px;
+        left: 5px;
+        border: 2px solid #fff;
+        border-top: 0;
+        border-left: 0;
         width: 3px;
+        height: 7px;
+        box-sizing: content-box;
+        content: '';
         transform: rotate(45deg) scaleY(1);
         transform-origin: center;
       }
     }
-
   }
 
   @include e(label) {
@@ -58,15 +60,14 @@
   }
 
   @include e(origin) {
-    opacity: 0;
-    outline: none;
     position: absolute;
+    z-index: -1;
     margin: 0;
     width: 0;
     height: 0;
-    z-index: -1;
+    opacity: 0;
+    outline: none;
   }
-
 
   @include when(checked) {
     .#{$namespace}-checkbox__label {
@@ -84,25 +85,20 @@
 
     .#{$namespace}-checkbox__icon {
       &--checked {
-        background-color: #ebedf1;
         border-color: #e2e4e8;
-
+        background-color: #ebedf1;
       }
 
       &--square {
-        background-color: #f5f7fb;
         border-color: #e2e4e8;
+        background-color: #f5f7fb;
       }
     }
   }
-
-
-
-
 }
 
 @include b(checkbox-group) {
-  .#{$namespace}-checkbox+.#{$namespace}-checkbox {
+  .#{$namespace}-checkbox + .#{$namespace}-checkbox {
     margin-left: 15px;
   }
 }

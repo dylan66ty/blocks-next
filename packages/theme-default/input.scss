@@ -1,238 +1,228 @@
-@import './mixins/bem.scss';
+/* stylelint-disable selector-pseudo-element-no-unknown */
+@use './mixins/bem.scss' as *;
 
 @include b(input) {
-    --bn-input-border-color: var(--bn-border-color);
-    --bn-input-border-radius: 4px;
-    --bn-input-background-color: #fff;
-    --bn-input-disabled-background-color: rgba(245, 247, 251, 0.5);
-    --bn-input-disabled-border-color: var(--bn-color-5);
-    --bn-input-disabled-text-color: var(--bn-color-3);
-    --bn-input-color: var(--bn-color-1);
-    --bn-input-font-size: var(--bn-font-size);
-    --bn-input-placeholder-color: var(--bn-color-3);
-    --bn-input-height: 40px;
-    --bn-input-icon-color: var(--bn-color-3);
-    --bn-input-hover-border-color: rgba(188, 196, 214, 1);
+  --bn-input-border-color: var(--bn-border-color);
+  --bn-input-border-radius: 4px;
+  --bn-input-background-color: #fff;
+  --bn-input-disabled-background-color: rgb(245 247 251 / 50%);
+  --bn-input-disabled-border-color: var(--bn-color-5);
+  --bn-input-disabled-text-color: var(--bn-color-3);
+  --bn-input-color: var(--bn-color-1);
+  --bn-input-font-size: var(--bn-font-size);
+  --bn-input-placeholder-color: var(--bn-color-3);
+  --bn-input-height: 40px;
+  --bn-input-icon-color: var(--bn-color-3);
+  --bn-input-hover-border-color: rgb(188 196 214 / 100%);
 }
 
 @include b(input) {
-    width: 100%;
-    display:inline-flex;
-    box-sizing: border-box;
-    position: relative;
-    vertical-align: middle;
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  box-sizing: border-box;
+  vertical-align: middle;
 
-    @include e(wrapper) {
-        box-sizing: border-box;
-        display: inline-flex;
-        flex-grow: 1;
-        align-items: center;
-        justify-content: center;
-        padding: 0 12px;
-        background-color: var(--bn-input-background-color);
-        background-image: none;
-        border: 1px solid var(--bn-input-border-color);
-        border-radius: var(--bn-input-border-radius);
-        transform: translateZ(0);
-        color: var(--bn-input-color);
-        font-size: var(--bn-input-font-size);
-        transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
-
-        &:hover {
-            border-color: var(--bn-input-hover-border-color)
-        }
-
-        &.is-focus {
-            border-color: var(--bn-primary);
-        }
-
-
-        &.is-disabled {
-            cursor: not-allowed;
-
-            &:not(.#{$namespace}-input--card) {
-                background-color: var(--bn-input-disabled-background-color);
-                border-color: var(--bn-input-disabled-border-color);
-                color: var(--bn-input-disabled-text-color);
-            }
-
-            &.#{$namespace}-input--card {
-                opacity: 0.8;
-            }
-        }
-
-    }
-
-
-    @include e(inner) {
-        box-sizing: border-box;
-        flex-grow: 1;
-        width: 100%;
-        height: calc(var(--bn-input-height) - 2px);
-        line-height: 1;
-        outline: none;
-        padding: 0;
-        margin: 0;
-        border: 0;
-        background: 0 0;
-
-
-        &::-webkit-input-placeholder {
-            color: var(--bn-input-placeholder-color);
-        }
-
-        &:disabled {
-            color: var(--bn-input-disabled-text-color);
-            cursor: not-allowed;
-        }
-
-        &:disabled::-webkit-input-placeholder {
-            color: var(--bn-input-placeholder-color);
-        }
-    }
-
-    @include e(icon) {
-        display: flex;
-        flex-shrink: 0;
-        font-size: inherit;
-        color: var(--bn-input-icon-color);
-    }
-
-    @include e(prefix) {
-        flex-shrink: 0;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .#{$namespace}-input__icon {
-            margin-right: 8px;
-        }
-    }
-
-    @include e(suffix) {
-        flex-shrink: 0;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: nowrap;
-        .#{$namespace}-input__icon {
-            margin-left: 8px;
-        }
-    }
-
-    @include e(count) {
-        flex-shrink: 0;
-        margin-left: 8px;
-        letter-spacing: -1px;
-        color: var(--bn-color-3);
-
-    }
-
-    @include e(eye) {
-        cursor: pointer;
-    }
-
-    @include e(clearable) {
-        cursor: pointer;
-    }
-
-    @include m(small) {
-        --bn-input-height: 32px;
-    }
-
-    @include m(large) {
-        --bn-input-height: 48px
-    }
-
-    @include m(card) {
-        border: 0;
-        box-shadow: 0px 2px 5px 0px rgba(36, 41, 52, 0.06);
-
-        &:not(.is-disabled):hover {
-            --bn-input-placeholder-color: rgba(100, 107, 122, 1);
-        }
-    }
-
-    [readonly] {
-        cursor: default;
-    }
-}
-
-@include b(textarea) {
-    --bn-input-font-size: var(--bn-font-size);
-    --bn-input-border-color: var(--bn-border-color);
-    --bn-input-border-radius: 4px;
-    --bn-input-placeholder-color: var(--bn-color-3);
-    --bn-input-disabled-border-color: var(--bn-color-5);
-    --bn-input-hover-border-color: rgba(188, 196, 214, 1);
-    --bn-input-color: var(--bn-color-1);
-    --bn-input-disabled-text-color: var(--bn-color-3);
-
-}
-
-
-
-@include b(textarea) {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    vertical-align: bottom;
+  @include e(wrapper) {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--bn-input-border-color);
+    border-radius: var(--bn-input-border-radius);
+    padding: 0 12px;
     font-size: var(--bn-input-font-size);
+    color: var(--bn-input-color);
+    background-color: var(--bn-input-background-color);
+    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    box-sizing: border-box;
+    flex-grow: 1;
+    background-image: none;
+    transform: translateZ(0);
 
-    @include e(inner) {
-        display: block;
-        resize: vertical;
-        padding: 5px 15px;
-        line-height: 1.5;
-        box-sizing: border-box;
-        width: 100%;
-        font-size: inherit;
-        color: var(--bn-input-color);
-        background-color: #fff;
-        background-image: none;
-        border: 1px solid var(--bn-input-border-color);
-        border-radius: var(--bn-input-border-radius);
-        transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
-        outline: none;
-
-        &::-webkit-input-placeholder {
-            color: var(--bn-input-placeholder-color);
-        }
-
-        &:disabled {
-            cursor: not-allowed;
-            background-color: var(--bn-input-disabled-background-color);
-            border-color: var(--bn-input-disabled-border-color);
-            color: var(--bn-input-disabled-text-color);
-        }
-
-        &:disabled::-webkit-input-placeholder {
-            color: var(--bn-input-disabled-border-color);
-        }
-
-        &:not(:disabled):hover {
-            border-color: var(--bn-input-hover-border-color);
-        }
-
-
-        &:not(:disabled):focus {
-            border-color: var(--bn-primary);
-        }
+    &:hover {
+      border-color: var(--bn-input-hover-border-color);
     }
 
-    @include e(count) {
-        flex-shrink: 0;
-        margin-left: 8px;
-        letter-spacing: -1px;
-        color: var(--bn-color-3);
-
-        position: absolute;
-        font-size: 12px;
-        line-height: 14px;
-        bottom: 5px;
-        right: 10px;
+    &.is-focus {
+      border-color: var(--bn-primary);
     }
 
+    &.is-disabled {
+      cursor: not-allowed;
+
+      &:not(.#{$namespace}-input--card) {
+        border-color: var(--bn-input-disabled-border-color);
+        color: var(--bn-input-disabled-text-color);
+        background-color: var(--bn-input-disabled-background-color);
+      }
+
+      &.#{$namespace}-input--card {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  @include e(inner) {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    width: 100%;
+    height: calc(var(--bn-input-height) - 2px);
+    background: 0 0;
+    outline: none;
+    box-sizing: border-box;
+    flex-grow: 1;
+    line-height: 1;
+
+    &::input-placeholder {
+      color: var(--bn-input-placeholder-color);
+    }
+
+    &:disabled {
+      color: var(--bn-input-disabled-text-color);
+      cursor: not-allowed;
+    }
+
+    &:disabled::input-placeholder {
+      color: var(--bn-input-placeholder-color);
+    }
+  }
+
+  @include e(icon) {
+    display: flex;
+    flex-shrink: 0;
+    font-size: inherit;
+    color: var(--bn-input-icon-color);
+  }
+
+  @include e(prefix) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-shrink: 0;
+
+    .#{$namespace}-input__icon {
+      margin-right: 8px;
+    }
+  }
+
+  @include e(suffix) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    .#{$namespace}-input__icon {
+      margin-left: 8px;
+    }
+  }
+
+  @include e(count) {
+    flex-shrink: 0;
+    margin-left: 8px;
+    letter-spacing: -1px;
+    color: var(--bn-color-3);
+  }
+
+  @include e(eye) {
+    cursor: pointer;
+  }
+
+  @include e(clearable) {
+    cursor: pointer;
+  }
+
+  @include m(small) {
+    --bn-input-height: 32px;
+  }
+
+  @include m(large) {
+    --bn-input-height: 48px;
+  }
+
+  @include m(card) {
+    border: 0;
+    box-shadow: 0 2px 5px 0 rgb(36 41 52 / 6%);
+
+    &:not(.is-disabled):hover {
+      --bn-input-placeholder-color: rgb(100 107 122 / 100%);
+    }
+  }
+
+  [readonly] {
+    cursor: default;
+  }
+}
+
+@include b(textarea) {
+  --bn-input-font-size: var(--bn-font-size);
+  --bn-input-border-color: var(--bn-border-color);
+  --bn-input-border-radius: 4px;
+  --bn-input-placeholder-color: var(--bn-color-3);
+  --bn-input-disabled-border-color: var(--bn-color-5);
+  --bn-input-hover-border-color: rgb(188 196 214 / 100%);
+  --bn-input-color: var(--bn-color-1);
+  --bn-input-disabled-text-color: var(--bn-color-3);
+}
+
+@include b(textarea) {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  vertical-align: bottom;
+  font-size: var(--bn-input-font-size);
+
+  @include e(inner) {
+    display: block;
+    border: 1px solid var(--bn-input-border-color);
+    border-radius: var(--bn-input-border-radius);
+    padding: 5px 15px;
+    width: 100%;
+    font-size: inherit;
+    color: var(--bn-input-color);
+    background-color: #fff;
+    outline: none;
+    resize: vertical;
+    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    line-height: 1.5;
+    box-sizing: border-box;
+    background-image: none;
+
+    &::input-placeholder {
+      color: var(--bn-input-placeholder-color);
+    }
+
+    &:disabled {
+      border-color: var(--bn-input-disabled-border-color);
+      color: var(--bn-input-disabled-text-color);
+      background-color: var(--bn-input-disabled-background-color);
+      cursor: not-allowed;
+    }
+
+    &:disabled::input-placeholder {
+      color: var(--bn-input-disabled-border-color);
+    }
+
+    &:not(:disabled):hover {
+      border-color: var(--bn-input-hover-border-color);
+    }
+
+    &:not(:disabled):focus {
+      border-color: var(--bn-primary);
+    }
+  }
+
+  @include e(count) {
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    margin-left: 8px;
+    font-size: 12px;
+    color: var(--bn-color-3);
+    flex-shrink: 0;
+    letter-spacing: -1px;
+    line-height: 14px;
+  }
 }

@@ -1,9 +1,6 @@
-@import './mixins/bem.scss';
-
-
+@use './mixins/bem.scss' as *;
 
 @include b('form') {
-
   @include m(inline) {
     width: auto;
     .#{$namespace}-form-item {
@@ -16,13 +13,12 @@
       display: inline-flex;
       vertical-align: top;
     }
-
   }
 
   @include m(top) {
     .#{$namespace}-form-item__label {
-      float: none;
       display: inline-block;
+      float: none;
       text-align: left;
     }
   }
@@ -34,17 +30,15 @@
   }
 }
 
-
 @include b('form-item') {
   --bn-form-item-font-size: 14px;
   --bn-form-item-error-color: var(--bn-danger);
   --bn-form-item-error-font-size: 12px;
-  --bn-form-item-line-height:40px;
+  --bn-form-item-line-height: 40px;
   --bn-form-item-required-color: #f56c6c;
 }
 
 @include b('form-item') {
-
   margin-bottom: 22px;
 
   // 嵌套表单不给marginBottom
@@ -52,16 +46,15 @@
     margin-bottom: 0;
   }
 
-
   @include e(label) {
-    text-align: right;
-    vertical-align: middle;
-    font-size: var(--bn-form-item-font-size);
-    color: var(--bn-text-color);
+    float: left;
     padding: 0 12px 0 0;
+    font-size: var(--bn-form-item-font-size);
+    text-align: right;
+    color: var(--bn-text-color);
+    vertical-align: middle;
     box-sizing: border-box;
     line-height: var(--bn-form-item-line-height);
-    float: left;
   }
 
   @include e(content) {
@@ -70,25 +63,24 @@
   }
 
   @include e(error) {
-    color: var(--bn-form-item-error-color);
-    font-size: var(--bn-form-item-error-font-size);
-    line-height: 1;
-    padding-top: 4px;
     position: absolute;
     top: 100%;
     left: 0;
+    padding-top: 4px;
+    font-size: var(--bn-form-item-error-font-size);
+    color: var(--bn-form-item-error-color);
+    line-height: 1;
   }
 
   @include when(required) {
     .#{$namespace}-form-item__label:before {
-      content: "*";
-      color: var(--bn-form-item-required-color);
       margin-right: 4px;
+      color: var(--bn-form-item-required-color);
+      content: '*';
     }
   }
 
   @include when(error) {
-  
     .#{$namespace}-input__wrapper,
     .#{$namespace}-textarea__inner {
       border-color: var(--bn-form-item-error-color);

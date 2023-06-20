@@ -1,24 +1,24 @@
-@import './mixins/bem.scss';
+@use './mixins/bem.scss' as *;
 
 @include b(icon) {
-  height: 1em;
-  width: 1em;
-  line-height: 1em;
+  position: relative;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  fill: currentColor;
-  
+  width: 1em;
+  height: 1em;
+  line-height: 1em;
+  fill: currentcolor;
+
   > svg {
-    fill: currentColor;
+    fill: currentcolor;
     width: 1em;
     height: 1em;
     vertical-align: bottom;
   }
 
   &-loading {
-    animation: bn-rotating 1s infinite cubic-bezier(0,0,1,1);
+    animation: bn-rotating 1s infinite cubic-bezier(0, 0, 1, 1);
   }
 }
 
@@ -31,4 +31,3 @@
     transform: rotateZ(360deg);
   }
 }
-

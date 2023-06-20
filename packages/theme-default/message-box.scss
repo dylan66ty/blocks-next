@@ -1,8 +1,6 @@
-@import './mixins/bem.scss';
-
+@use './mixins/bem.scss' as *;
 
 @include b(message-box) {
-
   @include e(header) {
     padding: 42px 0 20px;
     line-height: 1;
@@ -21,17 +19,17 @@
   }
 
   @include e(title) {
-    line-height: 1;
-    color: #242934;
     font-size: 20px;
     font-weight: 600;
+    color: #242934;
+    line-height: 1;
   }
 
   @include e(content) {
     margin-top: 16px;
-    line-height: 1;
-    color: #9CA6B9;
     font-size: 14px;
     font-weight: 400;
+    color: #9ca6b9;
+    line-height: 1;
   }
 }

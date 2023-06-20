@@ -1,29 +1,24 @@
-@import './mixins/bem.scss';
+@use './mixins/bem.scss' as *;
 
 @include b(loading) {
   @include e(mask) {
-     --bn-mask-color: rgba(255,255,255,.7);
-     
-    position: absolute;
-    background-color: var(--bn-mask-color);
-    margin: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    --bn-mask-color: rgb(255 255 255 / 70%);
 
+    position: absolute;
+    inset: 0;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: var(--bn-mask-color);
+    flex-direction: column;
     user-select: none;
   }
 
   @include e(text) {
     margin-top: 10px;
-    line-height: 1;
-    color: inherit;
     font-size: var(--bn-font-size);
+    color: inherit;
+    line-height: 1;
   }
-
 }
