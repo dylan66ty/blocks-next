@@ -52,11 +52,11 @@
       })
 
       const currentLabel = computed(() => {
-        return props.label || props.value || ''
+        return props.label
       })
 
       const currentValue = computed(() => {
-        return props.value || props.label || ''
+        return props.value
       })
 
       const vm = getCurrentInstance()?.proxy
