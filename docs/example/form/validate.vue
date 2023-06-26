@@ -20,9 +20,7 @@
     name: [
       {
         required: false,
-        min: 2,
-        max: 5,
-        message: '姓名2-5汉字',
+        message: '名字必填',
         trigger: 'change'
       }
     ],

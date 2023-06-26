@@ -50,7 +50,10 @@ export const selectProps = {
     default: 'off'
   },
   //表单验证
-  validateEvent: Boolean
+  validateEvent: {
+    type: Boolean,
+    default: true
+  }
 }
 
 export type InputProps = ExtractPropTypes<typeof selectProps>

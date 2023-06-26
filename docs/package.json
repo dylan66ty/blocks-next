@@ -1,6 +1,6 @@
 {
   "name": "blocks-next-docs",
-  "version": "1.0.1-alpha.29.2",
+  "version": "1.0.1-alpha.29.4",
   "private": true,
   "scripts": {
     "dev": "vitepress dev .",
@@ -8,6 +8,7 @@
     "serve": "vitepress serve . --port 9581"
   },
   "dependencies": {
+    "@vueuse/core": "^10.2.0",
     "animate.css": "^4.1.1",
     "markdown-it": "^13.0.1",
     "markdown-it-container": "^3.0.0",

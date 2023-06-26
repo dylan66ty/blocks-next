@@ -27,6 +27,7 @@ declare module '@vue/runtime-core' {
     BnProgress: typeof import('blocks-next')['Progress'];
     BnTag: typeof import('blocks-next')['Tag'];
     BnBadge: typeof import('blocks-next')['Badge'];
+    BnCascader: typeof import('blocks-next')['Cascader'];
 
   }
 
