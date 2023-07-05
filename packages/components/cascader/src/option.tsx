@@ -69,7 +69,7 @@ export default defineComponent({
         render = props.node.render()
       }
 
-      const defaultSlot = cascaderContext?.slots!['default']
+      const defaultSlot = cascaderContext?.slots?.['default']
       if (isFunction(defaultSlot)) {
         render = defaultSlot({ node: props.node, data: props.node.raw })
       }

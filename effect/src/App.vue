@@ -34,7 +34,7 @@
 </script>
 
 <template>
-  <SwitchChangeEvent />
+  <Select />
 </template>
 
 <style></style>

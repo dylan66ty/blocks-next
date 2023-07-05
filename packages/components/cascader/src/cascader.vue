@@ -288,30 +288,32 @@
       :disabled="mergeDisabled"
     >
       <template #default>
-        <div :class="[`${ns}__trigger`]">
-          <BnInput
-            ref="inputRef"
-            :style="{ height: inputHeight }"
-            :validate-event="false"
-            :disabled="mergeDisabled"
-            :model-value="computedInputLabel"
-            :size="mergeSize"
-            :readonly="inputReadonly"
-            :placeholder="mergePlaceholder"
-            :clearable="clearable"
-            @clear="handleClear"
-          >
-            <template #suffix-icon>
-              <CaretIcon :class="[{ 'is-rotate': states.popupVisible }, `${ns}__icon-caret`]" />
-            </template>
-          </BnInput>
-          <div v-if="multiple && multipleTags.length" ref="multipleTagsRef" :class="[`${ns}__multiple`]">
-            <div v-for="(tag, index) in multipleTags" :key="`${tag.key}-${index}`" :class="[`${ns}__tag`]">
-              <span :class="[`${ns}__tag-text`]">{{ tag.label }}</span>
-              <CloseIcon @click.stop="handleTagClose(tag)" />
+        <slot name="trigger">
+          <div :class="[`${ns}__trigger`]">
+            <BnInput
+              ref="inputRef"
+              :style="{ height: inputHeight }"
+              :validate-event="false"
+              :disabled="mergeDisabled"
+              :model-value="computedInputLabel"
+              :size="mergeSize"
+              :readonly="inputReadonly"
+              :placeholder="mergePlaceholder"
+              :clearable="clearable"
+              @clear="handleClear"
+            >
+              <template #suffix-icon>
+                <CaretIcon :class="[{ 'is-rotate': states.popupVisible }, `${ns}__icon-caret`]" />
+              </template>
+            </BnInput>
+            <div v-if="multiple && multipleTags.length" ref="multipleTagsRef" :class="[`${ns}__multiple`]">
+              <div v-for="(tag, index) in multipleTags" :key="`${tag.key}-${index}`" :class="[`${ns}__tag`]">
+                <span :class="[`${ns}__tag-text`]">{{ tag.label }}</span>
+                <CloseIcon @click.stop="handleTagClose(tag)" />
+              </div>
             </div>
           </div>
-        </div>
+        </slot>
       </template>
 
       <template #content>

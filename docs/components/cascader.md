@@ -49,8 +49,13 @@ cascader/custom-node-value
 :::
 
 ## 展开子菜单
-::: demo 通过设置 expand-child 可以在选择时展开第一个子菜单
+::: demo 通过设置 `expand-child` 可以在选择时展开第一个子菜单
 cascader/expand-child
+:::
+
+## 自定义触发器^(beta)
+::: demo 通过设置 `trigger`插槽，即可实现自定义触发器
+cascader/custom-trigger
 :::
 
 

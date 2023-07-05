@@ -42,7 +42,7 @@ select/loading
 |---|---|---|:---:|
 |v-model|绑定值|`boolean` / `number` / `string`|`-`|
 |disabled|是否禁用|`boolean` |`false`|
-|size|select大小|`small` / `normal` / `large`|`normal`|
+|size|select大小|`small` / `default` / `large`|`default`|
 |placeholder|占位符|`string`|`请选择`|
 |loading|是否正在从接口获取数据|`boolean`|`false`|
 |loading-text|正在加载文字|`string`|`-`|

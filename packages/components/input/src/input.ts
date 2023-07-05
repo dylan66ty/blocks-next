@@ -33,7 +33,7 @@ export const inputProps = {
   placeholder: String as PropType<string>,
   disabled: Boolean as PropType<boolean>,
   error: Boolean as PropType<boolean>,
-  size: String as PropType<string>,
+  size: String as PropType<'small' | 'default' | 'large'>,
   showPassword: Boolean as PropType<boolean>,
   resize: Boolean as PropType<boolean>,
   prefixIcon: {

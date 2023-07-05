@@ -16,6 +16,7 @@ export default (md: MarkdownIt): void => {
   }
   
   md.inline.ruler.before('emphasis', 'tag', (state, silent) => {
+    // md写法 eg: ^(beta)
     const tagRegExp = /^\^\(([^)]*)\)/
     const str = state.src.slice(state.pos, state.posMax)
     if (!tagRegExp.test(str)) return false

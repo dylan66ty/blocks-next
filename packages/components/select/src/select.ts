@@ -32,7 +32,7 @@ export const selectProps = {
     default: ''
   },
   size: {
-    type: String as PropType<'small' | 'normal' | 'large'>,
+    type: String as PropType<'small' | 'default' | 'large'>,
     default: ''
   },
   placeholder: {

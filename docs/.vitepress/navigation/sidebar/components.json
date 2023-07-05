@@ -42,8 +42,7 @@
         },
         {
           "text": "级联选择 Cascader",
-          "link": "cascader",
-          "promotion": "alpha"
+          "link": "cascader"
         },
         {
           "text": "开关 Switch",

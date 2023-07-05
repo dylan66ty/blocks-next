@@ -1,10 +1,7 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-const visible = ref(false)
+import { ref } from 'vue';
 
-const handler = () => {
-  visible.value = true
-}
+const model = ref([])
 
 const data = ref()
 
@@ -64,22 +61,29 @@ setTimeout(() => {
 }, 100);
 
 
-
 </script>
 
 <template>
-  <bn-button @click="handler" size="small">Open Drawer</bn-button>
+  <div style="margin-bottom: 10px;">
+    <bn-space>
+      <span>{{ model }}</span>
+      <bn-tag @click="model = []">清空</bn-tag>
+    </bn-space>
+  </div>
 
-  <bn-drawer v-model="visible" title="批量导入" width="700px" cancelText="关闭" okText="导入" popupClass="test">
-    <template #body>
-      <bn-cascader :data="data" popupClass="test"></bn-cascader>
-      <bn-select>
-      <bn-option label="Vue" value="vue"></bn-option>
-      <bn-option label="React" value="react"></bn-option>
-    </bn-select>
+  <bn-cascader :data="data" v-model="model">
+    <template #trigger>
+      <span :class="['custom-trigger', { 'is-active': model.length }]">open cascader</span>
     </template>
-
-  </bn-drawer>
+  </bn-cascader>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.custom-trigger {
+  cursor: pointer;
+
+  &.is-active {
+    color: var(--bn-primary);
+  }
+}
+</style>

@@ -1,5 +1,10 @@
 # 更新日志
 
+## 1.0.1-alpha.30
+`2023-07-10`
+- Components [Cascader] (feat) 新增自定义触发器插槽
+
+
 ## 1.0.1-alpha.29
 `2023-06-17`
 - Components [Cascader] (feat) 新增Cascader组件 
