@@ -1,24 +1,20 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+  import { ref } from 'vue'
 
-const percent = ref(0.3)
-const handler = (step: number) => {
-  percent.value = percent.value + step
-}
-
+  const percent = ref(0.3)
+  const handler = (step: number) => {
+    percent.value = percent.value + step
+  }
 </script>
 
 <template>
   <bn-space size="large">
     <bn-progress :percent="percent" type="circle"></bn-progress>
     <bn-progress :percent="percent" type="circle" status="success">
-      <template #text="{ percent }">
-        进度{{ percent }}%
-      </template>
+      <template #text="{ percent }"> 进度{{ percent }}% </template>
     </bn-progress>
     <bn-progress :percent="percent" type="circle" status="warning"></bn-progress>
     <bn-progress :percent="percent" type="circle" status="danger"></bn-progress>
-
   </bn-space>
 
   <bn-button-group>

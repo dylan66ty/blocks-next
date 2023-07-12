@@ -20,7 +20,9 @@ export const replaceValidatorToFunction = (row: any) => {
           }
         }
       } else {
-        callback(new Error('内置validator不存在！validator支持(email ｜ url | mobile | chinese | number)'))
+        callback(
+          new Error('内置validator不存在！validator支持(email ｜ url | mobile | chinese | number)')
+        )
       }
     }
     // 重写 validator

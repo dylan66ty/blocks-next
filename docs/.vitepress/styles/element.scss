@@ -1,4 +1,4 @@
-.vp-table{
+.vp-table {
   width: 100%;
   overflow-y: hidden;
   overflow-x: auto;
@@ -37,7 +37,6 @@
   }
 }
 
-
 // 自定义 tag
 .vp-tag {
   --vp-tag-color: var(--bn-primary);
@@ -62,7 +61,6 @@
     --vp-tag-border-color: var(--bn-danger);
   }
 }
-
 
 .card-demo-area {
   min-height: 100px;

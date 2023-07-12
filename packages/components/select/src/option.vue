@@ -48,7 +48,12 @@
       })
 
       const cls = computed(() => {
-        return [`${ns}__item`, props.disabled && `is-disabled`, itemSelected.value && 'is-selected', isHover.value && 'is-hover']
+        return [
+          `${ns}__item`,
+          props.disabled && `is-disabled`,
+          itemSelected.value && 'is-selected',
+          isHover.value && 'is-hover'
+        ]
       })
 
       const currentLabel = computed(() => {

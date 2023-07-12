@@ -1,4 +1,17 @@
-import { computed, defineComponent, Teleport, ref, Transition, nextTick, onMounted, watch, onBeforeUnmount, inject, provide, reactive } from 'vue'
+import {
+  computed,
+  defineComponent,
+  Teleport,
+  ref,
+  Transition,
+  nextTick,
+  onMounted,
+  watch,
+  onBeforeUnmount,
+  inject,
+  provide,
+  reactive
+} from 'vue'
 import type { StyleValue, CSSProperties, Ref } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 
@@ -108,12 +121,18 @@ export default defineComponent({
       const getPopupRect = () => getElementScrollRect(popupRef.value as HTMLElement, containerRect)
       const popupRect = getPopupRect()
 
-      const { style, position } = getPopupStyle(props.position, containerRect, triggerRect, popupRect, {
-        offset: props.popupOffset,
-        translate: props.popupTranslate,
-        customStyle: props.popupStyle,
-        autoFitPosition: props.autoFitPosition
-      })
+      const { style, position } = getPopupStyle(
+        props.position,
+        containerRect,
+        triggerRect,
+        popupRect,
+        {
+          offset: props.popupOffset,
+          translate: props.popupTranslate,
+          customStyle: props.popupStyle,
+          autoFitPosition: props.autoFitPosition
+        }
+      )
       if (props.autoFitTransformOrigin) {
         transformStyle.value = {
           transformOrigin: getTransformOrigin(position)
@@ -172,7 +191,10 @@ export default defineComponent({
     const triggerMethods = computed(() => ([] as Array<TriggerEvent>).concat(props.trigger))
 
     const handleOutsideClick = (e: MouseEvent) => {
-      if (firstElement.value?.contains(e.target as HTMLElement) || popupRef.value?.contains(e.target as HTMLElement)) {
+      if (
+        firstElement.value?.contains(e.target as HTMLElement) ||
+        popupRef.value?.contains(e.target as HTMLElement)
+      ) {
         return
       }
 
@@ -306,7 +328,11 @@ export default defineComponent({
     // contextMenu
     const handleContextmenu = (e: MouseEvent) => {
       // (attrs as any).onContextmenu?.(e);
-      if (props.disabled || !triggerMethods.value.includes('contextMenu') || (computedVisible.value && !props.clickToClose)) {
+      if (
+        props.disabled ||
+        !triggerMethods.value.includes('contextMenu') ||
+        (computedVisible.value && !props.clickToClose)
+      ) {
         return
       }
       updateMousePosition(e)
@@ -410,7 +436,11 @@ export default defineComponent({
                     onBeforeLeave={onAnimationStart}
                     onAfterLeave={handleHide}
                   >
-                    <div class={`${ns}-popup-wrapper`} style={transformStyle.value} v-show={computedVisible.value}>
+                    <div
+                      class={`${ns}-popup-wrapper`}
+                      style={transformStyle.value}
+                      v-show={computedVisible.value}
+                    >
                       <div class={[`${ns}-content`, props.contentClass]} style={props.contentStyle}>
                         {slots.content?.()}
                       </div>

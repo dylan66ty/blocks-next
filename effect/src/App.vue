@@ -31,10 +31,14 @@
 
   import Cascader from './components/Cascader.vue'
   import SwitchChangeEvent from './components/Switch-change-event.vue'
+
+  import Descriptions from './components/Descriptions.vue'
 </script>
 
 <template>
-  <Select />
+  <!-- <Dialog /> -->
+
+  <Descriptions />
 </template>
 
 <style></style>

@@ -26,6 +26,8 @@ export * from './progress'
 export * from './tag'
 export * from './badge'
 export * from './cascader'
+export * from './descriptions'
+export * from './descriptions-item'
 
 // methods
 export * from './message'

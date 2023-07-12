@@ -1,11 +1,6 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-const tab = ref('1')
-
-
-
-
-
+  import { ref } from 'vue'
+  const tab = ref('1')
 </script>
 
 <template>
@@ -15,10 +10,10 @@ const tab = ref('1')
     </bn-tab-pane>
     <bn-tab-pane key="2" title="待付款">
       <h1>待付款</h1>
-    </bn-tab-pane>  
+    </bn-tab-pane>
     <bn-tab-pane key="3" title="已付款">
       <h1>已付款</h1>
-    </bn-tab-pane>  
+    </bn-tab-pane>
   </bn-tabs>
 </template>
 

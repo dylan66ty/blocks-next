@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref } from 'vue'
 
-  const model = ref('0');
+  const model = ref('0')
 
   const beforeChange = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(true);
-      }, 300);
-    });
-  };
+        resolve(true)
+      }, 300)
+    })
+  }
 
   const handleChange = (val) => {
-    console.log(val);
-  };
+    console.log(val)
+  }
 </script>
 
 <template>

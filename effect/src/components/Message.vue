@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-import { Message, IMessageType } from '@blocks-next/index'
-const handler = (type:IMessageType) => {
-  Message({
-    message: '起床上班了',
-    type,
-  })
-}
-
+  import { Message, IMessageType } from '@blocks-next/index'
+  const handler = (type: IMessageType) => {
+    Message({
+      message: '起床上班了',
+      type
+    })
+  }
 </script>
 
 <template>
@@ -16,8 +15,6 @@ const handler = (type:IMessageType) => {
     <bn-button @click="handler('strong')" type="strong">strong</bn-button>
     <bn-button @click="handler('error')" type="danger">danger</bn-button>
     <bn-button @click="handler('info')">info</bn-button>
-
-
   </div>
 </template>
 

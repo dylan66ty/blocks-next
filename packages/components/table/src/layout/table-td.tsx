@@ -60,7 +60,9 @@ export default defineComponent({
     const tableContext = inject<TableContext>(tableInjectionKey)
 
     // 当前的prop是否在resizing
-    const propHasResizing = computed(() => tableContext?.resizeStore?.prop === props.column.prop && props.column.prop)
+    const propHasResizing = computed(
+      () => tableContext?.resizeStore?.prop === props.column.prop && props.column.prop
+    )
     // 表格水平滚动位置。左 中 右
     const horScrollPosition = computed(() => tableContext?.scroll?.horScrollPosition)
 
@@ -105,7 +107,9 @@ export default defineComponent({
           return (
             <Checkbox
               modelValue={tableContext?.opsStore?.selectionRows?.includes(props.record.raw!)}
-              onChange={(checked: boolean) => tableContext?.opsStore?.toggleSelect!(props.record.raw!, checked)}
+              onChange={(checked: boolean) =>
+                tableContext?.opsStore?.toggleSelect!(props.record.raw!, checked)
+              }
               disabled={Boolean(props.record.disabled)}
               validateEvent={false}
               // @ts-ignore: click
@@ -116,7 +120,9 @@ export default defineComponent({
         // 有children TODO
       },
       index() {
-        return props.column.renderIndex ? props.column.renderIndex({ column: props.column, index: props.rowIndex! }) : props.rowIndex! + 1
+        return props.column.renderIndex
+          ? props.column.renderIndex({ column: props.column, index: props.rowIndex! })
+          : props.rowIndex! + 1
       }
     }
 
@@ -128,7 +134,9 @@ export default defineComponent({
       if (slots.default) {
         return slots.default()
       }
-      return <span class={['bn-table__cell']}>{isOpsType.value ? renderOps() : renderContent()}</span>
+      return (
+        <span class={['bn-table__cell']}>{isOpsType.value ? renderOps() : renderContent()}</span>
+      )
     }
 
     return () => {

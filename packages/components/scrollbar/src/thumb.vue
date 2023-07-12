@@ -13,7 +13,11 @@
       const track_ns = getNamespace('scrollbar-track')
       const trackCls = computed(() => [track_ns, `${track_ns}__${props.direction}`])
       const thumb_ns = getNamespace('scrollbar-thumb')
-      const thumbCls = computed(() => [thumb_ns, `${thumb_ns}__${props.direction}`, isDragging.value && 'is-dragging'])
+      const thumbCls = computed(() => [
+        thumb_ns,
+        `${thumb_ns}__${props.direction}`,
+        isDragging.value && 'is-dragging'
+      ])
 
       const trackRef = ref<HTMLElement>()
       const thumbRef = ref<HTMLElement>()
@@ -50,7 +54,9 @@
       const handleThumbMouseDown = (ev: MouseEvent) => {
         ev.preventDefault()
         if (thumbRef.value) {
-          mouseOffset.value = ev[thumbMap.value.client] - thumbRef.value.getBoundingClientRect()[thumbMap.value.direction]
+          mouseOffset.value =
+            ev[thumbMap.value.client] -
+            thumbRef.value.getBoundingClientRect()[thumbMap.value.direction]
           isDragging.value = true
           on(window, 'mousemove', handleMouseMove)
           on(window, 'mouseup', handleMouseUp)
@@ -63,7 +69,8 @@
 
         if (thumbRef.value) {
           const _offset = getLegalOffset(
-            ev[thumbMap.value.client] > thumbRef.value.getBoundingClientRect()[thumbMap.value.direction]
+            ev[thumbMap.value.client] >
+              thumbRef.value.getBoundingClientRect()[thumbMap.value.direction]
               ? offset.value + (props.data?.thumbSize ?? 0)
               : offset.value - (props.data?.thumbSize ?? 0)
           )
@@ -87,7 +94,9 @@
       const handleMouseMove = (ev: MouseEvent) => {
         if (trackRef.value && thumbRef.value) {
           const _offset = getLegalOffset(
-            ev[thumbMap.value.client] - trackRef.value.getBoundingClientRect()[thumbMap.value.direction] - mouseOffset.value
+            ev[thumbMap.value.client] -
+              trackRef.value.getBoundingClientRect()[thumbMap.value.direction] -
+              mouseOffset.value
           )
           if (_offset !== offset.value) {
             offset.value = _offset
@@ -129,6 +138,7 @@
 
 <template>
   <div ref="trackRef" :class="trackCls" @mousedown.self="handleTrackClick">
-    <div ref="thumbRef" :class="thumbCls" :style="thumbStyle" @mousedown="handleThumbMouseDown"> </div>
+    <div ref="thumbRef" :class="thumbCls" :style="thumbStyle" @mousedown="handleThumbMouseDown">
+    </div>
   </div>
 </template>

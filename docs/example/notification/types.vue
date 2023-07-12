@@ -1,15 +1,13 @@
 <script lang="ts" setup>
-import { Notification } from 'blocks-next'
+  import { Notification } from 'blocks-next'
 
-const open = (type) => {
-  Notification({
-    title: '温馨提示',
-    message: '由于您长时间未登录，为保证系统安全，请您重新登录！',
-    type
-  })
-}
-
-
+  const open = (type) => {
+    Notification({
+      title: '温馨提示',
+      message: '由于您长时间未登录，为保证系统安全，请您重新登录！',
+      type
+    })
+  }
 </script>
 
 <template>
@@ -20,7 +18,6 @@ const open = (type) => {
     <bn-button size="small" type="strong" @click="open('strong')">strong</bn-button>
     <bn-button size="small" type="danger" @click="open('error')">error</bn-button>
     <bn-button size="small" @click="open('none')">none</bn-button>
-
   </bn-space>
 </template>
 

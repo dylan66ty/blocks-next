@@ -122,13 +122,27 @@
 
 <template>
   <ul :class="cls" @click="onPagerClick">
-    <li v-if="pageCount > 0" :class="[currentPage === 1 && 'is-active', disabled && 'is-disabled', 'number']"> 1 </li>
+    <li
+      v-if="pageCount > 0"
+      :class="[currentPage === 1 && 'is-active', disabled && 'is-disabled', 'number']"
+    >
+      1
+    </li>
     <li v-if="showPrevMore" :class="['more quickprev', disabled && 'is-disabled']"> </li>
-    <li v-for="pager in pagers" :key="pager" :class="[currentPage === pager && 'is-active', disabled && 'is-disabled']" class="number">
+    <li
+      v-for="pager in pagers"
+      :key="pager"
+      :class="[currentPage === pager && 'is-active', disabled && 'is-disabled']"
+      class="number"
+    >
       {{ pager }}
     </li>
     <li v-if="showNextMore" :class="['more quicknext', disabled && 'is-disabled']"> </li>
-    <li v-if="pageCount > 1" :class="[currentPage === pageCount && 'is-active', disabled && 'is-disabled']" class="number">
+    <li
+      v-if="pageCount > 1"
+      :class="[currentPage === pageCount && 'is-active', disabled && 'is-disabled']"
+      class="number"
+    >
       {{ pageCount }}
     </li>
   </ul>

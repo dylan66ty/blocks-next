@@ -87,11 +87,15 @@ export const pipe = (...fns: any[]) => {
   )
 }
 
-export const findLastIndex = (arr = [], callback: (item: any, i: number, origin: any[]) => boolean) => {
+export const findLastIndex = (
+  arr = [],
+  callback: (item: any, i: number, origin: any[]) => boolean
+) => {
   let lastIndex = -1
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = arr.length - 1; i >= 0; i--) {
     if (callback(arr[i], i, arr)) {
       lastIndex = i
+      break
     }
   }
   return lastIndex

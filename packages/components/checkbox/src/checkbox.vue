@@ -24,7 +24,9 @@
 
       const model = computed({
         get() {
-          return isGroup.value ? checkboxGroup?.modelValue?.value : props.modelValue ?? selfModel.value
+          return isGroup.value
+            ? checkboxGroup?.modelValue?.value
+            : props.modelValue ?? selfModel.value
         },
         set(val) {
           if (isGroup.value) {

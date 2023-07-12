@@ -25,7 +25,17 @@
   --bn-button-large-border-radius: 6px;
 }
 
-@mixin button-type($color, $bgColor, $borderColor, $hoverColor, $hoverBgColor, $hoverBorderColor, $activeColor, $activeBgColor, $activeBorderColor) {
+@mixin button-type(
+  $color,
+  $bgColor,
+  $borderColor,
+  $hoverColor,
+  $hoverBgColor,
+  $hoverBorderColor,
+  $activeColor,
+  $activeBgColor,
+  $activeBorderColor
+) {
   --bn-button-background-color: #{$bgColor};
   --bn-button-color: #{$color};
   --bn-button-border-color: #{$borderColor};

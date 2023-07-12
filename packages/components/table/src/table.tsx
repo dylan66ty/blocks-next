@@ -18,7 +18,12 @@ import ColGroup from './layout/table-col-group'
 import SettingIcon from './layout/table-setting-icon'
 import Loading from './layout/table-loading'
 
-import { injectPrivatePropToTableColumnData, injectPrivatePropToTableData, splitColumns, genSortFn } from './utils'
+import {
+  injectPrivatePropToTableColumnData,
+  injectPrivatePropToTableData,
+  splitColumns,
+  genSortFn
+} from './utils'
 import { tableInjectionKey, tableColumnInjectionKey } from './context'
 
 import { useSelection } from './hooks/use-selection'
@@ -47,7 +52,8 @@ export default defineComponent({
     // resize
     const thRefs = ref<Record<string, HTMLElement>>({})
 
-    const { theadComRef, tbodyComRef, horScrollPosition, onTbodyScroll } = useScroll(renderDataColumns)
+    const { theadComRef, tbodyComRef, horScrollPosition, onTbodyScroll } =
+      useScroll(renderDataColumns)
 
     // sortable
     const { activeProp, activeSort, isSortPopup, handleSortChange } = useSorter({
@@ -125,7 +131,12 @@ export default defineComponent({
       const Component = Scrollbar
       return (
         <div class={[`${ns}__header`]}>
-          <Component ref={theadComRef} class={[`${ns}__header-scroll`]} hide={true} disableVertical={true}>
+          <Component
+            ref={theadComRef}
+            class={[`${ns}__header-scroll`]}
+            hide={true}
+            disableVertical={true}
+          >
             <table
               cellpadding={0}
               cellspacing={0}
@@ -135,14 +146,20 @@ export default defineComponent({
                 tableLayout: 'fixed'
               }}
             >
-              {renderDataColumns.value.length !== 0 && <ColGroup dataColumns={renderDataColumns.value} columnWidth={columnWidth} />}
+              {renderDataColumns.value.length !== 0 && (
+                <ColGroup dataColumns={renderDataColumns.value} columnWidth={columnWidth} />
+              )}
               <Thead>
                 {renderGroupColumns.value.map((row, index) => {
                   return (
                     <Tr key={`header-row-${index}`}>
                       {row.map((column, index) => {
                         // 最后一个不添加可拖动区域
-                        const resizable = props.border && props.columnResizable && Boolean(column.prop) && index < row.length - 1
+                        const resizable =
+                          props.border &&
+                          props.columnResizable &&
+                          Boolean(column.prop) &&
+                          index < row.length - 1
 
                         return (
                           <Th
@@ -257,9 +274,15 @@ export default defineComponent({
                 minWidth: calcTableBodyMinWidth.value
               }}
             >
-              {renderData.value.length !== 0 && <ColGroup dataColumns={renderDataColumns.value} columnWidth={columnWidth} />}
+              {renderData.value.length !== 0 && (
+                <ColGroup dataColumns={renderDataColumns.value} columnWidth={columnWidth} />
+              )}
 
-              <Tbody>{renderData.value.length > 0 ? renderData.value.map((record, index) => renderRecord(record, index)) : renderEmpty()}</Tbody>
+              <Tbody>
+                {renderData.value.length > 0
+                  ? renderData.value.map((record, index) => renderRecord(record, index))
+                  : renderEmpty()}
+              </Tbody>
             </table>
           </Component>
         </div>
@@ -346,7 +369,14 @@ export default defineComponent({
 
     return () => {
       return (
-        <div class={[ns, props.border && 'is-border', props.hover && 'is-hover', props.stripe && 'is-stripe']}>
+        <div
+          class={[
+            ns,
+            props.border && 'is-border',
+            props.hover && 'is-hover',
+            props.stripe && 'is-stripe'
+          ]}
+        >
           {renderTable()}
           {slots.footer && <div class={[`${ns}__external-footer`]}>{slots.footer()}</div>}
 

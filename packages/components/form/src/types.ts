@@ -23,7 +23,10 @@ export type FormContext = FormProps & {
   removeField: (field: FormItemContext) => void
   resetFields: (props?: Arrayable<FormItemProp>) => void
   clearValidate: (props?: Arrayable<FormItemProp>) => void
-  validateField: (props?: Arrayable<FormItemProp>, callback?: FormValidateCallback) => FormValidationResult
+  validateField: (
+    props?: Arrayable<FormItemProp>,
+    callback?: FormValidateCallback
+  ) => FormValidationResult
 }
 
 export interface FormItemContext extends FormItemProps {

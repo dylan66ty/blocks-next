@@ -8,7 +8,7 @@
   import { useOverflow } from '../../../hooks/use-overflow'
   import { KEYBOARD_KEY } from '../../../utils/keyboard'
   import { getElement, off, on } from '../../../utils/dom'
-  import { dialogProps } from './dialog'
+  import { dialogProps } from './props'
 
   const styleProps = ['width', 'minWidth', 'height', 'minHeight'] as const
   type StyleProps = (typeof styleProps)[number]
@@ -21,7 +21,11 @@
     setup(props, { emit }) {
       const ns = getNamespace('dialog')
       const messageBoxNs = getNamespace('message-box')
-      const cls = computed(() => [ns, props.messageBox && 'is-message-box', props.popupClass && props.popupClass])
+      const cls = computed(() => [
+        ns,
+        props.messageBox && 'is-message-box',
+        props.popupClass && props.popupClass
+      ])
 
       const teleportContainer = computed(() => getElement(props.renderTo))
       const dialogRef = ref<HTMLElement>()
@@ -182,13 +186,23 @@
 
 <template>
   <teleport :to="teleportContainer" :disabled="teleportDisabled">
-    <div v-show="mergeVisible" v-if="!destroyOnClosed || mergeVisible" ref="dialogRef" :class="cls" :style="dialogStyle">
+    <div
+      v-show="mergeVisible"
+      v-if="!destroyOnClosed || mergeVisible"
+      ref="dialogRef"
+      :class="cls"
+      :style="dialogStyle"
+    >
       <transition name="bn-fade-in-standard" appear>
         <div v-if="mask" v-show="modelVisible" :class="[`${ns}__mask`]"></div>
       </transition>
       <div :class="[`${ns}__wrapper`, { 'is-center': center }]" @click.self="handleMaskClick">
         <transition name="bn-zoom-in" appear @after-enter="afterEnter" @after-leave="afterLeave">
-          <div v-show="modelVisible" :class="[`${ns}__container`, { 'is-fullscreen': fullscreen }]" :style="containerStyle">
+          <div
+            v-show="modelVisible"
+            :class="[`${ns}__container`, { 'is-fullscreen': fullscreen }]"
+            :style="containerStyle"
+          >
             <div :class="[`${messageBox ? messageBoxNs : ns}__header`]">
               <div v-if="!$slots['title']" :class="[`${ns}__header-title`]">
                 {{ title }}
@@ -199,10 +213,19 @@
               <slot></slot>
             </div>
             <div :class="[`${messageBox ? messageBoxNs : ns}__footer`]">
-              <slot name="footer" :cancel="handleCancel" :ok="handleOk" :loading-obj="loadingObj"></slot>
+              <slot
+                name="footer"
+                :cancel="handleCancel"
+                :ok="handleOk"
+                :loading-obj="loadingObj"
+              ></slot>
             </div>
 
-            <span :class="[`${ns}__close-icon`]" @click="interceptClose('cancel')"></span>
+            <span
+              v-if="showClose"
+              :class="[`${ns}__close-icon`]"
+              @click="interceptClose('cancel')"
+            ></span>
           </div>
         </transition>
       </div>

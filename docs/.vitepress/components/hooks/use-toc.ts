@@ -40,6 +40,6 @@ export function mapHeaders(headers: Headers) {
   return headers.map((header) => ({
     text: header.title,
     link: `#${header.slug}`,
-    children: header.children ? mapHeaders(header.children) : undefined,
+    children: header.children ? mapHeaders(header.children) : undefined
   }))
 }

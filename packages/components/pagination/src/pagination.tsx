@@ -50,7 +50,10 @@ export default defineComponent({
 
     // 一共多少页
     const pageCountBridge = computed<number>(() => {
-      const pageCount = Math.max(1, Math.ceil((props.pageConfig.total as number) / pageSizeBridge.value!))
+      const pageCount = Math.max(
+        1,
+        Math.ceil((props.pageConfig.total as number) / pageSizeBridge.value!)
+      )
       return pageCount
     })
 
@@ -123,7 +126,9 @@ export default defineComponent({
         total: h(LayoutComponentTotal, { total: props.pageConfig.total || 0 })
       }
 
-      const needRenderComponents = props.layout.split(',').map((item: string) => item.trim()) as LayoutKey[]
+      const needRenderComponents = props.layout
+        .split(',')
+        .map((item: string) => item.trim()) as LayoutKey[]
 
       needRenderComponents.forEach((layoutName: LayoutKey) => {
         if (layoutRenderMap[layoutName]) {

@@ -25,7 +25,11 @@ export default defineComponent({
   setup(props) {
     const ns = getNamespace('cascader-panel')
 
-    const cls = computed(() => [`${ns}__option`, props.active && 'is-active', props.node.disabled && 'is-disabled'])
+    const cls = computed(() => [
+      `${ns}__option`,
+      props.active && 'is-active',
+      props.node.disabled && 'is-disabled'
+    ])
     const cascaderContext = inject<Partial<CascaderContext>>(cascaderInjectionKey, {})
 
     const isLoading = ref(false)

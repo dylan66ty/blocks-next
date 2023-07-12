@@ -1,47 +1,46 @@
-import path from 'path';
-import fs from 'fs';
-import MarkdownIt from 'markdown-it';
-import mdContainer from 'markdown-it-container';
-import type Token from 'markdown-it/lib/token';
-import type Renderer from 'markdown-it/lib/renderer';
-import { projRoot } from '../utils/paths';
-// markdown plugin 
-import tag from '../plugins/tag';
-import codeBlock from '../plugins/code-block';
-import TableWrapper from '../plugins/table-wrapper';
+import path from 'path'
+import fs from 'fs'
+import MarkdownIt from 'markdown-it'
+import mdContainer from 'markdown-it-container'
+import type Token from 'markdown-it/lib/token'
+import type Renderer from 'markdown-it/lib/renderer'
+import { projRoot } from '../utils/paths'
+// markdown plugin
+import tag from '../plugins/tag'
+import codeBlock from '../plugins/code-block'
+import TableWrapper from '../plugins/table-wrapper'
 
+import { red } from 'kolorist'
 
-import { red } from 'kolorist';
+import { highlight } from '../utils/highlight'
 
-import { highlight } from '../utils/highlight';
-
-const localMd = MarkdownIt();
+const localMd = MarkdownIt()
 
 interface ContainerOpts {
-  marker?: string | undefined;
-  validate?(params: string): boolean;
-  render?(tokens: Token[], index: number, options: any, env: any, self: Renderer): string;
+  marker?: string | undefined
+  validate?(params: string): boolean
+  render?(tokens: Token[], index: number, options: any, env: any, self: Renderer): string
 }
 
 export const mdPlugin = (md: markdownit) => {
-  md.use(tag);
-  md.use(codeBlock);
+  md.use(tag)
+  md.use(codeBlock)
   md.use(mdContainer, 'demo', {
     // 匹配markdown是否包含容器
     validate(params: string) {
-      return !!params.trim().match(/^demo\s*(.*)$/);
+      return !!params.trim().match(/^demo\s*(.*)$/)
     },
     // 容器渲染处理
     render(tokens, idx) {
       if (tokens[idx].nesting === 1) {
         // 匹配demo字符串，并截取demo后面的描述
-        const m = tokens[idx].info.trim().match(/^demo\s*(.*)$/);
-        const description = m && m.length > 1 ? m[1] : '';
+        const m = tokens[idx].info.trim().match(/^demo\s*(.*)$/)
+        const description = m && m.length > 1 ? m[1] : ''
 
         // 从token流获取容器内容块
-        const sourceFileToken = tokens[idx + 2];
-        let source = '';
-        const sourceFile = sourceFileToken.children?.[0].content ?? '';
+        const sourceFileToken = tokens[idx + 2]
+        let source = ''
+        const sourceFile = sourceFileToken.children?.[0].content ?? ''
 
         // 判断是否是内容块是否是inline类型
         if (sourceFileToken.type === 'inline') {
@@ -50,11 +49,11 @@ export const mdPlugin = (md: markdownit) => {
             // 如果查找不到文件抛出异常
             source = fs.readFileSync(
               path.resolve(projRoot, 'example', `${sourceFile}.vue`),
-              'utf-8',
-            );
+              'utf-8'
+            )
           } catch (error) {
-            console.error(red((error as Error).message));
-            throw new Error(`example目录不存在: ${sourceFile} 目录或者文件`);
+            console.error(red((error as Error).message))
+            throw new Error(`example目录不存在: ${sourceFile} 目录或者文件`)
           }
         }
         /**
@@ -65,15 +64,14 @@ export const mdPlugin = (md: markdownit) => {
          * @param description 描述 localMd.render 按照原始Markdown去处理内容转换标签
          */
         return `<Demo :demos="demos" source="${encodeURIComponent(
-          highlight(source, 'vue'),
+          highlight(source, 'vue')
         )}" :path="path" pathName="${sourceFile}" raw-source="${encodeURIComponent(
-          source,
-        )}" description="${encodeURIComponent(localMd.render(description))}">`;
+          source
+        )}" description="${encodeURIComponent(localMd.render(description))}">`
       }
 
-
-      return '</Demo>';
-    },
-  } as ContainerOpts);
-  md.use(TableWrapper);
-};
+      return '</Demo>'
+    }
+  } as ContainerOpts)
+  md.use(TableWrapper)
+}

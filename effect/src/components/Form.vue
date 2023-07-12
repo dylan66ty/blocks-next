@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-  import { onMounted, ref } from 'vue';
+  import { onMounted, ref } from 'vue'
 
   const ruleForm = ref({
     name: 'Name',
     age: 'Age',
     textarea: '1313',
-    hobby: ['Vue'],
-  });
+    hobby: ['Vue']
+  })
 
   onMounted(() => {
     // console.log(formRef.value);
-  });
+  })
 
   const rules = {
     name: [{ message: 'name error', min: 3, max: 10, trigger: 'change' }],
@@ -20,27 +20,27 @@
         required: true,
         type: 'array',
         message: 'checkbox 验证',
-        trigger: 'change',
-      },
+        trigger: 'change'
+      }
     ],
-    textarea: [],
-  };
+    textarea: []
+  }
 
-  const labelPosition = ref('top');
+  const labelPosition = ref('top')
 
   const formItemRules = [
-    { required: true, min: 3, max: 5, message: 'textarea 长度在 3 到 5 个字符', trigger: 'change' },
-  ];
+    { required: true, min: 3, max: 5, message: 'textarea 长度在 3 到 5 个字符', trigger: 'change' }
+  ]
 
-  const formRef = ref(null);
+  const formRef = ref(null)
 
-  onMounted(() => {});
+  onMounted(() => {})
 
   const submitForm = () => {
     formRef.value?.validate((valid: boolean) => {
-      console.log(valid);
-    });
-  };
+      console.log(valid)
+    })
+  }
 </script>
 
 <template>

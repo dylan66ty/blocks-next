@@ -6,42 +6,62 @@ const nativeProps = {
     default: 'off'
   },
   name: {
-    type: String as PropType<string>,
+    type: String,
     default: ''
   },
   readonly: {
-    type: Boolean as PropType<boolean>,
+    type: Boolean,
     default: false
   },
   autofocus: {
-    type: Boolean as PropType<boolean>,
+    type: Boolean,
     default: false
   },
   form: {
-    type: String as PropType<string>,
+    type: String,
     default: ''
   }
 }
 
 export const inputProps = {
-  modelValue: [String, Number] as PropType<string | number>,
-  value: [String, Number] as PropType<string | number>,
+  modelValue: {
+    type: [String, Number] as PropType<string | number>,
+    default: ''
+  },
+  value: {
+    type: [String, Number] as PropType<string | number>,
+    default: ''
+  },
   type: {
     type: String as PropType<'text' | 'textarea'>,
     default: 'text'
   },
-  placeholder: String as PropType<string>,
-  disabled: Boolean as PropType<boolean>,
-  error: Boolean as PropType<boolean>,
-  size: String as PropType<'small' | 'default' | 'large'>,
-  showPassword: Boolean as PropType<boolean>,
-  resize: Boolean as PropType<boolean>,
+  placeholder: {
+    type: String,
+    default: '请输入'
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  size: {
+    type: String as PropType<'small' | 'default' | 'large'>,
+    default: 'default'
+  },
+  showPassword: {
+    type: Boolean,
+    default: false
+  },
+  resize: {
+    type: Boolean,
+    default: false
+  },
   prefixIcon: {
-    type: String as PropType<string>,
+    type: String,
     default: ''
   },
   suffixIcon: {
-    type: String as PropType<string>,
+    type: String,
     default: ''
   },
   autosize: {
@@ -50,7 +70,8 @@ export const inputProps = {
   },
   // 过滤器
   formatter: {
-    type: Function
+    type: Function,
+    default: undefined
   },
   //form表单验证相关
   validateEvent: {

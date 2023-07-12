@@ -1,5 +1,15 @@
 <script lang="ts">
-  import { computed, defineComponent, provide, inject, reactive, ref, nextTick, onMounted, onBeforeUnmount } from 'vue'
+  import {
+    computed,
+    defineComponent,
+    provide,
+    inject,
+    reactive,
+    ref,
+    nextTick,
+    onMounted,
+    onBeforeUnmount
+  } from 'vue'
   import type { StyleValue, CSSProperties } from 'vue'
 
   import type { RuleItem } from 'async-validator'
@@ -44,7 +54,9 @@
         // 如果form表单上rules里面有required字段 如果form-item上也有required字段 会合并required字段到rules上 required取值为form-item上的值
         // 如果form表单上rules里面没有required字段 增加一条验证规则 required false
         if (required !== undefined) {
-          const requiredRules = rules.map((rule, i) => [rule, i] as const).filter(([rule]) => Object.keys(rule).includes('required'))
+          const requiredRules = rules
+            .map((rule, i) => [rule, i] as const)
+            .filter(([rule]) => Object.keys(rule).includes('required'))
           if (requiredRules.length > 0) {
             for (const [rule, i] of requiredRules) {
               if (rule.required === required) continue
@@ -147,7 +159,10 @@
         validateState.value = state
       }
 
-      const shouldShowError = computed(() => props.showMessage && (formContext?.showMessage ?? true) && validateState.value === 'error')
+      const shouldShowError = computed(
+        () =>
+          props.showMessage && (formContext?.showMessage ?? true) && validateState.value === 'error'
+      )
 
       // 表单验证失败
       const onValidationFailed = (error: FormValidateFailure) => {

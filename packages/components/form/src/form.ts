@@ -41,7 +41,8 @@ export const formProps = {
 export type FormProps = ExtractPropTypes<typeof formProps>
 
 export const formEmits = {
-  validate: (prop: FormItemProp, isValid: boolean, message: string) => (isArray(prop) || isString(prop)) && isBoolean(isValid) && isString(message)
+  validate: (prop: FormItemProp, isValid: boolean, message: string) =>
+    (isArray(prop) || isString(prop)) && isBoolean(isValid) && isString(message)
 }
 
 export type FormEmits = typeof formEmits

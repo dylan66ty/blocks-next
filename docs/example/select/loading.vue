@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref } from 'vue'
 
-  const langs = ref<string[]>([]);
-  const model = ref('');
-  const loading = ref(false);
+  const langs = ref<string[]>([])
+  const model = ref('')
+  const loading = ref(false)
 
   const getLangs = (hasValue) => {
-    loading.value = true;
+    loading.value = true
     setTimeout(() => {
       if (hasValue) {
-        langs.value = ['Vue', 'React', 'Angular', 'Java', 'Python', 'JavaScript', 'Golang'];
+        langs.value = ['Vue', 'React', 'Angular', 'Java', 'Python', 'JavaScript', 'Golang']
       } else {
-        langs.value = [];
+        langs.value = []
       }
 
-      loading.value = false;
-    }, 3000);
-  };
+      loading.value = false
+    }, 3000)
+  }
 </script>
 
 <template>

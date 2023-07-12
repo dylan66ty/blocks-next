@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-  import { computed, ref } from 'vue';
+  import { computed, ref } from 'vue'
 
-  const options = ['Vue', 'React', 'Angular'];
+  const options = ['Vue', 'React', 'Angular']
 
-  const checked = ref<Array<string>>(['Vue']);
+  const checked = ref<Array<string>>(['Vue'])
 
   const checkAll = computed(() => {
-    return !!(checked.value.length === options.length && checked.value.length);
-  });
+    return !!(checked.value.length === options.length && checked.value.length)
+  })
 
   const indeterminate = computed(() => {
-    return !!(checked.value.length < options.length && checked.value.length);
-  });
+    return !!(checked.value.length < options.length && checked.value.length)
+  })
 
   const toggleAll = (val) => {
-    checked.value = !val ? [] : options;
-  };
+    checked.value = !val ? [] : options
+  }
 </script>
 
 <template>

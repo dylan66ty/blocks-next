@@ -18,7 +18,8 @@ export default defineComponent({
   setup(props) {
     return () => {
       const getStyle = (column: TableColumnData) => {
-        const width = (props.columnWidth && column.prop && props.columnWidth[column.prop]) || column.width
+        const width =
+          (props.columnWidth && column.prop && props.columnWidth[column.prop]) || column.width
         if (width) {
           return {
             width: addUnit(width),

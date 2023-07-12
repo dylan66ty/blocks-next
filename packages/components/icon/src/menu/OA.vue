@@ -14,7 +14,14 @@
 
 <template>
   <IconComponent v-bind="{ ...$props, ...$attrs }">
-    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
       <title>协同办公</title>
       <g id="图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="图标1" transform="translate(-327.000000, -203.000000)" fill="#242934">
@@ -32,7 +39,10 @@
                   fill-rule="nonzero"
                 ></path>
                 <rect id="矩形" x="8" y="7" width="2" height="4"></rect>
-                <polygon id="矩形" points="1.67379174 8 16.2885112 8 16.2885112 10 1.67379174 10"></polygon>
+                <polygon
+                  id="矩形"
+                  points="1.67379174 8 16.2885112 8 16.2885112 10 1.67379174 10"
+                ></polygon>
               </g>
             </g>
           </g>

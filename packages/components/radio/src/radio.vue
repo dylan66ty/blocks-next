@@ -56,7 +56,12 @@
 
       const isFocused = ref(false)
 
-      const cls = computed(() => [ns, isChecked.value && 'is-checked', props.disabled && 'is-disabled', isFocused.value && 'is-focus'])
+      const cls = computed(() => [
+        ns,
+        isChecked.value && 'is-checked',
+        props.disabled && 'is-disabled',
+        isFocused.value && 'is-focus'
+      ])
 
       // evt
       const handleChange = () => {

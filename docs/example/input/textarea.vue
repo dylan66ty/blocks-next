@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref } from 'vue'
 
-  const textarea = ref('');
+  const textarea = ref('')
 </script>
 
 <template>

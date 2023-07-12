@@ -51,17 +51,34 @@
   <div :class="cls">
     <div :class="[`${ns}__image`]">
       <slot name="image">
-        <svg xmlns="http://www.w3.org/2000/svg" :style="imageStyle" viewBox="0 0 244 120" version="1.1">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          :style="imageStyle"
+          viewBox="0 0 244 120"
+          version="1.1"
+        >
           <defs>
             <linearGradient id="linearGradient-1" x1="50%" y1="0%" x2="50%" y2="50%">
               <stop stop-color="#CAD5EB" offset="0%" />
               <stop stop-color="#ECEFF6" stop-opacity="0" offset="99.9289773%" />
             </linearGradient>
-            <linearGradient id="linearGradient-2" x1="34.5854478%" y1="9.89324279%" x2="67.8456655%" y2="94.5431915%">
+            <linearGradient
+              id="linearGradient-2"
+              x1="34.5854478%"
+              y1="9.89324279%"
+              x2="67.8456655%"
+              y2="94.5431915%"
+            >
               <stop stop-color="#A1AFCB" offset="0.0628277972%" />
               <stop stop-color="#D8E0EE" offset="100%" />
             </linearGradient>
-            <linearGradient id="linearGradient-3" x1="16.7449114%" y1="74.7991872%" x2="75.8928571%" y2="30.6222098%">
+            <linearGradient
+              id="linearGradient-3"
+              x1="16.7449114%"
+              y1="74.7991872%"
+              x2="75.8928571%"
+              y2="30.6222098%"
+            >
               <stop stop-color="#A4B2CD" offset="0%" />
               <stop stop-color="#E4EAF6" offset="100%" />
             </linearGradient>
@@ -79,7 +96,11 @@
                   fill="url(#linearGradient-2)"
                   opacity="0.5"
                 />
-                <path d="M134,0 L148,14 L138,14 C135.790861,14 134,12.209139 134,10 L134,0 L134,0 Z" fill="url(#linearGradient-3)" opacity="0.5" />
+                <path
+                  d="M134,0 L148,14 L138,14 C135.790861,14 134,12.209139 134,10 L134,0 L134,0 Z"
+                  fill="url(#linearGradient-3)"
+                  opacity="0.5"
+                />
               </g>
             </g>
           </g>

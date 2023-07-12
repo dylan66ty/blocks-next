@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref } from 'vue'
 
   const form = ref({
     name: '',
     age: ''
-  });
+  })
 </script>
 
 <template>
@@ -17,7 +17,7 @@
         <bn-input v-model="form.age"></bn-input>
       </bn-form-item>
       <bn-form-item>
-        <bn-button type="primary" >提交</bn-button>
+        <bn-button type="primary">提交</bn-button>
       </bn-form-item>
     </bn-form>
   </div>

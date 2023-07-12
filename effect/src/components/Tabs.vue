@@ -1,21 +1,19 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+  import { ref } from 'vue'
 
-const key = ref('1')
+  const key = ref('1')
 
-const count = ref(0)
+  const count = ref(0)
 
-setTimeout(() => {
-  count.value = 10
-}, 1000);
+  setTimeout(() => {
+    count.value = 10
+  }, 1000)
 </script>
 
 <template>
   <div class="wrapper">
-    <div style="width:20px">
+    <div style="width: 20px"> </div>
 
-    </div>
-  
     <bn-tabs v-model:activeKey="key" :hidePanes="false" :animation="false" type="button-group">
       <bn-tab-pane title="Tab1" key="1">
         <div v-for="item in 20">{{ 1 }}</div>
@@ -29,7 +27,7 @@ setTimeout(() => {
 </template>
 
 <style lang="scss">
-.wrapper {
-  display: flex;
-}
+  .wrapper {
+    display: flex;
+  }
 </style>

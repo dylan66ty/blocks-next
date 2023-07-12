@@ -1,6 +1,6 @@
 <script lang="tsx">
   import type { PropType, CSSProperties } from 'vue'
-  import { defineComponent, computed, Fragment, Comment } from 'vue'
+  import { defineComponent, computed, Fragment } from 'vue'
   import { isNumber } from '../../../utils/is'
   import { getNamespace, getComponentNamespace } from '../../../utils/global-config'
   import { getAllElements } from '../../../utils/vue-utils'
@@ -30,7 +30,12 @@
     setup(props, { slots }) {
       const ns = getNamespace('space')
 
-      const cls = computed(() => [ns, `${ns}__${props.direction}`, props.fill && `is-fill`, `${ns}__${props.direction}-${props.align}`])
+      const cls = computed(() => [
+        ns,
+        `${ns}__${props.direction}`,
+        props.fill && `is-fill`,
+        `${ns}__${props.direction}-${props.align}`
+      ])
 
       function getMargin(size: SpaceSize) {
         if (isNumber(size)) {
@@ -67,7 +72,7 @@
       }
 
       return () => {
-        const children = getAllElements(slots.default?.().filter((item) => item.type !== Comment) as [])
+        const children = getAllElements(slots.default?.())
 
         return (
           <div class={cls.value}>

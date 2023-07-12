@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+  import { ref } from 'vue'
 
-const form = ref({
-  name: '',
-  email: '',
-  hobby: ['Coding'],
-  contact: 'qq',
-  suggest: '',
-});
+  const form = ref({
+    name: '',
+    email: '',
+    hobby: ['Coding'],
+    contact: 'qq',
+    suggest: ''
+  })
 </script>
 
 <template>

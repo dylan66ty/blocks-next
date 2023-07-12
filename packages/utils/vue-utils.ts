@@ -71,7 +71,11 @@ export const getFirstComponent = (children: VNode[] | undefined): VNode | undefi
 export const getAllElements = (children: VNode[] | undefined, includeText = false) => {
   const results: VNode[] = []
   for (const item of children ?? []) {
-    if (isElement(item) || isComponent(item) || (includeText && isTextChildren(item, item.children))) {
+    if (
+      isElement(item) ||
+      isComponent(item) ||
+      (includeText && isTextChildren(item, item.children))
+    ) {
       results.push(item)
     } else if (isArrayChildren(item, item.children)) {
       results.push(...getAllElements(item.children, includeText))
@@ -113,7 +117,9 @@ export const getFirstElementFromVNode = (vn: VNode): HTMLElement | undefined => 
   return undefined
 }
 
-export const getFirstElementFromChildren = (children: VNode[] | undefined): HTMLElement | undefined => {
+export const getFirstElementFromChildren = (
+  children: VNode[] | undefined
+): HTMLElement | undefined => {
   if (children && children.length > 0) {
     for (const child of children) {
       const element = getFirstElementFromVNode(child)
@@ -123,7 +129,10 @@ export const getFirstElementFromChildren = (children: VNode[] | undefined): HTML
   return undefined
 }
 
-export const mergeFirstChild = (children: VNode[] | undefined, extraProps: Data | ((vn: VNode) => Data)): boolean => {
+export const mergeFirstChild = (
+  children: VNode[] | undefined,
+  extraProps: Data | ((vn: VNode) => Data)
+): boolean => {
   if (children && children.length > 0) {
     for (let i = 0; i < children.length; i++) {
       const child = children[i]

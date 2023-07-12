@@ -1,8 +1,6 @@
-<script lang="ts" setup>
-</script>
+<script lang="ts" setup></script>
 
 <template>
-
   <bn-space :size="30">
     <bn-button type="primary">Primary</bn-button>
     <bn-button type="success">Success</bn-button>

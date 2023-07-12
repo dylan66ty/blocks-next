@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref } from 'vue'
 
-  const model1 = ref(false);
-  const model2 = ref(true);
-  const model3 = ref(true);
+  const model1 = ref(false)
+  const model2 = ref(true)
+  const model3 = ref(true)
 </script>
 
 <template>

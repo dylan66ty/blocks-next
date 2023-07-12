@@ -1,4 +1,15 @@
-import { defineComponent, render, createVNode, ref, computed, nextTick, watch, onUnmounted, onMounted, toRefs } from 'vue'
+import {
+  defineComponent,
+  render,
+  createVNode,
+  ref,
+  computed,
+  nextTick,
+  watch,
+  onUnmounted,
+  onMounted,
+  toRefs
+} from 'vue'
 import type { VNode, CSSProperties } from 'vue'
 
 import { getComponentNamespace } from '../../../utils/global-config'
@@ -60,13 +71,24 @@ export default defineComponent({
       const triggerTarget = getFirstElement(defaultSlot) as HTMLElement
       const containerRect = renderTo.value!.getBoundingClientRect()
       const triggerScrollRect = getElementScrollRect(triggerTarget, containerRect)
-      const getPopupScrollRect = () => getElementScrollRect(popupTarget as HTMLElement, containerRect)
-      const { style, position } = getPopupStyle(computedPosition.value, containerRect, triggerScrollRect, getPopupScrollRect(), {
-        translate: translate.value as [number, number],
-        autoFitPosition: true,
-        offset: isDefault.value ? 6 : 0
-      })
-      const popupTargetStyle: CSSProperties = { ...style, position: 'absolute', 'z-index': zIndex.value }
+      const getPopupScrollRect = () =>
+        getElementScrollRect(popupTarget as HTMLElement, containerRect)
+      const { style, position } = getPopupStyle(
+        computedPosition.value,
+        containerRect,
+        triggerScrollRect,
+        getPopupScrollRect(),
+        {
+          translate: translate.value as [number, number],
+          autoFitPosition: true,
+          offset: isDefault.value ? 6 : 0
+        }
+      )
+      const popupTargetStyle: CSSProperties = {
+        ...style,
+        position: 'absolute',
+        'z-index': zIndex.value
+      }
       // 设置弹出层样式
       setStyle(popupTarget, popupTargetStyle)
 

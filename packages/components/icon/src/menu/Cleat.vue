@@ -14,10 +14,22 @@
 
 <template>
   <IconComponent v-bind="{ ...$props, ...$attrs }">
-    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
       <title>羊只管理系统</title>
       <g id="图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="图标1" transform="translate(-1133.000000, -203.000000)" fill="#272636" fill-rule="nonzero">
+        <g
+          id="图标1"
+          transform="translate(-1133.000000, -203.000000)"
+          fill="#272636"
+          fill-rule="nonzero"
+        >
           <g id="一级-羊只管理系统" transform="translate(1111.000000, 189.000000)">
             <g id="羊只管理系统" transform="translate(22.000000, 14.000000)">
               <path

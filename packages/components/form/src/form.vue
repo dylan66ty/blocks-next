@@ -8,7 +8,13 @@
   import { filterFields } from './utils'
 
   import type { FormItemProp } from './form-item'
-  import type { FormContext, FormItemContext, FormValidateCallback, FormValidateFailure, FormValidationResult } from './types'
+  import type {
+    FormContext,
+    FormItemContext,
+    FormValidateCallback,
+    FormValidateFailure,
+    FormValidationResult
+  } from './types'
 
   export default defineComponent({
     name: getComponentNamespace('Form'),
@@ -16,7 +22,11 @@
     emits: ['validate'],
     setup(props, { emit }) {
       const ns = getNamespace('form')
-      const cls = computed(() => [ns, `${ns}--${props.labelPosition}`, props.inline && `${ns}--inline`])
+      const cls = computed(() => [
+        ns,
+        `${ns}--${props.labelPosition}`,
+        props.inline && `${ns}--inline`
+      ])
 
       const fields: FormItemContext[] = []
 
@@ -106,7 +116,8 @@
       }
 
       // 验证器，可给外部提供这一方法，直接验证保存在fields中的验证对象
-      const validate = async (callback?: FormValidateCallback): FormValidationResult => validateField(undefined, callback)
+      const validate = async (callback?: FormValidateCallback): FormValidationResult =>
+        validateField(undefined, callback)
 
       watch(
         () => props.rules,

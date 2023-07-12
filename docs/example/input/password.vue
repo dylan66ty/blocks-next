@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  const inpVal = ref('');
+  import { ref } from 'vue'
+  const inpVal = ref('')
 </script>
 
 <template>

@@ -45,7 +45,9 @@ export default defineComponent({
       let disabled = false
 
       // 去除disabled row
-      const unDisabledSelection = tableContext?.opsStore?.selectionRows?.filter((row) => !row.disabled)
+      const unDisabledSelection = tableContext?.opsStore?.selectionRows?.filter(
+        (row) => !row.disabled
+      )
       const selectionNumber = unDisabledSelection?.length ?? 0
       const allEnabledSelectionNumber = tableContext?.opsStore?.allEnabledSelectionRows?.length ?? 0
 
@@ -115,7 +117,9 @@ export default defineComponent({
           return (
             <span class={['bn-table__sort']}>
               <CaretArrow
-                color={hitColumnProp.value && activeSort.value === 'ascend' ? activeColor : defColor}
+                color={
+                  hitColumnProp.value && activeSort.value === 'ascend' ? activeColor : defColor
+                }
                 class={['bn-table__sort-ascend']}
                 rotate={180}
                 size={12}
@@ -123,7 +127,9 @@ export default defineComponent({
                 onClick={() => handlerSort('ascend')}
               ></CaretArrow>
               <CaretArrow
-                color={hitColumnProp.value && activeSort.value === 'descend' ? activeColor : defColor}
+                color={
+                  hitColumnProp.value && activeSort.value === 'descend' ? activeColor : defColor
+                }
                 class={['bn-table__sort-descend']}
                 size={12}
                 // @ts-ignore: click
@@ -136,7 +142,12 @@ export default defineComponent({
         if (hitColumnProp.value && activeSort.value === 'ascend') {
           return (
             <span class={['bn-table__sort']}>
-              <CaretArrow class={['bn-table__sort-arrow-center']} color={popupDefColor} rotate={180} size={12} />
+              <CaretArrow
+                class={['bn-table__sort-arrow-center']}
+                color={popupDefColor}
+                rotate={180}
+                size={12}
+              />
             </span>
           )
         }
@@ -144,7 +155,11 @@ export default defineComponent({
         if (hitColumnProp.value && activeSort.value === 'descend') {
           return (
             <span class={['bn-table__sort']}>
-              <CaretArrow class={['bn-table__sort-arrow-center']} color={popupDefColor} size={12}></CaretArrow>
+              <CaretArrow
+                class={['bn-table__sort-arrow-center']}
+                color={popupDefColor}
+                size={12}
+              ></CaretArrow>
             </span>
           )
         }
@@ -182,7 +197,10 @@ export default defineComponent({
 
         if (!isSortPopup.value) {
           return (
-            <span class={[`bn-table__header-title`]} onClick={() => props.column.sortable && handlerSort('')}>
+            <span
+              class={[`bn-table__header-title`]}
+              onClick={() => props.column.sortable && handlerSort('')}
+            >
               {title}
             </span>
           )
@@ -196,7 +214,11 @@ export default defineComponent({
             popupOffset={10}
             v-slots={{
               content: () => (
-                <SorterPopup sortChange={handleSortChangeInPopup} activeSort={activeSort.value} hitColumnProp={hitColumnProp.value}></SorterPopup>
+                <SorterPopup
+                  sortChange={handleSortChangeInPopup}
+                  activeSort={activeSort.value}
+                  hitColumnProp={hitColumnProp.value}
+                ></SorterPopup>
               )
             }}
             onPopupVisibleChange={onPopupVisibleChange}
@@ -220,7 +242,13 @@ export default defineComponent({
     }
 
     const renderCell = () => {
-      return <span class={[`bn-table__cell`]}>{isOpsType.value ? renderOps() : [renderTitle(), props.column.sortable && renderSortIcon()]}</span>
+      return (
+        <span class={[`bn-table__cell`]}>
+          {isOpsType.value
+            ? renderOps()
+            : [renderTitle(), props.column.sortable && renderSortIcon()]}
+        </span>
+      )
     }
 
     const handleMouseDown = (e: MouseEvent) => {
@@ -233,7 +261,9 @@ export default defineComponent({
     const { fixedStyle, isLeftFixedLast, isRightFixedFirst } = useColumnFixed(dataColumns, column)
 
     // 当前的prop是否在resizing
-    const propHasResizing = computed(() => tableContext?.resizeStore?.prop === props.column.prop && props.column.prop)
+    const propHasResizing = computed(
+      () => tableContext?.resizeStore?.prop === props.column.prop && props.column.prop
+    )
     // 表格水平滚动位置。左 中 右
     const horScrollPosition = computed(() => tableContext?.scroll?.horScrollPosition)
 
@@ -265,7 +295,10 @@ export default defineComponent({
           rowspan: rowSpan > 1 ? rowSpan : undefined
         },
         {
-          default: () => [renderCell(), props.resizable && <span class={`${ns}__handler`} onMousedown={handleMouseDown} />]
+          default: () => [
+            renderCell(),
+            props.resizable && <span class={`${ns}__handler`} onMousedown={handleMouseDown} />
+          ]
         }
       )
     }

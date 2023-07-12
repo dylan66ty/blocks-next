@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref } from 'vue'
 
-  const arr = ref([]);
+  const arr = ref([])
 
   setTimeout(() => {
-    arr.value = 20;
-  }, 300);
+    arr.value = 20
+  }, 300)
 </script>
 
 <template>

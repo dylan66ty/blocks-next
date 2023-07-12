@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-const visible = ref(true)
+  import { ref } from 'vue'
+  const visible = ref(true)
 
-const content = ref('This is a Tooltip')
+  const content = ref('This is a Tooltip')
 </script>
 
 <template>

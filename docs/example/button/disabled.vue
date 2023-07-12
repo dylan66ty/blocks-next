@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <bn-space direction="vertical">
@@ -21,8 +19,6 @@
       <bn-button type="strong" plain disabled>强烈警告</bn-button>
       <bn-button type="danger" plain disabled>危险</bn-button>
     </bn-space>
-
-
   </bn-space>
 </template>
 

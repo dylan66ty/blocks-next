@@ -28,7 +28,7 @@
   --color-brown: #ffa657;
 }
 
-div[class*=language-] {
+div[class*='language-'] {
   position: relative;
   width: 100%;
   padding: 16px;
@@ -36,7 +36,6 @@ div[class*=language-] {
   background-color: var(--color-bg-code-block);
   font-size: 14px;
   overflow: auto;
-
 
   &:before {
     content: attr(language);
@@ -49,7 +48,7 @@ div[class*=language-] {
     color: var(--color-gray);
   }
 
-  >pre {
+  > pre {
     margin: 0;
     padding: 0.25rem;
 
@@ -61,7 +60,7 @@ div[class*=language-] {
 }
 
 // 标签
-:not(pre)>code {
+:not(pre) > code {
   margin: 0;
   border-radius: 4px;
   padding: 0.15rem 0.5rem;
@@ -70,8 +69,6 @@ div[class*=language-] {
   color: inherit;
   background-color: var(--color-bg-inline-code-block);
 }
-
-
 
 .token.comment,
 .token.prolog,
@@ -113,7 +110,7 @@ div[class*=language-] {
 .token.inserted,
 .token.regex,
 .token.attr-value,
-.token.attr-value>.token.punctuation {
+.token.attr-value > .token.punctuation {
   color: var(--color-blue);
 }
 
@@ -128,8 +125,8 @@ div[class*=language-] {
 }
 
 /* HTML overrides */
-.token.attr-value>.token.punctuation.attr-equals,
-.token.special-attr>.token.attr-value>.token.value.css {
+.token.attr-value > .token.punctuation.attr-equals,
+.token.special-attr > .token.attr-value > .token.value.css {
   color: var(--color-fg-default);
 }
 

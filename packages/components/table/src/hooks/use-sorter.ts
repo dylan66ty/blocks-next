@@ -16,7 +16,17 @@ const getDirection = (direction: SortDirection) => {
   return sortDirection[index]
 }
 
-export const useSorter = ({ sort, prop, popup, callback }: { sort: SortDirection; prop: string | number; popup: boolean; callback: () => void }) => {
+export const useSorter = ({
+  sort,
+  prop,
+  popup,
+  callback
+}: {
+  sort: SortDirection
+  prop: string | number
+  popup: boolean
+  callback: () => void
+}) => {
   const activeSort = ref<SortDirection>(sort)
   const activeProp = ref(prop)
   const isSortPopup = ref(popup)

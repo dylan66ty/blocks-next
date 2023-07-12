@@ -23,11 +23,17 @@ export const cascaderProps = {
     default: '请选择'
   },
   size: {
-    type: String as PropType<'small' | 'normal' | 'large'>,
-    default: 'normal'
+    type: String as PropType<'small' | 'default' | 'large'>,
+    default: 'default'
   },
-  clearable: Boolean,
-  disabled: Boolean,
+  clearable: {
+    type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
   // 输入框格式化函数
   inputLabelFormat: {
     type: Function as PropType<(labels: string[]) => string>,

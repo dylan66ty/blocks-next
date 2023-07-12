@@ -48,16 +48,26 @@ function calculateNodeStyling(targetElement: Element): NodeStyle {
 
   const boxSizing = style.getPropertyValue('box-sizing')
 
-  const paddingSize = Number.parseFloat(style.getPropertyValue('padding-bottom')) + Number.parseFloat(style.getPropertyValue('padding-top'))
+  const paddingSize =
+    Number.parseFloat(style.getPropertyValue('padding-bottom')) +
+    Number.parseFloat(style.getPropertyValue('padding-top'))
 
-  const borderSize = Number.parseFloat(style.getPropertyValue('border-bottom-width')) + Number.parseFloat(style.getPropertyValue('border-top-width'))
+  const borderSize =
+    Number.parseFloat(style.getPropertyValue('border-bottom-width')) +
+    Number.parseFloat(style.getPropertyValue('border-top-width'))
 
-  const contextStyle = CONTEXT_STYLE.map((name) => `${name}:${style.getPropertyValue(name)}`).join(';')
+  const contextStyle = CONTEXT_STYLE.map((name) => `${name}:${style.getPropertyValue(name)}`).join(
+    ';'
+  )
 
   return { contextStyle, paddingSize, borderSize, boxSizing }
 }
 
-export function calcTextareaHeight(targetElement: HTMLTextAreaElement, minRows = 1, maxRows?: number): TextAreaHeight {
+export function calcTextareaHeight(
+  targetElement: HTMLTextAreaElement,
+  minRows = 1,
+  maxRows?: number
+): TextAreaHeight {
   if (!hiddenTextarea) {
     hiddenTextarea = document.createElement('textarea')
     document.body.appendChild(hiddenTextarea)

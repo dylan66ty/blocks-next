@@ -13,24 +13,21 @@
   overflow: hidden;
   background-color: var(--bg-color);
   color: var(--text-color);
-  transition: border-color 0.3s,
-    background-color 0.3s;
+  transition: border-color 0.3s, background-color 0.3s;
 
   border-bottom: 1px solid var(--border-color);
 
- .menu-click {
+  .menu-click {
     display: flex;
     align-items: center;
     gap: 4px;
     font-size: 14px;
     cursor: pointer;
- }
+  }
 
   @media (max-width: 767px) {
     padding: 0.75rem 24px;
   }
-
-
 
   .go-back-top {
     transform: translateY(100%);

@@ -27,7 +27,9 @@ export default defineComponent({
           const name = ((item?.type || {}) as Component)?.name
           if (name === 'BnOptionGroup') {
             filterOptions(
-              !isString(item.children) && !Array.isArray(item.children) && isFunction(item.children?.default)
+              !isString(item.children) &&
+                !Array.isArray(item.children) &&
+                isFunction(item.children?.default)
                 ? item.children?.default()
                 : item.children
             )

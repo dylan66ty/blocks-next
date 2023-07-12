@@ -1,5 +1,14 @@
 <script lang="ts">
-  import { computed, defineComponent, ref, provide, reactive, watch, onMounted, nextTick } from 'vue'
+  import {
+    computed,
+    defineComponent,
+    ref,
+    provide,
+    reactive,
+    watch,
+    onMounted,
+    nextTick
+  } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 
   import Trigger from '../../trigger/src/trigger'

@@ -191,8 +191,17 @@
       <transition name="bn-fade-in-standard" appear>
         <div v-if="mask" v-show="modelVisible" :class="`${ns}__mask`" @click.self="handleMask" />
       </transition>
-      <transition :name="`bn-slide-${placement}`" appear @after-enter="afterEnter" @after-leave="afterLeave">
-        <div v-show="modelVisible" :class="[`${ns}__container`, `is-${placement}`, !$slots.default && 'is-template']" :style="containerStyle">
+      <transition
+        :name="`bn-slide-${placement}`"
+        appear
+        @after-enter="afterEnter"
+        @after-leave="afterLeave"
+      >
+        <div
+          v-show="modelVisible"
+          :class="[`${ns}__container`, `is-${placement}`, !$slots.default && 'is-template']"
+          :style="containerStyle"
+        >
           <slot>
             <div :class="[`${ns}__header`]">
               <!-- title插槽 -->
@@ -208,8 +217,12 @@
               <!-- footer插槽 -->
               <slot name="footer" :ok="handleOk" :cancel="handleCancel" :loading-obj="loadingObj">
                 <BnSpace :size="12">
-                  <BnButton type="primary" :loading="loadingObj.ok" @click="handleOk">{{ `${okText ? okText : '确认'}` }} </BnButton>
-                  <BnButton :loading="loadingObj.cancel" @click="handleCancel">{{ `${cancelText ? cancelText : '取消'}` }}</BnButton>
+                  <BnButton type="primary" :loading="loadingObj.ok" @click="handleOk"
+                    >{{ `${okText ? okText : '确认'}` }}
+                  </BnButton>
+                  <BnButton :loading="loadingObj.cancel" @click="handleCancel">{{
+                    `${cancelText ? cancelText : '取消'}`
+                  }}</BnButton>
                 </BnSpace>
               </slot>
             </div>

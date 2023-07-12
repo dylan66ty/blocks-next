@@ -11,42 +11,42 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref } from 'vue'
 
-  let seed = 0;
+  let seed = 0
   function getUuid() {
-    return 'message_' + seed++;
+    return 'message_' + seed++
   }
 
-  const messages = ref<{ name: string; type: string; content: string }[]>([]);
+  const messages = ref<{ name: string; type: string; content: string }[]>([])
 
   function add(props) {
-    const name = getUuid();
+    const name = getUuid()
 
-    const _message = { name, ...props };
+    const _message = { name, ...props }
 
-    messages.value.push(_message);
+    messages.value.push(_message)
 
     // 定时移除，单位：秒
-    const duration = props.duration;
+    const duration = props.duration
     setTimeout(() => {
-      remove(name);
-    }, duration * 1000);
+      remove(name)
+    }, duration * 1000)
   }
 
   function remove(name) {
     for (const [i, v] of messages.value.entries()) {
       if (v.name === name) {
-        messages.value.splice(i, 1);
-        break;
+        messages.value.splice(i, 1)
+        break
       }
     }
   }
 
   defineExpose({
     add,
-    remove,
-  });
+    remove
+  })
 </script>
 
 <style scoped>

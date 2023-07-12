@@ -22,13 +22,7 @@ export const ApiTableContainer = (md: MarkdownIt) => {
         if (type === 'inline') {
           result += md.renderer.renderInline(newToken.children!, options, env)
         } else if (typeof rules[type] !== 'undefined') {
-          result += rules[newToken.type]!(
-            newTokens,
-            idx,
-            options,
-            env,
-            md.renderer
-          )
+          result += rules[newToken.type]!(newTokens, idx, options, env, md.renderer)
         } else {
           result += md.renderer.renderToken(newTokens, idx, options)
         }

@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+  import { ref } from 'vue'
 
-const align = ref('center')
-
+  const align = ref('center')
 </script>
 
 <template>
-  <bn-radio-group style="margin-bottom:15px;" v-model="align">
+  <bn-radio-group style="margin-bottom: 15px" v-model="align">
     <bn-radio label="center"></bn-radio>
     <bn-radio label="start"></bn-radio>
     <bn-radio label="end"></bn-radio>

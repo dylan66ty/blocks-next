@@ -36,7 +36,11 @@
     emits: ['ok', 'cancel', 'close', 'destroy'],
     setup(props, { emit }) {
       const ns = getNamespace('popconfirm')
-      const popupCls = computed(() => [ns, props.popupClass && props.popupClass, props.type && `is-${props.type}`])
+      const popupCls = computed(() => [
+        ns,
+        props.popupClass && props.popupClass,
+        props.type && `is-${props.type}`
+      ])
 
       const popupStyle = computed(() => {
         const style: StyleValue = {}
@@ -116,7 +120,12 @@
 </script>
 
 <template>
-  <transition name="bn-fade-in-standard" appear @before-leave="$emit('close')" @after-leave="$emit('destroy')">
+  <transition
+    name="bn-fade-in-standard"
+    appear
+    @before-leave="$emit('close')"
+    @after-leave="$emit('destroy')"
+  >
     <div v-show="visible" :class="popupCls" :style="popupStyle">
       <div :class="[`${ns}__content`]">
         <slot name="content">
@@ -126,8 +135,12 @@
       </div>
       <div :class="[`${ns}__footer`]">
         <BnSpace :size="12">
-          <BnButton size="small" :loading="loadingObj.cancel" @click="handleCancel">{{ cancelText }}</BnButton>
-          <BnButton size="small" type="primary" :loading="loadingObj.ok" @click="handleOk">{{ okText }}</BnButton>
+          <BnButton size="small" :loading="loadingObj.cancel" @click="handleCancel">{{
+            cancelText
+          }}</BnButton>
+          <BnButton size="small" type="primary" :loading="loadingObj.ok" @click="handleOk">{{
+            okText
+          }}</BnButton>
         </BnSpace>
       </div>
       <div class="arrow"></div>

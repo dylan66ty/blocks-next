@@ -1,10 +1,8 @@
-const path = require('path');
-const pkg = require('../../package.json');
-const { parseAndWrite } = require('./lib/index.js');
+const path = require('path')
+const pkg = require('../../package.json')
+const { parseAndWrite } = require('./lib/index.js')
 
-const rootPath = path.resolve(__dirname, '../../');
-
-
+const rootPath = path.resolve(__dirname, '../../')
 
 parseAndWrite({
   version: pkg.version,
@@ -14,13 +12,13 @@ parseAndWrite({
   // default match lang
   test: /\.md/,
   outputDir: path.resolve(rootPath, './vetur'),
-  tagPrefix: 'bn-',
+  tagPrefix: 'bn-'
 })
-  .then(result => {
+  .then((result) => {
     // eslint-disable-next-line no-console
-    console.log(`generator types success: ${result} tags generated`);
+    console.log(`generator types success: ${result} tags generated`)
   })
-  .catch(error => {
-    console.error('generator types error', error);
-    return Promise.reject(error);
-  });
+  .catch((error) => {
+    console.error('generator types error', error)
+    return Promise.reject(error)
+  })

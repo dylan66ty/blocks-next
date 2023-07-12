@@ -76,6 +76,10 @@ export const dialogProps = {
   popupClass: {
     type: String,
     default: undefined
+  },
+  showClose: {
+    type: Boolean,
+    default: true
   }
 }
 

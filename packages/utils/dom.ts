@@ -61,7 +61,10 @@ export const querySelector = (selectors: string, container?: Document | HTMLElem
   return (container ?? document).querySelector<HTMLElement>(selectors) ?? undefined
 }
 
-export const getElement = (target: string | HTMLElement | undefined, container?: Document | HTMLElement): HTMLElement | undefined => {
+export const getElement = (
+  target: string | HTMLElement | undefined,
+  container?: Document | HTMLElement
+): HTMLElement | undefined => {
   if (isString(target)) {
     const selector = target[0] === '#' ? `[id='${target.slice(1)}']` : target
     return querySelector(selector, container)
@@ -89,7 +92,9 @@ export const getRelativeRect = (target: HTMLElement, relative: HTMLElement) => {
 }
 
 export const isScroll = (element: HTMLElement) => {
-  return element.tagName === 'BODY' ? document.documentElement.scrollHeight > window.innerHeight : element.scrollHeight > element.offsetHeight
+  return element.tagName === 'BODY'
+    ? document.documentElement.scrollHeight > window.innerHeight
+    : element.scrollHeight > element.offsetHeight
 }
 
 export const getScrollBarWidth = (element: HTMLElement) => {
@@ -97,7 +102,8 @@ export const getScrollBarWidth = (element: HTMLElement) => {
     return window.innerWidth - (document.documentElement.offsetWidth || document.body.offsetWidth)
   }
   const { borderLeftWidth, borderRightWidth } = window.getComputedStyle(element)
-  const borderWidth = Number(borderLeftWidth.replace('px', '')) + Number(borderRightWidth.replace('px', ''))
+  const borderWidth =
+    Number(borderLeftWidth.replace('px', '')) + Number(borderRightWidth.replace('px', ''))
   const scrollbarWidth = element.offsetWidth - (element.clientWidth + borderWidth)
   return scrollbarWidth
 }
@@ -117,10 +123,16 @@ export const getStyle = (element: HTMLElement, styleName: keyof CSSProperties): 
   }
 }
 
-export const setStyle = (element: HTMLElement, styleName: CSSProperties | keyof CSSProperties, value?: string | number) => {
+export const setStyle = (
+  element: HTMLElement,
+  styleName: CSSProperties | keyof CSSProperties,
+  value?: string | number
+) => {
   if (!element || !styleName) return
   if (isObject(styleName)) {
-    Object.entries(styleName).forEach(([prop, value]) => setStyle(element, prop as any, value as string))
+    Object.entries(styleName).forEach(([prop, value]) =>
+      setStyle(element, prop as any, value as string)
+    )
   } else {
     const key: any = toCamelCase(styleName as keyof CSSProperties)
     element.style[key] = value as any

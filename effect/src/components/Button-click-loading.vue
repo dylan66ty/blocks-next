@@ -1,9 +1,9 @@
 <script lang="ts" setup>
   const handler = async (e) => {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         resolve(1)
-      }, 1000);
+      }, 1000)
     })
   }
 </script>

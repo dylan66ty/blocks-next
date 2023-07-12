@@ -4,13 +4,7 @@ import { throttleAndDebounce } from '../../utils/helper'
 
 import type { Ref } from 'vue'
 
-
-
-
-export function useActiveSidebarLinks(
-  container: Ref<HTMLElement>,
-  marker: Ref<HTMLElement>
-) {
+export function useActiveSidebarLinks(container: Ref<HTMLElement>, marker: Ref<HTMLElement>) {
   if (!isClient) return
 
   const onScroll = throttleAndDebounce(setActiveLink, 150)
@@ -31,11 +25,7 @@ export function useActiveSidebarLinks(
       const nextAnchor = anchors[i + 1]
       const [isActive, hash] = isAnchorActive(i, anchor, nextAnchor)
       if (isActive) {
-        history.replaceState(
-          null,
-          document.title,
-          hash ? (hash as string) : ' '
-        )
+        history.replaceState(null, document.title, hash ? (hash as string) : ' ')
         activateLink(hash as string)
         return
       }
@@ -81,18 +71,12 @@ export function useActiveSidebarLinks(
   })
 }
 function getSidebarLinks() {
-  return Array.from(
-    document.querySelectorAll('.toc-content .toc-link')
-  ) as HTMLAnchorElement[]
+  return Array.from(document.querySelectorAll('.toc-content .toc-link')) as HTMLAnchorElement[]
 }
 function getAnchors(sidebarLinks: HTMLAnchorElement[]) {
   return (
-    Array.from(
-      document.querySelectorAll('.doc-content .header-anchor')
-    ) as HTMLAnchorElement[]
-  ).filter((anchor) =>
-    sidebarLinks.some((sidebarLink) => sidebarLink.hash === anchor.hash)
-  )
+    Array.from(document.querySelectorAll('.doc-content .header-anchor')) as HTMLAnchorElement[]
+  ).filter((anchor) => sidebarLinks.some((sidebarLink) => sidebarLink.hash === anchor.hash))
 }
 function getPageOffset() {
   return (document.querySelector('.navbar') as HTMLElement).offsetHeight
@@ -105,11 +89,7 @@ function getAnchorTop(anchor: HTMLAnchorElement) {
     return 0
   }
 }
-function isAnchorActive(
-  index: number,
-  anchor: HTMLAnchorElement,
-  nextAnchor: HTMLAnchorElement
-) {
+function isAnchorActive(index: number, anchor: HTMLAnchorElement, nextAnchor: HTMLAnchorElement) {
   const scrollTop = window.scrollY
   if (index === 0 && scrollTop === 0) {
     return [true, null]

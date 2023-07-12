@@ -1,11 +1,8 @@
-<script lang="ts" setup>
-
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <div>
-    <bn-empty>
-    </bn-empty>
+    <bn-empty> </bn-empty>
   </div>
 </template>
 

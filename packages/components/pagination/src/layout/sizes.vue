@@ -53,8 +53,19 @@
 
 <template>
   <div :class="cls">
-    <BnSelect v-model="pageSizeModel" :disabled="disabled" :validate-event="false" size="small" @change="handleChange">
-      <BnOption v-for="item in pageSizesTrans" :key="item.value" :value="item.value" :label="item.label" />
+    <BnSelect
+      v-model="pageSizeModel"
+      :disabled="disabled"
+      :validate-event="false"
+      size="small"
+      @change="handleChange"
+    >
+      <BnOption
+        v-for="item in pageSizesTrans"
+        :key="item.value"
+        :value="item.value"
+        :label="item.label"
+      />
     </BnSelect>
   </div>
 </template>

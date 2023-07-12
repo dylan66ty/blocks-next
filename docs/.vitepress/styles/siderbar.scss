@@ -12,8 +12,7 @@
   padding: 48px 32px 0;
   overflow-y: auto;
   transform: translate(-100%);
-  transition: background-color 0.15s, opacity 0.25s,
-    transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: background-color 0.15s, opacity 0.25s, transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 
   &.open {
     transform: translate(0);
@@ -51,19 +50,14 @@
     // 6px stands for 3px sidebar scrollbar width + 3 content scrollbar width
     padding: 48px 32px 96px calc((100vw - var(--screen-max-width)) / 2);
 
-    width: calc(
-      (100vw - var(--screen-max-width)) / 2 + var(--sidebar-width-small)
-    );
+    width: calc((100vw - var(--screen-max-width)) / 2 + var(--sidebar-width-small));
   }
 
   @include respond-to('max') {
     padding: 48px 48px 96px calc((100vw - var(--screen-max-width)) / 2);
 
-    width: calc(
-      (100vw - var(--screen-max-width)) / 2 + var(--sidebar-width-small)
-    );
+    width: calc((100vw - var(--screen-max-width)) / 2 + var(--sidebar-width-small));
   }
-
 }
 
 .overlay {
@@ -72,6 +66,6 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 30;
 }

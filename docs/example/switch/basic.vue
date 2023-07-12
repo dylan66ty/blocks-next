@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref } from 'vue'
 
-  const model = ref(false);
-  const model2 = ref(false);
+  const model = ref(false)
+  const model2 = ref(false)
 </script>
 
 <template>

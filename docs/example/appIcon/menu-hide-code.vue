@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, getCurrentInstance, h } from 'vue';
+  import { defineComponent, getCurrentInstance, h } from 'vue'
 
   const formatSvgName = (svgName) => {
     return svgName
@@ -8,13 +8,13 @@
         return word
           .split('')
           .map((v, i) => {
-            if (i === 0) return v.toUpperCase();
-            return v;
+            if (i === 0) return v.toUpperCase()
+            return v
           })
-          .join('');
+          .join('')
       })
-      .join('');
-  };
+      .join('')
+  }
 
   const icons: Array<Record<string, any>> = [
     'app-home',
@@ -30,28 +30,28 @@
   ].map((svgName) => {
     return {
       n: 'bn-icon-' + svgName,
-      c: 'BnIcon' + formatSvgName(svgName),
-    };
-  });
+      c: 'BnIcon' + formatSvgName(svgName)
+    }
+  })
 
   export default defineComponent({
     setup() {
-      const instance = getCurrentInstance();
-      const message = instance?.appContext.config.globalProperties.message;
-      const copyStr = instance?.appContext.config.globalProperties.copyStr;
-      const component = instance?.appContext.components || {};
+      const instance = getCurrentInstance()
+      const message = instance?.appContext.config.globalProperties.message
+      const copyStr = instance?.appContext.config.globalProperties.copyStr
+      const component = instance?.appContext.components || {}
 
       const handleCopy = async (name) => {
-        const content = '<' + name + ' />';
+        const content = '<' + name + ' />'
 
         copyStr(content)
           .then(() => {
-            message.info('复制成功 ' + content);
+            message.info('复制成功 ' + content)
           })
           .catch(() => {
-            message.error('复制失败');
-          });
-      };
+            message.error('复制失败')
+          })
+      }
       return () =>
         h(
           'div',
@@ -59,12 +59,12 @@
           icons.map((icon) =>
             h('div', { class: 'icon-item', onClick: () => handleCopy(icon.n) }, [
               h(component[icon.c] || '', { class: 'icon', style: icon.s }),
-              h('div', { class: 'icon-name' }, icon.n),
-            ]),
-          ),
-        );
-    },
-  });
+              h('div', { class: 'icon-name' }, icon.n)
+            ])
+          )
+        )
+    }
+  })
 </script>
 
 <style lang="scss">

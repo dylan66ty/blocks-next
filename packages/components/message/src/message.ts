@@ -3,12 +3,22 @@ import type { VNode } from 'vue'
 import { isFunction, isObject } from '../../../utils/is'
 import { getElement } from '../../../utils/dom'
 import { messageTypes } from './types'
-import type { IMessageParams, IMessage, IMessageOptions, IMessageMethods, IMessageType, IMessageHandler, IMessageCaller } from './types'
+import type {
+  IMessageParams,
+  IMessage,
+  IMessageOptions,
+  IMessageMethods,
+  IMessageType,
+  IMessageHandler,
+  IMessageCaller
+} from './types'
 import MessageComponent from './message.vue'
 
 const domMap = new WeakMap()
 
-const Message: Partial<IMessageMethods> & IMessageCaller = (options: IMessageParams): IMessageHandler => {
+const Message: Partial<IMessageMethods> & IMessageCaller = (
+  options: IMessageParams
+): IMessageHandler => {
   if (typeof options === 'string' || isVNode(options)) {
     options = {
       message: options

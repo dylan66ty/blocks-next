@@ -1,0 +1,72 @@
+@use './mixins/bem.scss' as *;
+
+@include b(descriptions) {
+  --descriptions-item-cell-padding: 8px 11px;
+  --descriptions-item-label-background-color: #f9fafd;
+  --descriptions-border-color: rgb(237 241 246 / 100%);
+  --descriptions-font-size: var(--bn-font-size);
+}
+
+@include b(descriptions) {
+  @include e(table) {
+    border-collapse: collapse;
+    width: 100%;
+  }
+}
+
+@include b(descriptions-item) {
+  @include when(border) {
+    &.#{$namespace}-descriptions-item__label {
+      background-color: var(--descriptions-item-label-background-color);
+    }
+
+    &.#{$namespace}-descriptions-item__cell {
+      box-sizing: border-box;
+      border: 1px solid var(--descriptions-border-color);
+      padding: var(--descriptions-item-cell-padding);
+    }
+  }
+
+  @include e(value) {
+    font-size: var(--descriptions-font-size);
+    color: var(--bn-color-2);
+  }
+
+  @include e(label) {
+    font-size: var(--descriptions-font-size);
+    color: var(--bn-color-1);
+  }
+
+  &:not(.is-border) {
+    /* stylelint-disable-next-line selector-class-pattern */
+    &.#{$namespace}-descriptions-item--large {
+      &.#{$namespace}-descriptions-item__cell {
+        padding-bottom: 16px;
+      }
+
+      .#{$namespace}-descriptions-item__label {
+        margin-right: 16px;
+      }
+    }
+
+    /* stylelint-disable-next-line selector-class-pattern */
+    &.#{$namespace}-descriptions-item--small {
+      &.#{$namespace}-descriptions-item__cell {
+        padding-bottom: 8px;
+      }
+
+      .#{$namespace}-descriptions-item__label {
+        margin-right: 12px;
+      }
+    }
+  }
+
+  @include m(large) {
+    --descriptions-item-cell-padding: 12px 15px;
+  }
+
+  @include m(small) {
+    --descriptions-item-cell-padding: 4px 7px;
+    --descriptions-font-size: 12px;
+  }
+}

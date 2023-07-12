@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
-const model = ref('');
+  import { ref } from 'vue'
+  const model = ref('')
 </script>
 
 <template>

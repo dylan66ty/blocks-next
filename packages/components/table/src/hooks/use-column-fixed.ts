@@ -22,17 +22,30 @@ const getRight = (dataColumns: TableColumnData[], index: number) => {
   return `calc(${res.join(' + ')})`
 }
 
-export const useColumnFixed = (dataColumns: Ref<TableColumnData[]>, column: Ref<TableColumnData>) => {
-  const leftFixedLastIndex = computed(() => findLastIndex(dataColumns.value as [], (_column) => _column.fixed === 'left'))
-  const rightFixedFirstIndex = computed(() => dataColumns.value.findIndex((_column) => _column.fixed === 'right'))
+export const useColumnFixed = (
+  dataColumns: Ref<TableColumnData[]>,
+  column: Ref<TableColumnData>
+) => {
+  const leftFixedLastIndex = computed(() =>
+    findLastIndex(dataColumns.value as [], (_column) => _column.fixed === 'left')
+  )
+  const rightFixedFirstIndex = computed(() =>
+    dataColumns.value.findIndex((_column) => _column.fixed === 'right')
+  )
 
-  const fixedIndex = computed(() => dataColumns.value.findIndex((_column) => _column === column.value))
+  const fixedIndex = computed(() =>
+    dataColumns.value.findIndex((_column) => _column === column.value)
+  )
 
   // 是否是左边固定列最后一个
-  const isLeftFixedLast = computed(() => leftFixedLastIndex.value > -1 && leftFixedLastIndex.value === fixedIndex.value)
+  const isLeftFixedLast = computed(
+    () => leftFixedLastIndex.value > -1 && leftFixedLastIndex.value === fixedIndex.value
+  )
 
   // 是否是右边固定列第一个
-  const isRightFixedFirst = computed(() => rightFixedFirstIndex.value > -1 && rightFixedFirstIndex.value === fixedIndex.value)
+  const isRightFixedFirst = computed(
+    () => rightFixedFirstIndex.value > -1 && rightFixedFirstIndex.value === fixedIndex.value
+  )
 
   const fixedStyle = computed(() => {
     const style: StyleValue = {}

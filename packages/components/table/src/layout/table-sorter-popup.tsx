@@ -29,7 +29,8 @@ export default defineComponent({
               class={[
                 'bn-table__sort-item',
                 {
-                  'bn-table__sort-item-active': props.activeSort === item.value && props.hitColumnProp
+                  'bn-table__sort-item-active':
+                    props.activeSort === item.value && props.hitColumnProp
                 }
               ]}
               onClick={() => props.sortChange!(item.value)}

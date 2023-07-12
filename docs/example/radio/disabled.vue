@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  const radio = ref(1);
+  import { ref } from 'vue'
+  const radio = ref(1)
 </script>
 
 <template>

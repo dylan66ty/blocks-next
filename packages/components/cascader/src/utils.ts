@@ -90,7 +90,10 @@ export const getNodeKey = (keys: string[]) => {
 // 对入参进行格式化
 // 多选时 二维数组 [[1,2,3],[4,5,6]] => ['1-2-3','4-5-6']
 // 单选 [1,2,3] => ['1-2-3']
-export const formatModelValue = (value: string[] | string[][], { multiple }: { multiple: boolean }): string[] => {
+export const formatModelValue = (
+  value: string[] | string[][],
+  { multiple }: { multiple: boolean }
+): string[] => {
   if (multiple) {
     return value.map((m) => (isArray(m) ? getNodeKey(m as string[]) : getNodeKey([m])))
   }

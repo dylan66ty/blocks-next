@@ -1,14 +1,13 @@
 <script lang="ts" setup>
-import { Message } from 'blocks-next'
+  import { Message } from 'blocks-next'
 
-const handler = () => {
-  Message.info({
-    message: '手动关闭',
-    duration: 0,
-    showClose: true
-  })
-}
-
+  const handler = () => {
+    Message.info({
+      message: '手动关闭',
+      duration: 0,
+      showClose: true
+    })
+  }
 </script>
 
 <template>

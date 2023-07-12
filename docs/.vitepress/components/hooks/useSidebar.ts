@@ -7,14 +7,14 @@ export const useSidebar = () => {
   if (!page.value) {
     return {
       sidebars: computed(() => []),
-      hasSidebar: computed(() => false),
+      hasSidebar: computed(() => false)
     }
   }
   const sidebars = computed(() => {
     if (page.value.frontmatter.sidebar === false) return []
     const sidebar = site.value.themeConfig.sidebar
     const path = route.path
-    for(const dir in sidebar) {
+    for (const dir in sidebar) {
       if (path.startsWith(dir)) {
         return sidebar[dir]
       }
@@ -23,6 +23,6 @@ export const useSidebar = () => {
   })
   return {
     sidebars,
-    hasSidebar: computed(() => sidebars.value.length > 0),
+    hasSidebar: computed(() => sidebars.value.length > 0)
   }
 }

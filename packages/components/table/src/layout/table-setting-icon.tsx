@@ -37,7 +37,9 @@ export default defineComponent({
           auto-fit-popup-min-width={true}
           popup-offset={0}
           v-slots={{
-            content: () => <SettingPopup close={close} popupVisible={popupVisible.value}></SettingPopup>
+            content: () => (
+              <SettingPopup close={close} popupVisible={popupVisible.value}></SettingPopup>
+            )
           }}
           onPopupVisibleChange={handlePopupVisibleChange}
           onHide={onHide}

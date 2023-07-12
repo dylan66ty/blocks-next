@@ -1,16 +1,16 @@
-import type { Articals } from './parser';
-import { formatType, removeVersion, toKebabCase } from './utils';
-import type { VueTag } from './type';
+import type { Articals } from './parser'
+import { formatType, removeVersion, toKebabCase } from './utils'
+import type { VueTag } from './type'
 
 function getComponentName(name: string, tagPrefix: string) {
   if (name) {
-    return tagPrefix + toKebabCase(name.split(' ')[0]);
+    return tagPrefix + toKebabCase(name.split(' ')[0])
   }
-  return '';
+  return ''
 }
 
 function parserProps(tag: VueTag, line: any) {
-  const [name, desc, type, defaultVal] = line;
+  const [name, desc, type, defaultVal] = line
   if (
     type &&
     (type.includes('v-slot') ||
@@ -20,8 +20,8 @@ function parserProps(tag: VueTag, line: any) {
   ) {
     tag.slots!.push({
       name: removeVersion(name),
-      description: desc,
-    });
+      description: desc
+    })
   }
   tag.attributes!.push({
     name: removeVersion(name),
@@ -29,57 +29,57 @@ function parserProps(tag: VueTag, line: any) {
     description: desc,
     value: {
       type: formatType(type || ''),
-      kind: 'expression',
-    },
-  });
+      kind: 'expression'
+    }
+  })
 }
 
 export function formatter(
   articals: Articals,
   componentName: string,
   kebabComponentName: string,
-  tagPrefix = '',
+  tagPrefix = ''
 ) {
   if (!articals.length) {
-    return;
+    return
   }
 
-  const tags: VueTag[] = [];
+  const tags: VueTag[] = []
   const tag: VueTag = {
     name: kebabComponentName,
     slots: [],
     events: [],
-    attributes: [],
-  };
-  tags.push(tag);
+    attributes: []
+  }
+  tags.push(tag)
 
-  const tables = articals.filter(artical => artical.type === 'table');
-  tables.forEach(item => {
-    const { table } = item;
-    const prevIndex = articals.indexOf(item) - 1;
-    const prevArtical = articals[prevIndex];
+  const tables = articals.filter((artical) => artical.type === 'table')
+  tables.forEach((item) => {
+    const { table } = item
+    const prevIndex = articals.indexOf(item) - 1
+    const prevArtical = articals[prevIndex]
 
     if (!prevArtical || !prevArtical.content || !table || !table.body) {
-      return;
+      return
     }
 
-    const tableTitle = prevArtical.content;
+    const tableTitle = prevArtical.content
     if (tableTitle.includes('Attributes')) {
-      table.body.forEach(line => {
-        parserProps(tag, line);
-      });
-      return;
+      table.body.forEach((line) => {
+        parserProps(tag, line)
+      })
+      return
     }
 
     if (tableTitle.includes('events') && !tableTitle.includes(componentName)) {
-      table.body.forEach(line => {
-        const [name, desc] = line;
+      table.body.forEach((line) => {
+        const [name, desc] = line
         tag.events!.push({
           name: removeVersion(name),
-          description: desc,
-        });
-      });
-      return;
+          description: desc
+        })
+      })
+      return
     }
 
     // 额外的子组件
@@ -92,35 +92,35 @@ export function formatter(
         name: getComponentName(tableTitle.replaceAll('.', '').replaceAll('/', ''), tagPrefix),
         slots: [],
         events: [],
-        attributes: [],
-      };
-      table.body.forEach(line => {
-        parserProps(childTag, line);
-      });
-      tags.push(childTag);
-      return;
+        attributes: []
+      }
+      table.body.forEach((line) => {
+        parserProps(childTag, line)
+      })
+      tags.push(childTag)
+      return
     }
 
     // 额外的子组件事件
     if (tableTitle.includes(componentName) && tableTitle.includes('events')) {
       const childTagName = getComponentName(
         tableTitle.replace('.', '').replace('events', ''),
-        tagPrefix,
-      );
-      const childTag: VueTag | undefined = tags.find(item => item.name === childTagName.trim());
+        tagPrefix
+      )
+      const childTag: VueTag | undefined = tags.find((item) => item.name === childTagName.trim())
       if (!childTag) {
-        return;
+        return
       }
-      table.body.forEach(line => {
-        const [name, desc] = line;
+      table.body.forEach((line) => {
+        const [name, desc] = line
         childTag.events!.push({
           name: removeVersion(name),
-          description: desc,
-        });
-      });
-      return;
+          description: desc
+        })
+      })
+      return
     }
-  });
+  })
 
-  return tags;
+  return tags
 }

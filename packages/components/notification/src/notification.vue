@@ -89,7 +89,11 @@
 </script>
 
 <template>
-  <transition :name="animationClsName" @before-leave="$emit('close')" @after-leave="$emit('destroy')">
+  <transition
+    :name="animationClsName"
+    @before-leave="$emit('close')"
+    @after-leave="$emit('destroy')"
+  >
     <div v-show="visible" :class="cls" :style="positionStyle">
       <div :class="[`${ns}__header`]">
         <component :is="currentIcon" :class="[`${ns}__icon`, `is-${type}`]" :size="18"></component>

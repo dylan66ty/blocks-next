@@ -12,7 +12,11 @@
       const popperClass = computed(() => selectContext.props.popperClass)
       const isMultiple = computed(() => selectContext.props.multiple)
 
-      const cls = computed(() => [`${ns}-menu`, popperClass.value && popperClass.value, isMultiple.value && 'is-multiple'])
+      const cls = computed(() => [
+        `${ns}-menu`,
+        popperClass.value && popperClass.value,
+        isMultiple.value && 'is-multiple'
+      ])
       return {
         cls
       }

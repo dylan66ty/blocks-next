@@ -33,8 +33,7 @@ export const useBackTop = (offset = 200) => {
     const frameFunc = () => {
       const progress = (Date.now() - beginTime) / 500
       if (progress < 1) {
-        document.documentElement.scrollTop =
-          beginValue * (1 - easeInOutCubic(progress))
+        document.documentElement.scrollTop = beginValue * (1 - easeInOutCubic(progress))
         rAF(frameFunc)
       } else {
         document.documentElement.scrollTop = 0
@@ -62,6 +61,6 @@ export const useBackTop = (offset = 200) => {
 
   return {
     shouldShow,
-    scrollToTop,
+    scrollToTop
   }
 }

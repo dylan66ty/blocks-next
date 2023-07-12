@@ -52,6 +52,7 @@ dialog/render-to
 |minHeight|对话框的最小高度|`string`/ `number`  |`-`|
 |top|对话框的距离顶部的高度，居中显示开启的情况下不生效|`string`/ `number`  |`-`|
 |mask|是否显示遮罩层|`boolean`|`true`|
+|showClose ^(alpha.30)|是否显示关闭按钮|`boolean`|`true`|
 |center|是否居中|`boolean`|`false`|
 |destroyOnClosed|dialog是否在关闭时卸载|`boolean`|`true`|
 |maskToClose|是否点击遮罩层可以关闭对话框|`boolean`|`true`|
@@ -60,6 +61,8 @@ dialog/render-to
 |onBeforeCancel|触发 cancel 事件前的回调函数。如果返回 false 则不会触发后续事件。|`boolean`/ `Promise<boolean>`|`-`|
 |renderTo|dialog挂在哪个容器下|`string`/ `HTMLElement`|`body`|
 |popupClass|dialog添加自定义类名|`string`|`-`|
+
+
 
 
 

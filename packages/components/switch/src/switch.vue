@@ -22,7 +22,11 @@
       const { formItem } = useFormItem()
       const isLoading = ref(false)
 
-      const cls = computed(() => [ns, checked.value && 'is-checked', mergeDisabled.value && 'is-disabled'])
+      const cls = computed(() => [
+        ns,
+        checked.value && 'is-checked',
+        mergeDisabled.value && 'is-disabled'
+      ])
 
       const coreCls = computed(() => [`${ns}__core`, `${ns}__core-${props.type}`])
 
@@ -151,7 +155,10 @@
       @change="handleChange"
       @keydown.enter="switchValue"
     />
-    <span v-if="!inlinePrompt" :class="[{ 'is-active': !checked }, `${ns}__label ${ns}__label--left`]">
+    <span
+      v-if="!inlinePrompt"
+      :class="[{ 'is-active': !checked }, `${ns}__label ${ns}__label--left`]"
+    >
       {{ inactiveText }}
     </span>
     <span :class="coreCls" :style="coreStyle">
@@ -166,7 +173,10 @@
         </slot>
       </span>
     </span>
-    <span v-if="!inlinePrompt" :class="[`${ns}__label ${ns}__label--right`, { 'is-active': checked }]">
+    <span
+      v-if="!inlinePrompt"
+      :class="[`${ns}__label ${ns}__label--right`, { 'is-active': checked }]"
+    >
       {{ activeText }}
     </span>
   </div>

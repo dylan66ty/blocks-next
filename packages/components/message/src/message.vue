@@ -50,7 +50,12 @@
     setup(props) {
       const ns = getNamespace('message')
       const cls = computed(() => {
-        return [ns, `${ns}--${props.type}`, props.center && 'is-center', props.showClose && !props.center && `${ns}__show-close`]
+        return [
+          ns,
+          `${ns}--${props.type}`,
+          props.center && 'is-center',
+          props.showClose && !props.center && `${ns}__show-close`
+        ]
       })
       const visible = ref(false)
       let timer = 0

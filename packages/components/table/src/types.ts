@@ -13,7 +13,13 @@ export type ClassName = string
 
 export interface TableSortable {
   sortDirections: ('ascend' | 'descend')[]
-  sorter?: ((a: TableData, b: TableData, extra: { dataIndex: string; direction: 'ascend' | 'descend' }) => number) | boolean
+  sorter?:
+    | ((
+        a: TableData,
+        b: TableData,
+        extra: { dataIndex: string; direction: 'ascend' | 'descend' }
+      ) => number)
+    | boolean
 
   sortOrder?: 'ascend' | 'descend' | ''
 }
@@ -48,7 +54,11 @@ export interface TableColumnData {
   sortable?: boolean
   filterable?: TableFilterable
   children?: TableColumnData[]
-  renderCell?: (data: { row: TableData; column: TableColumnData; rowIndex: number }) => VNode | string | number
+  renderCell?: (data: {
+    row: TableData
+    column: TableColumnData
+    rowIndex: number
+  }) => VNode | string | number
   renderHeader?: (data: { column: TableColumnData }) => VNode | string | number
   renderIndex?: (data: { column: TableColumnData; index: number }) => number
   slotName?: string

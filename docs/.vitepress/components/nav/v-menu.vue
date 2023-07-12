@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { useNav } from '../hooks/useNav'
-import VMenuLink from './v-menu-link.vue'
-const navs = useNav()
-
-
+  import { useNav } from '../hooks/useNav'
+  import VMenuLink from './v-menu-link.vue'
+  const navs = useNav()
 </script>
 
 <template>

@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref } from 'vue'
 
   const form = ref({
     name: '',
     age: '',
-    email: '',
-  });
+    email: ''
+  })
 
-  const labelPosition = ref('right');
+  const labelPosition = ref('right')
 </script>
 
 <template>

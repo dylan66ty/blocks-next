@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { ref } from 'vue'
 
   const form = ref({
     name: '佐助',
@@ -10,10 +10,10 @@
     suggest: '我是佐助',
     a: {
       b: {
-        c: 10,
-      },
-    },
-  });
+        c: 10
+      }
+    }
+  })
 
   // validator支持 =>  (email ｜ url | mobile | chinese | number)
   const rules = {
@@ -23,36 +23,36 @@
         min: 3,
         max: 7,
         message: '3-7字符',
-        trigger: 'change',
-      },
+        trigger: 'change'
+      }
     ],
     email: [
       {
         // required: true
         message: 'email error',
         validator: 'number',
-        trigger: 'change',
-      },
+        trigger: 'change'
+      }
     ],
     age: [
       {
         // required: true,
         message: 'age error',
-        trigger: 'change',
-      },
+        trigger: 'change'
+      }
     ],
     hobby: [
       {
         type: 'array',
         required: true,
-        message: '至少选一项',
-      },
+        message: '至少选一项'
+      }
     ],
     contact: [
       {
         required: true,
-        message: '联系方式必填',
-      },
+        message: '联系方式必填'
+      }
     ],
     suggest: [
       {
@@ -60,32 +60,32 @@
         min: 1,
         max: 10,
         message: '1-10字符',
-        trigger: 'change',
-      },
+        trigger: 'change'
+      }
     ],
     'a.b.c': [
       {
         min: 1,
         max: 3,
         required: true,
-        message: 'a.b.c',
-      },
-    ],
-  };
+        message: 'a.b.c'
+      }
+    ]
+  }
 
-  const formRef = ref();
+  const formRef = ref()
 
   const submitForm = async () => {
-    const isValid = await formRef.value.validate();
+    const isValid = await formRef.value.validate()
     if (isValid) {
-      console.log('submit');
-      return;
+      console.log('submit')
+      return
     }
-  };
+  }
 
   const resetForm = () => {
-    formRef.value.resetFields();
-  };
+    formRef.value.resetFields()
+  }
 </script>
 
 <template>

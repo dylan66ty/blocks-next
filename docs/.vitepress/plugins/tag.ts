@@ -11,10 +11,10 @@ export default (md: MarkdownIt): void => {
      * Add styles for some special tags
      * vitepress/styles/content/tag-mark-content.scss
      */
-    const tagClass = ['beta','delete'].includes(value) ? `is-${value}` : ''
+    const tagClass = ['beta', 'delete'].includes(value) ? `is-${value}` : ''
     return `<span class="vp-tag ${tagClass}">${value}</span>`
   }
-  
+
   md.inline.ruler.before('emphasis', 'tag', (state, silent) => {
     // md写法 eg: ^(beta)
     const tagRegExp = /^\^\(([^)]*)\)/

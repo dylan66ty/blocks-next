@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import VMenu from './v-menu.vue'
-import Vlogo from './v-logo.vue'
-
+  import VMenu from './v-menu.vue'
+  import Vlogo from './v-logo.vue'
 </script>
 
 <template>
@@ -10,7 +9,6 @@ import Vlogo from './v-logo.vue'
       <Vlogo />
       <div class="navbar-content">
         <VMenu />
-
       </div>
     </div>
   </header>

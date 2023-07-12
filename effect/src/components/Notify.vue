@@ -9,7 +9,6 @@
       position: 'top-left'
     })
   }
-
 </script>
 
 <template>

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import VLastUpdatedAt from './v-last-updated-at.vue';
-import VToc from './v-toc.vue'
-
+  import VLastUpdatedAt from './v-last-updated-at.vue'
+  import VToc from './v-toc.vue'
 </script>
 
 <template>

@@ -1,5 +1,15 @@
 <script lang="ts">
-  import { computed, defineComponent, getCurrentInstance, inject, reactive, toRefs, onBeforeUnmount, watch, ref } from 'vue'
+  import {
+    computed,
+    defineComponent,
+    getCurrentInstance,
+    inject,
+    reactive,
+    toRefs,
+    onBeforeUnmount,
+    watch,
+    ref
+  } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
   import { isUndefined } from '../../../utils/is'
   import { tabsInjectionKey } from './context'

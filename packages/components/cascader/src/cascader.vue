@@ -76,7 +76,8 @@
       })
 
       const { expandChild } = toRefs(props)
-      const { renderColumns, selectedPath, setSelectedPath, activeKey, setActiveKey } = useSelectedPath(dataTree, { dataMap, expandChild })
+      const { renderColumns, selectedPath, setSelectedPath, activeKey, setActiveKey } =
+        useSelectedPath(dataTree, { dataMap, expandChild })
 
       const computedInputLabel = computed(() => {
         if (!props.multiple && pathValueToNodeKeys.value.length) {
@@ -306,8 +307,16 @@
                 <CaretIcon :class="[{ 'is-rotate': states.popupVisible }, `${ns}__icon-caret`]" />
               </template>
             </BnInput>
-            <div v-if="multiple && multipleTags.length" ref="multipleTagsRef" :class="[`${ns}__multiple`]">
-              <div v-for="(tag, index) in multipleTags" :key="`${tag.key}-${index}`" :class="[`${ns}__tag`]">
+            <div
+              v-if="multiple && multipleTags.length"
+              ref="multipleTagsRef"
+              :class="[`${ns}__multiple`]"
+            >
+              <div
+                v-for="(tag, index) in multipleTags"
+                :key="`${tag.key}-${index}`"
+                :class="[`${ns}__tag`]"
+              >
                 <span :class="[`${ns}__tag-text`]">{{ tag.label }}</span>
                 <CloseIcon @click.stop="handleTagClose(tag)" />
               </div>

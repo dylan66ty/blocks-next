@@ -1,54 +1,35 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
-const visible = ref(false)
+  import { ref } from 'vue'
+  const visible = ref(false)
 
-const onClosed = () => {
-  console.log('closed');
-}
+  const onClosed = () => {
+    console.log('closed')
+  }
 
-const open = () => {
-  visible.value = true
-}
+  const open = () => {
+    visible.value = true
+  }
 
-
-
-const onBeforeCancel = () => {
-  console.log('onBeforeCancel');
-  return true
-}
-
+  const onBeforeCancel = () => {
+    console.log('onBeforeCancel')
+    return true
+  }
 </script>
 
 <template>
   <div>
-    <bn-dialog 
-       v-model="visible"
-       @closed="onClosed" 
-       width="400px"
-       height="256px"
-       :unmountOnClose="false"
-       center
-       :onBeforeCancel="onBeforeCancel"
-     >
-      <template #title>
-        <div>版本更新</div>
-        <div>日期：2022-02-15</div>
-      </template>
-      <div>1、API增加话单状态推送接口</div>
-      <div>2、API增加话单状态推送接口</div>
-      <div>3、API增加话单状态推送接口</div>
-      <template #footer>
-        <bn-space>
-          <bn-button  @click="visible = false">取消</bn-button>
-          <bn-button type="primary">确认</bn-button>
-        </bn-space>
-      </template>
+    <bn-dialog
+      v-model="visible"
+      @closed="onClosed"
+      :unmountOnClose="false"
+      center
+      :onBeforeCancel="onBeforeCancel"
+      :showClose="false"
+      :mask="false"
+    >
+      <div>11211211212</div>
     </bn-dialog>
-    
-    <bn-button type="primary" @click="open">open Dialog</bn-button>
 
-
-    
+    <bn-button type="primary" @click="open">11</bn-button>
   </div>
 </template>
-

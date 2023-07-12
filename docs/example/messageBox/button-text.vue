@@ -3,7 +3,7 @@
   const open = () => {
     MessageBox({
       title: 'This is the message ',
-      type:'success',
+      type: 'success',
       okText: 'Confirm',
       cancelText: 'Exit'
     })
@@ -11,10 +11,9 @@
 </script>
 
 <template>
- <bn-space>
-  <bn-button  size="small" @click="open">打开弹框</bn-button>
- </bn-space>
-
+  <bn-space>
+    <bn-button size="small" @click="open">打开弹框</bn-button>
+  </bn-space>
 </template>
 
 <style lang="scss"></style>

@@ -76,7 +76,12 @@
 </script>
 
 <template>
-  <transition name="bn-fade-in-standard" appear @before-leave="$emit('close')" @after-leave="$emit('destroy')">
+  <transition
+    name="bn-fade-in-standard"
+    appear
+    @before-leave="$emit('close')"
+    @after-leave="$emit('destroy')"
+  >
     <div v-show="visible" :class="contentCls" :style="contentStyle">
       <Scrollbar style="max-height: 140px" :class="[`${ns}__content`]">
         <slot name="content">

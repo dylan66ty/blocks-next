@@ -24,7 +24,9 @@ import type {
 } from './types'
 import { messageBoxStaticMethods } from './types'
 
-const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (options: MessageBoxOptions): void => {
+const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (
+  options: MessageBoxOptions
+): void => {
   const vmMountContainer: HTMLElement = document.createElement('div')
 
   const onDestroy = () => {

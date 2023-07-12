@@ -1,5 +1,16 @@
 import type { VNode, CSSProperties, StyleValue } from 'vue'
-import { toRefs, createVNode, defineComponent, render, nextTick, onUnmounted, ref, watch, computed, onMounted } from 'vue'
+import {
+  toRefs,
+  createVNode,
+  defineComponent,
+  render,
+  nextTick,
+  onUnmounted,
+  ref,
+  watch,
+  computed,
+  onMounted
+} from 'vue'
 import { getComponentNamespace } from '../../../utils/global-config'
 import { getFirstElement, mergeFirstChild } from '../../../utils/vue-utils'
 
@@ -83,11 +94,18 @@ export default defineComponent({
       const triggerTarget = getFirstElement(defaultSlot) as HTMLElement
       const containerRect = renderTo!.getBoundingClientRect()
       const triggerScrollRect = getElementScrollRect(triggerTarget, containerRect)
-      const getPopupScrollRect = () => getElementScrollRect(popupTarget as HTMLElement, containerRect)
-      const { style, position } = getPopupStyle(props.position, containerRect, triggerScrollRect, getPopupScrollRect(), {
-        autoFitPosition: true,
-        offset: 16
-      })
+      const getPopupScrollRect = () =>
+        getElementScrollRect(popupTarget as HTMLElement, containerRect)
+      const { style, position } = getPopupStyle(
+        props.position,
+        containerRect,
+        triggerScrollRect,
+        getPopupScrollRect(),
+        {
+          autoFitPosition: true,
+          offset: 16
+        }
+      )
 
       const popupStyle: CSSProperties = { ...style, position: 'absolute', 'z-index': zIndex.value }
       setStyle(popupTarget, popupStyle)
@@ -158,7 +176,11 @@ export default defineComponent({
     const addStyle = computed(() => {
       const style: StyleValue = {
         cursor: props.disabled ? 'not-allowed' : 'pointer',
-        color: props.disabled ? 'var(--bn-text-color)' : computedVisible.value ? 'var(--bn-primary)' : 'var(--bn-text-color)',
+        color: props.disabled
+          ? 'var(--bn-text-color)'
+          : computedVisible.value
+          ? 'var(--bn-primary)'
+          : 'var(--bn-text-color)',
         userSelect: 'none'
       }
 

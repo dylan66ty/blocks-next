@@ -4,7 +4,6 @@ import { highlight } from '../utils/highlight'
 
 const ApiMd = new markdown()
 
-
 const codeBlock = (md: MarkdownIt) => {
   const fence = md.renderer.rules.fence!
 
@@ -12,7 +11,7 @@ const codeBlock = (md: MarkdownIt) => {
   md.renderer.rules.fence = (...args) => {
     const [tokens, idx, ...rest] = args
     const token = tokens[idx]
-    if(token.tag === 'code') {
+    if (token.tag === 'code') {
       const lang = token.info.trim()
       const content = highlight(token.content, lang)
       return `

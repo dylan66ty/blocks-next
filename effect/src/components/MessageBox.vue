@@ -1,11 +1,11 @@
 <script lang="ts" setup>
   import { MessageBox } from '@blocks-next/index'
-  import { h , defineComponent} from 'vue'
+  import { h, defineComponent } from 'vue'
 
   const Test = defineComponent({
     name: 'Test',
     render() {
-      return h('div',null, '1111')
+      return h('div', null, '1111')
     }
   })
 
@@ -31,21 +31,21 @@
     //   }
     // })
 
-    MessageBox.info('dadaaas').cancel(() => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(true)
-        }, 300);
+    MessageBox.info('dadaaas')
+      .cancel(
+        () => {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve(true)
+            }, 300)
+          })
+        },
+        () => {}
+      )
+      .ok(() => {
+        console.log('ok')
       })
-    },() => {
-    }).ok(() => {
-      console.log('ok');
-    })
-
-  } 
-
-
-
+  }
 </script>
 
 <template>

@@ -308,7 +308,11 @@ const getPopupOffset = (
   switch (position) {
     case 'top':
       return {
-        left: triggerRect.scrollLeft + Math.round(triggerRect.width / 2) - Math.round(popupRect.width / 2) + _translate[0],
+        left:
+          triggerRect.scrollLeft +
+          Math.round(triggerRect.width / 2) -
+          Math.round(popupRect.width / 2) +
+          _translate[0],
         top: triggerRect.scrollTop - popupRect.height - offset + _translate[1]
       }
     case 'tl':
@@ -323,7 +327,11 @@ const getPopupOffset = (
       }
     case 'bottom':
       return {
-        left: triggerRect.scrollLeft + Math.round(triggerRect.width / 2) - Math.round(popupRect.width / 2) + _translate[0],
+        left:
+          triggerRect.scrollLeft +
+          Math.round(triggerRect.width / 2) -
+          Math.round(popupRect.width / 2) +
+          _translate[0],
         top: triggerRect.scrollBottom + offset + _translate[1]
       }
     case 'bl':
@@ -339,7 +347,11 @@ const getPopupOffset = (
     case 'left':
       return {
         left: triggerRect.scrollLeft - popupRect.width - offset + _translate[0],
-        top: triggerRect.scrollTop + Math.round(triggerRect.height / 2) - Math.round(popupRect.height / 2) + _translate[1]
+        top:
+          triggerRect.scrollTop +
+          Math.round(triggerRect.height / 2) -
+          Math.round(popupRect.height / 2) +
+          _translate[1]
       }
     case 'lt':
       return {
@@ -354,7 +366,11 @@ const getPopupOffset = (
     case 'right':
       return {
         left: triggerRect.scrollRight + offset + _translate[0],
-        top: triggerRect.scrollTop + Math.round(triggerRect.height / 2) - Math.round(popupRect.height / 2) + _translate[1]
+        top:
+          triggerRect.scrollTop +
+          Math.round(triggerRect.height / 2) -
+          Math.round(popupRect.height / 2) +
+          _translate[1]
       }
     case 'rt':
       return {
@@ -461,7 +477,8 @@ export const getArrowStyle = (
         left: `${offsetLeft}px`,
         bottom: '0',
         transform: 'translate(-50%,100%)',
-        'border-color': 'var(--bn-trigger-arrow-background-color) transparent transparent transparent',
+        'border-color':
+          'var(--bn-trigger-arrow-background-color) transparent transparent transparent',
         ...customStyle
       }
     }
@@ -470,7 +487,8 @@ export const getArrowStyle = (
       left: `${offsetLeft}px`,
       top: '0',
       transform: 'translate(-50%,-100%)',
-      'border-color': 'transparent transparent var(--bn-trigger-arrow-background-color) transparent',
+      'border-color':
+        'transparent transparent var(--bn-trigger-arrow-background-color) transparent',
       ...customStyle
     }
   }
@@ -489,7 +507,8 @@ export const getArrowStyle = (
       top: `${offsetTop}px`,
       right: '0',
       transform: 'translate(100%,-50%)',
-      'border-color': 'transparent transparent transparent var(--bn-trigger-arrow-background-color)',
+      'border-color':
+        'transparent transparent transparent var(--bn-trigger-arrow-background-color)',
       ...customStyle
     }
   }

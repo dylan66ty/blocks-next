@@ -1,61 +1,60 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+  import { ref } from 'vue'
 
-const form = ref({
-  password: '',
-  password2: '',
-});
+  const form = ref({
+    password: '',
+    password2: ''
+  })
 
-const passwordValidator = (rule, value, callback) => {
-  if (/\w+/.test(value)) {
-    return callback();
-  } else {
-    callback(true);
-  }
-};
-
-const confirmValidator = (rule, value, callback) => {
-  if (value === form.value.password) {
-    callback();
-  } else {
-    callback(true);
-  }
-};
-
-const rules = {
-  password: [
-    {
-      validator: passwordValidator,
-      required: true,
-      message: 'password error',
-      trigger: 'change',
-    },
-  ],
-  password2: [
-    {
-      validator: confirmValidator,
-      required: true,
-      message: '密码不一致',
-      trigger: 'blur',
-    },
-  ],
-};
-
-const formRef = ref();
-
-const submitForm = () => {
-  formRef.value.validate(valid => {
-    if (valid) {
-      console.log('submit');
-      return;
+  const passwordValidator = (rule, value, callback) => {
+    if (/\w+/.test(value)) {
+      return callback()
+    } else {
+      callback(true)
     }
-  });
+  }
 
-};
+  const confirmValidator = (rule, value, callback) => {
+    if (value === form.value.password) {
+      callback()
+    } else {
+      callback(true)
+    }
+  }
 
-const resetForm = () => {
-  formRef.value.resetFields();
-};
+  const rules = {
+    password: [
+      {
+        validator: passwordValidator,
+        required: true,
+        message: 'password error',
+        trigger: 'change'
+      }
+    ],
+    password2: [
+      {
+        validator: confirmValidator,
+        required: true,
+        message: '密码不一致',
+        trigger: 'blur'
+      }
+    ]
+  }
+
+  const formRef = ref()
+
+  const submitForm = () => {
+    formRef.value.validate((valid) => {
+      if (valid) {
+        console.log('submit')
+        return
+      }
+    })
+  }
+
+  const resetForm = () => {
+    formRef.value.resetFields()
+  }
 </script>
 
 <template>

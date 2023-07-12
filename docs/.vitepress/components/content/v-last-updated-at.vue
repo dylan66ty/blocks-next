@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { useData } from 'vitepress'
+  import { onMounted, ref } from 'vue'
+  import { useData } from 'vitepress'
 
+  const { page } = useData()
 
-const { page } = useData()
-
-
-const datetime = ref('')
-onMounted(() => {
-  datetime.value = new Date(page.value.lastUpdated! || Date.now()).toLocaleString()
-})
+  const datetime = ref('')
+  onMounted(() => {
+    datetime.value = new Date(page.value.lastUpdated! || Date.now()).toLocaleString()
+  })
 </script>
 
 <template>
@@ -20,24 +18,24 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-@use '../../styles/mixins.scss' as *;
+  @use '../../styles/mixins.scss' as *;
 
-.last-updated {
-  display: inline-block;
-  margin-top: 10px;
-  line-height: 1.4;
-  color: var(--text-color-light);
-  font-size: 14px;
-
-  .prefix {
+  .last-updated {
     display: inline-block;
-    font-weight: 500;
-  }
+    margin-top: 10px;
+    line-height: 1.4;
+    color: var(--text-color-light);
+    font-size: 14px;
 
-  .datetime {
-    display: inline-block;
-    margin-left: 6px;
-    font-weight: 400;
+    .prefix {
+      display: inline-block;
+      font-weight: 500;
+    }
+
+    .datetime {
+      display: inline-block;
+      margin-left: 6px;
+      font-weight: 400;
+    }
   }
-}
 </style>

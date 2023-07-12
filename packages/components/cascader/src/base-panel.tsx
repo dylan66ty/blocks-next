@@ -42,7 +42,11 @@ export default defineComponent({
 
     const renderColumn = (column: CascaderNode[], level: number) => {
       return (
-        <div class={[`${ns}__column`]} key={`column-${level}`} style={{ zIndex: props.totalLevel - level }}>
+        <div
+          class={[`${ns}__column`]}
+          key={`column-${level}`}
+          style={{ zIndex: props.totalLevel - level }}
+        >
           <Scrollbar>
             {column.length === 0 ? (
               <div class={[`${ns}__empty`]}>
@@ -71,7 +75,11 @@ export default defineComponent({
     }
 
     const renderContent = () => {
-      return <TransitionGroup name="cascader-slide">{props.renderColumns!.map((column, level) => renderColumn(column, level))}</TransitionGroup>
+      return (
+        <TransitionGroup name="cascader-slide">
+          {props.renderColumns!.map((column, level) => renderColumn(column, level))}
+        </TransitionGroup>
+      )
     }
 
     const renderFooter = () => {
@@ -98,7 +106,9 @@ export default defineComponent({
       return (
         <div class={[`${ns}`]}>
           <div class={[`${ns}__content`]}>{renderContent()}</div>
-          {props.showFooter && props.multiple && <div class={[`${ns}__footer`]}>{renderFooter()}</div>}
+          {props.showFooter && props.multiple && (
+            <div class={[`${ns}__footer`]}>{renderFooter()}</div>
+          )}
         </div>
       )
     }

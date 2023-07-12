@@ -1,5 +1,15 @@
 import type { StyleValue } from 'vue'
-import { createApp, defineComponent, Transition, onMounted, nextTick, computed, reactive, onUnmounted, ref } from 'vue'
+import {
+  createApp,
+  defineComponent,
+  Transition,
+  onMounted,
+  nextTick,
+  computed,
+  reactive,
+  onUnmounted,
+  ref
+} from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import LoadingIcon from '../../icon/src/base/loading.vue'
 import { getElement } from '../../../utils/dom'

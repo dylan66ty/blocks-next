@@ -23,7 +23,12 @@
     },
     setup(props, { emit }) {
       const ns = getNamespace('scrollbar')
-      const cls = computed(() => [ns, props.outerClass, isBoth.value && 'is-both', `${ns}__${props.type}`])
+      const cls = computed(() => [
+        ns,
+        props.outerClass,
+        isBoth.value && 'is-both',
+        `${ns}__${props.type}`
+      ])
 
       const containerRef = ref<HTMLElement>()
       const horizontalData = ref<ThumbData>()
@@ -33,24 +38,43 @@
 
       const _hasHorizontalScrollbar = ref(false)
       const _hasVerticalScrollbar = ref(false)
-      const hasHorizontalScrollbar = computed(() => _hasHorizontalScrollbar.value && !props.disableHorizontal)
-      const hasVerticalScrollbar = computed(() => _hasVerticalScrollbar.value && !props.disableVertical)
+      const hasHorizontalScrollbar = computed(
+        () => _hasHorizontalScrollbar.value && !props.disableHorizontal
+      )
+      const hasVerticalScrollbar = computed(
+        () => _hasVerticalScrollbar.value && !props.disableVertical
+      )
 
       const isBoth = ref(false)
 
       const getContainerSize = () => {
         if (containerRef.value) {
-          const { clientWidth, clientHeight, offsetWidth, offsetHeight, scrollWidth, scrollHeight, scrollTop, scrollLeft } = containerRef.value
+          const {
+            clientWidth,
+            clientHeight,
+            offsetWidth,
+            offsetHeight,
+            scrollWidth,
+            scrollHeight,
+            scrollTop,
+            scrollLeft
+          } = containerRef.value
           _hasHorizontalScrollbar.value = scrollWidth > clientWidth
           _hasVerticalScrollbar.value = scrollHeight > clientHeight
           isBoth.value = hasHorizontalScrollbar.value && hasVerticalScrollbar.value
-          const horizontalTrackWidth = props.type === 'embed' && isBoth.value ? offsetWidth - TRACK_SIZE : offsetWidth
-          const verticalTrackHeight = props.type === 'embed' && isBoth.value ? offsetHeight - TRACK_SIZE : offsetHeight
+          const horizontalTrackWidth =
+            props.type === 'embed' && isBoth.value ? offsetWidth - TRACK_SIZE : offsetWidth
+          const verticalTrackHeight =
+            props.type === 'embed' && isBoth.value ? offsetHeight - TRACK_SIZE : offsetHeight
 
-          const horizontalThumbWidth = Math.round(horizontalTrackWidth / Math.min(scrollWidth / clientWidth, horizontalTrackWidth))
+          const horizontalThumbWidth = Math.round(
+            horizontalTrackWidth / Math.min(scrollWidth / clientWidth, horizontalTrackWidth)
+          )
           const maxHorizontalOffset = horizontalTrackWidth - horizontalThumbWidth
           const horizontalRatio = (scrollWidth - clientWidth) / maxHorizontalOffset
-          const verticalThumbHeight = Math.round(verticalTrackHeight / Math.min(scrollHeight / clientHeight, verticalTrackHeight))
+          const verticalThumbHeight = Math.round(
+            verticalTrackHeight / Math.min(scrollHeight / clientHeight, verticalTrackHeight)
+          )
           const maxVerticalOffset = verticalTrackHeight - verticalThumbHeight
           const verticalRatio = (scrollHeight - clientHeight) / maxVerticalOffset
 
@@ -115,11 +139,15 @@
       const handleScroll = (ev: Event) => {
         if (containerRef.value) {
           if (hasHorizontalScrollbar.value && !props.disableHorizontal) {
-            const horizontalOffset = Math.round(containerRef.value.scrollLeft / (horizontalData.value?.ratio ?? 1))
+            const horizontalOffset = Math.round(
+              containerRef.value.scrollLeft / (horizontalData.value?.ratio ?? 1)
+            )
             horizontalThumbRef.value?.setOffset(horizontalOffset)
           }
           if (hasVerticalScrollbar.value && !props.disableVertical) {
-            const verticalOffset = Math.round(containerRef.value.scrollTop / (verticalData.value?.ratio ?? 1))
+            const verticalOffset = Math.round(
+              containerRef.value.scrollTop / (verticalData.value?.ratio ?? 1)
+            )
             verticalThumbRef.value?.setOffset(verticalOffset)
           }
         }

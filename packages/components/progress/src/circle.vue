@@ -130,7 +130,13 @@
 </script>
 
 <template>
-  <div aria-valuemin="0" aria-valuemax="100" :aria-valuenow="percent" :class="cls" :style="{ width: `${mergedWidth}px`, height: `${mergedWidth}px` }">
+  <div
+    aria-valuemin="0"
+    aria-valuemax="100"
+    :aria-valuenow="percent"
+    :class="cls"
+    :style="{ width: `${mergedWidth}px`, height: `${mergedWidth}px` }"
+  >
     <svg :viewBox="`0 0 ${mergedWidth} ${mergedWidth}`" :class="[`${ns}__svg`]">
       <circle
         :class="`${ns}__track`"
@@ -143,7 +149,15 @@
           stroke: trackColor
         }"
       />
-      <circle :class="`${ns}__bar`" fill="none" :cx="center" :cy="center" :r="radius" :stroke-width="mergedStrokeWidth" :style="barStyle" />
+      <circle
+        :class="`${ns}__bar`"
+        fill="none"
+        :cx="center"
+        :cy="center"
+        :r="radius"
+        :stroke-width="mergedStrokeWidth"
+        :style="barStyle"
+      />
     </svg>
     <div v-if="showText" :class="[`${ns}__text`]">
       <slot name="text" :percent="percent">

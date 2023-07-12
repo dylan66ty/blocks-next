@@ -1,9 +1,9 @@
-import type { UserConfig } from 'vitepress';
+import type { UserConfig } from 'vitepress'
 
-import { mdPlugin } from './config/plugins';
-import { sidebar } from './config/navigation';
+import { mdPlugin } from './config/plugins'
+import { sidebar } from './config/navigation'
 
-import nav from './navigation/nav.json';
+import nav from './navigation/nav.json'
 
 const config: UserConfig = {
   lang: 'zh-CN',
@@ -16,9 +16,9 @@ const config: UserConfig = {
       {
         rel: 'icon',
         href: './blocks-next-logo-small.svg',
-        type: 'image/svg+xm',
-      },
-    ],
+        type: 'image/svg+xm'
+      }
+    ]
   ],
   themeConfig: {
     logo: '',
@@ -33,11 +33,11 @@ const config: UserConfig = {
     // 顶部标题栏
     nav,
     // 侧边栏
-    sidebar,
+    sidebar
   },
   markdown: {
-    config: (md: markdownit) => mdPlugin(md),
-  },
-};
+    config: (md: markdownit) => mdPlugin(md)
+  }
+}
 
-export default config;
+export default config

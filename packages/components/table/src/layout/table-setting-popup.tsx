@@ -19,7 +19,9 @@ export default defineComponent({
     const tableColumnContext = inject<TableColumnContext>(tableColumnInjectionKey)
     const ns = getNamespace('table-setting')
     // 排除column操作类型
-    const groupColumns = computed(() => tableColumnContext?.groupColumns?.filter((column) => !column.type))
+    const groupColumns = computed(() =>
+      tableColumnContext?.groupColumns?.filter((column) => !column.type)
+    )
 
     const initMap = new Map()
     const columnsList = ref<TableColumnData[]>([])
@@ -95,7 +97,11 @@ export default defineComponent({
           if (e.target && (e.target as HTMLElement).className.includes('drag-icon')) {
             const { parentElement } = e.target as HTMLElement
             if (parentElement && parentElement.className.includes('list-item')) {
-              e.dataTransfer.setDragImage(parentElement, parentElement.clientWidth - 20, parentElement.clientHeight - 20)
+              e.dataTransfer.setDragImage(
+                parentElement,
+                parentElement.clientWidth - 20,
+                parentElement.clientHeight - 20
+              )
             }
           }
         }
@@ -117,7 +123,11 @@ export default defineComponent({
           e.dataTransfer.dropEffect = 'move'
         }
 
-        if (dragState.targetIndex !== index && index !== dragState.sourceIndex && dragState.dragging) {
+        if (
+          dragState.targetIndex !== index &&
+          index !== dragState.sourceIndex &&
+          dragState.dragging
+        ) {
           updateColumnsList(dragState.sourceIndex, index, dragState.data)
         }
         dragState.targetIndex = index
