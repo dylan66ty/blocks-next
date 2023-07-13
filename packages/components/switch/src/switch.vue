@@ -7,7 +7,7 @@
   import { isBoolean, isPromise } from '../../../utils/is'
 
   import { useFormItem } from '../../form/src/hooks/use-form-item'
-  import { switchProps } from './switch'
+  import { switchProps } from './props'
 
   export default defineComponent({
     name: getComponentNamespace('Switch'),
@@ -50,7 +50,7 @@
       const coreStyle = computed<CSSProperties>(() => {
         const style: StyleValue = {
           width: addUnit(props.width),
-          '--bn-switch-inactiveColor-color': props.inactiveColor,
+          '--bn-switch-inactive-color': props.inactiveColor,
           '--bn-switch-active-color': props.activeColor
         }
         return style

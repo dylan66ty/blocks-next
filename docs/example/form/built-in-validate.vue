@@ -4,7 +4,6 @@
   const form = ref({
     mobile: '',
     email: '',
-    url: ''
   })
 
   // validator支持 string =>  (email ｜ url | mobile | chinese | number)
@@ -14,7 +13,7 @@
     mobile: [
       {
         validator: 'mobile',
-        required: false,
+        required: true,
         message: 'mobile error',
         trigger: 'change'
       }
@@ -24,14 +23,6 @@
         validator: 'email',
         required: true,
         message: 'email error',
-        trigger: 'change'
-      }
-    ],
-    url: [
-      {
-        validator: 'url',
-        required: true,
-        message: 'url error',
         trigger: 'change'
       }
     ]
@@ -61,9 +52,6 @@
       </bn-form-item>
       <bn-form-item label="邮箱" prop="email">
         <bn-input v-model="form.email"></bn-input>
-      </bn-form-item>
-      <bn-form-item label="URL" prop="url">
-        <bn-input v-model="form.url"></bn-input>
       </bn-form-item>
       <bn-form-item>
         <bn-space>

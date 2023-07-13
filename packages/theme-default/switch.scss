@@ -11,7 +11,7 @@
   --bn-switch-block-size: 16px;
   --bn-switch-block-gap: 2px;
   --bn-switch-transition-duration: .3s;
-  --bn-switch-inactive-color-color: #e1e4e8;
+  --bn-switch-inactive-color: #e1e4e8;
   --bn-switch-active-color: var(--bn-success);
   --bn-switch-disabled-opacity: .6;
   --bn-switch-label-gap: 8px;
@@ -42,7 +42,7 @@
     border-radius: var(--bn-switch-line-radius);
     min-width: var(--bn-switch-line-width);
     height: var(--bn-switch-line-height);
-    background-color: var(--bn-switch-inactive-color-color);
+    background-color: var(--bn-switch-inactive-color);
     transition: all var(--bn-switch-transition-duration);
   }
 
@@ -52,7 +52,7 @@
     border-radius: var(--bn-switch-circle-radius);
     min-width: var(--bn-switch-circle-width);
     height: var(--bn-switch-circle-height);
-    background-color: var(--bn-switch-inactive-color-color);
+    background-color: var(--bn-switch-inactive-color);
     transition: all var(--bn-switch-transition-duration);
   }
 

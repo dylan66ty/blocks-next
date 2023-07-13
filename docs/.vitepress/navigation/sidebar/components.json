@@ -121,6 +121,11 @@
         {
           "text": "数字角标 Badge",
           "link": "badge"
+        },
+        {
+          "text": "描述列表 Descriptions",
+          "link": "descriptions",
+          "promotion": "alpha.30"
         }
       ]
     },

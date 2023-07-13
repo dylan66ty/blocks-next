@@ -26,7 +26,7 @@ const nativeProps = {
 export const inputProps = {
   modelValue: {
     type: [String, Number] as PropType<string | number>,
-    default: ''
+    default: undefined
   },
   value: {
     type: [String, Number] as PropType<string | number>,

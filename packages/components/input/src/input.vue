@@ -1,8 +1,9 @@
 <script lang="ts">
+  import type { StyleValue } from 'vue'
   import { defineComponent, computed, ref, shallowRef, nextTick, onMounted, watch } from 'vue'
   import { getNamespace, getComponentNamespace } from '../../../utils/global-config'
   import { isClient } from '../../../utils/browser'
-  import { isNumber, isObject, isString } from '../../../utils/is'
+  import { isObject } from '../../../utils/is'
   import { NOOP } from '../../../shared/utils'
   import EyeOpenIcon from '../../icon/src/base/eye-open.vue'
   import EyeCloseIcon from '../../icon/src/base/eye-close.vue'
@@ -24,10 +25,9 @@
     inheritAttrs: false,
     props: inputProps,
     emits: ['update:modelValue', 'input', 'change', 'focus', 'blur', 'clear'],
-    setup(props, { emit, slots }) {
+    setup(props, { emit, slots, attrs }) {
       const inputNs = getNamespace('input')
       const textareaNs = getNamespace('textarea')
-
       const mergeDisable = computed(() => props.disabled)
 
       const inputWrapperCls = computed(() => [
@@ -41,7 +41,12 @@
         isFocus.value && 'is-focus'
       ])
 
-      const containerCls = computed(() => [props.type === 'text' ? inputNs : textareaNs])
+      const containerCls = computed(() => [
+        props.type === 'text' ? inputNs : textareaNs,
+        attrs.class
+      ])
+
+      const containerStyle = computed(() => [attrs.style as StyleValue])
 
       const eyeStatus = ref(false)
       const isHover = ref(false)
@@ -93,13 +98,7 @@
       // 输入文本字数
       const currentValueLength = computed<number>(() => {
         const value = computedModelValue.value
-        if (isNumber(value)) {
-          return String(value).length
-        }
-        if (isString(value)) {
-          return value.length
-        }
-        return 0
+        return String(value).length
       })
 
       // event
@@ -188,7 +187,6 @@
       }
 
       onMounted(() => {
-        // 完全获取dom
         nextTick(resizeTextarea)
       })
 
@@ -213,6 +211,7 @@
 
       return {
         containerCls,
+        containerStyle,
         inputNs,
         textareaNs,
         inputWrapperCls,
@@ -244,7 +243,12 @@
 </script>
 
 <template>
-  <div :class="containerCls" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+  <div
+    :class="containerCls"
+    :style="containerStyle"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
+  >
     <!-- input -->
     <template v-if="type === 'text'">
       <div :class="inputWrapperCls">
@@ -259,13 +263,13 @@
         <input
           ref="inputRef"
           :class="[`${inputNs}__inner`]"
-          v-bind="$attrs"
           :placeholder="placeholder"
           :disabled="mergeDisable"
           :type="inputType"
           :value="computedModelValue"
           :readonly="readonly"
           :autocomplete="autocomplete"
+          :form="form"
           @input="handleInput"
           @change="handleChange"
           @focus="handleFocus"
@@ -308,12 +312,12 @@
       <textarea
         ref="textareaRef"
         :class="[`${textareaNs}__inner`]"
-        v-bind="$attrs"
         :disabled="mergeDisable"
         :style="textareaStyle"
         :placeholder="placeholder"
         :value="computedModelValue"
         :readonly="readonly"
+        :form="form"
         @input="handleInput"
         @change="handleChange"
         @focus="handleFocus"

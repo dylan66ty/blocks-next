@@ -69,7 +69,7 @@
     </bn-space>
   </div>
 
-  <bn-cascader :data="data" v-model="model" multilel>
+  <bn-cascader :data="data" v-model="model" multiple>
     <template #trigger>
       <span :class="['custom-trigger', { 'is-active': model.length }]">open cascader</span>
     </template>

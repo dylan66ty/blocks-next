@@ -4,36 +4,12 @@
   <div class="card-demo-area">
     <bn-space direction="vertical">
       <bn-space>
-        <div style="width: 200px">
-          <bn-input card placeholder="产品名称" suffix-icon="bn-icon-search"></bn-input>
-        </div>
-        <div style="width: 200px">
-          <bn-input
-            card
-            placeholder="产品名称"
-            value="我是名称"
-            suffix-icon="bn-icon-search"
-          ></bn-input>
-        </div>
+        <bn-input card placeholder="产品名称" suffix-icon="bn-icon-search"></bn-input>
+        <bn-input card placeholder="产品名称" value="我是名称" suffix-icon="bn-icon-search"></bn-input>
       </bn-space>
       <bn-space>
-        <div style="width: 200px">
-          <bn-input
-            card
-            placeholder="产品名称"
-            size="large"
-            suffix-icon="bn-icon-search"
-          ></bn-input>
-        </div>
-        <div style="width: 200px">
-          <bn-input
-            card
-            placeholder="产品名称"
-            size="large"
-            disabled
-            suffix-icon="bn-icon-search"
-          ></bn-input>
-        </div>
+        <bn-input card placeholder="产品名称" size="large" suffix-icon="bn-icon-search"></bn-input>
+        <bn-input card placeholder="产品名称" size="large" disabled suffix-icon="bn-icon-search"></bn-input>
       </bn-space>
     </bn-space>
   </div>

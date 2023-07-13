@@ -1,4 +1,3 @@
-/* stylelint-disable selector-pseudo-element-no-unknown */
 @use './mixins/bem.scss' as *;
 
 @include b(input) {
@@ -12,6 +11,7 @@
   --bn-input-font-size: var(--bn-font-size);
   --bn-input-placeholder-color: var(--bn-color-3);
   --bn-input-height: 40px;
+  --bn-input-width: 100%;
   --bn-input-icon-color: var(--bn-color-3);
   --bn-input-hover-border-color: rgb(188 196 214 / 100%);
 }
@@ -19,7 +19,7 @@
 @include b(input) {
   position: relative;
   display: inline-flex;
-  width: 100%;
+  width: var(--bn-input-width);
   box-sizing: border-box;
   vertical-align: middle;
 
@@ -74,6 +74,7 @@
     flex-grow: 1;
     line-height: 1;
 
+    /* stylelint-disable selector-pseudo-element-no-unknown */
     &::input-placeholder {
       color: var(--bn-input-placeholder-color);
     }

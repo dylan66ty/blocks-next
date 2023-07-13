@@ -12,13 +12,13 @@ form/basic
 :::
 
 ## 行内表单
-::: demo 设置属性 **inline**为`true`即可
+::: demo 设置属性`inline`即可
 form/inline
 :::
 
 
-## 表单label对齐方式
-::: demo 设置属性 **label-position**为`left` `top` `right`即可
+## 对齐方式
+::: demo 设置属性 `label-position`即可。可选值 `left` `top` `right`
 form/label-position
 :::
 
@@ -38,10 +38,7 @@ form/built-in-validate
 form/custom-validate
 :::
 
-## 链式属性校验规则
-::: demo prop可以指定为链式
-form/chain-validate
-:::
+
 
 ## 表单嵌套
 ::: demo

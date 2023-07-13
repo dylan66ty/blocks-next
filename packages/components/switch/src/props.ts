@@ -27,11 +27,11 @@ export const switchProps = {
   },
   activeColor: {
     type: String,
-    default: ''
+    default: undefined
   },
   inactiveColor: {
     type: String,
-    default: ''
+    default: undefined
   },
   trueValue: {
     type: [Boolean, String, Number],

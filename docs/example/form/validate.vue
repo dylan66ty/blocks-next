@@ -159,7 +159,7 @@
         </bn-checkbox-group>
       </bn-form-item>
       <bn-form-item label="熟悉框架" prop="lang">
-        <bn-select v-model="form.lang" style="width: 200px">
+        <bn-select v-model="form.lang">
           <bn-option label="Vue" value="vue"></bn-option>
           <bn-option label="React" value="react"></bn-option>
           <bn-option label="Angular" value="angular"></bn-option>

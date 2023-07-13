@@ -1,7 +1,7 @@
 <script lang="ts">
   import { computed, defineComponent, inject } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
-  import { selectKey } from './constant'
+  import { selectKey } from './context'
 
   export default defineComponent({
     name: getComponentNamespace('SelectMenu'),

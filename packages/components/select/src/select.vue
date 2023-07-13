@@ -27,8 +27,8 @@
   import Options from './options'
   import SelectMenu from './menu.vue'
   import type { SelectContext, SelectOptionProxy, ValueKey } from './types'
-  import { selectKey } from './constant'
-  import { selectProps } from './select'
+  import { selectKey } from './context'
+  import { selectProps } from './props'
 
   export default defineComponent({
     name: getComponentNamespace('Select'),

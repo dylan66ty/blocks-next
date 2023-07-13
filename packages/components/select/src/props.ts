@@ -56,4 +56,4 @@ export const selectProps = {
   }
 }
 
-export type InputProps = ExtractPropTypes<typeof selectProps>
+export type SelectProps = ExtractPropTypes<typeof selectProps>

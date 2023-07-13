@@ -24,8 +24,8 @@ export interface SelectOptionProxy {
   itemSelected: boolean
   isDisabled: boolean
   select: SelectContext
-  hoverItem: () => void
   visible: boolean
   isHover: boolean
+  hoverItem: () => void
   selectOptionClick: () => void
 }

@@ -2,7 +2,7 @@
   import { computed, defineComponent, inject, getCurrentInstance, ref, onBeforeUnmount } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
   import { isObject } from '../../../utils/is'
-  import { selectKey } from './constant'
+  import { selectKey } from './context'
   import type { SelectOptionProxy } from './types'
 
   export default defineComponent({

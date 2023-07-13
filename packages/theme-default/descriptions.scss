@@ -14,6 +14,20 @@
   }
 }
 
+@mixin text-align () {
+  &.is-center {
+    text-align: center;
+  }
+
+  &.is-left {
+    text-align: left;
+  }
+
+  &.is-right {
+    text-align: right;
+  }
+}
+
 @include b(descriptions-item) {
   @include when(border) {
     &.#{$namespace}-descriptions-item__label {
@@ -30,11 +44,15 @@
   @include e(value) {
     font-size: var(--descriptions-font-size);
     color: var(--bn-color-2);
+
+    @include text-align()
   }
 
   @include e(label) {
     font-size: var(--descriptions-font-size);
     color: var(--bn-color-1);
+    
+    @include text-align()
   }
 
   &:not(.is-border) {
@@ -46,6 +64,17 @@
 
       .#{$namespace}-descriptions-item__label {
         margin-right: 16px;
+      }
+    }
+    
+  
+    &.#{$namespace}-descriptions-item--default {
+      &.#{$namespace}-descriptions-item__cell {
+        padding-bottom: 12px;
+      }
+
+      .#{$namespace}-descriptions-item__label {
+        margin-right: 14px;
       }
     }
 
@@ -63,6 +92,13 @@
 
   @include m(large) {
     --descriptions-item-cell-padding: 12px 15px;
+    --descriptions-font-size: 14px;
+
+  }
+
+  @include m(default) {
+    --descriptions-item-cell-padding: 8px 11px;
+    --descriptions-font-size: 14px;
   }
 
   @include m(small) {

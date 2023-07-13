@@ -1,10 +1,4 @@
-<script lang="ts" setup>
-  import { ref } from 'vue'
-  const inpVal = ref('')
-</script>
 
 <template>
-  <div style="width: 200px">
-    <bn-input v-model="inpVal" placeholder="请输入" show-password></bn-input>
-  </div>
+   <bn-input show-password></bn-input>
 </template>

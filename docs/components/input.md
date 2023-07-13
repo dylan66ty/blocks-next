@@ -44,12 +44,12 @@ input/icon
 :::
 
 ## 过滤器
-::: demo 设置属性 **formatter**为 `Function` 即可 
+::: demo 设置属性 **formatter**即可 
 input/formatter
 :::
 
 ## 尺寸
-::: demo  设置属性 **size**为 `small` `normal` `large` 即可
+::: demo  设置属性**size**即可
 input/size
 :::
 
@@ -77,14 +77,14 @@ input/limit-length
 |-------|-------|---|:---:|
 |v-model|绑定值|`string` / `number`|`-`|
 |type|类型|`text` / `textarea`|`text`|
-|size|尺寸(只对type:`text`生效)|`small` / `normal` / `large`|`normal`|
+|size|尺寸(只对type:`text`生效)|`small` / `default` / `large`|`normal`|
 |show-password|是否显示切换密码图标|`boolean`|`false`|
 |disabled|禁用|`boolean`|`false`|
 |prefix-icon|输入框头部图标|`string`|`-`|
 |suffix-icon|输入框尾部图标|`string`|`-`|
 |formatter|输入框过滤器|`(val:string) => string`|`-`|
-|maxlength ^(beta)|最大输入长度|`string` / `number`|`-`|
-|show-word-limit ^(beta)|是否显示统计字数|`boolean`|`-`|
+|maxlength|最大输入长度|`string` / `number`|`-`|
+|show-word-limit|是否显示统计字数|`boolean`|`-`|
 |autosize|自适应内容高度，只对 type="textarea" 有效，可传入对象，如，\{ minRows: 2, maxRows: 6 \}|`object` / `boolean`|`false`|
 |autocomplete|原生属性，自动补全|`on` / `off`|`off`|
 |name|原生属性|`string`|`-`|

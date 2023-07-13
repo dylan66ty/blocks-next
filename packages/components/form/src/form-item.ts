@@ -1,8 +1,7 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes } from 'vue'
 import type { Arrayable } from '../../../utils/types'
+import { definePropType } from '../../../utils/vue-utils'
 import type { FormItemRule } from './types'
-
-export const definePropType = <T>(val: any): PropType<T> => val
 
 export const formItemValidateStates = ['', 'error', 'validating', 'success'] as const
 
