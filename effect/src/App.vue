@@ -38,7 +38,7 @@
 <template>
   <!-- <Dialog /> -->
 
-  <Descriptions />
+  <Select />
 </template>
 
 <style></style>

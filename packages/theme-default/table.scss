@@ -61,7 +61,7 @@
     .#{$namespace}-table__body {
       .#{$namespace}-tr:hover {
         .#{$namespace}-td {
-          background-color: #ddd;
+          background-color: var(--bn-table-hover-background-color);
 
           // &:first-child {
           //   border-top-left-radius: 10px;

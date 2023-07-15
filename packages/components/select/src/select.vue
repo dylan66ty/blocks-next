@@ -1,23 +1,12 @@
 <script lang="ts">
-  import {
-    computed,
-    defineComponent,
-    ref,
-    provide,
-    reactive,
-    watch,
-    onMounted,
-    nextTick
-  } from 'vue'
+  import { computed, defineComponent, ref, provide, reactive, watch, onMounted } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 
   import Trigger from '../../trigger/src/trigger'
-  import BnInput from '../../input/src/input.vue'
-
-  import CaretIcon from '../../icon/src/base/caret.vue'
   import LoadingIcon from '../../icon/src/base/loading.vue'
 
   import { isNumber } from '../../../utils/is'
+  import SelectTrigger from '../../_components/select-trigger.vue'
 
   import Scrollbar from '../../scrollbar/src/scrollbar.vue'
 
@@ -27,19 +16,18 @@
   import Options from './options'
   import SelectMenu from './menu.vue'
   import type { SelectContext, SelectOptionProxy, ValueKey } from './types'
-  import { selectKey } from './context'
+  import { selectInjectKey } from './context'
   import { selectProps } from './props'
 
   export default defineComponent({
     name: getComponentNamespace('Select'),
     components: {
       Trigger,
-      BnInput,
-      CaretIcon,
       SelectMenu,
       Options,
       Scrollbar,
-      LoadingIcon
+      LoadingIcon,
+      SelectTrigger
     },
     props: selectProps,
     emits: ['update:modelValue', 'change'],
@@ -54,24 +42,18 @@
         cachedOptions: new Map(),
         // 多选todo
         selected: props.multiple ? [] : ({} as any),
-        optionsCount: 0,
         // 单选选中的label
         selectedLabel: '',
-        hoverIndex: -1,
-        filteredOptionsCount: 0
+        hoverIndex: -1
       })
 
       const scrollbarRef = ref<HTMLElement>()
-      const inputRef = ref<any>()
+      const popupRef = ref()
 
       // TODO 从表单合并 disabled 属性
       const mergeDisabled = computed(() => props.disabled)
       const mergeSize = computed(() => props.size)
 
-      // readonly
-      const inputReadonly = computed(() => !props.multiple)
-
-      // 存储option每一项的label
       const optionList = ref<string[]>([])
 
       const emptyText = computed(() => {
@@ -106,7 +88,7 @@
         if (option) return option
       }
 
-      const handleClearSelectLabel = () => {
+      const handleClear = () => {
         emit('update:modelValue', '')
         emit('change', '')
       }
@@ -135,24 +117,20 @@
       }
 
       // 每个option创建后添加到options set中
-      const optionItemCreate = (vm: SelectOptionProxy) => {
-        states.optionsCount++
-        states.filteredOptionsCount++
-        states.options.set(vm.value, vm)
-        states.cachedOptions.set(vm.value, vm)
+      const optionItemCreate = (optVm: SelectOptionProxy) => {
+        states.options.set(optVm.value, optVm)
+        states.cachedOptions.set(optVm.value, optVm)
       }
 
       // option删除从options set中移除
-      const optionItemDestroy = (key: ValueKey, vm: SelectOptionProxy) => {
-        if (states.options.get(key) === vm) {
-          states.optionsCount--
-          states.filteredOptionsCount--
+      const optionItemDestroy = (key: ValueKey, optVm: SelectOptionProxy) => {
+        if (states.options.get(key) === optVm) {
           states.options.delete(key)
         }
       }
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const optionItemDestroyInCache = (key: ValueKey, vm: SelectOptionProxy) => {
+      const optionItemDestroyInCache = (key: ValueKey, optVm: SelectOptionProxy) => {
         // TODO
       }
 
@@ -160,7 +138,7 @@
         optionList.value = value
       }
 
-      const optionsItemHoverIndexChange = (vm: SelectOptionProxy) => {
+      const optionItemHoverIndexChange = (vm: SelectOptionProxy) => {
         states.hoverIndex = optionsArray.value.indexOf(vm)
       }
 
@@ -174,11 +152,6 @@
           emit('update:modelValue', vm.currentValue)
           emit('change', vm.currentValue)
         }
-
-        nextTick(() => {
-          // 激活input
-          inputRef.value?.inputRef.focus()
-        })
         handleCloseTrigger()
       }
 
@@ -232,14 +205,14 @@
       )
 
       provide(
-        selectKey,
+        selectInjectKey,
         reactive({
           props,
           optionsArray,
           optionItemCreate,
           optionItemDestroy,
           handleOptionSelect,
-          optionsItemHoverIndexChange
+          optionItemHoverIndexChange
         }) as SelectContext
       )
 
@@ -249,14 +222,12 @@
         states,
         emptyText,
         onUpdateOptionsToRender,
-        // 重写
         mergeDisabled,
         mergeSize,
         handleCloseTrigger,
         scrollbarRef,
-        inputReadonly,
-        inputRef,
-        handleClearSelectLabel
+        popupRef,
+        handleClear
       }
     }
   })
@@ -275,31 +246,24 @@
       :disabled="mergeDisabled"
     >
       <template #default>
-        <div :class="[`${ns}__trigger`]">
-          <div v-if="multiple" :class="[`${ns}__multiple-wrapper`]"></div>
-          <BnInput
-            ref="inputRef"
-            v-model="states.selectedLabel"
-            :disabled="mergeDisabled"
-            :validate-event="false"
-            :size="mergeSize"
-            :readonly="inputReadonly"
-            :placeholder="placeholder"
-            :clearable="clearable"
-            @clear="handleClearSelectLabel"
-          >
-            <template #suffix-icon>
-              <CaretIcon :class="[{ 'is-rotate': states.popupVisible }, `${ns}__icon-caret`]" />
-            </template>
-          </BnInput>
-        </div>
+        <SelectTrigger
+          :input-value="states.selectedLabel"
+          :disabled="mergeDisabled"
+          :size="mergeSize"
+          :placeholder="placeholder"
+          :clearable="clearable"
+          :popup-visible="states.popupVisible"
+          :multiple="multiple"
+          :popup-ref="popupRef"
+          @clear="handleClear"
+        />
       </template>
 
       <template #content>
-        <SelectMenu>
-          <Scrollbar ref="scrollbarRef" style="max-height: 224px">
-            <Options @update-options="onUpdateOptionsToRender">
-              <slot v-if="!loading"></slot>
+        <SelectMenu ref="popupRef">
+          <Scrollbar ref="scrollbarRef" style="max-height: 200px">
+            <Options v-if="!loading" @update-options="onUpdateOptionsToRender">
+              <slot></slot>
             </Options>
             <template v-if="emptyText">
               <p :class="[`${ns}__empty-text`]" @click="handleCloseTrigger">

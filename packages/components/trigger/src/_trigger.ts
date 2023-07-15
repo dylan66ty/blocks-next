@@ -236,7 +236,6 @@ export const triggerProps = {
   },
   /**
    *  是否自动调整弹出框位置，以适应窗口大小
-   * @en Whether to automatically adjust the position of the popup to fit the window size
    */
   autoFitPosition: {
     type: Boolean,
@@ -244,7 +243,6 @@ export const triggerProps = {
   },
   /**
    *  是否挂载在 `body` 元素下
-   * @en Whether to mount under the `body` element
    */
   renderToBody: {
     type: Boolean,
@@ -252,7 +250,6 @@ export const triggerProps = {
   },
   /**
    *  是否阻止弹出层中的元素点击时获取焦点
-   * @en Whether to prevent elements in the pop-up layer from gaining focus when clicked
    */
   preventFocus: {
     type: Boolean,

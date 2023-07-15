@@ -24,8 +24,10 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       required: true
     },
-    // eslint-disable-next-line vue/require-default-prop
-    activeKey: String,
+    activeKey: {
+      type: String,
+      default: ''
+    },
     totalLevel: {
       type: Number,
       required: true

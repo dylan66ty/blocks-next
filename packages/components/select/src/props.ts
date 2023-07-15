@@ -4,9 +4,18 @@ export const selectProps = {
     type: [Array, String, Number, Boolean, Object],
     default: undefined
   },
-  multiple: Boolean,
-  loading: Boolean,
-  clearable: Boolean,
+  multiple: {
+    type: Boolean,
+    default: false
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  clearable: {
+    type: Boolean,
+    default: false
+  },
   loadingText: {
     type: String,
     default: '加载中'
@@ -18,14 +27,6 @@ export const selectProps = {
   noMatchText: {
     type: String,
     default: '暂无匹配项'
-  },
-  valueKey: {
-    type: String,
-    default: 'value'
-  },
-  labelKey: {
-    type: String,
-    default: 'label'
   },
   popperClass: {
     type: String,

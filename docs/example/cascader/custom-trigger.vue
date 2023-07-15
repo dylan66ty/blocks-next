@@ -69,9 +69,15 @@
     </bn-space>
   </div>
 
-  <bn-cascader :data="data" v-model="model" multiple>
+  <bn-cascader :data="data" v-model="model" multiple show-footer>
     <template #trigger>
       <span :class="['custom-trigger', { 'is-active': model.length }]">open cascader</span>
+    </template>
+    <template #footer>
+     <div style="width: 100%;display: flex; justify-content: center;gap: 8px;">
+      <bn-button size="small">取消</bn-button>
+      <bn-button type="primary" size="small">确认</bn-button>
+    </div>
     </template>
   </bn-cascader>
 </template>

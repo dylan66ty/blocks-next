@@ -1,15 +1,12 @@
 <script lang="ts">
-  import { computed, defineComponent, reactive, ref, watch, provide, nextTick, toRefs } from 'vue'
+  import { computed, defineComponent, reactive, ref, watch, provide, toRefs } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 
   import Trigger from '../../trigger/src/trigger'
-  import type { InputInstance } from '../../input'
-  import BnInput from '../../input'
-  import CaretIcon from '../../icon/src/base/caret.vue'
-  import CloseIcon from '../../icon/src/base/close.vue'
 
   import { useFormItem } from '../../form/src/hooks/use-form-item'
   import { NOOP } from '../../../shared/utils'
+  import SelectTrigger from '../../_components/select-trigger.vue'
   import BasePanel from './base-panel'
 
   import { cascaderProps } from './props'
@@ -23,10 +20,8 @@
     name: getComponentNamespace('Cascader'),
     components: {
       Trigger,
-      BnInput,
-      CaretIcon,
-      CloseIcon,
-      BasePanel
+      BasePanel,
+      SelectTrigger
     },
     props: cascaderProps,
     emits: ['update:modelValue', 'change'],
@@ -34,27 +29,25 @@
       const ns = getNamespace('cascader')
 
       const { formItem } = useFormItem()
-
       const states = reactive({
         popupVisible: false
       })
 
       const totalLevel = ref(1)
 
+      const popupRef = ref()
+
       // TODO 从表单合并 disabled 属性
       const mergeDisabled = computed(() => props.disabled)
       const mergeSize = computed(() => props.size)
 
-      const mergePlaceholder = computed(() => {
+      const computedPlaceholder = computed(() => {
         if (props.multiple) {
           if (pathValueToNodeKeys.value.length === 0) return props.placeholder
           return ''
         }
         return props.placeholder
       })
-
-      const inputReadonly = computed(() => true)
-      const inputRef = ref<InputInstance>()
 
       const dataTree = ref<CascaderNode[]>([])
       const dataMap = reactive(new Map<string, CascaderNode>())
@@ -79,7 +72,7 @@
       const { renderColumns, selectedPath, setSelectedPath, activeKey, setActiveKey } =
         useSelectedPath(dataTree, { dataMap, expandChild })
 
-      const computedInputLabel = computed(() => {
+      const currentTagLabel = computed(() => {
         if (!props.multiple && pathValueToNodeKeys.value.length) {
           const node = dataMap.get(pathValueToNodeKeys.value[0])
           let label = node?.pathLabel?.join(props.separator)
@@ -88,16 +81,15 @@
           }
           return label
         }
-
         //  仅仅为了input的占位符 显示close图标
         if (props.multiple && pathValueToNodeKeys.value.length) {
           return ' '
         }
-
         return ''
       })
 
       const multipleTags = computed(() => {
+        if (!props.multiple) return []
         const tagLabels = pathValueToNodeKeys.value.map((nodeKey) => {
           const node = dataMap.get(nodeKey)
           return {
@@ -107,23 +99,6 @@
         })
         return tagLabels
       })
-
-      const inputHeight = ref<string>('')
-      const multipleTagsRef = ref<HTMLElement>()
-
-      watch(
-        pathValueToNodeKeys,
-        (nodeKeys) => {
-          nextTick(() => {
-            if (nodeKeys.length <= 1) {
-              inputHeight.value = ''
-              return
-            }
-            inputHeight.value = multipleTagsRef.value?.clientHeight + 'px'
-          })
-        },
-        { immediate: true }
-      )
 
       watch(
         () => states.popupVisible,
@@ -136,8 +111,6 @@
               setSelectedPath(lastNodeKey)
               setActiveKey(lastNodeKey)
             }
-
-            nextTick(() => manualFocusInput())
           }
         }
       )
@@ -218,10 +191,6 @@
         }
       }
 
-      const manualFocusInput = () => {
-        nextTick(() => inputRef.value?.inputRef?.focus())
-      }
-
       const footerOps = {
         handleCancel() {
           handleClear()
@@ -238,8 +207,6 @@
         } else {
           selectMultiple(node, checked ?? true)
         }
-
-        manualFocusInput()
       }
 
       provide(
@@ -259,19 +226,16 @@
         states,
         mergeDisabled,
         mergeSize,
-        mergePlaceholder,
-        inputReadonly,
-        inputRef,
+        computedPlaceholder,
         handleClear,
-        computedInputLabel,
+        currentTagLabel,
         renderColumns,
         selectedPath,
         activeKey,
         multipleTags,
-        multipleTagsRef,
-        inputHeight,
         handleTagClose,
-        totalLevel
+        totalLevel,
+        popupRef
       }
     }
   })
@@ -290,44 +254,25 @@
     >
       <template #default>
         <slot name="trigger">
-          <div :class="[`${ns}__trigger`]">
-            <BnInput
-              ref="inputRef"
-              :style="{ height: inputHeight }"
-              :validate-event="false"
-              :disabled="mergeDisabled"
-              :model-value="computedInputLabel"
-              :size="mergeSize"
-              :readonly="inputReadonly"
-              :placeholder="mergePlaceholder"
-              :clearable="clearable"
-              @clear="handleClear"
-            >
-              <template #suffix-icon>
-                <CaretIcon :class="[{ 'is-rotate': states.popupVisible }, `${ns}__icon-caret`]" />
-              </template>
-            </BnInput>
-            <div
-              v-if="multiple && multipleTags.length"
-              ref="multipleTagsRef"
-              :class="[`${ns}__multiple`]"
-            >
-              <div
-                v-for="(tag, index) in multipleTags"
-                :key="`${tag.key}-${index}`"
-                :class="[`${ns}__tag`]"
-              >
-                <span :class="[`${ns}__tag-text`]">{{ tag.label }}</span>
-                <CloseIcon @click.stop="handleTagClose(tag)" />
-              </div>
-            </div>
-          </div>
+          <SelectTrigger
+            :input-value="currentTagLabel"
+            :disabled="mergeDisabled"
+            :size="mergeSize"
+            :placeholder="computedPlaceholder"
+            :clearable="clearable"
+            :popup-visible="states.popupVisible"
+            :multiple="multiple"
+            :multiple-tags="multipleTags"
+            :popup-ref="popupRef"
+            @clear="handleClear"
+            @tag-close="handleTagClose"
+          />
         </slot>
       </template>
 
       <template #content>
         <BasePanel
-          :class="[popupClass]"
+          ref="popupRef"
           :render-columns="renderColumns"
           :selected-path="selectedPath"
           :active-key="activeKey"

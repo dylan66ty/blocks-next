@@ -101,8 +101,8 @@
         return String(value).length
       })
 
-      // event
-      const inputEvt = (e: Event) => {
+      // input输入事件
+      const handleInput = (e: Event) => {
         let { value } = e.target as TargetElement
 
         // 过滤器
@@ -120,8 +120,7 @@
         ;(e.target as TargetElement).value = value
       }
 
-      const handleInput = inputEvt
-
+      // input change事件
       const handleChange = (e: Event) => {
         emit('change', (e.target as TargetElement).value)
       }
@@ -134,6 +133,7 @@
       const handleBlur = (e: Event) => {
         isFocus.value = false
         emit('blur', e)
+        // 表单验证关联-失去焦点触发
         if (props.validateEvent) {
           formItem?.validate?.('blur').catch(NOOP)
         }
@@ -152,9 +152,14 @@
         emit('update:modelValue', '')
         emit('clear', '')
         innerValue.value = ''
-        nextTick(() => {
-          inputRef.value?.focus()
-        })
+        inputRef.value?.focus()
+      }
+
+      // 手动触发input focus事件
+      const manualInputFocus = async (e: PointerEvent) => {
+        e && e.preventDefault()
+        await nextTick()
+        inputRef.value?.focus()
       }
 
       // textarea
@@ -219,7 +224,6 @@
         computedModelValue,
         inputType,
         inputRef,
-        handleEye,
         textareaStyle,
         textareaRef,
         mergeDisable,
@@ -236,7 +240,9 @@
         handleInput,
         handleChange,
         handleFocus,
-        handleBlur
+        handleBlur,
+        handleEye,
+        manualInputFocus
       }
     }
   })
@@ -248,6 +254,7 @@
     :style="containerStyle"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
+    @mousedown="manualInputFocus"
   >
     <!-- input -->
     <template v-if="type === 'text'">
@@ -310,7 +317,7 @@
     <!-- textarea -->
     <template v-if="type === 'textarea'">
       <textarea
-        ref="textareaRef"
+        ref="inputRef"
         :class="[`${textareaNs}__inner`]"
         :disabled="mergeDisable"
         :style="textareaStyle"

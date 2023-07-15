@@ -248,10 +248,7 @@ export default defineComponent({
     })
 
     const renderBody = () => {
-      // const hasSubData = renderData.value.some((record) => Boolean(record.hasSubtree))
-
       const Component = Scrollbar
-
       return (
         <div class={[`${ns}__body`]}>
           <Component

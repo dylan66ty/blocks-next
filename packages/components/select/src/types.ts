@@ -6,13 +6,13 @@ export interface SelectContext {
     popperClass?: string
   }
   optionsArray: []
-  optionItemCreate(vm: SelectOptionProxy): void
-  optionItemDestroy(key: ValueKey, vm: SelectOptionProxy): void
-  handleOptionSelect(vm: SelectOptionProxy, byClick: boolean): void
-  optionsItemHoverIndexChange(vm: SelectOptionProxy): void
+  optionItemCreate(option: SelectOptionProxy): void
+  optionItemDestroy(key: ValueKey, option: SelectOptionProxy): void
+  handleOptionSelect(option: SelectOptionProxy, byClick: boolean): void
+  optionItemHoverIndexChange(option: SelectOptionProxy): void
 }
 
-export type ValueKey = string | number | Record<string, string>
+export type ValueKey = string | number | Record<string, any>
 
 export interface SelectOptionProxy {
   value: ValueKey

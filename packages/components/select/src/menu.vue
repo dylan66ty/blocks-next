@@ -1,16 +1,16 @@
 <script lang="ts">
   import { computed, defineComponent, inject } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
-  import { selectKey } from './context'
+  import { selectInjectKey } from './context'
 
   export default defineComponent({
     name: getComponentNamespace('SelectMenu'),
     setup() {
       const ns = getNamespace('select')
-      const selectContext = inject(selectKey)!
+      const selectContext = inject(selectInjectKey)
 
-      const popperClass = computed(() => selectContext.props.popperClass)
-      const isMultiple = computed(() => selectContext.props.multiple)
+      const popperClass = computed(() => selectContext?.props.popperClass)
+      const isMultiple = computed(() => selectContext?.props.multiple)
 
       const cls = computed(() => [
         `${ns}-menu`,

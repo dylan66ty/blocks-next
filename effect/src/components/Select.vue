@@ -56,7 +56,7 @@
       }
     ]
     loading.value = false
-  }, 2000)
+  }, 0)
 </script>
 
 <template>

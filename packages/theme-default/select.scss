@@ -2,17 +2,7 @@
 
 @include b(select) {
   display: inline-block;
-  font-size: var(--bn-font-size);
-
-  @include e(icon-caret) {
-    transform: rotate(0);
-    transition: transform .3s ease;
-
-    &.is-rotate {
-      transform: rotate(180deg);
-    }
-  }
-
+  
   @include e(empty-text) {
     display: flex;
     justify-content: center;
@@ -25,16 +15,17 @@
 }
 
 @include b(select-menu) {
-  overflow: hidden;
-  border-radius: 8px;
-  max-height: 224px;
-  background: #fff;
-  box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
-  box-sizing: border-box;
-
   --bn-menu-hover-background-color: #f8faff;
   --bn-menu-disabled-color: #a8abb2;
   --bn-menu-item-height: 40px;
+}
+
+@include b(select-menu) {
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
+  box-sizing: border-box;
 
   @include e(item) {
     position: relative;

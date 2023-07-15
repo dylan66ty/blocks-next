@@ -42,7 +42,7 @@ select/loading
 |---|---|---|:---:|
 |v-model|绑定值|`boolean` / `number` / `string`|`-`|
 |disabled|是否禁用|`boolean` |`false`|
-|size|select大小|`small` / `default` / `large`|`default`|
+|size|尺寸大小|`small` / `default` / `large`|`default`|
 |placeholder|占位符|`string`|`请选择`|
 |loading|是否正在从接口获取数据|`boolean`|`false`|
 |loading-text|正在加载文字|`string`|`-`|
@@ -64,8 +64,8 @@ select/loading
 ## Option Attributes
 |参数名|描述|可选值|默认值|
 |---|---|---|:---:|
-|label|绑定值|`string`|`-`|
-|value|是否禁用|`string` |`-`|
+|label|选项的标签|`string`|`-`|
+|value|选项的值|`string` |`-`|
 |disabled|是否禁用|`boolean` |`false`|
 
 ## Option Slots

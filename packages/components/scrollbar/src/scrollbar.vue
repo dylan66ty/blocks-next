@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { computed, defineComponent, onMounted, ref } from 'vue'
+  import { computed, defineComponent, ref } from 'vue'
   import type { StyleValue } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
   import { isObject } from '../../../utils/is'
@@ -18,9 +18,7 @@
     },
     inheritAttrs: false,
     props: scrollbarProps,
-    emits: {
-      scroll: (_ev: Event) => true
-    },
+    emits: ['scroll'],
     setup(props, { emit }) {
       const ns = getNamespace('scrollbar')
       const cls = computed(() => [
@@ -102,10 +100,6 @@
       const handleResize = () => {
         getContainerSize()
       }
-
-      onMounted(() => {
-        getContainerSize()
-      })
 
       const handleVerticalScroll = (offset: number) => {
         if (containerRef.value) {
@@ -203,7 +197,8 @@
 </script>
 
 <template>
-  <div :class="cls" :style="style">
+  <!-- 当内容动态变化时，需要更新滚动条大小 ，现策略鼠标进入就更新一次 -->
+  <div :class="cls" :style="style" @mouseenter="handleResize">
     <ResizeObserver @resize="handleResize">
       <div ref="containerRef" :class="`${ns}__container`" v-bind="$attrs" @scroll="handleScroll">
         <slot></slot>

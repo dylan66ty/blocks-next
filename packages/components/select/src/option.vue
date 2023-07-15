@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { computed, defineComponent, inject, getCurrentInstance, ref, onBeforeUnmount } from 'vue'
+  import { computed, defineComponent, inject, getCurrentInstance, onBeforeUnmount } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
   import { isObject } from '../../../utils/is'
-  import { selectKey } from './context'
+  import { selectInjectKey } from './context'
   import type { SelectOptionProxy } from './types'
 
   export default defineComponent({
@@ -23,21 +23,16 @@
     },
     setup(props) {
       const ns = getNamespace('select-menu')
-
-      // 维护option状态
-      const isHover = ref(false)
-
-      // select上下文
-      const selectContext = inject(selectKey)!
-
+      const selectContext = inject(selectInjectKey)
       const valueIsObject = computed(() => {
         return isObject(props.value)
       })
+      // const hoverIndex = computed(() => selectContext.)
 
       const itemSelected = computed(() => {
-        if (!selectContext.props.multiple) {
+        if (!selectContext?.props.multiple) {
           if (!valueIsObject.value) {
-            return props.value === selectContext.props.modelValue
+            return props.value === selectContext?.props.modelValue
           } else {
             return false
           }
@@ -48,12 +43,7 @@
       })
 
       const cls = computed(() => {
-        return [
-          `${ns}__item`,
-          props.disabled && `is-disabled`,
-          itemSelected.value && 'is-selected',
-          isHover.value && 'is-hover'
-        ]
+        return [`${ns}__item`, props.disabled && `is-disabled`, itemSelected.value && 'is-selected']
       })
 
       const currentLabel = computed(() => {
@@ -66,17 +56,17 @@
 
       const vm = getCurrentInstance()?.proxy
 
-      selectContext.optionItemCreate(vm as unknown as SelectOptionProxy)
+      selectContext?.optionItemCreate(vm as unknown as SelectOptionProxy)
 
       const hoverItem = () => {
         if (!props.disabled) {
-          selectContext.optionsItemHoverIndexChange(vm as any)
+          selectContext?.optionItemHoverIndexChange(vm as any)
         }
       }
 
       const selectOptionClick = () => {
         if (props.disabled) return
-        selectContext.handleOptionSelect(vm as any, true)
+        selectContext?.handleOptionSelect(vm as any, true)
       }
 
       onBeforeUnmount(() => {
@@ -92,7 +82,7 @@
         //     select.cachedOptions.delete(key)
         //   }
         // })
-        selectContext.optionItemDestroy(key, vm as any)
+        selectContext?.optionItemDestroy(key, vm as any)
       })
 
       return {
@@ -100,8 +90,7 @@
         currentLabel,
         currentValue,
         hoverItem,
-        selectOptionClick,
-        isHover
+        selectOptionClick
       }
     }
   })
