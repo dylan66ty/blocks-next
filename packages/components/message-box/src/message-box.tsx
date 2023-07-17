@@ -4,10 +4,7 @@ import _Dialog from '../../dialog/src/dialog.vue'
 import BnButton from '../../button/src/button.vue'
 import BnSpace from '../../space/src/space.vue'
 
-import WarningIcon from '../../icon/src/base/warning.vue'
-import InfoIcon from '../../icon/src/base/prompt.vue'
-import SuccessIcon from '../../icon/src/base/success.vue'
-import ErrorIcon from '../../icon/src/base/close-fill.vue'
+import { BnIconWarning, BnIconPrompt, BnIconSuccess, BnIconError } from '../../icon'
 
 import { isFunction } from '../../../utils/is'
 
@@ -62,19 +59,19 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (
     let vnode: VNode
     switch (type) {
       case 'warning':
-        vnode = <WarningIcon size="60px" color="#f6c64b" />
+        vnode = <BnIconWarning size="60px" color="#f6c64b" />
         break
       case 'strong':
-        vnode = <WarningIcon size="60px" color="#ee793c" />
+        vnode = <BnIconWarning size="60px" color="#ee793c" />
         break
       case 'error':
-        vnode = <ErrorIcon size="60px" color="#e24f48" />
+        vnode = <BnIconError size="60px" color="#e24f48" />
         break
       case 'success':
-        vnode = <SuccessIcon size="60px" color="#68d1ab" />
+        vnode = <BnIconSuccess size="60px" color="#68d1ab" />
         break
       case 'info':
-        vnode = <InfoIcon size="60px" color="#2355f5" />
+        vnode = <BnIconPrompt size="60px" color="#2355f5" />
         break
     }
     return vnode!

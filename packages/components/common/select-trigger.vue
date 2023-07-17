@@ -5,8 +5,7 @@
   import { isElement } from '../../utils/is'
 
   import BnInput from '../input'
-  import CaretIcon from '../icon/src/base/caret.vue'
-  import CloseIcon from '../icon/src/base/close.vue'
+  import { BnIconCaret, BnIconClose } from '../icon'
 
   import type { InputInstance } from '../input'
 
@@ -14,8 +13,8 @@
     name: 'SelectTrigger',
     components: {
       BnInput,
-      CaretIcon,
-      CloseIcon
+      BnIconCaret,
+      BnIconClose
     },
     props: {
       inputValue: {
@@ -223,7 +222,7 @@
       @input="handleInput"
     >
       <template #suffix-icon>
-        <CaretIcon :class="[{ 'is-rotate': popupVisible }, `${ns}__icon-caret`]" />
+        <BnIconCaret :class="[{ 'is-rotate': popupVisible }, `${ns}__icon-caret`]" />
       </template>
     </BnInput>
     <div v-if="multiple" ref="multipleTagsRef" :class="[`${ns}__multiple`]">
@@ -233,7 +232,7 @@
         :class="[`${ns}__tag`, `is-${size}`]"
       >
         <span :class="[`${ns}__tag-text`]">{{ tag.label }}</span>
-        <CloseIcon @click.stop="$emit('tagClose', tag)" />
+        <BnIconClose @click.stop="$emit('tagClose', tag)" />
       </div>
 
       <input

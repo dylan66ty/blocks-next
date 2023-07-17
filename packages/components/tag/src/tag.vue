@@ -1,13 +1,13 @@
 <script lang="ts">
   import { computed, defineComponent } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
-  import CloseIcon from '../../icon/src/base/close.vue'
+  import { BnIconClose } from '../../icon'
   import { tagProps } from './props'
 
   export default defineComponent({
     name: getComponentNamespace('Tag'),
     components: {
-      CloseIcon
+      BnIconClose
     },
     props: tagProps,
     emits: ['close'],
@@ -45,6 +45,6 @@
       <slot></slot>
     </span>
 
-    <CloseIcon v-if="closeable" :class="[`${ns}__close`]" @click.stop="handleClose" />
+    <BnIconClose v-if="closeable" :class="[`${ns}__close`]" @click.stop="handleClose" />
   </div>
 </template>

@@ -31,7 +31,8 @@
     "cz": "czg",
     "prepare": "husky install",
     "release": "bump package.json packages/package.json docs/package.json",
-    "generator-webtypes": "tsc -p build/generator-types/tsconfig.json && node build/generator-types/index.js"
+    "generator-webtypes": "tsc -p build/generator-types/tsconfig.json && node build/generator-types/index.js",
+    "icongen": "node ./script/icongen"
   },
   "devDependencies": {
     "@dylan66ty/commitlint-config": "^0.0.1",

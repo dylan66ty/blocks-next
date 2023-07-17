@@ -3,7 +3,7 @@
   import type { VNode, ComponentPublicInstance } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
   import Trigger from '../../trigger/src/trigger'
-  import LoadingIcon from '../../icon/src/base/loading.vue'
+  import { BnIconLoading } from '../../icon'
   import SelectTrigger from '../../common/select-trigger.vue'
   import Scrollbar from '../../scrollbar/src/scrollbar.vue'
   import type { ScrollbarInstance } from '../../scrollbar'
@@ -28,7 +28,7 @@
       Trigger,
       SelectMenu,
       Scrollbar,
-      LoadingIcon,
+      BnIconLoading,
       SelectTrigger,
       OptionsExtract,
       OptionsRender
@@ -334,7 +334,7 @@
                 <slot name="empty">
                   {{ emptyText }}
                 </slot>
-                <LoadingIcon v-if="loading" />
+                <BnIconLoading v-if="loading" />
               </p>
             </template>
           </Scrollbar>

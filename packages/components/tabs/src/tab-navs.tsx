@@ -1,7 +1,7 @@
 import type { PropType, CSSProperties } from 'vue'
 import { computed, defineComponent, ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
-import CaretIcon from '../../icon/src/base/caret.vue'
+import { BnIconCaret } from '../../icon'
 import { useResizeObserver } from '../../../hooks/use-resize-observer'
 import type { TabPaneData, TabsType } from './types'
 
@@ -186,7 +186,7 @@ export default defineComponent({
       return (
         <div class={[`${ns}__navs-wrapper`]} ref={wrapperRef} onMouseleave={handleMouseleave}>
           {showSlideIcon.value && (
-            <CaretIcon
+            <BnIconCaret
               class={[
                 `${ns}__icon-prev`,
                 {
@@ -224,7 +224,7 @@ export default defineComponent({
             </div>
           </div>
           {showSlideIcon.value && (
-            <CaretIcon
+            <BnIconCaret
               class={[
                 `${ns}__icon-next`,
                 {

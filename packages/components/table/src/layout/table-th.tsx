@@ -13,7 +13,8 @@ import { tableInjectionKey } from '../context'
 
 import Checkbox from '../../../checkbox/src/checkbox.vue'
 
-import CaretArrow from '../../../icon/src/base/caret-fill.vue'
+import { BnIconCaretFill as CaretArrow } from '../../../icon'
+
 import { useColumnFixed } from '../hooks/use-column-fixed'
 import SorterPopup from './table-sorter-popup'
 

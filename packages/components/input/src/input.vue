@@ -5,10 +5,8 @@
   import { isClient } from '../../../utils/browser'
   import { isObject } from '../../../utils/is'
   import { NOOP } from '../../../shared/utils'
-  import EyeOpenIcon from '../../icon/src/base/eye-open.vue'
-  import EyeCloseIcon from '../../icon/src/base/eye-close.vue'
-  import ClearableIcon from '../../icon/src/base/close-fill.vue'
 
+  import { BnIconEyeOpen, BnIconClose, BnIconCaret } from '../../icon'
   import { useFormItem } from '../../form/src/hooks/use-form-item'
   import { inputProps } from './props'
   import { calcTextareaHeight } from './utils'
@@ -18,9 +16,9 @@
   export default defineComponent({
     name: getComponentNamespace('Input'),
     components: {
-      EyeOpenIcon,
-      EyeCloseIcon,
-      ClearableIcon
+      BnIconEyeOpen,
+      BnIconClose,
+      BnIconCaret
     },
     inheritAttrs: false,
     props: inputProps,
@@ -289,15 +287,15 @@
             :class="[`${inputNs}__icon`, `${inputNs}__eye`]"
             @click.stop="handleEye"
           >
-            <EyeOpenIcon v-if="eyeStatus" />
-            <EyeCloseIcon v-else />
+            <BnIconEyeOpen v-if="eyeStatus" />
+            <BnIconEyeClose v-else />
           </span>
           <span
             v-if="hasClearableIcon"
             :class="[`${inputNs}__icon`, `${inputNs}__clearable`]"
             @click.stop="handleClear"
           >
-            <ClearableIcon color="#d9dbe2" />
+            <BnIconCaret color="#d9dbe2" />
           </span>
           <span
             v-if="!showPassword && hasSuffixIcon && !hasClearableIcon"

@@ -1,8 +1,7 @@
 import { computed, defineComponent, ref, inject } from 'vue'
 import type { PropType, VNode, VNodeChild } from 'vue'
 import { getNamespace } from '../../../utils/global-config'
-import LoadingIcon from '../../icon/src/base/loading.vue'
-import CaretIcon from '../../icon/src/base/caret.vue'
+import { BnIconLoading, BnIconCaret } from '../../icon'
 import Checkbox from '../../checkbox/src/checkbox.vue'
 
 import { isFunction } from '../../../utils/is'
@@ -83,10 +82,10 @@ export default defineComponent({
 
     const renderContentRightIcon = () => {
       if (isLoading.value) {
-        return <LoadingIcon />
+        return <BnIconLoading />
       }
       if (!props.node.isLeaf) {
-        return <CaretIcon rotate={-90} />
+        return <BnIconCaret rotate={-90} />
       }
       return null
     }

@@ -6,7 +6,7 @@ import BnButton from '../../button/src/button.vue'
 
 import { Scrollbar } from '../../scrollbar'
 import { Empty } from '../../empty'
-import EmptyIcon from '../../icon/src/base/empty.vue'
+import { BnIconEmpty } from '../../icon'
 import Option from './option'
 import type { CascaderNode } from './type'
 
@@ -54,7 +54,7 @@ export default defineComponent({
               <div class={[`${ns}__empty`]}>
                 <Empty
                   v-slots={{
-                    image: () => <EmptyIcon size={40} />
+                    image: () => <BnIconEmpty size={40} />
                   }}
                 />
               </div>

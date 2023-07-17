@@ -2,17 +2,16 @@
   import { computed, defineComponent, nextTick, onMounted, ref, watch } from 'vue'
   import type { CSSProperties, StyleValue } from 'vue'
   import { addUnit, NOOP } from '../../../shared/utils'
-  import Loading from '../../icon/src/base/loading.vue'
+  import { BnIconLoading } from '../../icon'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
   import { isBoolean, isPromise } from '../../../utils/is'
-
   import { useFormItem } from '../../form/src/hooks/use-form-item'
   import { switchProps } from './props'
 
   export default defineComponent({
     name: getComponentNamespace('Switch'),
     components: {
-      Loading
+      BnIconLoading
     },
     props: switchProps,
     emits: ['update:modelValue', 'input', 'change'],
@@ -169,7 +168,7 @@
       </span>
       <span :class="blockCls">
         <slot v-if="isLoading" name="loading">
-          <Loading :size="14" :style="{ color: 'var(--bn-switch-active-color)' }" />
+          <BnIconLoading :size="14" :style="{ color: 'var(--bn-switch-active-color)' }" />
         </slot>
       </span>
     </span>

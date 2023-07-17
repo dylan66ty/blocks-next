@@ -1,5 +1,5 @@
 import { defineComponent, nextTick, Transition } from 'vue'
-import Loading from '../../icon/src/base/loading.vue'
+import { BnIconLoading } from '../../icon'
 
 const getCollapsedWidth = (node: HTMLSpanElement) => {
   if (node) {
@@ -48,7 +48,7 @@ export default defineComponent({
         >
           {props.loading ? (
             <span class={`${props.ns}__loading`}>
-              <Loading />
+              <BnIconLoading />
             </span>
           ) : null}
         </Transition>

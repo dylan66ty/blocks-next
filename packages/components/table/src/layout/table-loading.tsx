@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import LoadingIcon from '../../../icon/src/base/loading.vue'
+import { BnIconLoading } from '../../../icon'
 
 export default defineComponent({
   name: 'Loading',
@@ -7,7 +7,7 @@ export default defineComponent({
     return () => {
       return (
         <div class={['bn-table__loading']}>
-          <LoadingIcon />
+          <BnIconLoading />
         </div>
       )
     }

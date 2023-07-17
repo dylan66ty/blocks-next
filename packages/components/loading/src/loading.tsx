@@ -11,7 +11,7 @@ import {
   ref
 } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
-import LoadingIcon from '../../icon/src/base/loading.vue'
+import { BnIconLoading } from '../../icon'
 import { getElement } from '../../../utils/dom'
 import usePopupManager from '../../../hooks/use-popup-manager'
 import { useOverflow } from '../../../hooks/use-overflow'
@@ -85,7 +85,7 @@ export const createLoadingComponent = (options: LoadingOptions) => {
           {data.visible && (
             <div class={cls.value} style={style.value} ref={loadingRef}>
               <div class={[`${ns}__spinner`]}>
-                <LoadingIcon size={data.iconSize} />
+                <BnIconLoading size={data.iconSize} />
               </div>
               {data.text && <div class={[`${ns}__text`]}>{data.text}</div>}
             </div>

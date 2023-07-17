@@ -1,0 +1,41 @@
+{
+  "base": {
+    "label": "基础图标",
+    "filenames": [
+      "caret-fill",
+      "caret",
+      "check",
+      "close-fill",
+      "close",
+      "delete",
+      "empty",
+      "error",
+      "eye-close",
+      "eye-open",
+      "loading",
+      "minus",
+      "plus",
+      "prompt",
+      "search",
+      "setting",
+      "success",
+      "time",
+      "warning"
+    ]
+  },
+  "menu": {
+    "label": "菜单图标",
+    "filenames": [
+      "app-bi",
+      "app-building",
+      "app-cleat",
+      "app-customer",
+      "app-home",
+      "app-market",
+      "app-money",
+      "app-oa",
+      "app-pie",
+      "app-sem"
+    ]
+  }
+}

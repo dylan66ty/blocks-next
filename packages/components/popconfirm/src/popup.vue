@@ -5,7 +5,7 @@
   import BnSpace from '../../space/src/space.vue'
   import BnButton from '../../button/src/button.vue'
   import { addUnit } from '../../../shared/utils'
-  import PromptIcon from '../../icon/src/base/prompt.vue'
+  import { BnIconPrompt } from '../../icon'
   import { isFunction, isPromise } from '../../../utils/is'
 
   export default defineComponent({
@@ -13,7 +13,7 @@
     components: {
       BnSpace,
       BnButton,
-      PromptIcon
+      BnIconPrompt
     },
     props: {
       // eslint-disable-next-line vue/require-default-prop
@@ -129,7 +129,7 @@
     <div v-show="visible" :class="popupCls" :style="popupStyle">
       <div :class="[`${ns}__content`]">
         <slot name="content">
-          <PromptIcon :class="[`${ns}__icon`]" :size="16" />
+          <BnIconPrompt :class="[`${ns}__icon`]" :size="16" />
           <div :class="[`${ns}__title`]">{{ content?.value }}</div>
         </slot>
       </div>

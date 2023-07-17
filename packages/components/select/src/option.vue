@@ -9,13 +9,13 @@
     onMounted
   } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
-  import CheckIcon from '../../icon/src/base/check.vue'
+  import { BnIconCheck } from '../../icon'
   import { selectInjectKey } from './context'
 
   export default defineComponent({
     name: getComponentNamespace('Option'),
     components: {
-      CheckIcon
+      BnIconCheck
     },
     props: {
       value: {
@@ -110,6 +110,6 @@
       <span>{{ currentLabel }}</span>
     </slot>
 
-    <CheckIcon v-if="multiple && isSelected" />
+    <BnIconCheck v-if="multiple && isSelected" />
   </div>
 </template>
