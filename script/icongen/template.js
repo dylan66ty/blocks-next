@@ -1,4 +1,4 @@
-const getIconVue = ({ componentName, svgHtml }) => {
+const getIconVue = ({ componentName, svgHtml, propsDefaultValue }) => {
   return `<script lang="ts">
   import type { StyleValue } from 'vue'
   import { defineComponent, computed } from 'vue'
@@ -10,16 +10,19 @@ const getIconVue = ({ componentName, svgHtml }) => {
     props: {
       size: {
         type: [Number, String],
-        default: undefined
+        default: ${propsDefaultValue.size}
       },
       rotate: {
         type: Number,
-        default: undefined
+        default: ${propsDefaultValue.rotate}
       },
-      spin: Boolean,
+      spin: {
+        type: Boolean,
+        default: ${propsDefaultValue.spin}
+      },
       color: {
         type: String,
-        default: undefined
+        default: ${propsDefaultValue.color}
       }
     },
     setup(props) {

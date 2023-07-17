@@ -15,7 +15,10 @@
         type: Number,
         default: undefined
       },
-      spin: Boolean,
+      spin: {
+        type: Boolean,
+        default: false
+      },
       color: {
         type: String,
         default: undefined
@@ -62,8 +65,8 @@
         <g transform="translate(-156.000000, -1120.000000)" fill="currentColor">
           <g transform="translate(60.000000, 1104.000000)">
             <g transform="translate(96.000000, 16.000000)">
-              <rect x="3" y="8" width="11" height="1" />
-              <rect x="8" y="3" width="1" height="11" />
+              <rect x="3" y="8" width="11" height="1"></rect>
+              <rect x="8" y="3" width="1" height="11"></rect>
             </g>
           </g>
         </g>

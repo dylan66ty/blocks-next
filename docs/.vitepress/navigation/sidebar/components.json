@@ -12,12 +12,8 @@
           "link": "space"
         },
         {
-          "text": "基础图标 Icon",
+          "text": "图标 Icon",
           "link": "icon"
-        },
-        {
-          "text": "应用图标 AppIcon",
-          "link": "appIcon"
         }
       ]
     },

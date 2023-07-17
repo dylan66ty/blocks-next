@@ -23,8 +23,8 @@
       "warning"
     ]
   },
-  "menu": {
-    "label": "菜单图标",
+  "app": {
+    "label": "应用图标",
     "filenames": [
       "app-bi",
       "app-building",
@@ -36,6 +36,40 @@
       "app-oa",
       "app-pie",
       "app-sem"
+    ]
+  },
+  "ykc": {
+    "label": "云客查图标",
+    "filenames": [
+      "app-address",
+      "app-arrow-up",
+      "app-call-up",
+      "app-call",
+      "app-copy",
+      "app-download",
+      "app-edit",
+      "app-enterprise",
+      "app-exclamation-point",
+      "app-fax",
+      "app-iphone",
+      "app-letter",
+      "app-love-2",
+      "app-love",
+      "app-minus",
+      "app-new-page",
+      "app-overview",
+      "app-pc-2",
+      "app-pc",
+      "app-plus",
+      "app-qq",
+      "app-query",
+      "app-question",
+      "app-search-2",
+      "app-search",
+      "app-setting",
+      "app-todo",
+      "app-upload-img",
+      "app-wechat"
     ]
   }
 }

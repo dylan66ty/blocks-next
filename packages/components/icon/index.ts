@@ -18,16 +18,45 @@ import BnIconSetting from './base/setting.vue'
 import BnIconSuccess from './base/success.vue'
 import BnIconTime from './base/time.vue'
 import BnIconWarning from './base/warning.vue'
-import BnIconAppBi from './menu/app-bi.vue'
-import BnIconAppBuilding from './menu/app-building.vue'
-import BnIconAppCleat from './menu/app-cleat.vue'
-import BnIconAppCustomer from './menu/app-customer.vue'
-import BnIconAppHome from './menu/app-home.vue'
-import BnIconAppMarket from './menu/app-market.vue'
-import BnIconAppMoney from './menu/app-money.vue'
-import BnIconAppOa from './menu/app-oa.vue'
-import BnIconAppPie from './menu/app-pie.vue'
-import BnIconAppSem from './menu/app-sem.vue'
+import BnIconAppBi from './app/app-bi.vue'
+import BnIconAppBuilding from './app/app-building.vue'
+import BnIconAppCleat from './app/app-cleat.vue'
+import BnIconAppCustomer from './app/app-customer.vue'
+import BnIconAppHome from './app/app-home.vue'
+import BnIconAppMarket from './app/app-market.vue'
+import BnIconAppMoney from './app/app-money.vue'
+import BnIconAppOa from './app/app-oa.vue'
+import BnIconAppPie from './app/app-pie.vue'
+import BnIconAppSem from './app/app-sem.vue'
+import BnIconAppAddress from './ykc/app-address.vue'
+import BnIconAppArrowUp from './ykc/app-arrow-up.vue'
+import BnIconAppCallUp from './ykc/app-call-up.vue'
+import BnIconAppCall from './ykc/app-call.vue'
+import BnIconAppCopy from './ykc/app-copy.vue'
+import BnIconAppDownload from './ykc/app-download.vue'
+import BnIconAppEdit from './ykc/app-edit.vue'
+import BnIconAppEnterprise from './ykc/app-enterprise.vue'
+import BnIconAppExclamationPoint from './ykc/app-exclamation-point.vue'
+import BnIconAppFax from './ykc/app-fax.vue'
+import BnIconAppIphone from './ykc/app-iphone.vue'
+import BnIconAppLetter from './ykc/app-letter.vue'
+import BnIconAppLove2 from './ykc/app-love-2.vue'
+import BnIconAppLove from './ykc/app-love.vue'
+import BnIconAppMinus from './ykc/app-minus.vue'
+import BnIconAppNewPage from './ykc/app-new-page.vue'
+import BnIconAppOverview from './ykc/app-overview.vue'
+import BnIconAppPc2 from './ykc/app-pc-2.vue'
+import BnIconAppPc from './ykc/app-pc.vue'
+import BnIconAppPlus from './ykc/app-plus.vue'
+import BnIconAppQq from './ykc/app-qq.vue'
+import BnIconAppQuery from './ykc/app-query.vue'
+import BnIconAppQuestion from './ykc/app-question.vue'
+import BnIconAppSearch2 from './ykc/app-search-2.vue'
+import BnIconAppSearch from './ykc/app-search.vue'
+import BnIconAppSetting from './ykc/app-setting.vue'
+import BnIconAppTodo from './ykc/app-todo.vue'
+import BnIconAppUploadImg from './ykc/app-upload-img.vue'
+import BnIconAppWechat from './ykc/app-wechat.vue'
 
 const components = [
   BnIconCaretFill,
@@ -58,7 +87,36 @@ const components = [
   BnIconAppMoney,
   BnIconAppOa,
   BnIconAppPie,
-  BnIconAppSem
+  BnIconAppSem,
+  BnIconAppAddress,
+  BnIconAppArrowUp,
+  BnIconAppCallUp,
+  BnIconAppCall,
+  BnIconAppCopy,
+  BnIconAppDownload,
+  BnIconAppEdit,
+  BnIconAppEnterprise,
+  BnIconAppExclamationPoint,
+  BnIconAppFax,
+  BnIconAppIphone,
+  BnIconAppLetter,
+  BnIconAppLove2,
+  BnIconAppLove,
+  BnIconAppMinus,
+  BnIconAppNewPage,
+  BnIconAppOverview,
+  BnIconAppPc2,
+  BnIconAppPc,
+  BnIconAppPlus,
+  BnIconAppQq,
+  BnIconAppQuery,
+  BnIconAppQuestion,
+  BnIconAppSearch2,
+  BnIconAppSearch,
+  BnIconAppSetting,
+  BnIconAppTodo,
+  BnIconAppUploadImg,
+  BnIconAppWechat
 ]
 
 const install = (app: App) => {
@@ -100,5 +158,34 @@ export {
   BnIconAppMoney,
   BnIconAppOa,
   BnIconAppPie,
-  BnIconAppSem
+  BnIconAppSem,
+  BnIconAppAddress,
+  BnIconAppArrowUp,
+  BnIconAppCallUp,
+  BnIconAppCall,
+  BnIconAppCopy,
+  BnIconAppDownload,
+  BnIconAppEdit,
+  BnIconAppEnterprise,
+  BnIconAppExclamationPoint,
+  BnIconAppFax,
+  BnIconAppIphone,
+  BnIconAppLetter,
+  BnIconAppLove2,
+  BnIconAppLove,
+  BnIconAppMinus,
+  BnIconAppNewPage,
+  BnIconAppOverview,
+  BnIconAppPc2,
+  BnIconAppPc,
+  BnIconAppPlus,
+  BnIconAppQq,
+  BnIconAppQuery,
+  BnIconAppQuestion,
+  BnIconAppSearch2,
+  BnIconAppSearch,
+  BnIconAppSetting,
+  BnIconAppTodo,
+  BnIconAppUploadImg,
+  BnIconAppWechat
 }

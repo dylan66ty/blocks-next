@@ -1,22 +1,26 @@
 const path = require('path')
 const process = require('process')
 const { exec } = require('child_process')
+// const { optimize } = require('svgo')
 const fs = require('fs-extra')
 const glob = require('glob')
 const consola = require('consola')
+const { JSDOM } = require('jsdom')
 const { getIconVue, getIndexTs } = require('./template')
 const { toCamelCase, toUpperFirstChar } = require('./utils')
 
 const output = path.join(`${process.cwd()}/packages/components/icon`)
 const svgSourceCwd = path.join(`${process.cwd()}/packages/svgs`)
+// const svgoConfig = require('./svgo.config')
 
 const maps = {
   base: '基础图标',
-  menu: '菜单图标'
+  app: '应用图标',
+  ykc: '云客查图标'
 }
 
 const formatComponentName = (name) => {
-  return toUpperFirstChar(toCamelCase(name.startsWith('bn-icon') ? name : `bn-icon-${name}`))
+  return toUpperFirstChar(toCamelCase(`bn-icon-${name}`))
 }
 
 const getSVGData = () => {
@@ -54,9 +58,23 @@ const buildIconComponent = async (svgData) => {
   for (const svg of svgData) {
     for (const item of svg.list) {
       const svgHtml = fs.readFileSync(item.path, 'utf8')
+
+      // const optimizedSvg = optimize(svgHtml, {
+      //   path: item.path,
+      //   ...svgoConfig
+      // })
+
+      const pureSvgElement = JSDOM.fragment(svgHtml).querySelector('svg')
+
       const iconHtml = getIconVue({
         componentName: item.componentName,
-        svgHtml: svgHtml
+        svgHtml: pureSvgElement.outerHTML,
+        propsDefaultValue: {
+          size: undefined,
+          rotate: undefined,
+          spin: item.filename === 'loading',
+          color: undefined
+        }
       })
       const promise = fs
         .outputFile(path.resolve(output, svg.dir, `${item.filename}.vue`), iconHtml)

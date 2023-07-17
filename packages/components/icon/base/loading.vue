@@ -15,7 +15,10 @@
         type: Number,
         default: undefined
       },
-      spin: Boolean,
+      spin: {
+        type: Boolean,
+        default: true
+      },
       color: {
         type: String,
         default: undefined
