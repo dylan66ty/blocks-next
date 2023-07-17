@@ -22,7 +22,6 @@
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
     >
-      <title>生产中心</title>
       <g id="图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="图标1" transform="translate(-859.000000, -203.000000)" fill="#242934">
           <g id="一级-生产中心" transform="translate(837.000000, 189.000000)">

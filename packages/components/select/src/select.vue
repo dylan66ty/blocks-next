@@ -1,198 +1,250 @@
 <script lang="ts">
-  import { computed, defineComponent, ref, provide, reactive, watch, onMounted } from 'vue'
+  import { computed, defineComponent, ref, provide, reactive, watch, nextTick } from 'vue'
+  import type { VNode, ComponentPublicInstance } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
-
   import Trigger from '../../trigger/src/trigger'
   import LoadingIcon from '../../icon/src/base/loading.vue'
-
-  import { isNumber } from '../../../utils/is'
-  import SelectTrigger from '../../_components/select-trigger.vue'
-
+  import SelectTrigger from '../../common/select-trigger.vue'
   import Scrollbar from '../../scrollbar/src/scrollbar.vue'
+  import type { ScrollbarInstance } from '../../scrollbar'
 
   // 表单
   import { useFormItem } from '../../form/src/hooks/use-form-item'
+
   import { NOOP } from '../../../shared/utils'
-  import Options from './options'
+  import { isArray, isComponentInstance, isFunction } from '../../../utils/is'
   import SelectMenu from './menu.vue'
-  import type { SelectContext, SelectOptionProxy, ValueKey } from './types'
   import { selectInjectKey } from './context'
   import { selectProps } from './props'
+
+  import OptionsExtract from './options-extract'
+  import OptionsRender from './options-render'
+
+  import type { OptVmProxy } from './types'
 
   export default defineComponent({
     name: getComponentNamespace('Select'),
     components: {
       Trigger,
       SelectMenu,
-      Options,
       Scrollbar,
       LoadingIcon,
-      SelectTrigger
+      SelectTrigger,
+      OptionsExtract,
+      OptionsRender
     },
     props: selectProps,
     emits: ['update:modelValue', 'change'],
     setup(props, { emit }) {
       const ns = getNamespace('select')
-      const cls = computed(() => [ns, mergeDisabled.value && 'is-disabled'])
-
-      const states = reactive({
-        // popover状态
-        popupVisible: false,
-        options: new Map(),
-        cachedOptions: new Map(),
-        // 多选todo
-        selected: props.multiple ? [] : ({} as any),
-        // 单选选中的label
-        selectedLabel: '',
-        hoverIndex: -1
-      })
-
-      const scrollbarRef = ref<HTMLElement>()
-      const popupRef = ref()
-
       // TODO 从表单合并 disabled 属性
       const mergeDisabled = computed(() => props.disabled)
       const mergeSize = computed(() => props.size)
 
-      const optionList = ref<string[]>([])
+      const cls = computed(() => [ns, mergeDisabled.value && 'is-disabled'])
+
+      const optionsVns = ref<VNode[]>([])
+      const popupVisible = ref(false)
+      const singleSelectedLabel = ref('')
+      const multipleTags = ref<{ label: string; key: string }[]>([])
+      const currentSelected = ref<OptVmProxy | OptVmProxy[]>(props.multiple ? [] : ({} as any))
+      const cachedOptionsVmProxies = ref(new Map())
+
+      const scrollbarRef = ref<ScrollbarInstance>()
+      const popupRef = ref()
 
       const emptyText = computed(() => {
         if (props.loading) {
           return props.loadingText
         } else {
-          if (states.options.size === 0) {
+          if (cachedOptionsVmProxies.value.size === 0) {
             return props.noDataText
           }
         }
         return null
       })
 
-      // 筛选出存在于optionList中的label
-      const optionsArray = computed(() => {
-        const list = Array.from(states.options.values())
-        const newList: any = []
-        optionList.value.forEach((label) => {
-          const index = list.findIndex((i) => i.currentLabel === label)
-          if (index > -1) {
-            newList.push(list[index])
-          }
-        })
-        return newList.length ? newList : list
-      })
+      // 缓存的cachedOptionsVmProxies to Array
+      const cachedOptionsVmProxiesToArray = computed(() =>
+        Array.from<OptVmProxy>(cachedOptionsVmProxies.value.values())
+      )
 
-      // 缓存的optionList
-      const cachedOptionsArray = computed(() => Array.from(states.cachedOptions.values()))
-
-      const getOption = (value: any) => {
-        const option = cachedOptionsArray.value.find((option) => option.currentValue === value)
-        if (option) return option
+      const getOptionByValue = (value: any): OptVmProxy | undefined => {
+        const option = cachedOptionsVmProxiesToArray.value.find((opt) => opt.currentValue === value)
+        return option
       }
 
       const handleClear = () => {
-        emit('update:modelValue', '')
-        emit('change', '')
+        const value = props.multiple ? [] : ''
+        emit('update:modelValue', value)
+        emit('change', value)
       }
 
-      const setSelected = () => {
-        if (!props.multiple) {
-          const option = getOption(props.modelValue)
-          if (!option) {
-            states.selectedLabel = ''
-            states.selected = null
-            return
-          }
-          states.selectedLabel = option?.currentLabel
-          states.selected = option
+      const emitKey = () => {
+        if (props.multiple) {
+          const values = (currentSelected.value as OptVmProxy[]).map((opt) => opt.currentValue)
+
+          emit('update:modelValue', values)
+          emit('change', values)
           return
         }
-        // TODO
-        // states.selectedLabel = ''
-        // const result: any[] = []
-        // if (Array.isArray(props.modelValue)) {
-        //   props.modelValue.forEach((value) => {
-        //     result.push(getOption(value))
-        //   })
-        // }
-        // states.selected = result
-      }
-
-      // 每个option创建后添加到options set中
-      const optionItemCreate = (optVm: SelectOptionProxy) => {
-        states.options.set(optVm.value, optVm)
-        states.cachedOptions.set(optVm.value, optVm)
-      }
-
-      // option删除从options set中移除
-      const optionItemDestroy = (key: ValueKey, optVm: SelectOptionProxy) => {
-        if (states.options.get(key) === optVm) {
-          states.options.delete(key)
-        }
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const optionItemDestroyInCache = (key: ValueKey, optVm: SelectOptionProxy) => {
-        // TODO
-      }
-
-      const onUpdateOptionsToRender = (value: string[]) => {
-        optionList.value = value
-      }
-
-      const optionItemHoverIndexChange = (vm: SelectOptionProxy) => {
-        states.hoverIndex = optionsArray.value.indexOf(vm)
+        const value = (currentSelected.value as OptVmProxy).currentValue
+        emit('update:modelValue', value)
+        emit('change', value)
+        handleCloseTrigger()
       }
 
       // 关闭Trigger
       const handleCloseTrigger = () => {
-        states.popupVisible = false
+        popupVisible.value = false
       }
 
-      const handleOptionSelect = (vm: SelectOptionProxy) => {
-        if (vm.currentValue !== props.modelValue) {
-          emit('update:modelValue', vm.currentValue)
-          emit('change', vm.currentValue)
+      const optionItemCreate = (optVmProxy: any) => {
+        cachedOptionsVmProxies.value.set(optVmProxy.value, optVmProxy)
+      }
+
+      const optionItemDestroy = (optVmProxy: OptVmProxy) => {
+        const key = optVmProxy.currentValue
+        if (cachedOptionsVmProxies.value.get(key)) {
+          cachedOptionsVmProxies.value.delete(key)
         }
-        handleCloseTrigger()
       }
 
-      onMounted(() => {
-        setSelected()
-      })
+      const optionItemSelect = (optVmProxy: OptVmProxy) => {
+        if (!props.multiple) {
+          if (currentSelected.value !== optVmProxy) {
+            currentSelected.value = optVmProxy
+            emitKey()
+          } else {
+            handleCloseTrigger()
+          }
+          return
+        }
+        const origin = (currentSelected.value as OptVmProxy[]).slice()
+        const index = origin.findIndex((opt) => opt === optVmProxy)
+        if (index > -1) {
+          // 删除
+          origin.splice(index, 1)
+        } else {
+          // 新增
+          origin.push(optVmProxy)
+        }
+        currentSelected.value = origin
+        emitKey()
+      }
+
+      const optionItemHoverChange = (optProxy: OptVmProxy) => {
+        cachedOptionsVmProxiesToArray.value.forEach((opt) => {
+          opt.isHover = opt === optProxy
+        })
+      }
+
+      // 维护内部当前选中的item状态
+      watch(
+        () => currentSelected.value,
+        (selected: OptVmProxy | OptVmProxy[]) => {
+          cachedOptionsVmProxiesToArray.value.forEach((opt) => {
+            opt.isSelected = false
+          })
+          if (props.multiple && isArray(selected)) {
+            const _selected = selected as OptVmProxy[]
+            multipleTags.value = _selected.map((opt) => {
+              opt.isSelected = true
+              return {
+                key: opt.currentValue as string,
+                label: opt.currentLabel
+              }
+            })
+          } else {
+            const _selected = selected as OptVmProxy
+            if (isComponentInstance(_selected)) {
+              _selected.isSelected = true
+            }
+            // 清空选项重置选中的label
+            singleSelectedLabel.value = _selected.currentLabel ?? ''
+          }
+        }
+      )
+      // 多选 删除标签
+      const handleTagClose = (tag: { label: string; key: string }) => {
+        const key = tag.key
+        const origin = (currentSelected.value as OptVmProxy[]).slice()
+        const index = origin.findIndex((opt) => opt.currentValue === key)
+        if (index > -1) {
+          origin.splice(index, 1)
+        }
+        currentSelected.value = origin
+      }
+
+      // 当插槽发生变化时，重新更新
+      const onUpdateOptionsVns = (vns: VNode[]) => {
+        optionsVns.value = vns
+      }
+
+      const setSelected = () => {
+        if (!props.multiple) {
+          const option = getOptionByValue(props.modelValue)
+          if (!option) {
+            currentSelected.value = {} as any
+            return
+          }
+          currentSelected.value = option
+          return
+        }
+        const modelValue = isArray(props.modelValue) ? props.modelValue : []
+        const optVmProxies = modelValue.map((value) => getOptionByValue(value))
+        currentSelected.value = optVmProxies as OptVmProxy[]
+      }
+
+      // 搜索过滤
+      const handleFilter = (query: string) => {
+        cachedOptionsVmProxiesToArray.value.forEach((optVmProxy) => {
+          const currentLabel = optVmProxy.currentLabel || ''
+          let visible = false
+          if (!query) {
+            visible = true
+          } else if (isFunction(props.filterMethod)) {
+            visible = props.filterMethod(optVmProxy, query)
+          } else {
+            visible = currentLabel.includes(query)
+          }
+          optVmProxy.visible = visible
+        })
+      }
+
+      // 让选中的optionItem出现在可视区 多选的话就以第一个为准
+      const updateOptionItemToVisible = () => {
+        const _currentSelected = currentSelected.value as unknown as ComponentPublicInstance
+        const el = (
+          isArray(_currentSelected) ? _currentSelected[0]?.$el : _currentSelected.$el
+        ) as HTMLElement
+        if (!el) return
+        const visibleHeight = scrollbarRef.value?.containerRef?.getBoundingClientRect()
+          .height as number
+        const offsetTop = el.offsetTop
+        const elHeight = el.getBoundingClientRect().height
+        const top = offsetTop + elHeight - visibleHeight
+        if (top > 0) {
+          scrollbarRef.value?.scrollTop(top)
+        }
+      }
 
       // 表单验证
       const { formItem } = useFormItem()
 
       // option插槽数据变化
       watch(
-        () => optionList.value,
-        (newVal) => {
-          if (newVal.length > 0) {
-            setSelected()
-          }
+        () => optionsVns.value,
+        () => {
+          nextTick(() => setSelected())
         }
       )
 
-      // hover激活
-      watch(
-        () => states.hoverIndex,
-        (val) => {
-          let hoverOption: any = null
-          if (isNumber(val) && val > -1) {
-            hoverOption = optionsArray.value[val] || {}
-          } else {
-            hoverOption = {}
-          }
-          optionsArray.value.forEach((option: SelectOptionProxy) => {
-            option.isHover = hoverOption === option
-          })
-        }
-      )
-
-      // 数据发生变化
+      // 数据发生变化,进行表单验证
       watch(
         () => props.modelValue,
         () => {
-          setSelected()
+          nextTick(() => setSelected())
           // 触发表单验证
           if (props.validateEvent) {
             formItem?.validate('change').catch(NOOP)
@@ -207,27 +259,33 @@
       provide(
         selectInjectKey,
         reactive({
-          props,
-          optionsArray,
+          multiple: props.multiple,
+          popupClass: props.popupClass,
           optionItemCreate,
           optionItemDestroy,
-          handleOptionSelect,
-          optionItemHoverIndexChange
-        }) as SelectContext
+          optionItemSelect,
+          optionItemHoverChange
+        })
       )
 
       return {
         ns,
         cls,
-        states,
+        popupVisible,
         emptyText,
-        onUpdateOptionsToRender,
+        onUpdateOptionsVns,
         mergeDisabled,
         mergeSize,
         handleCloseTrigger,
         scrollbarRef,
         popupRef,
-        handleClear
+        handleClear,
+        optionsVns,
+        singleSelectedLabel,
+        multipleTags,
+        handleTagClose,
+        handleFilter,
+        updateOptionItemToVisible
       }
     }
   })
@@ -236,7 +294,7 @@
 <template>
   <div :class="cls">
     <Trigger
-      v-model:popupVisible="states.popupVisible"
+      v-model:popupVisible="popupVisible"
       position="bl"
       trigger="click"
       :unmount-on-close="false"
@@ -244,27 +302,33 @@
       auto-fit-popup-min-width
       :popup-offset="8"
       :disabled="mergeDisabled"
+      @show="updateOptionItemToVisible"
     >
       <template #default>
         <SelectTrigger
-          :input-value="states.selectedLabel"
+          :input-value="singleSelectedLabel"
           :disabled="mergeDisabled"
           :size="mergeSize"
           :placeholder="placeholder"
           :clearable="clearable"
-          :popup-visible="states.popupVisible"
+          :popup-visible="popupVisible"
           :multiple="multiple"
+          :multiple-tags="multipleTags"
+          :filterable="filterable"
+          :filter-method="filterMethod"
+          :remote="remote"
+          :remote-method="remoteMethod"
           :popup-ref="popupRef"
           @clear="handleClear"
+          @tag-close="handleTagClose"
+          @filter="handleFilter"
         />
       </template>
 
       <template #content>
         <SelectMenu ref="popupRef">
           <Scrollbar ref="scrollbarRef" style="max-height: 200px">
-            <Options v-if="!loading" @update-options="onUpdateOptionsToRender">
-              <slot></slot>
-            </Options>
+            <OptionsRender v-if="!loading" :options-vns="optionsVns" />
             <template v-if="emptyText">
               <p :class="[`${ns}__empty-text`]" @click="handleCloseTrigger">
                 <slot name="empty">
@@ -277,5 +341,9 @@
         </SelectMenu>
       </template>
     </Trigger>
+
+    <OptionsExtract @update-options="onUpdateOptionsVns">
+      <slot></slot>
+    </OptionsExtract>
   </div>
 </template>

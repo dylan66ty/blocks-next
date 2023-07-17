@@ -9,16 +9,15 @@
 
   @include e(multiple) {
     position: absolute;
+    box-sizing: border-box;
     top: 50%;
     right: 30px;
     left: 0;
     z-index: 1;
     display: flex;
-    padding: 6px;
+    padding: 5px 6px;
     text-align: left;
     transform: translateY(-50%);
-    line-height: normal;
-    box-sizing: border-box;
     pointer-events: none;
     flex-wrap: wrap;
     gap: 4px;
@@ -84,14 +83,30 @@
       transform: rotate(180deg);
     }
   }
+
+  @include e(input) {
+    border: none;
+    padding: 0;
+    flex: 1;
+    min-width: 100px;
+    height: 28px;
+    background-color: transparent;
+    outline: none;
+    appearance: none;
+    pointer-events: all;
+  }
   
   .#{$namespace}-input__wrapper{
-    cursor: pointer;
+    &:not(.is-disabled) {
+      cursor: pointer;
+      .#{$namespace}-input__inner {
+        cursor: pointer;
+      }
+    }
   }
-
 
   .#{$namespace}-input__inner {
     text-overflow: ellipsis;
-    cursor: pointer;
   }
+
 }

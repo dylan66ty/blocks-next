@@ -81,3 +81,15 @@ export const isComponentInstance = (value: any): value is ComponentPublicInstanc
 export const isArrayChildren = (children: VNodeNormalizedChildren): children is VNode[] => {
   return isArray(children)
 }
+
+export const isElement = (element: any) => {
+  return element && element.nodeType === 1
+}
+
+export const isSameArray = (a: any[], b: any[]) => {
+  if (a.length !== b.length) return false
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) return false
+  }
+  return true
+}

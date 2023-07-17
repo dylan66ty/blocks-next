@@ -2,7 +2,7 @@
   import type { PropType } from 'vue'
   import { getCurrentInstance, reactive, computed, defineComponent } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
-  import { isFunction, isPromise } from '../../../utils/is'
+  import { isArray, isFunction, isPromise } from '../../../utils/is'
   // 方便添加动画
   import LoadingIcon from './LoadingIcon'
 
@@ -74,17 +74,24 @@
 
       const instance = getCurrentInstance()
 
-      const handleClick = async (event: Event) => {
+      const execFn = (fn: Function, event: PointerEvent) => {
+        const ret = fn(event)
+        if (isPromise(ret)) {
+          state.clicked = true
+          ret.finally(() => {
+            state.clicked = false
+          })
+        }
+      }
+
+      const handleClick = async (event: PointerEvent) => {
         if (isLoading.value) return
-        const externalClickFn = instance?.vnode?.props?.onClick
-        if (isFunction(externalClickFn)) {
-          const ret = externalClickFn(event)
-          if (isPromise(ret)) {
-            state.clicked = true
-            ret.finally(() => {
-              state.clicked = false
-            })
-          }
+        const clickFn = instance?.vnode?.props?.onClick
+        // 外部注入事件，此时按钮又绑定事件。那么这里就是一个数组。
+        if (isArray(clickFn)) {
+          clickFn.forEach((fn) => execFn(fn, event))
+        } else if (isFunction(clickFn)) {
+          execFn(clickFn, event)
         }
       }
       return {

@@ -16,6 +16,7 @@ import Error from './src/base/error.vue'
 import Delete from './src/base/delete.vue'
 import Setting from './src/base/setting.vue'
 import Empty from './src/base/empty.vue'
+import Check from './src/base/check.vue'
 
 const components = [
   EyeOpen,
@@ -35,7 +36,8 @@ const components = [
   CloseFill,
   Delete,
   Setting,
-  Empty
+  Empty,
+  Check
 ]
 
 export default components

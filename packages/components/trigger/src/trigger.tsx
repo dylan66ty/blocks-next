@@ -266,7 +266,7 @@ export default defineComponent({
     // 触发器相关
     // click
     const handleClick = (e: MouseEvent) => {
-      // (attrs as any).onClick?.(e);
+      // (attrs as any).onClick?.(e)
       if (props.disabled || (computedVisible.value && !props.clickToClose)) {
         return
       }

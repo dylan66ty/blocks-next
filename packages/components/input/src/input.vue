@@ -156,7 +156,7 @@
       }
 
       // 手动触发input focus事件
-      const manualInputFocus = async (e: PointerEvent) => {
+      const manualInputFocus = async (e?: MouseEvent) => {
         e && e.preventDefault()
         await nextTick()
         inputRef.value?.focus()

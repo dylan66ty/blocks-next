@@ -1,7 +1,7 @@
 import type { PropType, ExtractPropTypes } from 'vue'
 export const selectProps = {
   modelValue: {
-    type: [Array, String, Number, Boolean, Object],
+    type: [String, Number, Array],
     default: undefined
   },
   multiple: {
@@ -28,13 +28,13 @@ export const selectProps = {
     type: String,
     default: '暂无匹配项'
   },
-  popperClass: {
+  popupClass: {
     type: String,
-    default: ''
+    default: undefined
   },
   size: {
     type: String as PropType<'small' | 'default' | 'large'>,
-    default: ''
+    default: 'default'
   },
   placeholder: {
     type: String,
@@ -54,6 +54,22 @@ export const selectProps = {
   validateEvent: {
     type: Boolean,
     default: true
+  },
+  filterable: {
+    type: Boolean,
+    default: false
+  },
+  filterMethod: {
+    type: Function,
+    default: undefined
+  },
+  remote: {
+    type: Boolean,
+    default: false
+  },
+  remoteMethod: {
+    type: Function,
+    default: undefined
   }
 }
 

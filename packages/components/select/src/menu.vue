@@ -9,12 +9,12 @@
       const ns = getNamespace('select')
       const selectContext = inject(selectInjectKey)
 
-      const popperClass = computed(() => selectContext?.props.popperClass)
-      const isMultiple = computed(() => selectContext?.props.multiple)
+      const popupClass = computed(() => selectContext?.popupClass)
+      const isMultiple = computed(() => selectContext?.multiple)
 
       const cls = computed(() => [
         `${ns}-menu`,
-        popperClass.value && popperClass.value,
+        popupClass.value,
         isMultiple.value && 'is-multiple'
       ])
       return {

@@ -1,18 +1,19 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
 
-  const value = ref('8')
+  const value = ref('10')
   const loading = ref(false)
 
   const options = ref<any>([])
 
   const handleChange = (val) => {
-    console.log(val)
+    console.log(val, 'change')
   }
 
-  options.value = []
   loading.value = true
+
   setTimeout(() => {
+    loading.value = false
     options.value = [
       {
         value: '1',
@@ -55,26 +56,23 @@
         label: 'Option10'
       }
     ]
-    loading.value = false
-  }, 0)
+  }, 100)
 </script>
 
 <template>
-  <div style="width: 200px">
+      <!-- multiple -->
+      
+  <!-- filterable -->
     <bn-select
       v-model="value"
       placeholder="请选择"
-      popper-class="custom-popover"
-      :loading="loading"
+      popup-class="custom-popover"
       @change="handleChange"
+      :loading="loading"
+      clearable
+      multiple
     >
-      <bn-option
-        v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value"
-        :disabled="item.value == 2"
-      />
+    <bn-option :label="item.label" :value="item.value" v-for="item in options" :key="item.value" />
+
     </bn-select>
-  </div>
 </template>

@@ -29,14 +29,16 @@
 
   @include e(item) {
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     overflow: hidden;
-    padding: 0 32px 0 20px;
+    padding: 0 20px;
     height: var(--bn-menu-item-height);
     font-size: 14px;
     text-overflow: ellipsis;
     white-space: nowrap;
     color: var(--bn-default-text-color);
-    line-height: var(--bn-menu-item-height);
     box-sizing: border-box;
     cursor: pointer;
 

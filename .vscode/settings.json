@@ -6,7 +6,9 @@
   "stylelint.validate": ["scss", "css"],
   
   "cSpell.words": [
+    "Arrayable",
     "Cascader",
-    "popconfirm"
+    "popconfirm",
+    "vnode"
   ]
 }

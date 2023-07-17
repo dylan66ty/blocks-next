@@ -197,8 +197,7 @@
 </script>
 
 <template>
-  <!-- 当内容动态变化时，需要更新滚动条大小 ，现策略鼠标进入就更新一次 -->
-  <div :class="cls" :style="style" @mouseenter="handleResize">
+  <div :class="cls" :style="style" @mouseenter.stop="handleResize">
     <ResizeObserver @resize="handleResize">
       <div ref="containerRef" :class="`${ns}__container`" v-bind="$attrs" @scroll="handleScroll">
         <slot></slot>

@@ -28,6 +28,7 @@ export * from './badge'
 export * from './cascader'
 export * from './descriptions'
 export * from './descriptions-item'
+export * from './popup'
 
 // methods
 export * from './message'

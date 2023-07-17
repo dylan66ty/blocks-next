@@ -27,20 +27,22 @@ select/clearable
 select/option-disabled
 :::
 
-## 自定义模板 
-::: demo 在bn-option中，设定默认插槽即可
-select/option-default-slots
+## 多选 ^(beta)
+::: demo 设置属性`multiple`即可。注意此时`v-model`要绑定是个`数组`的字段。
+select/multiple
 :::
 
-## 异步加载数据 
-::: demo 设置loading属性
-select/loading
+
+## 自定义模板
+::: demo 在bn-option中，设定默认插槽即可
+select/option-default-slots
 :::
 
 ## Select Attributes
 |参数名|描述|可选值|默认值|
 |---|---|---|:---:|
-|v-model|绑定值|`boolean` / `number` / `string`|`-`|
+|v-model|绑定值|`number` / `string` / `array`|`-`|
+|multiple ^(alpha.30)|是否多选|`boolean`|`false`|
 |disabled|是否禁用|`boolean` |`false`|
 |size|尺寸大小|`small` / `default` / `large`|`default`|
 |placeholder|占位符|`string`|`请选择`|

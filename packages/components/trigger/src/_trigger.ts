@@ -216,41 +216,21 @@ export const triggerProps = {
   popupContainer: {
     type: [String, Object] as PropType<string | HTMLElement>
   },
-  /**
-   * 是否在容器滚动时更新弹出框的位置
-   */
-  updateAtScroll: {
-    type: Boolean,
-    default: false
-  },
   autoFitTransformOrigin: {
-    type: Boolean,
-    default: false
-  },
-  hideEmpty: {
     type: Boolean,
     default: false
   },
   openedClass: {
     type: [String, Array, Object]
   },
-  /**
-   *  是否自动调整弹出框位置，以适应窗口大小
-   */
   autoFitPosition: {
     type: Boolean,
     default: true
   },
-  /**
-   *  是否挂载在 `body` 元素下
-   */
   renderToBody: {
     type: Boolean,
     default: true
   },
-  /**
-   *  是否阻止弹出层中的元素点击时获取焦点
-   */
   preventFocus: {
     type: Boolean,
     default: false

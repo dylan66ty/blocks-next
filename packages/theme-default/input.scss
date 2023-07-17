@@ -79,6 +79,10 @@
       color: var(--bn-input-placeholder-color);
     }
 
+    &[readonly] {
+    cursor: default;
+    }
+
     &:disabled {
       color: var(--bn-input-disabled-text-color);
       cursor: not-allowed;
@@ -151,10 +155,6 @@
       --bn-input-placeholder-color: rgb(100 107 122 / 100%);
     }
   }
-
-  [readonly] {
-    cursor: default;
-  }
 }
 
 @include b(textarea) {
@@ -193,6 +193,10 @@
 
     &::input-placeholder {
       color: var(--bn-input-placeholder-color);
+    }
+
+    &[readonly] {
+      cursor: default;
     }
 
     &:disabled {

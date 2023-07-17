@@ -3,7 +3,7 @@ title: Icon
 lang: zh-CN
 ---
 
-# 基础图标
+# 图标 Icon
 :::demo
 icon/basic-hide-code
 :::

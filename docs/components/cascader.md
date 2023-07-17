@@ -100,4 +100,6 @@ cascader/custom-trigger
 |---|---|---|
 |default|自定义备选项的节点内容，分别为当前节点的 Node 对象和数据|`{ node: any, data: any }`|
 |footer|底部区域自定义|`{ok:() => void , cancel: () => void}`|
+|trigger|自定义触发器|`-`|
+
 

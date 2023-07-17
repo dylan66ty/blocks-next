@@ -135,6 +135,11 @@
         {
           "text": "滚动条 Scrollbar",
           "link": "scrollbar"
+        },
+        {
+          "text": "弹出层 Popup",
+          "link": "popup",
+          "promotion": "alpha.30"
         }
       ]
     }

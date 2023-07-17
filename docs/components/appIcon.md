@@ -3,7 +3,7 @@ title: AppIcon
 lang: zh-CN
 ---
 
-# 1、侧边菜单
+# 应用图标Icon
 :::demo
 appIcon/menu-hide-code
 :::

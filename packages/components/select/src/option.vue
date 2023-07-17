@@ -1,12 +1,22 @@
 <script lang="ts">
-  import { computed, defineComponent, inject, getCurrentInstance, onBeforeUnmount } from 'vue'
+  import {
+    computed,
+    defineComponent,
+    inject,
+    getCurrentInstance,
+    onBeforeUnmount,
+    ref,
+    onMounted
+  } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
-  import { isObject } from '../../../utils/is'
+  import CheckIcon from '../../icon/src/base/check.vue'
   import { selectInjectKey } from './context'
-  import type { SelectOptionProxy } from './types'
 
   export default defineComponent({
     name: getComponentNamespace('Option'),
+    components: {
+      CheckIcon
+    },
     props: {
       value: {
         required: true,
@@ -23,27 +33,25 @@
     },
     setup(props) {
       const ns = getNamespace('select-menu')
-      const selectContext = inject(selectInjectKey)
-      const valueIsObject = computed(() => {
-        return isObject(props.value)
-      })
-      // const hoverIndex = computed(() => selectContext.)
 
-      const itemSelected = computed(() => {
-        if (!selectContext?.props.multiple) {
-          if (!valueIsObject.value) {
-            return props.value === selectContext?.props.modelValue
-          } else {
-            return false
-          }
-        } else {
-          // 多选
-          return false
-        }
-      })
+      const selectContext = inject(selectInjectKey)
+
+      // 是否选中
+      const isSelected = ref(false)
+      // 是否hover
+      const isHover = ref(false)
+      // 是否可见（过滤）
+      const visible = ref(true)
+
+      const multiple = computed(() => selectContext?.multiple)
 
       const cls = computed(() => {
-        return [`${ns}__item`, props.disabled && `is-disabled`, itemSelected.value && 'is-selected']
+        return [
+          `${ns}__item`,
+          isHover.value && 'is-hover',
+          props.disabled && `is-disabled`,
+          isSelected.value && 'is-selected'
+        ]
       })
 
       const currentLabel = computed(() => {
@@ -54,52 +62,54 @@
         return props.value
       })
 
-      const vm = getCurrentInstance()?.proxy
+      const optVmProxy = getCurrentInstance()!.proxy as any
 
-      selectContext?.optionItemCreate(vm as unknown as SelectOptionProxy)
-
-      const hoverItem = () => {
+      const optionItemHoverChange = () => {
         if (!props.disabled) {
-          selectContext?.optionItemHoverIndexChange(vm as any)
+          selectContext?.optionItemHoverChange(optVmProxy)
         }
       }
 
-      const selectOptionClick = () => {
+      const optionItemSelect = () => {
         if (props.disabled) return
-        selectContext?.handleOptionSelect(vm as any, true)
+        selectContext?.optionItemSelect(optVmProxy)
       }
 
+      onMounted(() => {
+        selectContext?.optionItemCreate(optVmProxy)
+      })
+
       onBeforeUnmount(() => {
-        const key = (vm as unknown as SelectOptionProxy).currentValue
-        // const { selected } = selectContext
-        // const selectedOptions = selectContext.props.multiple ? selected : [selected]
-        // const doesSelected = selectedOptions.some((item) => {
-        //   return item.value === (vm as unknown as SelectOptionProxy).value
-        // })
-        // // if option is not selected, remove it from cache
-        // nextTick(() => {
-        //   if (select.cachedOptions.get(key) === vm && !doesSelected) {
-        //     select.cachedOptions.delete(key)
-        //   }
-        // })
-        selectContext?.optionItemDestroy(key, vm as any)
+        selectContext?.optionItemDestroy(optVmProxy)
       })
 
       return {
         cls,
         currentLabel,
         currentValue,
-        hoverItem,
-        selectOptionClick
+        optionItemHoverChange,
+        optionItemSelect,
+        multiple,
+
+        visible,
+        isHover,
+        isSelected
       }
     }
   })
 </script>
 
 <template>
-  <div :class="cls" @mouseenter="hoverItem" @click.stop="selectOptionClick">
+  <div
+    v-show="visible"
+    :class="cls"
+    @mouseenter.stop="optionItemHoverChange"
+    @click.stop="optionItemSelect"
+  >
     <slot>
       <span>{{ currentLabel }}</span>
     </slot>
+
+    <CheckIcon v-if="multiple && isSelected" />
   </div>
 </template>

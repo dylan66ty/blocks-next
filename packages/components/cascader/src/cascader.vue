@@ -6,7 +6,7 @@
 
   import { useFormItem } from '../../form/src/hooks/use-form-item'
   import { NOOP } from '../../../shared/utils'
-  import SelectTrigger from '../../_components/select-trigger.vue'
+  import SelectTrigger from '../../common/select-trigger.vue'
   import BasePanel from './base-panel'
 
   import { cascaderProps } from './props'
@@ -41,14 +41,6 @@
       const mergeDisabled = computed(() => props.disabled)
       const mergeSize = computed(() => props.size)
 
-      const computedPlaceholder = computed(() => {
-        if (props.multiple) {
-          if (pathValueToNodeKeys.value.length === 0) return props.placeholder
-          return ''
-        }
-        return props.placeholder
-      })
-
       const dataTree = ref<CascaderNode[]>([])
       const dataMap = reactive(new Map<string, CascaderNode>())
 
@@ -80,10 +72,6 @@
             label = props.inputLabelFormat(node?.pathLabel)
           }
           return label
-        }
-        //  仅仅为了input的占位符 显示close图标
-        if (props.multiple && pathValueToNodeKeys.value.length) {
-          return ' '
         }
         return ''
       })
@@ -226,7 +214,6 @@
         states,
         mergeDisabled,
         mergeSize,
-        computedPlaceholder,
         handleClear,
         currentTagLabel,
         renderColumns,
@@ -258,7 +245,7 @@
             :input-value="currentTagLabel"
             :disabled="mergeDisabled"
             :size="mergeSize"
-            :placeholder="computedPlaceholder"
+            :placeholder="placeholder"
             :clearable="clearable"
             :popup-visible="states.popupVisible"
             :multiple="multiple"

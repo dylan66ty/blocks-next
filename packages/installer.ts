@@ -30,6 +30,7 @@ import { Badge } from './components/badge'
 import { Cascader } from './components/cascader'
 import { Descriptions } from './components/descriptions'
 import { DescriptionsItem } from './components/descriptions-item'
+import { Popup } from './components/popup'
 
 // plugin
 import { Message } from './components/message'
@@ -66,7 +67,8 @@ const components = [
   Badge,
   Cascader,
   Descriptions,
-  DescriptionsItem
+  DescriptionsItem,
+  Popup
 ] as Plugin[]
 
 const plugins = [Message, MessageBox, Notification, Loading]

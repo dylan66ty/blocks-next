@@ -1,0 +1,12 @@
+@use './mixins/bem.scss' as *;
+
+@include b(popup) {
+  @include e(content) {
+    overflow: hidden;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #fff;
+    box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
+    box-sizing: border-box;
+  }
+}
