@@ -15,8 +15,7 @@ const svgSourceCwd = path.join(`${process.cwd()}/packages/svgs`)
 
 const maps = {
   base: '基础图标',
-  app: '应用图标',
-  ykc: '云客查图标'
+  app: '应用图标'
 }
 
 const formatComponentName = (name) => {
@@ -59,16 +58,17 @@ const buildIconComponent = async (svgData) => {
     for (const item of svg.list) {
       const svgHtml = fs.readFileSync(item.path, 'utf8')
 
+      const svgElement = JSDOM.fragment(svgHtml).querySelector('svg')
+
       // const optimizedSvg = optimize(svgHtml, {
       //   path: item.path,
       //   ...svgoConfig
       // })
-
-      const pureSvgElement = JSDOM.fragment(svgHtml).querySelector('svg')
+      // if (!optimizedSvg.data) return
 
       const iconHtml = getIconVue({
         componentName: item.componentName,
-        svgHtml: pureSvgElement.outerHTML,
+        svgHtml: svgElement.outerHTML,
         propsDefaultValue: {
           size: undefined,
           rotate: undefined,

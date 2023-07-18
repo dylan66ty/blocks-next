@@ -122,6 +122,11 @@
           "text": "描述列表 Descriptions",
           "link": "descriptions",
           "promotion": "alpha.30"
+        },
+        {
+          "text": "下拉菜单 Dropdown",
+          "link": "dropdown",
+          "promotion": "alpha.31"
         }
       ]
     },

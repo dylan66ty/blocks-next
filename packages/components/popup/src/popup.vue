@@ -60,11 +60,11 @@
       })
 
       const arrowStyle = computed(() => {
-        const styleVar: Record<string, string> = {
+        const style: Record<string, string> = {
           '--bn-trigger-arrow-background-color': '#fff'
         }
 
-        return styleVar
+        return style
       })
 
       const computedOffset = computed(() => {

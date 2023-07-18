@@ -3,7 +3,7 @@
   import type { StyleValue } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 
-  import { BnIconPrompt, BnIconWarning, BnIconSuccess, BnIconError } from '../../icon'
+  import { BnIconPrompt, BnIconWarningFill, BnIconCheckFill, BnIconCloseFill } from '../../icon'
 
   import usePopupManager from '../../../hooks/use-popup-manager'
   import { notificationProps } from './props'
@@ -49,10 +49,10 @@
 
       const currentIcon = computed(() => {
         if (props.type === 'info') return BnIconPrompt
-        if (props.type === 'warning') return BnIconWarning
-        if (props.type === 'strong') return BnIconWarning
-        if (props.type === 'success') return BnIconSuccess
-        if (props.type === 'error') return BnIconError
+        if (props.type === 'warning') return BnIconWarningFill
+        if (props.type === 'strong') return BnIconWarningFill
+        if (props.type === 'success') return BnIconCheckFill
+        if (props.type === 'error') return BnIconCloseFill
         return ''
       })
 

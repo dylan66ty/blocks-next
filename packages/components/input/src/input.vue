@@ -6,7 +6,7 @@
   import { isObject } from '../../../utils/is'
   import { NOOP } from '../../../shared/utils'
 
-  import { BnIconEyeOpen, BnIconClose, BnIconCaret } from '../../icon'
+  import { BnIconView, BnIconHide, BnIconClose, BnIconCaret } from '../../icon'
   import { useFormItem } from '../../form/src/hooks/use-form-item'
   import { inputProps } from './props'
   import { calcTextareaHeight } from './utils'
@@ -16,7 +16,8 @@
   export default defineComponent({
     name: getComponentNamespace('Input'),
     components: {
-      BnIconEyeOpen,
+      BnIconView,
+      BnIconHide,
       BnIconClose,
       BnIconCaret
     },
@@ -287,8 +288,8 @@
             :class="[`${inputNs}__icon`, `${inputNs}__eye`]"
             @click.stop="handleEye"
           >
-            <BnIconEyeOpen v-if="eyeStatus" />
-            <BnIconEyeClose v-else />
+            <BnIconView v-if="eyeStatus" />
+            <BnIconHide v-else />
           </span>
           <span
             v-if="hasClearableIcon"

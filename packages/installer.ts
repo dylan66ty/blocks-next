@@ -31,6 +31,8 @@ import { Cascader } from './components/cascader'
 import { Descriptions } from './components/descriptions'
 import { DescriptionsItem } from './components/descriptions-item'
 import { Popup } from './components/popup'
+import { Dropdown } from './components/dropdown'
+import { DropdownItem } from './components/dropdown-item'
 
 // plugin
 import { Message } from './components/message'
@@ -68,7 +70,9 @@ const components = [
   Cascader,
   Descriptions,
   DescriptionsItem,
-  Popup
+  Popup,
+  Dropdown,
+  DropdownItem
 ] as Plugin[]
 
 const plugins = [Message, MessageBox, Notification, Loading]

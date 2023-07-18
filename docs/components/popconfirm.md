@@ -36,7 +36,7 @@ popconfirm/type
 popconfirm/slots
 :::
 
-## 默认显示
+## 双向绑定
 ::: demo 可以使用v-model实现双向绑定
 popconfirm/modelValue
 :::

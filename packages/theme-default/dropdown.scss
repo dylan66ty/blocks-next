@@ -1,0 +1,41 @@
+@use './mixins/bem.scss' as *;
+
+@include b(dropdown) {
+  @include e(content) {
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #fff;
+    box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
+  }
+
+}
+
+
+@include b(dropdown-item) {
+  --bn-dropdown-font-size: var(--bn-font-size);
+  --bn-dropdown-color: var(--bn-color-1);
+}
+
+@include b(dropdown-item) {
+  border-radius: 8px;
+  padding: 13px 20px;
+  font-size: var(--bn-dropdown-font-size);
+  text-align: center;
+  color: var(--bn-dropdown-color);
+  line-height: 1;
+  background-color: #fff;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--bn-background-color);
+  }
+
+  // @include m(small) {
+
+  // }
+
+  // @include m(large) {
+    
+  // }
+
+}

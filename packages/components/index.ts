@@ -29,6 +29,8 @@ export * from './cascader'
 export * from './descriptions'
 export * from './descriptions-item'
 export * from './popup'
+export * from './dropdown'
+export * from './dropdown-item'
 
 // methods
 export * from './message'

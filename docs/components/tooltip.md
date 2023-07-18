@@ -27,8 +27,8 @@ tooltip/slot
 :::
 
 
-## 默认显示
-::: demo 通过 `v-model` 设置默认显示状态。
+## 双向绑定
+::: demo 通过使用`v-model` 即可。
 tooltip/default-visible
 :::
 

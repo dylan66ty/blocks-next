@@ -5,7 +5,7 @@
   import { addUnit } from '../../../shared/utils'
 
   export default defineComponent({
-    name: 'BnIconWarning',
+    name: 'BnIconWarningFill',
     props: {
       size: {
         type: [Number, String],
@@ -60,11 +60,10 @@
 
 <template>
   <i :class="cls" :style="styles">
-    <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728="">
-      <path
-        fill="currentColor"
-        d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm48-176a48 48 0 1 1-96 0 48 48 0 0 1 96 0zm-48-464a32 32 0 0 1 32 32v288a32 32 0 0 1-64 0V288a32 32 0 0 1 32-32z"
-      ></path>
+    <svg viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <circle fill="currentColor" cx="30" cy="30" r="30"></circle>
+      <polygon fill="#FFFFFF" points="28 16 32 16 31.2 36 28.8 36"></polygon>
+      <circle fill="#FFFFFF" cx="30" cy="42" r="2"></circle>
     </svg>
   </i>
 </template>

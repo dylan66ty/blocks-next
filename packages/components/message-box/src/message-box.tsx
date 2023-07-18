@@ -4,7 +4,7 @@ import _Dialog from '../../dialog/src/dialog.vue'
 import BnButton from '../../button/src/button.vue'
 import BnSpace from '../../space/src/space.vue'
 
-import { BnIconWarning, BnIconPrompt, BnIconSuccess, BnIconError } from '../../icon'
+import { BnIconWarningFill, BnIconPrompt, BnIconCheckFill, BnIconCloseFill } from '../../icon'
 
 import { isFunction } from '../../../utils/is'
 
@@ -59,16 +59,16 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (
     let vnode: VNode
     switch (type) {
       case 'warning':
-        vnode = <BnIconWarning size="60px" color="#f6c64b" />
+        vnode = <BnIconWarningFill size="60px" color="#f6c64b" />
         break
       case 'strong':
-        vnode = <BnIconWarning size="60px" color="#ee793c" />
+        vnode = <BnIconWarningFill size="60px" color="#ee793c" />
         break
       case 'error':
-        vnode = <BnIconError size="60px" color="#e24f48" />
+        vnode = <BnIconCloseFill size="60px" color="#e24f48" />
         break
       case 'success':
-        vnode = <BnIconSuccess size="60px" color="#68d1ab" />
+        vnode = <BnIconCheckFill size="60px" color="#68d1ab" />
         break
       case 'info':
         vnode = <BnIconPrompt size="60px" color="#2355f5" />

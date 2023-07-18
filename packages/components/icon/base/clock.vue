@@ -5,7 +5,7 @@
   import { addUnit } from '../../../shared/utils'
 
   export default defineComponent({
-    name: 'BnIconWarning',
+    name: 'BnIconClock',
     props: {
       size: {
         type: [Number, String],
@@ -63,8 +63,13 @@
     <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" data-v-ea893728="">
       <path
         fill="currentColor"
-        d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 832a384 384 0 0 0 0-768 384 384 0 0 0 0 768zm48-176a48 48 0 1 1-96 0 48 48 0 0 1 96 0zm-48-464a32 32 0 0 1 32 32v288a32 32 0 0 1-64 0V288a32 32 0 0 1 32-32z"
+        d="M512 896a384 384 0 1 0 0-768 384 384 0 0 0 0 768zm0 64a448 448 0 1 1 0-896 448 448 0 0 1 0 896z"
       ></path>
+      <path
+        fill="currentColor"
+        d="M480 256a32 32 0 0 1 32 32v256a32 32 0 0 1-64 0V288a32 32 0 0 1 32-32z"
+      ></path>
+      <path fill="currentColor" d="M480 512h256q32 0 32 32t-32 32H480q-32 0-32-32t32-32z"></path>
     </svg>
   </i>
 </template>
