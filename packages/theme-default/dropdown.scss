@@ -2,40 +2,80 @@
 
 @include b(dropdown) {
   @include e(content) {
-    border-radius: 8px;
-    padding: 12px;
+    --bn-dropdown-font-size:14px;
+    --bn-dropdown-padding: 12px 0;
+    --bn-dropdown-radius: 8px;
+
+    overflow: hidden;
+    border-radius: var(--bn-dropdown-radius);
+    padding: var(--bn-dropdown-padding);
     background-color: #fff;
     box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
   }
 
+  @include m(small) {
+    --bn-dropdown-font-size:12px;
+    --bn-dropdown-padding: 6px 0;
+    --bn-dropdown-radius: 6px;
+  }
+
 }
 
 
 @include b(dropdown-item) {
-  --bn-dropdown-font-size: var(--bn-font-size);
-  --bn-dropdown-color: var(--bn-color-1);
+  --bn-dropdown-item-color: var(--bn-color-1);
+  --bn-dropdown-item-padding: 12px 24px;
+  --bn-dropdown-item-margin: 0 12px 4px;
+  --bn-dropdown-item-border-radius: 8px;
+
 }
 
 @include b(dropdown-item) {
-  border-radius: 8px;
-  padding: 13px 20px;
+  margin: var(--bn-dropdown-item-margin);
+  border-radius: var(--bn-dropdown-item-border-radius);
+  padding: var(--bn-dropdown-item-padding);
   font-size: var(--bn-dropdown-font-size);
   text-align: center;
-  color: var(--bn-dropdown-color);
-  line-height: 1;
+  color: var(--bn-dropdown-item-color);
   background-color: #fff;
+  line-height: 1;
+  box-sizing: border-box;
   cursor: pointer;
 
-  &:hover {
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:not(.is-disabled):hover {
     background-color: var(--bn-background-color);
   }
 
-  // @include m(small) {
+  @include m(small) {
+    --bn-dropdown-item-padding: 6px 12px;
+    --bn-dropdown-item-margin: 0 6px 2px;
+    --bn-dropdown-item-border-radius: 4px;
+  }
 
-  // }
 
-  // @include m(large) {
-    
-  // }
+  @include when(selected) {
+    color: var(--bn-primary);
+    background-color: rgb(248 250 255);
+  }
+
+
+  @include when(disabled) {
+    color: var(--bn-disabled-color);
+    cursor: not-allowed;
+  }
+
+  @include e(divided) {
+    margin: 12px 0;
+    width: 100%;
+    height: 1px;
+    color: red;    
+    background-color: var(--bn-color-6);
+    box-shadow: 0 -8px 20px 0 rgb(100 107 122 / 5%);
+  }
+
 
 }
