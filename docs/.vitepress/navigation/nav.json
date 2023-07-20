@@ -5,12 +5,12 @@
   },
   {
     "text": "指南",
-    "link": "/guide/getting-started",
+    "link": "/docs/guide/getting-started",
     "activeMatch": "/guide/"
   },
   {
     "text": "组件",
-    "link": "/components/button",
+    "link": "/docs/components/button",
     "activeMatch": "/components/"
   }
 ]

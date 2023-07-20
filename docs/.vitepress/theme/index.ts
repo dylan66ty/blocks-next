@@ -25,5 +25,6 @@ export default <Theme>{
 
     app.config.globalProperties.message = message
     app.config.globalProperties.copyStr = copyStr
+
   }
 }

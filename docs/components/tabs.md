@@ -31,6 +31,11 @@ tabs/scroll
 tabs/panes
 :::
 
+## 附加内容
+::: demo 通过 `extra` 插槽可以自定义额外显示内容。
+tabs/extra
+:::
+
 
 ## Tabs Attributes
 |参数名|描述|可选值|默认值|
@@ -49,10 +54,16 @@ tabs/panes
 |destroyOnHide|是否在不显示标签时销毁内容,pane上的此属性优先级高于tabs。|`boolean`|`-`|
 
 
+
 ## Tabs Events
 |name|描述|回调参数|
 |---|---|---|
 |change|tab在激活时触发|`(key: string\|number)`|
+
+## Tabs Slots
+|name|描述|
+|---|---|
+|extra ^(beta)|选项卡额外内容|
 
 ## TabPane Slots
 |name|描述|

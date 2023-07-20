@@ -15,6 +15,12 @@
 @include b(tabs) {
   width: 100%;
 
+  @include e(extra-wrapper) {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+  }
+
   @include e(navs-wrapper) {
     display: flex;
   }

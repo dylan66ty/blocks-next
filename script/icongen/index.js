@@ -10,7 +10,7 @@ const { getIconVue, getIndexTs } = require('./template')
 const { toCamelCase, toUpperFirstChar } = require('./utils')
 
 const output = path.join(`${process.cwd()}/packages/components/icon`)
-const svgSourceCwd = path.join(`${process.cwd()}/packages/svgs`)
+const svgSource = path.join(`${process.cwd()}/packages/svgs`)
 // const svgoConfig = require('./svgo.config')
 
 const maps = {
@@ -31,7 +31,7 @@ const getSVGData = () => {
       list: []
     }
     const files = glob.sync(`${dir}/**/*.svg`, {
-      cwd: svgSourceCwd,
+      cwd: svgSource,
       absolute: true
     })
     for (const filePath of files) {

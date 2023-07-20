@@ -12,7 +12,7 @@
 </script>
 
 <template>
-  <bn-tabs style="width: 300px" v-model:activeKey="tab" :hidePanes="false" is-line-pt="">
+  <bn-tabs v-model:activeKey="tab" :hidePanes="false">
     <bn-tab-pane :key="item.key" :title="item.title" v-for="item in tabs" />
   </bn-tabs>
 </template>

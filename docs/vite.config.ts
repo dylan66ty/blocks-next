@@ -7,7 +7,6 @@ import { MarkdownTransform } from './.vitepress/plugins/markdown-transform'
 
 export default (): UserConfig => {
   return {
-    base: 'comdocs',
     resolve: {
       alias: [
         {

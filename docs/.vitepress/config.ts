@@ -6,6 +6,7 @@ import { sidebar } from './config/navigation'
 import nav from './navigation/nav.json'
 
 const config: UserConfig = {
+  base: '/docs/',
   lang: 'zh-CN',
   title: 'Blocks Next',
   description: 'Just playing around.',

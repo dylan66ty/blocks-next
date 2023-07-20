@@ -1,9 +1,10 @@
 <script lang="ts" setup>
   import { onMounted, onUnmounted } from 'vue'
 
-  const goto = (path) => {
-    location.href = path
+  const goto = (url) => {
+    location.href = url
   }
+ 
   let originOverflow = ''
   onMounted(() => {
     originOverflow = document.body.style.overflow
@@ -26,7 +27,7 @@
         >一个更加『轻量』和『快速』的基于 Vue3 组件库</div
       >
       <div class="banner__ops animate__animated animate__fadeIn animate__slower">
-        <bn-button type="primary" size="small" @click="goto('/guide/getting-started.html')">
+        <bn-button type="primary" size="small" @click="goto('/docs/guide/getting-started.html')">
           <span>开始使用</span>
           <svg
             class="icon"
@@ -41,7 +42,7 @@
             ></path>
           </svg>
         </bn-button>
-        <bn-button size="small" @click="goto('/guide/changelogs.html')">更新日志</bn-button>
+        <bn-button size="small" @click="goto('/docs/guide/changelogs.html')">更新日志</bn-button>
       </div>
     </div>
     <div class="home-bg-left-bottom">

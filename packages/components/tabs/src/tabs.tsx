@@ -1,18 +1,8 @@
 import type { VNode } from 'vue'
-import {
-  computed,
-  defineComponent,
-  nextTick,
-  onMounted,
-  provide,
-  reactive,
-  ref,
-  toRefs,
-  watch
-} from 'vue'
+import { computed, defineComponent, provide, reactive, ref, toRefs } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
-import { isUndefined, isArray } from '../../../utils/is'
-import { isComponent } from '../../../utils/vue-utils'
+import { isUndefined } from '../../../utils/is'
+import { getAllElements, isComponent } from '../../../utils/vue-utils'
 import { tabsProps } from './tabs-props'
 import { tabsInjectionKey } from './context'
 import type { TabPaneData } from './types'
@@ -29,39 +19,10 @@ export default defineComponent({
 
     const _activeKey = ref()
 
-    const vnodes: Record<string, VNode[]> = {
-      panes: []
-    }
-    const panesMap = new Map()
-
-    const paneComponents = ref<number[]>([])
-
-    const getPaneComponents = async () => {
-      await nextTick()
-      const _paneComponents: number[] = []
-      const traverse = (vns: VNode[]) => {
-        vns.forEach((vn) => {
-          if (isComponent(vn, vn.type) && vn.type.name === 'BnTabPane') {
-            if (vn.component?.uid) {
-              _paneComponents.push(vn.component.uid)
-            }
-          }
-          if (isArray(vn.children) && vn.children.length) {
-            traverse(vn.children as VNode[])
-          }
-        })
-      }
-      traverse(vnodes.panes)
-      paneComponents.value = _paneComponents
-    }
+    const panesMap = ref<Map<number, any>>(new Map())
 
     const renderTabsNavsData = computed(() => {
-      const tabPaneData: TabPaneData[] = []
-      paneComponents.value.forEach((id) => {
-        const tab = panesMap.get(id)
-        if (tab) tabPaneData.push(tab)
-      })
-      return tabPaneData
+      return Array.from(panesMap.value.values())
     })
 
     const panesKeys = computed(() => renderTabsNavsData.value.map((item) => item.key))
@@ -76,10 +37,10 @@ export default defineComponent({
 
     // 每个pane创建时保存TabPaneData
     const addPane = (uid: number, paneData: TabPaneData) => {
-      panesMap.set(uid, paneData)
+      panesMap.value.set(uid, paneData)
     }
     const removePane = (uid: number) => {
-      panesMap.delete(uid)
+      panesMap.value.delete(uid)
     }
 
     const activeIndex = computed(() => {
@@ -90,7 +51,7 @@ export default defineComponent({
       return index
     })
 
-    const renderPanes = () => {
+    const renderPanes = (children: VNode[]) => {
       return (
         <div class={[`${ns}__panes-viewport`]} v-show={!props.hidePanes}>
           <div
@@ -99,7 +60,7 @@ export default defineComponent({
               transform: `translate(-${activeIndex.value * 100}%, 0)`
             }}
           >
-            {vnodes.panes}
+            {children}
           </div>
         </div>
       )
@@ -113,6 +74,20 @@ export default defineComponent({
           emit('change', key)
         }
       }
+      if (slots.extra) {
+        return (
+          <div class={[`${ns}__extra-wrapper`]}>
+            <TabNavs
+              tabs={renderTabsNavsData.value}
+              type={props.type}
+              activeKey={computedActiveKey.value}
+              changeActiveKey={handleChangeActiveKey}
+              animation={props.animation}
+            />
+            {slots.extra()}
+          </div>
+        )
+      }
 
       return (
         <TabNavs
@@ -125,27 +100,6 @@ export default defineComponent({
       )
     }
 
-    watch(
-      () => props.type,
-      () => {
-        getPaneComponents()
-      }
-    )
-
-    onMounted(() => {
-      getPaneComponents()
-    })
-
-    watch(
-      () => slots.default?.(),
-      () => {
-        // NOTE 应该让pane先注册 然后在获取tabs
-        nextTick(() => {
-          getPaneComponents()
-        })
-      }
-    )
-
     provide(
       tabsInjectionKey,
       reactive({
@@ -157,11 +111,14 @@ export default defineComponent({
     )
 
     return () => {
-      vnodes.panes = slots.default?.() || []
+      const paneChildren = getAllElements(slots.default?.()).filter(
+        (vn) => isComponent(vn, vn.type) && vn.type.name === 'BnTabPane'
+      )
+
       return (
         <div class={[ns]}>
           {renderNav()}
-          {renderPanes()}
+          {renderPanes(paneChildren)}
         </div>
       )
     }

@@ -11,6 +11,9 @@
     <bn-tab-pane key="1" title="全部订单" />
     <bn-tab-pane key="2" title="待付款" />
     <bn-tab-pane key="3" title="已付款" />
+    <template #extra>
+      <bn-button type="primary">Action</bn-button>
+    </template>
   </bn-tabs>
 </template>
 
