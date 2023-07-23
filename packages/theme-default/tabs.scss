@@ -18,7 +18,7 @@
   @include e(extra-wrapper) {
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: flex-end;
   }
 
   @include e(navs-wrapper) {

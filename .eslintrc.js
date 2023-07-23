@@ -12,6 +12,12 @@ module.exports = {
       {
         usePrettierrc: true
       }
+    ],
+    'vue/component-tags-order': [
+      'error',
+      {
+        order: ['script', 'template', 'style']
+      }
     ]
   }
 }

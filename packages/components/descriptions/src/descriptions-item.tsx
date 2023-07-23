@@ -69,8 +69,8 @@ export default defineComponent({
       return style
     })
 
-    const valueAlginCls = computed(() => [`is-${props.align}`])
-    const labelAlginCls = computed(() => [`is-${props.labelAlign}`])
+    const valueAlginCls = computed(() => [`is-align-${props.align}`])
+    const labelAlginCls = computed(() => [`is-align-${props.labelAlign}`])
 
     const renderValue = () => {
       let value: string | VNodeChild = props.value

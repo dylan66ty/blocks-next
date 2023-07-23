@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PropType } from 'vue'
-  import { defineComponent, ref, watch, nextTick, computed, onUnmounted } from 'vue'
+  import { defineComponent, ref, watch, computed, onUnmounted, onMounted } from 'vue'
   import { getNamespace } from '../../utils/global-config'
   import { isElement } from '../../utils/is'
 
@@ -46,24 +46,41 @@
         default: undefined
       }
     },
-    emits: ['clear', 'tagClose', 'filter'],
+    emits: ['show', 'clear', 'tagClose', 'filter'],
     setup(props, { emit }) {
       const ns = getNamespace('select-trigger')
-      const inputComponentRef = ref<InputInstance>()
 
-      const readonly = computed(() => !props.filterable || props.multiple)
+      const selectTriggerDomRef = ref<HTMLElement>()
+      const inputComponentRef = ref<InputInstance>()
+      const multipleInputRef = ref<HTMLElement>()
+
+      const readonly = computed(() => !props.filterable || props.multiple || !props.popupVisible)
+      const multipleInputReadonly = computed(() => props.filterable && !props.popupVisible)
       const query = ref('')
       const multipleQuery = ref('')
       const placeholder = ref<string | undefined>()
 
-      const setInputHeight = (height: string) => {
+      const setLayoutInputHeight = () => {
+        const height = multipleTagsRef.value?.clientHeight + 'px'
         const inputElement = inputComponentRef.value?.inputRef
         if (inputElement) {
-          inputElement.style.height = height
+          inputElement.style.transition = 'height 0.15s'
+          if (props.multipleTags.length) {
+            inputElement.style.height = height
+          } else {
+            inputElement.style.height = ''
+          }
         }
       }
 
       const multipleTagsRef = ref<HTMLElement>()
+
+      const addMultipleTag = () => {
+        setLayoutInputHeight()
+      }
+      const removeMultipleTag = () => {
+        setLayoutInputHeight()
+      }
 
       const computedInputValue = computed({
         get() {
@@ -82,7 +99,7 @@
 
       const computedPlaceholder = computed(() => {
         if (props.multiple) {
-          if (props.filterable) return ''
+          if (multipleQuery.value.length) return ''
           if (props.multipleTags.length === 0) return props.placeholder
           return ''
         }
@@ -90,50 +107,49 @@
         return props.placeholder
       })
 
-      const handleClick = () => {
-        if (props.filterable) {
+      const handleSelectTrigger = () => {
+        if (!props.filterable) return
+        if (props.multiple) {
+          multipleQuery.value = ''
+          multipleInputRef.value?.focus()
+          inputComponentRef.value?.setFocus(true)
+        } else {
           query.value = ''
           placeholder.value = props.inputValue || props.placeholder
-          emit('filter', query.value)
+        }
+        if (!props.popupVisible) {
+          emit('filter', '')
+        } else {
+          resetQuery()
         }
       }
 
-      const handleFocus = () => {
-        if (props.filterable) {
-          if (props.multiple) {
-            inputComponentRef.value?.manualInputFocus()
-          }
-        }
-      }
-
-      const handleBlur = () => {
-        if (props.filterable) {
-          if (props.multiple) {
-            multipleQuery.value = ''
-          } else {
-            query.value = props.inputValue
-          }
+      const resetQuery = () => {
+        if (!props.filterable) return
+        if (props.multiple) {
+          multipleQuery.value = ''
+        } else {
+          query.value = props.inputValue
         }
       }
 
       const handleClear = () => {
-        if (props.filterable) {
-          if (props.multiple) {
-            multipleQuery.value = ''
-          } else {
-            placeholder.value = props.placeholder
-          }
+        if (props.multiple) {
+          multipleQuery.value = ''
+        } else {
+          query.value = ''
+          placeholder.value = props.placeholder
         }
         emit('clear')
+        emit('filter', '')
       }
 
-      const handleInput = () => {
-        if (props.filterable) {
-          if (props.multiple) {
-            emit('filter', multipleQuery.value)
-          } else {
-            emit('filter', query.value)
-          }
+      const onInputEvent = () => {
+        if (!props.filterable) return
+        if (props.multiple) {
+          emit('filter', multipleQuery.value)
+        } else {
+          emit('filter', query.value)
         }
       }
 
@@ -147,45 +163,34 @@
         }
       )
 
-      watch(
-        () => props.multipleTags,
-        (tags) => {
-          if (!props.multiple) return
-          nextTick(() => {
-            if (tags.length === 0) {
-              setInputHeight('')
-              return
-            }
-            setInputHeight(multipleTagsRef.value?.clientHeight + 'px')
-          })
-        },
-        { immediate: true }
-      )
-
-      // 点击弹出层为了能保持输入框的激活状态
-      const popupTargetElementMousedown = (e: MouseEvent) => {
-        e.preventDefault()
-        inputComponentRef.value?.manualInputFocus()
-      }
-
       const popupTargetElement = computed(() => {
         if (isElement(props.popupRef)) return props.popupRef
         if (isElement(props.popupRef?.$el)) return props.popupRef?.$el
         return null
       })
 
-      watch(
-        () => popupTargetElement.value,
-        (el) => {
-          if (!el) return
-          nextTick(() => {
-            el.addEventListener('mousedown', popupTargetElementMousedown)
-          })
+      const clickOutside = (e: MouseEvent) => {
+        const el = e.target as HTMLElement
+        const deps: HTMLElement[] = [popupTargetElement.value, selectTriggerDomRef.value]
+        const inner = deps.some((container) => container.contains(el))
+        inputComponentRef.value?.setFocus(inner)
+        !inner && resetQuery()
+      }
+
+      const handleMultipleInput = () => {
+        resetQuery()
+        emit('filter', '')
+        if (!props.popupVisible) {
+          emit('show')
         }
-      )
+      }
+
+      onMounted(() => {
+        document.body.addEventListener('click', clickOutside, true)
+      })
 
       onUnmounted(() => {
-        popupTargetElement.value?.removeEventListener('mousedown', popupTargetElementMousedown)
+        document.body.removeEventListener('click', clickOutside, true)
       })
 
       return {
@@ -193,21 +198,26 @@
         inputComponentRef,
         multipleTagsRef,
         readonly,
+        multipleInputReadonly,
         computedPlaceholder,
         computedInputValue,
-        handleClick,
+        handleSelectTrigger,
         handleClear,
-        handleFocus,
-        handleBlur,
-        handleInput,
-        multipleQuery
+        onInputEvent,
+        multipleQuery,
+        selectTriggerDomRef,
+        addMultipleTag,
+        removeMultipleTag,
+        multipleInputRef,
+        resetQuery,
+        handleMultipleInput
       }
     }
   })
 </script>
 
 <template>
-  <div :class="[ns]" @click.stop="handleClick">
+  <div ref="selectTriggerDomRef" :class="[ns]" @click.stop="handleSelectTrigger">
     <BnInput
       ref="inputComponentRef"
       v-model="computedInputValue"
@@ -218,32 +228,35 @@
       :placeholder="computedPlaceholder"
       :clearable="clearable"
       @clear="handleClear"
-      @blur="handleBlur"
-      @input="handleInput"
+      @input="onInputEvent"
     >
       <template #suffix-icon>
         <BnIconCaret :class="[{ 'is-rotate': popupVisible }, `${ns}__icon-caret`]" />
       </template>
     </BnInput>
-    <div v-if="multiple" ref="multipleTagsRef" :class="[`${ns}__multiple`]">
-      <div
-        v-for="(tag, index) in multipleTags"
-        :key="`${tag.key}-${index}`"
-        :class="[`${ns}__tag`, `is-${size}`]"
+    <div v-if="multiple" ref="multipleTagsRef" :class="[`${ns}__multiple`, `is-${size}`]">
+      <transition-group
+        name="bn-zoom-in"
+        appear
+        @enter="addMultipleTag"
+        @after-leave="removeMultipleTag"
       >
-        <span :class="[`${ns}__tag-text`]">{{ tag.label }}</span>
-        <BnIconClose @click.stop="$emit('tagClose', tag)" />
-      </div>
+        <div v-for="tag in multipleTags" :key="`${tag.key}`" :class="[`${ns}__tag`, `is-${size}`]">
+          <span :class="[`${ns}__tag-text`]">{{ tag.label }}</span>
+          <BnIconClose @click.stop="$emit('tagClose', tag)" />
+        </div>
+      </transition-group>
 
       <input
         v-if="multiple && filterable"
+        ref="multipleInputRef"
         v-model="multipleQuery"
-        :placeholder="placeholder"
-        :class="[`${ns}__input`]"
+        :readonly="multipleInputReadonly"
+        :class="[`${ns}__input`, `is-${size}`]"
+        autocomplete="false"
         type="text"
-        @focus="handleFocus"
-        @input="handleInput"
-        @blur="handleBlur"
+        @input="onInputEvent"
+        @click.stop="handleMultipleInput"
       />
     </div>
   </div>

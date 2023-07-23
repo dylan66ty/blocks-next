@@ -68,6 +68,9 @@
         if (!props.multiple && pathValueToNodeKeys.value.length) {
           const node = dataMap.get(pathValueToNodeKeys.value[0])
           let label = node?.pathLabel?.join(props.separator)
+          if (!props.showAllLevels) {
+            label = node?.pathLabel?.[node!.pathLabel.length - 1]
+          }
           if (props.inputLabelFormat && node?.pathLabel) {
             label = props.inputLabelFormat(node?.pathLabel)
           }

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
 
-  const langs = ['Vue', 'React', 'Angular', 'Java', 'Python', 'JavaScript', 'Golang']
+  const langs = ['Vue', 'React', 'Angular']
 
   const model = ref(0)
 

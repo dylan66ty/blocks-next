@@ -19,7 +19,7 @@ const nativeProps = {
   },
   form: {
     type: String,
-    default: ''
+    default: undefined
   }
 }
 

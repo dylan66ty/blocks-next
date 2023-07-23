@@ -39,6 +39,10 @@ export const cascaderProps = {
     type: Function as PropType<(labels: string[]) => string>,
     default: undefined
   },
+  showAllLevels: {
+    type: Boolean,
+    default: true
+  },
   separator: {
     type: String,
     default: '/'

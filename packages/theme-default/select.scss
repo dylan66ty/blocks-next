@@ -3,12 +3,12 @@
 @include b(select) {
   display: inline-block;
   
-  @include e(empty-text) {
+  @include e(empty) {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-    min-height: 70px;
+    height: 90px;
     font-size: 14px;
     color: #a8abb2;
   }

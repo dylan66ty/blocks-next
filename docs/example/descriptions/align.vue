@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+const labelAlign = ref('right')
+const align = ref('center')
 
 const data = [
   {
@@ -36,26 +39,29 @@ const data = [
   {
     label: '所属行业',
     value: '软件和信息技木服务业',
-    span:2
+    span: 2
   },
   {
     label: '通讯地址',
     value: '合肥市xxxx',
-    span:2
+    span: 2
   },
   {
     label: '经营范围',
     value: '电商服务，软件开发',
-    span:2
+    span: 2
   }
 ]
 
 </script>
 
 <template>
+  
   <div>
     <bn-descriptions cell-height="60" border>
-      <bn-descriptions-item v-for="(item,index) in data" :key="index" :label="item.label" :value="item.value" :span="item.span" align="center" label-align="right"></bn-descriptions-item>
+      <bn-descriptions-item
+       v-for="(item, index) in data" :key="index" :label="item.label" :value="item.value"
+        :span="item.span" :align="align" :label-align="labelAlign"></bn-descriptions-item>
     </bn-descriptions>
   </div>
 </template>

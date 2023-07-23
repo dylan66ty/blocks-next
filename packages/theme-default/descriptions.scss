@@ -15,15 +15,15 @@
 }
 
 @mixin text-align () {
-  &.is-center {
+  &.is-align-center {
     text-align: center;
   }
 
-  &.is-left {
+  &.is-align-left {
     text-align: left;
   }
 
-  &.is-right {
+  &.is-align-right {
     text-align: right;
   }
 }

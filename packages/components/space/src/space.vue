@@ -1,6 +1,6 @@
 <script lang="tsx">
   import type { PropType, CSSProperties } from 'vue'
-  import { defineComponent, computed, Fragment } from 'vue'
+  import { defineComponent, computed, Fragment, Comment } from 'vue'
   import { isNumber } from '../../../utils/is'
   import { getNamespace, getComponentNamespace } from '../../../utils/global-config'
   import { getAllElements } from '../../../utils/vue-utils'
@@ -72,7 +72,9 @@
       }
 
       return () => {
-        const children = getAllElements(slots.default?.())
+        const children = getAllElements(slots.default?.(), true).filter(
+          (item) => item.type !== Comment
+        )
 
         return (
           <div class={cls.value}>

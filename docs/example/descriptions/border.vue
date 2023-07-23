@@ -64,11 +64,12 @@ const size = ref('default')
         <bn-radio label="default">default</bn-radio>
         <bn-radio label="large">large</bn-radio>
       </bn-radio-group>
-      <bn-switch v-model="border" activeText="开启"></bn-switch>
+      <bn-switch v-model="border" active-text="开启"></bn-switch>
     </bn-space>
 
     <bn-descriptions :border="border" :size="size">
-      <bn-descriptions-item v-for="(item, index) in data" :key="index" :label="item.label" :value="item.value"
+      <bn-descriptions-item
+v-for="(item, index) in data" :key="index" :label="item.label" :value="item.value"
         :span="item.span"></bn-descriptions-item>
     </bn-descriptions>
 </template>

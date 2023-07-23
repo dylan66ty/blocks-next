@@ -1,10 +1,25 @@
 @use './mixins/bem.scss' as *;
 
 @include b(select-trigger) {
-  --select-trigger-tag-font-size:14px;
-  --select-trigger-tag-padding:4px 6px 4px 12px;
+  --select-trigger-default-multiple-padding: 5px;
+  --select-trigger-small-multiple-padding: 4px;
+  --select-trigger-large-multiple-padding: 6px;
+  --select-trigger-default-tag-padding: 7px 6px 7px 12px;
+  --select-trigger-small-tag-padding: 4px 5px 4px 10px;
+  --select-trigger-large-tag-padding: 10px 10px 10px 16px;
+  --select-trigger-default-font-size: 14px;
+  --select-trigger-small-font-size: 12px;
+  --select-trigger-large-font-size: 14px;
   --select-trigger-tag-background-color:var(--bn-background-color);
+  --select-trigger-default-multiple-input-height: 28px;
+  --select-trigger-small-multiple-input-height: 24px;
+  --select-trigger-large-multiple-input-height: 32px;
 
+
+
+}
+
+@include b(select-trigger) {
   position: relative;
 
   @include e(multiple) {
@@ -15,35 +30,44 @@
     left: 0;
     z-index: 1;
     display: flex;
-    padding: 5px 6px;
+    padding: var(--select-trigger-default-multiple-padding);
     text-align: left;
     transform: translateY(-50%);
     pointer-events: none;
     flex-wrap: wrap;
     gap: 4px;
+
+    &.is-small {
+      padding: var(--select-trigger-small-multiple-padding);
+    }
+
+    &.is-large {
+      padding: var(--select-trigger-large-multiple-padding);
+    }
   }
 
   @include e(tag) {
     display: flex;
     align-items: center;
     border-radius: 4px;
-    padding: var(--select-trigger-tag-padding);
+    padding: var(--select-trigger-default-tag-padding);
     max-width: 150px;
-    font-size: var(--select-trigger-tag-font-size);
+    font-size: var(--select-trigger-default-font-size);
     background-color: var(--select-trigger-tag-background-color);
     flex-shrink: 0;
     gap: 4px;
     pointer-events: none;
     user-select: none;
+    line-height: 1;
 
     &.is-small {
-      --select-trigger-tag-padding:3px 5px 3px 10px;
-      --select-trigger-tag-font-size:12px;
+      padding: var(--select-trigger-small-tag-padding);
+      font-size: var(--select-trigger-small-font-size);
     }
 
     &.is-large {
-      --select-trigger-tag-padding:8px 10px 8px 16px;
-      --select-trigger-tag-font-size:14px;
+      padding: var(--select-trigger-large-tag-padding);
+      font-size: var(--select-trigger-large-font-size);
     }
 
     .bn-icon {
@@ -85,15 +109,30 @@
   }
 
   @include e(input) {
+    z-index: 2;
+    margin-left: 6px;
     border: none;
     padding: 0;
-    flex: 1;
-    min-width: 100px;
-    height: 28px;
+    width: 0;
+    flex-grow: 1;
+    min-width: 60px;
+    height: var(--select-trigger-default-multiple-input-height);
+    font-size: var(--select-trigger-default-font-size);
     background-color: transparent;
     outline: none;
     appearance: none;
     pointer-events: all;
+    user-select: none;
+    cursor: pointer;
+    
+    &.is-small {
+      height: var(--select-trigger-small-multiple-input-height);
+    }
+
+    &.is-large {
+      height: var(--select-trigger-large-multiple-input-height);
+    }
+
   }
   
   .#{$namespace}-input__wrapper{

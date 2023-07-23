@@ -11,8 +11,11 @@ export default defineComponent({
       const optionsVns = getAllElements(slots.default?.()).filter(
         (vn) => isComponent(vn, vn.type) && vn.type.name === 'BnOption'
       )
-      const values = optionsVns.map((vn) => vn.props?.value)
-
+      const values = optionsVns.map((vn) => {
+        const value = vn.props?.value
+        const label = vn.props?.label ?? ''
+        return `value:${value}_label:${label}`
+      })
       if (!isSameArray(cacheValues, values)) {
         emit('update-options', optionsVns)
         cacheValues = values

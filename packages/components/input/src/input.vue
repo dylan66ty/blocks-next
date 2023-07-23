@@ -3,10 +3,10 @@
   import { defineComponent, computed, ref, shallowRef, nextTick, onMounted, watch } from 'vue'
   import { getNamespace, getComponentNamespace } from '../../../utils/global-config'
   import { isClient } from '../../../utils/browser'
-  import { isObject } from '../../../utils/is'
+  import { isObject, isUndefined } from '../../../utils/is'
   import { NOOP } from '../../../shared/utils'
 
-  import { BnIconView, BnIconHide, BnIconClose, BnIconCaret } from '../../icon'
+  import { BnIconView, BnIconHide, BnIconCloseFill, BnIconCaret } from '../../icon'
   import { useFormItem } from '../../form/src/hooks/use-form-item'
   import { inputProps } from './props'
   import { calcTextareaHeight } from './utils'
@@ -18,7 +18,7 @@
     components: {
       BnIconView,
       BnIconHide,
-      BnIconClose,
+      BnIconCloseFill,
       BnIconCaret
     },
     inheritAttrs: false,
@@ -40,9 +40,17 @@
         isFocus.value && 'is-focus'
       ])
 
+      const textareaWrapperCls = computed(() => [
+        `${textareaNs}__wrapper`,
+        mergeDisable.value && 'is-disabled',
+        isHover.value && 'is-hover',
+        isFocus.value && 'is-focus'
+      ])
+
       const containerCls = computed(() => [
         props.type === 'text' ? inputNs : textareaNs,
-        attrs.class
+        attrs.class,
+        isOverLimit.value && 'is-over-limit'
       ])
 
       const containerStyle = computed(() => [attrs.style as StyleValue])
@@ -98,6 +106,11 @@
       const currentValueLength = computed<number>(() => {
         const value = computedModelValue.value
         return String(value).length
+      })
+
+      const isOverLimit = computed(() => {
+        if (isUndefined(props.maxlength)) return false
+        return currentValueLength.value > (props.maxlength as number)
       })
 
       // input输入事件
@@ -213,12 +226,17 @@
         }
       )
 
+      const setFocus = (focus: boolean) => {
+        isFocus.value = focus
+      }
+
       return {
         containerCls,
         containerStyle,
         inputNs,
         textareaNs,
         inputWrapperCls,
+        textareaWrapperCls,
         eyeStatus,
         computedModelValue,
         inputType,
@@ -227,6 +245,7 @@
         textareaRef,
         mergeDisable,
         currentValueLength,
+        isOverLimit,
         showInputInnerSuffixArea,
 
         hasPrefixIcon,
@@ -241,7 +260,9 @@
         handleFocus,
         handleBlur,
         handleEye,
-        manualInputFocus
+        manualInputFocus,
+        setFocus,
+        isFocus
       }
     }
   })
@@ -296,7 +317,7 @@
             :class="[`${inputNs}__icon`, `${inputNs}__clearable`]"
             @click.stop="handleClear"
           >
-            <BnIconCaret color="#d9dbe2" />
+            <BnIconCloseFill color="#d9dbe2" />
           </span>
           <span
             v-if="!showPassword && hasSuffixIcon && !hasClearableIcon"
@@ -315,24 +336,26 @@
 
     <!-- textarea -->
     <template v-if="type === 'textarea'">
-      <textarea
-        ref="inputRef"
-        :class="[`${textareaNs}__inner`]"
-        :disabled="mergeDisable"
-        :style="textareaStyle"
-        :placeholder="placeholder"
-        :value="computedModelValue"
-        :readonly="readonly"
-        :form="form"
-        @input="handleInput"
-        @change="handleChange"
-        @focus="handleFocus"
-        @blur="handleBlur"
-      />
+      <div :class="textareaWrapperCls">
+        <textarea
+          ref="inputRef"
+          :class="[`${textareaNs}__inner`]"
+          :disabled="mergeDisable"
+          :style="textareaStyle"
+          :placeholder="placeholder"
+          :value="computedModelValue"
+          :readonly="readonly"
+          :form="form"
+          @input="handleInput"
+          @change="handleChange"
+          @focus="handleFocus"
+          @blur="handleBlur"
+        />
 
-      <span v-if="showWordLimit" :class="[`${textareaNs}__count`]">
-        {{ currentValueLength }} / {{ maxlength }}
-      </span>
+        <span v-if="showWordLimit" :class="[`${textareaNs}__count`]">
+          {{ currentValueLength }} / {{ maxlength }}
+        </span>
+      </div>
     </template>
   </div>
 </template>

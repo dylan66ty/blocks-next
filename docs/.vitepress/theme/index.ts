@@ -6,8 +6,12 @@ import { copyStr } from '../utils/helper'
 
 import VApp, { globals, VNotFound } from '../components'
 
+import '../styles/tailwind.scss'
+
+
 import BlocksNext, { Icon } from '@blocks-next/index'
 import '@blocks-next/theme-default/index.scss'
+
 
 import 'animate.css'
 

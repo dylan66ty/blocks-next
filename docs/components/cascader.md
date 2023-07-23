@@ -20,6 +20,13 @@ cascader/clearable
 :::
 
 
+## 仅显示最后一级
+::: demo 设置 `show-all-levels` 属性为`false`即可。可以仅在输入框中显示选中项最后一级的标签，而不是选中项所在的完整路径。
+cascader/no-show-all-levels
+:::
+
+
+
 ## 多选
 ::: demo 设置 `multiple` 属性即可
 cascader/multiple

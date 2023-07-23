@@ -34,6 +34,14 @@ export default (): UserConfig => {
       }),
       Inspect(), // only applies in dev mode
       MarkdownTransform()
-    ]
+    ],
+    css: {
+      postcss: {
+        plugins: [
+          require('tailwindcss'), 
+          require('autoprefixer')
+        ]
+      }
+    }
   }
 }

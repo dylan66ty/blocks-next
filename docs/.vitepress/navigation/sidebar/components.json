@@ -34,7 +34,8 @@
         },
         {
           "text": "选择器 Select",
-          "link": "select"
+          "link": "select",
+          "promotion": "enhanced"
         },
         {
           "text": "级联选择 Cascader",

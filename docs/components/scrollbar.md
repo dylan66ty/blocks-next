@@ -19,7 +19,7 @@ scrollbar/type
 ## Attributes
 |参数名|描述|可选值|默认值|
 |-------|-------|---|:---:|
-|type|类型|`track` / `track` |`embed`|
+|type|类型|`track` / `embed` |`embed`|
 
 ## Events
 |事件名|描述|回调|

@@ -15,7 +15,7 @@
 </script>
 
 <template>
-  <bn-select v-model="model" placeholder="请选择" @change="handleChange" clearable multiple>
+  <bn-select  v-model="model" placeholder="请选择" @change="handleChange" clearable multiple>
     <bn-option v-for="(lang, index) in langs" :key="lang" :label="lang" :value="index"></bn-option>
   </bn-select>
 </template>

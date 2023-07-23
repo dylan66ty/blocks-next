@@ -24,10 +24,6 @@ export const selectProps = {
     type: String,
     default: '暂无数据'
   },
-  noMatchText: {
-    type: String,
-    default: '暂无匹配项'
-  },
   popupClass: {
     type: String,
     default: undefined
@@ -70,6 +66,10 @@ export const selectProps = {
   remoteMethod: {
     type: Function,
     default: undefined
+  },
+  filterDebounce: {
+    type: Number,
+    default: 300
   }
 }
 

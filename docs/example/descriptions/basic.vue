@@ -56,7 +56,8 @@ const data = [
   <div>
     <bn-tag type="primary">通过 bn-descriptions-item 渲染</bn-tag>
     <bn-descriptions cell-height="60" border>
-      <bn-descriptions-item v-for="(item, index) in data" :key="index" :label="item.label" :value="item.value"
+      <bn-descriptions-item
+v-for="(item, index) in data" :key="index" :label="item.label" :value="item.value"
         :span="item.span"></bn-descriptions-item>
     </bn-descriptions>
   </div>
