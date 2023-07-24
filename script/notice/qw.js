@@ -3,6 +3,11 @@ const path = require('path')
 const fs = require('fs-extra')
 const MarkdownIt = require('markdown-it')
 const { JSDOM } = require('jsdom')
+const axios = require('axios').default
+const consola = require('consola')
+
+const WEBHOOK_URL =
+  'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=130f260f-2889-4844-b9be-327257a7ba2c'
 
 const info = getInfo()
 
@@ -24,20 +29,30 @@ function getInfo() {
 }
 
 function send(info) {
-  const msg = {
+  const params = {
     msgtype: 'markdown',
-    text: {
-      content: `
-       #### blocks-next新版发布
-       **日期** ${info.date}
-       **版本** ${info.version}
-       **文档** [链接](http://192.168.21.136:88/docs/)
-       ${info.contents.map((item) => '- ' + item).join('\n')}
-      `,
-      mentioned_list: ['@all'],
-      mentioned_mobile_list: ['@all']
+    markdown: {
+      content: `# blocks-next新版发布\n**日期** <font color="comment">${
+        info.date
+      }</font>\n**版本** <font color="info">${
+        info.version
+      }</font>\n**文档** http://192.168.21.136:88/docs/ [预览](http://192.168.21.136:88/docs/)\n${info.contents
+        .map((item, idx) => `${idx + 1}. ` + item)
+        .join('\n')}\n <@所有人>【不回复】
+      `
     }
   }
 
-  console.log(msg)
+  axios
+    .post(WEBHOOK_URL, params, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: false
+    })
+    .then((res) => {
+      if (res.data.errcode === 0) {
+        consola.success('已通知')
+      }
+    })
 }

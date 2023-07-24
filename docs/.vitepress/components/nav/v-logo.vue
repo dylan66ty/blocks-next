@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   const goHome = () => {
-    location.href = '/'
+    location.href = '/docs/'
   }
 </script>
 

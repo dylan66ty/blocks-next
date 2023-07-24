@@ -1,6 +1,6 @@
 {
   "name": "blocks-next",
-  "version": "1.0.1-alpha.31",
+  "version": "1.0.1-alpha.32",
   "description": "一个更加『轻量』和『快速』的基于 Vue3 组件库",
   "workspaces": [
     "packages",
@@ -33,6 +33,7 @@
     "release": "bump package.json packages/package.json docs/package.json",
     "icongen": "node ./script/icongen",
     "publish:docs": "node ./script/publish/docs.js",
+    "publish:npm": "node ./script/publish/npm.js",
     "notice:qw": "node ./script/notice/qw.js"
   },
   "devDependencies": {
@@ -46,6 +47,7 @@
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "@vitest/coverage-c8": "^0.28.5",
     "@vue/test-utils": "^2.2.10",
+    "axios": "^1.4.0",
     "basic-ftp": "^5.0.3",
     "consola": "^2.15.3",
     "conventional-changelog-cli": "^2.2.2",

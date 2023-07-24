@@ -10,12 +10,8 @@
 
   const isActiveLink = (item: Link) => {
     const activeMatch = item.activeMatch
-    const currentPath = route.path
-    if (!activeMatch) {
-      if (currentPath === '/') return true
-      if (currentPath.includes('/index')) return true
-    }
-    return currentPath.includes(activeMatch!)
+    if(!activeMatch) return
+    return route.path?.includes(activeMatch)
   }
 </script>
 
