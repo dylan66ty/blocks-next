@@ -4,7 +4,7 @@
 </script>
 
 <template>
-  <bn-tabs v-model:activeKey="tab" :hidePanes="false">
+  <bn-tabs v-model:activeKey="tab" :hide-panes="false">
     <bn-tab-pane key="1" title="全部订单">
       <h1>全部订单</h1>
     </bn-tab-pane>

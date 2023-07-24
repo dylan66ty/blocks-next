@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-  import { ref} from 'vue'
+  import { ref } from 'vue'
 
-  const model = ref([])
+  const model = ref([['1', '1-1', '1-1-1']])
 
   const data = ref([
     {
@@ -59,6 +59,6 @@
 
 <template>
   <div>
-    <bn-cascader :data="data" v-model="model" multiple clearable></bn-cascader>
+    <bn-cascader v-model="model" :data="data" multiple clearable></bn-cascader>
   </div>
 </template>

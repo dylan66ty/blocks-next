@@ -62,8 +62,8 @@
 </script>
 
 <template>
-  <bn-space :size="20">
-    <bn-cascader :data="data" v-model="model" popupClass="test"></bn-cascader>
-    <bn-cascader :data="data" v-model="model" disabled></bn-cascader>
-  </bn-space>
+  <div class="flex gap-x-4">
+    <bn-cascader v-model="model" :data="data" popup-class="test"></bn-cascader>
+    <bn-cascader v-model="model" :data="data" disabled></bn-cascader>
+  </div>
 </template>

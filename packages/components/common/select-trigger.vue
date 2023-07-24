@@ -34,7 +34,7 @@
       popupVisible: Boolean,
       multiple: Boolean,
       multipleTags: {
-        type: Array as PropType<{ label: string; key: string }[]>,
+        type: Array as PropType<{ label: any; key: any }[]>,
         default: () => []
       },
       filterable: {
@@ -141,7 +141,6 @@
           placeholder.value = props.placeholder
         }
         emit('clear')
-        emit('filter', '')
       }
 
       const onInputEvent = () => {

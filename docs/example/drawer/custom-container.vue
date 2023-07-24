@@ -11,10 +11,10 @@
   <div class="custom-container">custom-container </div>
 
   <bn-space>
-    <bn-button @click="handler" size="small">Open drawer</bn-button>
+    <bn-button size="small" @click="handler">Open drawer</bn-button>
   </bn-space>
 
-  <bn-drawer v-model="visible" title="title" renderTo=".custom-container">
+  <bn-drawer v-model="visible" title="title" render-to=".custom-container">
     <template #body> 自定义挂载容器 </template>
   </bn-drawer>
 </template>

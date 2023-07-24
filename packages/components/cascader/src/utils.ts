@@ -2,13 +2,13 @@ import { type Ref } from 'vue'
 import { isArray, isNumber } from '../../../utils/is'
 import type { CascaderData, CascaderNode } from './type'
 
-export const transData = (
+export const transDataToNodes = (
   data: CascaderData[],
   {
-    dataMap,
+    nodesMap,
     totalLevel
   }: {
-    dataMap: Map<string, CascaderNode>
+    nodesMap: Map<string, CascaderNode>
     totalLevel: Ref<number>
   }
 ) => {
@@ -43,7 +43,7 @@ export const transData = (
       node.pathValue = node.pathNodes.map((n) => n.value)
       node.key = node.pathValue.join('-')
 
-      dataMap.set(node.key, node)
+      nodesMap.set(node.key, node)
 
       if (item.children && item.children.length !== 0) {
         node.isLeaf = false
@@ -82,7 +82,7 @@ export const transData = (
   return nodes
 }
 
-// 组合生成nodeKey，方便在dataMap中查找
+// 组合生成nodeKey，方便在nodesMap中查找
 export const getNodeKey = (keys: string[]) => {
   return keys.join('-')
 }
@@ -142,7 +142,7 @@ export const getLeafNodes = (node: CascaderNode) => {
       }
     })
   }
-  travel(node.children!)
+  travel([node])
 
   return leafNodes
 }
@@ -159,7 +159,29 @@ export const getLeafNodeKeys = (node: CascaderNode) => {
       }
     })
   }
-  travel(node.children!)
+  travel([node])
 
   return leafNodeKeys
+}
+
+export const getAllLeafNodesByQuery = (
+  nodes: CascaderNode[],
+  callback?: (node: CascaderNode) => boolean | undefined
+) => {
+  const leafNodes: CascaderNode[] = []
+  const stack: CascaderNode[] = [...nodes]
+
+  // 深度优先遍历
+  while (stack.length) {
+    const node = stack.shift()!
+    if (callback && callback(node)) {
+      leafNodes.push(...getLeafNodes(node))
+    } else {
+      const children = node?.children || []
+      for (let i = children.length - 1; i >= 0; i--) {
+        stack.unshift(children[i])
+      }
+    }
+  }
+  return leafNodes
 }

@@ -10,8 +10,8 @@
 <template>
   <bn-popconfirm
     content="是否确认删除消息？"
-    okText="Discard"
-    cancelText="No"
+    ok-text="Discard"
+    cancel-text="No"
     @ok="ok"
     @cancel="cancel"
   >

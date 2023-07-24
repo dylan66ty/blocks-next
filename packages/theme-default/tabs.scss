@@ -60,7 +60,7 @@
   @include e(navs) {
     position: relative;
     display: flex;
-    transition: transform .3s ease;
+    transition: transform 0.3s ease;
     box-sizing: border-box;
     flex-flow: row nowrap;
 
@@ -89,13 +89,13 @@
   @include e(nav-ink) {
     position: absolute;
     background-color: var(--bn-tabs-ink-background-color);
-    transition: all .3s ease;
+    transition: all 0.3s ease;
   }
 
   @include e(navs-item) {
     cursor: pointer;
     flex-shrink: 0;
-    transition: all .3 ease;
+    transition: all 0.3 ease;
     user-select: none;
 
     &.is-line {
@@ -181,7 +181,7 @@
     width: 100%;
 
     &.is-animation {
-      transition: transform .3s ease;
+      transition: transform 0.3s ease;
     }
   }
 

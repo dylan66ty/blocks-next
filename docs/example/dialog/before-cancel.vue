@@ -22,7 +22,7 @@
 <template>
   <div>
     <bn-button size="small" @click="openDialog">click open then dialog</bn-button>
-    <bn-dialog v-model="visible" title="关闭前拦截" :onBeforeCancel="onBeforeCancel">
+    <bn-dialog v-model="visible" title="关闭前拦截" :on-before-cancel="onBeforeCancel">
       <div>This is the dialog content。</div>
     </bn-dialog>
   </div>

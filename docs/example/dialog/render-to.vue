@@ -11,7 +11,7 @@
 
 <template>
   <div>
-    <div class="custom-container" ref="containerRef"> custom container </div>
+    <div ref="containerRef" class="custom-container"> custom container </div>
 
     <bn-space>
       <bn-button style="margin-top: 10px" size="small" type="danger" @click="handler(false)"
@@ -20,7 +20,7 @@
       <bn-button style="margin-top: 10px" size="small" @click="handler(true)">open</bn-button>
     </bn-space>
 
-    <bn-dialog v-model="visible" title="This is the title" :renderTo="containerRef" width="400">
+    <bn-dialog v-model="visible" title="This is the title" :render-to="containerRef" width="400">
       <div>This is the dialog content</div>
       <template #footer>
         <bn-space>

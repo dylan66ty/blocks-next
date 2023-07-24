@@ -2,13 +2,13 @@
 
 @include b(select) {
   display: inline-block;
-  
+
   @include e(empty) {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-    height: 90px;
+    height: 120px;
     font-size: 14px;
     color: #a8abb2;
   }

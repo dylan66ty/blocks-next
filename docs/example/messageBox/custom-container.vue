@@ -14,7 +14,7 @@
 
 <template>
   <div class="custom-container">custom container</div>
-  <bn-button size="small" @click="open" style="margin-top: 20px">打开弹框</bn-button>
+  <bn-button size="small" style="margin-top: 20px" @click="open">打开弹框</bn-button>
 </template>
 
 <style lang="scss">

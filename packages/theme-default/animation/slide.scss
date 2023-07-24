@@ -1,7 +1,7 @@
 // used by cascader select treeselect ... like picker
 .bn-slide-dynamic-origin-enter-from,
 .bn-slide-dynamic-origin-appear-from {
-  transform: scaleY(.9);
+  transform: scaleY(0.9);
   transform-origin: 0 0;
   opacity: 0;
 }
@@ -15,7 +15,7 @@
 
 .bn-slide-dynamic-origin-enter-active,
 .bn-slide-dynamic-origin-appear-active {
-  transition: transform .2s ease, opacity .2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .bn-slide-dynamic-origin-leave-from {
@@ -25,13 +25,13 @@
 }
 
 .bn-slide-dynamic-origin-leave-to {
-  transform: scaleY(.9);
+  transform: scaleY(0.9);
   transform-origin: 0 0;
   opacity: 0;
 }
 
 .bn-slide-dynamic-origin-leave-active {
-  transition: transform .2s ease, opacity .2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 // used by drawer
@@ -47,7 +47,7 @@
 
 .bn-slide-left-enter-active,
 .bn-slide-left-appear-active {
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
 }
 
 .bn-slide-left-leave-from {
@@ -59,7 +59,7 @@
 }
 
 .bn-slide-left-leave-active {
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
 }
 
 .bn-slide-right-enter-from,
@@ -74,7 +74,7 @@
 
 .bn-slide-right-enter-active,
 .bn-slide-right-appear-active {
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
 }
 
 .bn-slide-right-leave-from {
@@ -86,7 +86,7 @@
 }
 
 .bn-slide-right-leave-active {
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
 }
 
 .bn-slide-top-enter-from,
@@ -101,7 +101,7 @@
 
 .bn-slide-top-enter-active,
 .bn-slide-top-appear-active {
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
 }
 
 .bn-slide-top-leave-from {
@@ -113,7 +113,7 @@
 }
 
 .bn-slide-top-leave-active {
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
 }
 
 .bn-slide-bottom-enter-from,
@@ -128,7 +128,7 @@
 
 .bn-slide-bottom-enter-active,
 .bn-slide-bottom-appear-active {
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
 }
 
 .bn-slide-bottom-leave-from {
@@ -140,5 +140,5 @@
 }
 
 .bn-slide-bottom-leave-active {
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
 }

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-  import { ref, watch } from 'vue'
+  import { ref } from 'vue'
   const tab = ref('1')
   const onChange = (val) => {
-    console.log('tab key', val);
+    console.log('tab key', val)
   }
 </script>
 

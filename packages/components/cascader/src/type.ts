@@ -31,3 +31,10 @@ export interface CascaderNode {
 
   totalLeafNumber?: number
 }
+
+export interface QueryData {
+  key: string
+  label: string
+  isSelected: boolean
+  node: CascaderNode
+}

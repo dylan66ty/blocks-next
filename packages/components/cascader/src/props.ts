@@ -43,6 +43,14 @@ export const cascaderProps = {
     type: Boolean,
     default: true
   },
+  filterable: {
+    type: Boolean,
+    default: false
+  },
+  filterMethod: {
+    type: Function,
+    default: undefined
+  },
   separator: {
     type: String,
     default: '/'

@@ -3,7 +3,7 @@
 
   const form = ref({
     mobile: '',
-    email: '',
+    email: ''
   })
 
   // validator支持 string =>  (email ｜ url | mobile | chinese | number)

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+  import { ref } from 'vue'
 
-const columns = ref([
+  const columns = ref([
     {
       prop: 'time',
       title: '时间'
@@ -29,12 +29,12 @@ const columns = ref([
     {
       time: '2023-05-27',
       department: 'department3',
-      callCounter: 10000,
+      callCounter: 10000
     },
     {
       time: '2023-05-28',
       department: 'department4',
-      callCounter: 10000,
+      callCounter: 10000
     },
     {
       time: '2023-05-29',
@@ -47,13 +47,11 @@ const columns = ref([
 <template>
   <bn-popup show-arrow width="500" placement="right">
     <template #trigger>
-        <bn-button>
-          Click Trigger
-        </bn-button>
-      </template>
-      <template #content>
-       <bn-table :data="data" :columns="columns"/>
-      </template>
+      <bn-button> Click Trigger </bn-button>
+    </template>
+    <template #content>
+      <bn-table :data="data" :columns="columns" />
+    </template>
   </bn-popup>
 </template>
 

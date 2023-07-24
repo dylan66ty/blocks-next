@@ -23,7 +23,7 @@
   padding: 0 16px 0 24px;
   width: var(--bn-message-width);
   height: var(--bn-message-height);
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   box-sizing: border-box;
   transform: translate(-50%, 0);
 
@@ -56,7 +56,7 @@
       width: 1px;
       height: 70%;
       background-color: #bfc5d2;
-      transition: background-color .2s;
+      transition: background-color 0.2s;
       content: '';
       transform: translate(-50%, -50%) rotate(45deg);
     }
@@ -68,7 +68,7 @@
       width: 1px;
       height: 70%;
       background-color: #bfc5d2;
-      transition: background-color .2s;
+      transition: background-color 0.2s;
       content: '';
       transform: translate(-50%, -50%) rotate(-45deg);
     }

@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-  import { getCurrentInstance, ref } from 'vue'
+  import { ref } from 'vue'
   import { Message } from 'blocks-next'
 
   const model = ref(false)
   const model2 = ref(false)
-
-  const instance = getCurrentInstance()
 
   const beforeChangeSuccess = () => {
     return new Promise((resolve) => {

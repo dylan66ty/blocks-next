@@ -34,7 +34,7 @@
     overflow: hidden;
     border-radius: var(--bn-dialog-radius);
     background-color: #fff;
-    transition: top .3s;
+    transition: top 0.3s;
 
     &.is-fullscreen {
       display: inline-flex;

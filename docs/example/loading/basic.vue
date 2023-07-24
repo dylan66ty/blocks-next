@@ -11,7 +11,7 @@
 </script>
 
 <template>
-  <div class="loading-area" v-bn-loading="loading">
+  <div v-bn-loading="loading" class="loading-area">
     <bn-button @click="handler">open loading</bn-button>
   </div>
 </template>

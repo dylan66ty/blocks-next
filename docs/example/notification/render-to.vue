@@ -14,7 +14,7 @@
 <template>
   <div class="custom-container">custom container</div>
 
-  <bn-button size="small" @click="handler" style="margin-top: 20px">Open</bn-button>
+  <bn-button size="small" style="margin-top: 20px" @click="handler">Open</bn-button>
 </template>
 
 <style lang="scss">

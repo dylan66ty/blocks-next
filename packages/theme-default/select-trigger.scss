@@ -10,13 +10,10 @@
   --select-trigger-default-font-size: 14px;
   --select-trigger-small-font-size: 12px;
   --select-trigger-large-font-size: 14px;
-  --select-trigger-tag-background-color:var(--bn-background-color);
+  --select-trigger-tag-background-color: var(--bn-background-color);
   --select-trigger-default-multiple-input-height: 28px;
   --select-trigger-small-multiple-input-height: 24px;
   --select-trigger-large-multiple-input-height: 32px;
-
-
-
 }
 
 @include b(select-trigger) {
@@ -76,7 +73,7 @@
       width: 14px;
       height: 14px;
       color: #c4c9d6;
-      transition: all .15s ease;
+      transition: all 0.15s ease;
       box-sizing: border-box;
       cursor: pointer;
       line-height: 1;
@@ -89,7 +86,6 @@
     }
   }
 
-
   @include e(tag-text) {
     overflow: hidden;
     font-size: inherit;
@@ -99,9 +95,8 @@
     flex-grow: 1;
   }
 
-  
   @include e(icon-caret) {
-    transition: transform .3s ease;
+    transition: transform 0.3s ease;
 
     &.is-rotate {
       transform: rotate(180deg);
@@ -124,7 +119,7 @@
     pointer-events: all;
     user-select: none;
     cursor: pointer;
-    
+
     &.is-small {
       height: var(--select-trigger-small-multiple-input-height);
     }
@@ -132,10 +127,9 @@
     &.is-large {
       height: var(--select-trigger-large-multiple-input-height);
     }
-
   }
-  
-  .#{$namespace}-input__wrapper{
+
+  .#{$namespace}-input__wrapper {
     &:not(.is-disabled) {
       cursor: pointer;
       .#{$namespace}-input__inner {
@@ -147,5 +141,4 @@
   .#{$namespace}-input__inner {
     text-overflow: ellipsis;
   }
-
 }

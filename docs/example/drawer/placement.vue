@@ -15,7 +15,7 @@
     <bn-radio label="bottom">Bottom</bn-radio>
     <bn-radio label="left">Left</bn-radio>
   </bn-radio-group>
-  <bn-button style="margin-top: 20px" @click="handler" size="small">Open Drawer</bn-button>
+  <bn-button style="margin-top: 20px" size="small" @click="handler">Open Drawer</bn-button>
 
   <bn-drawer v-model="visible" title="Title" :placement="placement">
     <template #body> 你可以使用body插槽来插入你想要的内容 </template>

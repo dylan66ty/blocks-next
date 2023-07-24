@@ -7,7 +7,7 @@
 
 <template>
   <div>
-    <bn-tooltip :content="content" v-model="visible">
+    <bn-tooltip v-model="visible" :content="content">
       <bn-button size="small">默认显示</bn-button>
     </bn-tooltip>
   </div>

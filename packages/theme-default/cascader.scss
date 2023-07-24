@@ -16,9 +16,8 @@
   @include e(column) {
     position: relative;
     border-right: 1px solid transparent;
-    min-width: 180px;
-    min-height: 220px;
-    max-height: 200px;
+    width: 180px;
+    height: 220px;
     background-color: #fff;
     box-sizing: border-box;
 
@@ -66,6 +65,13 @@
     justify-content: space-between;
     align-items: center;
     flex-grow: 1;
+    overflow: hidden;
+
+    > span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   @include e(footer) {
@@ -86,9 +92,52 @@
   }
 }
 
+@include b(cascader-query-panel) {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  min-width: 180px;
+  background-color: #fff;
+  box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
+
+  @include e(list) {
+    padding: 8px 0;
+  }
+
+
+  @include e(tag) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 14px;
+
+    > span {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      background-color: var(--bn-background-color);
+      cursor: pointer;
+    }
+
+    &.is-selected {
+      font-weight: 700;
+      color: var(--bn-primary);
+
+    }
+  }
+
+  @include e(empty) {
+    padding: 8px 0;
+  }
+}
+
+
+
 .cascader-slide-enter-active,
 .cascader-slide-leave-active {
-  transition: margin .2s cubic-bezier(.34, .69, .1, 1);
+  transition: margin 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
 }
 
 .cascader-slide-enter-from,

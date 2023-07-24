@@ -3,7 +3,7 @@
 
   const model = ref([])
 
-  const data = ref([
+  const options = ref([
     {
       label: '分组1',
       value: '1',
@@ -58,7 +58,7 @@
 </script>
 
 <template>
-  <bn-cascader :data="data" v-model="model">
+  <bn-cascader v-model="model" :data="options">
     <template #default="{ node, data }">
       <span>{{ data.label }}</span>
       <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>

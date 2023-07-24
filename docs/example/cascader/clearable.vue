@@ -59,6 +59,6 @@
 
 <template>
   <div>
-    <bn-cascader :data="data" v-model="model" clearable></bn-cascader>
+    <bn-cascader v-model="model" :data="data" clearable></bn-cascader>
   </div>
 </template>

@@ -4,9 +4,7 @@
   <bn-space>
     <bn-dropdown trigger="click">
       <template #trigger>
-        <bn-button size="small">
-          Click Me
-        </bn-button>
+        <bn-button size="small"> Click Me </bn-button>
       </template>
       <template #dropdown>
         <bn-dropdown-item command="action1">
@@ -31,4 +29,3 @@
     </bn-dropdown>
   </bn-space>
 </template>
-

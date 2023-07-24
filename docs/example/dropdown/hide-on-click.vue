@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+  import { ref } from 'vue'
 
- const command = ref()
+  const command = ref()
 </script>
 
 <template>
-  <bn-dropdown :hide-on-click="false" v-model:command="command">
-    <template #trigger="{show}">
+  <bn-dropdown v-model:command="command" :hide-on-click="false">
+    <template #trigger="{ show }">
       <span class="dropdown-link">
-        Dropdown List  <bn-icon-caret style="transition: all 0.3s;" :rotate="show ? 180 : 0" />
+        Dropdown List <bn-icon-caret style="transition: all 0.3s" :rotate="show ? 180 : 0" />
       </span>
     </template>
     <template #dropdown>
@@ -20,11 +20,11 @@ import { ref } from 'vue';
 </template>
 
 <style lang="scss">
-.dropdown-link {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  cursor: pointer;
-  color: var(--bn-primary);
-}
-</style> 
+  .dropdown-link {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    color: var(--bn-primary);
+  }
+</style>

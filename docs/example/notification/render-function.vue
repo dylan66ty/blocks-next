@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { Notification } from 'blocks-next'
-  import { h, ref } from 'vue'
+  import { h } from 'vue'
   const handler = () => {
     Notification({
       title: 'Notification',

@@ -6,6 +6,7 @@
   `.repeat(3)
   )
 </script>
+
 <template>
   <bn-space>
     <bn-tooltip content="This is tooltip content">

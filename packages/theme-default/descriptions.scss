@@ -14,7 +14,7 @@
   }
 }
 
-@mixin text-align () {
+@mixin text-align() {
   &.is-align-center {
     text-align: center;
   }
@@ -45,14 +45,14 @@
     font-size: var(--descriptions-font-size);
     color: var(--bn-color-2);
 
-    @include text-align()
+    @include text-align();
   }
 
   @include e(label) {
     font-size: var(--descriptions-font-size);
     color: var(--bn-color-1);
-    
-    @include text-align()
+
+    @include text-align();
   }
 
   &:not(.is-border) {
@@ -66,8 +66,7 @@
         margin-right: 16px;
       }
     }
-    
-  
+
     &.#{$namespace}-descriptions-item--default {
       &.#{$namespace}-descriptions-item__cell {
         padding-bottom: 12px;
@@ -93,7 +92,6 @@
   @include m(large) {
     --descriptions-item-cell-padding: 12px 15px;
     --descriptions-font-size: 14px;
-
   }
 
   @include m(default) {

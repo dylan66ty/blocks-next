@@ -80,7 +80,7 @@
   background-color: var(--bn-button-background-color);
   opacity: var(--bn-button-opacity);
   outline: none;
-  transition: all .15s linear;
+  transition: all 0.15s linear;
   box-sizing: border-box;
   appearance: none;
   cursor: pointer;
@@ -99,7 +99,7 @@
   );
 
   @include when(disabled) {
-    --bn-button-opacity: .4;
+    --bn-button-opacity: 0.4;
 
     cursor: not-allowed;
   }
@@ -110,7 +110,7 @@
   }
 
   @include when(loading) {
-    --bn-button-opacity: .76;
+    --bn-button-opacity: 0.76;
   }
 
   @include when(mini) {
@@ -469,14 +469,14 @@
     );
 
     &.is-disabled {
-      --bn-button-opacity: .8;
+      --bn-button-opacity: 0.8;
     }
   }
 
   @include e(loading) {
     display: flex;
     margin-left: 4px;
-    transition: all .15s linear;
+    transition: all 0.15s linear;
 
     &.is-fill {
       position: absolute;

@@ -12,8 +12,8 @@
 
 <template>
   <div
-    class="loading-area"
     v-bn-loading="loading"
+    class="loading-area"
     bn-loading-background="rgba(0,0,0,0.3)"
     bn-loading-iconSize="40"
     bn-loading-text="自定义加载文字"

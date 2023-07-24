@@ -14,8 +14,8 @@
 
 <template>
   <bn-space>
-    <bn-button @click="handler1" size="small">默认插槽</bn-button>
-    <bn-button @click="handler2" size="small">其他插槽</bn-button>
+    <bn-button size="small" @click="handler1">默认插槽</bn-button>
+    <bn-button size="small" @click="handler2">其他插槽</bn-button>
   </bn-space>
 
   <bn-drawer v-model="visible1">
@@ -31,8 +31,8 @@
     <template #body> body slot </template>
     <template #footer="{ ok, cancel, loadingObj }">
       <bn-space>
-        <bn-button @click="ok" :loading="loadingObj.ok" type="success">OK</bn-button>
-        <bn-button @click="cancel" type="danger" :loading="loadingObj.cancel">Cancel</bn-button>
+        <bn-button :loading="loadingObj.ok" type="success" @click="ok">OK</bn-button>
+        <bn-button type="danger" :loading="loadingObj.cancel" @click="cancel">Cancel</bn-button>
       </bn-space>
     </template>
   </bn-drawer>

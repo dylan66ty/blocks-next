@@ -17,7 +17,7 @@
 
     <bn-dialog v-model="visible" :top="top" title="This is the dialog title" width="400">
       <bn-radio-group v-model="top">
-        <bn-radio :label="t" v-for="t in tops"></bn-radio>
+        <bn-radio v-for="t in tops" :key="t" :label="t"></bn-radio>
       </bn-radio-group>
       <template #footer>
         <bn-space>

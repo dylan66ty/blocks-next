@@ -56,7 +56,7 @@
       <bn-form-item label-width="40px" required label="近">
         <bn-space :size="5">
           <bn-form-item prop="day" required>
-            <bn-input style="width: 100px" v-model="form.day"></bn-input>
+            <bn-input v-model="form.day" style="width: 100px"></bn-input>
           </bn-form-item>
           <span style="font-size: 14px; color: var(--bn-text-color)">天呼叫次数低于</span>
           <bn-form-item prop="count" required>

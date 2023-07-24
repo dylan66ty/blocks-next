@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-const toUpperFormatter = (val: string) => {
-  return val.toUpperCase()
-}
+  const toUpperFormatter = (val: string) => {
+    return val.toUpperCase()
+  }
 </script>
 
 <template>

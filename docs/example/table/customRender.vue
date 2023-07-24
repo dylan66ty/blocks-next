@@ -1,7 +1,5 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
-  import { MessageBox } from 'blocks-next'
-
   const columns = ref([
     {
       prop: 'time',

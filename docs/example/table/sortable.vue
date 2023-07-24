@@ -82,7 +82,7 @@
     :columns="columns"
     :data="data"
     hover
-    :defaultSort="{ popup: true, prop: 'time', sort: 'ascend' }"
+    :default-sort="{ popup: true, prop: 'time', sort: 'ascend' }"
   >
     <template #footer>
       <bn-pagination

@@ -69,6 +69,6 @@
 
 <template>
   <bn-space :size="20">
-    <bn-cascader :data="data" v-model="model" expandChild></bn-cascader>
+    <bn-cascader v-model="model" :data="data" expand-child></bn-cascader>
   </bn-space>
 </template>

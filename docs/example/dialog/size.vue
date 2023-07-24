@@ -11,7 +11,7 @@
   <div>
     <bn-button size="small" @click="openDialog">click open the dialog</bn-button>
 
-    <bn-dialog v-model="visible" minWidth="400px" minHeight="256px">
+    <bn-dialog v-model="visible" min-width="400px" min-height="256px">
       <template #title>
         <div class="title">版本更新</div>
         <div class="time">日期：2023-05-18</div>

@@ -63,6 +63,6 @@
 
 <template>
   <div>
-    <bn-cascader :data="data" v-model="model" :inputLabelFormat="inputLabelFormat"></bn-cascader>
+    <bn-cascader v-model="model" :data="data" :input-label-format="inputLabelFormat"></bn-cascader>
   </div>
 </template>

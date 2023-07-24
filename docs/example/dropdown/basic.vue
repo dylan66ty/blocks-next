@@ -1,10 +1,7 @@
 <script lang="ts" setup>
-
-const onCommand = (cmd) => {
-  console.log(cmd);
-}
-
-
+  const onCommand = (cmd) => {
+    console.log(cmd)
+  }
 </script>
 
 <template>
@@ -28,16 +25,14 @@ const onCommand = (cmd) => {
 </template>
 
 <style lang="scss">
-.trigger {
-  width: 48px;
-  height: 48px;
-  background: #FFFFFF;
-  box-shadow: 0px 2px 5px 0px rgba(36, 41, 52, 0.06);
-  border-radius: 6px;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-
-
-}
+  .trigger {
+    width: 48px;
+    height: 48px;
+    background: #ffffff;
+    box-shadow: 0px 2px 5px 0px rgba(36, 41, 52, 0.06);
+    border-radius: 6px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
 </style>

@@ -107,7 +107,6 @@
 <template>
   <button :class="cls" type="button" :disabled="disabled" :hover="!disabled" @click="handleClick">
     <slot></slot>
-
     <LoadingIcon :loading="isLoading" :ns="ns" />
   </button>
 </template>

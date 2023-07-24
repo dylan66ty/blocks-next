@@ -1,6 +1,5 @@
-<script lang="ts" setup>
-  import { MessageBox } from 'blocks-next'
-  import { h, getCurrentInstance } from 'vue'
+<script lang="tsx" setup>
+  import { MessageBox, Button, Space } from 'blocks-next'
 
   const success = () => {
     MessageBox({
@@ -30,43 +29,20 @@
     })
   }
 
-  const instance = getCurrentInstance()
-  const { BnButton, BnSpace } = instance?.appContext.components
-
   const warning = () => {
     MessageBox({
-      title: h('div', { style: { fontWeight: 700, fontSize: '20px' } }, 'title renderFunction'),
-      content: h('div', null, 'content renderFunction'),
+      title: <div class="text-2xl font-[600]">This is title</div>,
+      content: <div>This is content</div>,
       type: 'warning',
       // 自定义footer
       footer: (scoped) => {
-        const onOk = (e: Event) => {
-          scoped.ok(e)
-        }
-        const onCancel = (e: Event) => {
-          scoped.cancel(e)
-        }
-        return h(
-          BnSpace,
-          {},
-          {
-            default: () => [
-              h(
-                BnButton,
-                { onClick: onCancel, 'fill-mode': 'outline' },
-                {
-                  default: () => 'Cancel'
-                }
-              ),
-              h(
-                BnButton,
-                { onClick: onOk, type: 'primary' },
-                {
-                  default: () => 'ok'
-                }
-              )
-            ]
-          }
+        return (
+          <Space>
+            <Button onclick={scoped.cancel}>取消</Button>
+            <Button onclick={scoped.ok} type="primary">
+              确认
+            </Button>
+          </Space>
         )
       }
     })
@@ -89,13 +65,13 @@
 </script>
 
 <template>
-  <bn-space>
-    <bn-button size="small" type="success" @click="success">success</bn-button>
-    <bn-button size="small" type="strong" @click="strong">strong</bn-button>
-    <bn-button size="small" type="warning" @click="warning">warning(renderFunction渲染)</bn-button>
-    <bn-button size="small" type="danger" @click="error">error</bn-button>
-    <bn-button size="small" type="info" @click="info">info</bn-button>
-  </bn-space>
+  <BnSpace>
+    <BnButton size="small" type="success" @click="success">success</BnButton>
+    <BnButton size="small" type="strong" @click="strong">strong</BnButton>
+    <BnButton size="small" type="warning" @click="warning">warning(TSX渲染)</BnButton>
+    <BnButton size="small" type="danger" @click="error">error</BnButton>
+    <BnButton size="small" type="info" @click="info">info</BnButton>
+  </BnSpace>
 </template>
 
 <style lang="scss"></style>

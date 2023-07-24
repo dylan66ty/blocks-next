@@ -61,6 +61,6 @@
 
 <template>
   <div>
-    <bn-cascader :data="data" v-model="model"> </bn-cascader>
+    <bn-cascader v-model="model" :data="data"> </bn-cascader>
   </div>
 </template>

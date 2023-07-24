@@ -1,4 +1,3 @@
-
 <template>
-   <bn-input show-password></bn-input>
+  <bn-input show-password></bn-input>
 </template>

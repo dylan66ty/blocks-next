@@ -4,9 +4,7 @@
   <bn-space>
     <bn-dropdown trigger="click" size="small">
       <template #trigger>
-        <bn-button size="small">
-          small
-        </bn-button>
+        <bn-button size="small"> small </bn-button>
       </template>
       <template #dropdown>
         <bn-dropdown-item command="action1">Action1</bn-dropdown-item>
@@ -17,9 +15,7 @@
 
     <bn-dropdown trigger="click">
       <template #trigger>
-        <bn-button size="small">
-          default
-        </bn-button>
+        <bn-button size="small"> default </bn-button>
       </template>
       <template #dropdown>
         <bn-dropdown-item command="action1">Action1</bn-dropdown-item>
@@ -29,4 +25,3 @@
     </bn-dropdown>
   </bn-space>
 </template>
-

@@ -12,8 +12,8 @@
 </script>
 
 <template>
-  <bn-tabs v-model:activeKey="tab" :hidePanes="false">
-    <bn-tab-pane :key="item.key" :title="item.title" v-for="item in tabs" />
+  <bn-tabs v-model:activeKey="tab" :hide-panes="false">
+    <bn-tab-pane v-for="item in tabs" :key="item.key" :title="item.title" />
   </bn-tabs>
 </template>
 

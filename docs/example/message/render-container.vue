@@ -15,7 +15,7 @@
 </script>
 
 <template>
-  <div class="render-container" ref="containerRef"> custom render dom </div>
+  <div ref="containerRef" class="render-container"> custom render dom </div>
 
   <bn-space>
     <bn-button size="small" @click="renderToBody">默认（renderTo:document.body）</bn-button>

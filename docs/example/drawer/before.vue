@@ -37,21 +37,21 @@
 </script>
 
 <template>
-  <bn-button @click="handler" size="small">Open Drawer</bn-button>
+  <bn-button size="small" @click="handler">Open Drawer</bn-button>
 
   <bn-drawer
     v-model="visible"
     title="批量导入"
     width="700px"
-    cancelText="关闭"
-    okText="导入"
-    :onBeforeOk="onBeforeOk"
-    :onBeforeCancel="onBeforeCancel"
+    cancel-text="关闭"
+    ok-text="导入"
+    :on-before-ok="onBeforeOk"
+    :on-before-cancel="onBeforeCancel"
+    placement="right"
     @close="close"
     @closed="closed"
     @open="open"
     @opened="opened"
-    placement="right"
   >
     <template #body> 你可以使用body插槽来插入你想要的内容 </template>
   </bn-drawer>

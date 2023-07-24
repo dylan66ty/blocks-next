@@ -71,9 +71,9 @@
 
 <template>
   <bn-table
+    v-model:selection="selection"
     :columns="columns"
     :data="data"
-    v-model:selection="selection"
     @selection-change="onSelectionChange"
   ></bn-table>
 </template>

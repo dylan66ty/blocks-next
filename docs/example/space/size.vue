@@ -5,7 +5,7 @@
 </script>
 
 <template>
-  <bn-radio-group style="margin-bottom: 15px" v-model="size">
+  <bn-radio-group v-model="size" style="margin-bottom: 15px">
     <bn-radio label="mini"></bn-radio>
     <bn-radio label="small"></bn-radio>
     <bn-radio label="medium"></bn-radio>

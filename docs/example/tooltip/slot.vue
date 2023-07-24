@@ -1,4 +1,5 @@
 <script lang="ts" setup></script>
+
 <template>
   <bn-space>
     <bn-tooltip content="This is tooltip content">

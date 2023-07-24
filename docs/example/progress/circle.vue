@@ -11,7 +11,7 @@
   <bn-space size="large">
     <bn-progress :percent="percent" type="circle"></bn-progress>
     <bn-progress :percent="percent" type="circle" status="success">
-      <template #text="{ percent }"> 进度{{ percent }}% </template>
+      <template #text="{ percent: _percent }"> 进度{{ _percent }}% </template>
     </bn-progress>
     <bn-progress :percent="percent" type="circle" status="warning"></bn-progress>
     <bn-progress :percent="percent" type="circle" status="danger"></bn-progress>

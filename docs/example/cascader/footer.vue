@@ -58,5 +58,5 @@
 </script>
 
 <template>
-  <bn-cascader :data="data" v-model="model" showFooter multiple clearable> </bn-cascader>
+  <bn-cascader v-model="model" :data="data" show-footer multiple clearable> </bn-cascader>
 </template>

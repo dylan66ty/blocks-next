@@ -65,18 +65,18 @@
 </script>
 
 <template>
-  <bn-button @click="handler" size="small">Open Drawer</bn-button>
+  <bn-button size="small" @click="handler">Open Drawer</bn-button>
 
   <bn-drawer
     v-model="visible"
     title="批量导入"
     width="700px"
-    cancelText="关闭"
-    okText="导入"
-    popupClass="test"
+    cancel-text="关闭"
+    ok-text="导入"
+    popup-class="test"
   >
     <template #body>
-      <bn-cascader :data="data" popupClass="test"></bn-cascader>
+      <bn-cascader :data="data" popup-class="test"></bn-cascader>
       <bn-select>
         <bn-option label="Vue" value="vue"></bn-option>
         <bn-option label="React" value="react"></bn-option>

@@ -38,9 +38,9 @@ select/multiple
 select/option-default-slots
 :::
 
-## 筛选选项 ^(beta)
-::: demo 可以利用筛选功能快速查找选项。
-select/filter
+## 模糊搜索 ^(beta)
+::: demo 可以利用模糊搜索功能快速查找选项。通过添加`filterable`来启用过滤。`filter-method`自定义搜索方法，该方法必须是个函数，第一个参数是option实例对象代理，第二个参数是搜索关键词query，通过返回布尔值表示是否命中。
+select/filterable
 :::
 
 ## 远程搜索 ^(beta)
@@ -57,10 +57,10 @@ select/remote
 |clearable|是否可以清空选项|`boolean` |`false`|
 |size|尺寸大小|`small` / `default` / `large`|`default`|
 |placeholder|占位符|`string`|`请选择`|
-|filterable^(alpha.32)|是否可筛选|`boolean`|`false`|
-|filter-method^(alpha.32)|自定义筛选方法|`(optVmProxy, query) => boolean`|`-`|
-|remote^(alpha.32)|是否从服务器远程加载|`boolean`|`false`|
-|remote-method^(alpha.32)|自定义远程搜索方法|`(query) => void `|`-`|
+|filterable ^(alpha.32)|是否开启模糊搜索|`boolean`|`false`|
+|filter-method ^(alpha.32)|自定义筛选方法，返回的布尔值表示是否保留该选项|`(optVmProxy, query) => boolean`|`-`|
+|remote ^(alpha.32)|是否从服务器远程加载|`boolean`|`false`|
+|remote-method ^(alpha.32)|自定义远程搜索方法|`(query) => void `|`-`|
 |loading|是否正在从远程获取数据|`boolean`|`false`|
 |loading-text|正在加载文字|`string`|`-`|
 |no-data-text|选项为空时显示的文字|`string`|`暂无数据`|

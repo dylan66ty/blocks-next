@@ -65,7 +65,7 @@
     width: 16px;
     height: 16px;
     background-color: #fff;
-    transition: all .15s ease-in;
+    transition: all 0.15s ease-in;
     box-sizing: border-box;
 
     &:hover {
@@ -80,7 +80,7 @@
       width: 6px;
       height: 6px;
       background-color: #fff;
-      transition: transform .15s ease-in;
+      transition: transform 0.15s ease-in;
       content: '';
       transform: translate(-50%, -50%) scale(0);
     }

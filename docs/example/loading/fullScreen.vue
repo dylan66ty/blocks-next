@@ -28,7 +28,7 @@
 
 <template>
   <bn-space>
-    <bn-button @click="handler" v-bn-loading.fullScreen="loading"
+    <bn-button v-bn-loading.fullScreen="loading" @click="handler"
       >open loading by directive</bn-button
     >
     <bn-button @click="openLoading">open full loading by open</bn-button>

@@ -96,7 +96,7 @@
           multipleTags.value = []
         }
 
-        cachedOptionsVmProxies.value.clear()
+        handleClosePopup()
       }
 
       const emitSelectValue = (selected: OptVmProxy | OptVmProxy[]) => {
@@ -246,20 +246,16 @@
             })
           } else {
             cachedOptionsVmProxiesToArray.value.forEach((optVmProxy) => {
-              const currentLabel = optVmProxy.currentLabel || ''
               let visible = false
               if (!query) {
                 visible = true
               } else if (isFunction(props.filterMethod)) {
                 visible = props.filterMethod(optVmProxy, query)
               } else {
-                visible = currentLabel.includes(query)
+                visible = new RegExp(`${query}`, 'i').test(optVmProxy.currentLabel)
               }
               optVmProxy.visible = visible
             })
-          }
-          if (!popupVisible.value) {
-            handleShowPopup()
           }
         },
         props.remote ? props.filterDebounce : 0,

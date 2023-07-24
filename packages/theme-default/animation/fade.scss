@@ -10,7 +10,7 @@
 
 .bn-fade-in-standard-enter-active,
 .bn-fade-in-standard-appear-active {
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .bn-fade-in-standard-leave-from {
@@ -22,7 +22,7 @@
 }
 
 .bn-fade-in-standard-leave-active {
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .bn-fade-in-enter-from,
@@ -37,7 +37,7 @@
 
 .bn-fade-in-enter-active,
 .bn-fade-in-appear-active {
-  transition: opacity .2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .bn-fade-in-leave-from {
@@ -49,5 +49,5 @@
 }
 
 .bn-fade-in-leave-active {
-  transition: opacity .2s ease;
+  transition: opacity 0.2s ease;
 }

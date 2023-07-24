@@ -1,9 +1,20 @@
 # 更新日志
 
+## 1.0.1-alpha.32
+`2023-07-24`
+- Components [Tabs] ✨ extra插槽
+- Components [Select] ✨ 模糊搜索
+- Components [Select] ✨ 远程搜索
+- Components [Cascader] ✨ 模糊搜索
+- Components [Cascader] ✨ 支持仅显示最后一级
+- CI 🛠 文档自动化发布脚本
+- Docs 文档站点增加docs前缀 
+- 工程化 svg目录生成icon项目脚本
+
+
 ## 1.0.1-alpha.31
 `2023-07-19`
 - Components [Dropdown] ✨ 下拉菜单组件
-
 
 ## 1.0.1-alpha.30
 `2023-07-17`
@@ -12,13 +23,10 @@
 - Components [Cascader] ✨ 自定义触发器插槽
 - Components [Select] ✨ multiple
 
-
-
 ## 1.0.1-alpha.29
 `2023-06-17`
 - Components [Cascader] ✨ Cascader组件 
 - Components [Form] 🐛 使用内置的自定义规则时，required属性不生效
-
 
 ## 1.0.1-alpha.28
 `2023-06-15`
@@ -27,8 +35,6 @@
 - Components [MessageBox] 🐛 当MessageBox在微前端子应用打开时，子应用的body宽度计算修复
 - Components [Loading] 🐛 当Loading在微前端子应用fullScreen打开时，子应用的body宽度计算修复
 
-
-
 ## 1.0.1-alpha.27
 `2023-06-14`
 - Components [Tag] ✨ Tag组件
@@ -36,8 +42,6 @@
 - Components [Dialog] ⚡️ dialog弹出层抖动
 - Components [Select] 🐛 select的popup在非window下滚动位置不更新
 - Components [Table] 🐛 流体高度滚动条大小显示错误
-
-
 
 ## 1.0.1-alpha.25
 `2023-06-12`
@@ -48,7 +52,6 @@
 - Components [Button] ✨ 加载loading过渡动画
 - Components [Message] ✨ useHTML
 
-
 ## 1.0.1-alpha.24
 `2023-06-08`
 
@@ -56,19 +59,15 @@
 
 ## 1.0.1-alpha.23
 `2023-06-08`
-
 - Components [Empty] ✨ Empty组件
 - Components [Tabs] 🐛 tabs自动计算是否开启滑动模式。
 
 
 ## 1.0.1-alpha.22
 `2023-06-07`
-
 - Components [Popconfirm] ✨ Popconfirm组件
 - Components [Loading] ✨ loading加载。指令形式和全局单列模式。
 - Components [Input] ✨ 样式调整。新增card类型input。
-
-
 
 ## 1.0.1-alpha.21
 `2023-06-05`

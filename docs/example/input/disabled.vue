@@ -1,5 +1,3 @@
-
-
 <template>
-    <bn-input disabled></bn-input> 
+  <bn-input disabled></bn-input>
 </template>

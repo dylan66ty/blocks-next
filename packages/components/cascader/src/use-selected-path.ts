@@ -5,10 +5,10 @@ import type { CascaderNode } from './type'
 export const useSelectedPath = (
   dataTree: Ref<CascaderNode[]>,
   {
-    dataMap,
+    nodesMap,
     expandChild
   }: {
-    dataMap: Map<string, CascaderNode>
+    nodesMap: Map<string, CascaderNode>
     expandChild: Ref<boolean>
   }
 ) => {
@@ -22,7 +22,7 @@ export const useSelectedPath = (
   const renderColumns = computed(() => {
     const columns: CascaderNode[][] = [dataTree.value]
     for (const key of selectedPath.value) {
-      const option = dataMap.get(key)
+      const option = nodesMap.get(key)
       if (option?.hasChildren) {
         columns.push(option.children!)
       }
@@ -31,7 +31,7 @@ export const useSelectedPath = (
   })
 
   const getTargetNode = (nodeKey?: string) => {
-    let node = nodeKey ? dataMap.get(nodeKey) : undefined
+    let node = nodeKey ? nodesMap.get(nodeKey) : undefined
     if (expandChild.value) {
       while (node && node.children && node.children.length > 0) {
         node = node.children[0]
