@@ -1,0 +1,70 @@
+@use './mixins/bem.scss' as *;
+
+@include b(date-picker) {
+  display: inline-block;  
+
+  @include e(panel) {
+    border-radius: 8px;
+    padding: 24px;
+    min-width: 300px;
+    min-height: 350px;
+    box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
+    box-sizing: border-box;
+  }
+
+  @include e(header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+  }
+
+  @include e(header-left) {
+    display: flex;
+    color: var(--bn-color-3);
+    gap: 14px;
+
+    > i {
+      cursor: pointer;
+    }
+  }
+
+  @include e(header-right) {
+    display: flex;
+    color: var(--bn-color-3);
+    gap: 14px;
+
+    > i {
+      cursor: pointer;
+    }
+  }
+
+  @include e(header-content) {
+    font-weight: 500;
+    text-align: center;
+    color: var(--bn-color-1);
+    flex-grow: 1;
+  }
+
+  @include e(week) {
+    display: flex;
+    margin-top: 30px;
+    gap: 10px;
+  }
+
+  @include e(cell-row) {
+    display: flex;
+    gap: 14px;
+  }
+
+  @include e(cell) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+
+  }
+}
+
+

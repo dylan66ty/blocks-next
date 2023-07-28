@@ -172,8 +172,10 @@
         const el = e.target as HTMLElement
         const deps: HTMLElement[] = [popupTargetElement.value, selectTriggerDomRef.value]
         const inner = deps.some((container) => container.contains(el))
-        inputComponentRef.value?.setFocus(inner)
-        !inner && resetQuery()
+        requestAnimationFrame(() => {
+          inputComponentRef.value?.setFocus(inner)
+          !inner && resetQuery()
+        })
       }
 
       const handleMultipleInput = () => {
@@ -185,11 +187,11 @@
       }
 
       onMounted(() => {
-        document.body.addEventListener('click', clickOutside, true)
+        document.documentElement.addEventListener('mousedown', clickOutside, true)
       })
 
       onUnmounted(() => {
-        document.body.removeEventListener('click', clickOutside, true)
+        document.documentElement.removeEventListener('mousedown', clickOutside, true)
       })
 
       return {

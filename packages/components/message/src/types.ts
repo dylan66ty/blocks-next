@@ -1,10 +1,10 @@
-import type { VNode } from 'vue'
+import type { RenderFunction, VNode } from 'vue'
 
 export const messageTypes = ['success', 'warning', 'error', 'strong', 'info'] as const
 
 export type IMessageType = (typeof messageTypes)[number]
 
-export type IMessage = string | number | undefined | VNode
+export type IMessage = string | number | VNode | RenderFunction
 
 export interface IMessageOptions {
   id?: string
@@ -27,7 +27,7 @@ export interface IMessageCaller {
   (options: IMessageParams): IMessageHandler
 }
 
-export interface IMessageMethods {
+export interface IMessageMethods extends IMessageCaller {
   success(message: IMessage | IMessageOptions): IMessageHandler
   error(message: IMessage | IMessageOptions): IMessageHandler
   warning(message: IMessage | IMessageOptions): IMessageHandler

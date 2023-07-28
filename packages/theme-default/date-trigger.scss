@@ -1,0 +1,13 @@
+@use './mixins/bem.scss' as *;
+
+@include b(date-trigger) {
+  .#{$namespace}-input__wrapper {
+    &:not(.is-disabled) {
+      cursor: pointer;
+      .#{$namespace}-input__inner {
+        cursor: pointer;
+      }
+    }
+  }
+
+}

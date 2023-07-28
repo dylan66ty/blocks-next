@@ -309,7 +309,7 @@
       :disabled="mergeDisabled"
     >
       <template #default>
-        <slot name="trigger">
+        <slot name="trigger" :show="popupVisible">
           <SelectTrigger
             :input-value="currentTagLabel"
             :disabled="mergeDisabled"

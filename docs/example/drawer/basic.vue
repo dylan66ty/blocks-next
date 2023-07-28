@@ -69,7 +69,7 @@
 
   <bn-drawer
     v-model="visible"
-    title="批量导入"
+    :title="title"
     width="700px"
     cancel-text="关闭"
     ok-text="导入"

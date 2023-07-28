@@ -2,6 +2,11 @@
   "base": {
     "label": "基础图标",
     "filenames": [
+      "arrow-down",
+      "arrow-left",
+      "arrow-right",
+      "arrow-up",
+      "calendar",
       "caret-fill",
       "caret",
       "check-fill",
@@ -19,6 +24,8 @@
       "prompt",
       "search",
       "setting",
+      "super-arrow-left",
+      "super-arrow-right",
       "view",
       "warning-fill",
       "warning"

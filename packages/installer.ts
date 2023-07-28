@@ -33,6 +33,7 @@ import { DescriptionsItem } from './components/descriptions-item'
 import { Popup } from './components/popup'
 import { Dropdown } from './components/dropdown'
 import { DropdownItem } from './components/dropdown-item'
+import { DatePicker } from './components/date-picker'
 
 // plugin
 import { Message } from './components/message'
@@ -72,7 +73,8 @@ const components = [
   DescriptionsItem,
   Popup,
   Dropdown,
-  DropdownItem
+  DropdownItem,
+  DatePicker
 ] as Plugin[]
 
 const plugins = [Message, MessageBox, Notification, Loading]

@@ -1,4 +1,9 @@
 import type { App } from 'vue'
+import BnIconArrowDown from './base/arrow-down.vue'
+import BnIconArrowLeft from './base/arrow-left.vue'
+import BnIconArrowRight from './base/arrow-right.vue'
+import BnIconArrowUp from './base/arrow-up.vue'
+import BnIconCalendar from './base/calendar.vue'
 import BnIconCaretFill from './base/caret-fill.vue'
 import BnIconCaret from './base/caret.vue'
 import BnIconCheckFill from './base/check-fill.vue'
@@ -16,6 +21,8 @@ import BnIconPlus from './base/plus.vue'
 import BnIconPrompt from './base/prompt.vue'
 import BnIconSearch from './base/search.vue'
 import BnIconSetting from './base/setting.vue'
+import BnIconSuperArrowLeft from './base/super-arrow-left.vue'
+import BnIconSuperArrowRight from './base/super-arrow-right.vue'
 import BnIconView from './base/view.vue'
 import BnIconWarningFill from './base/warning-fill.vue'
 import BnIconWarning from './base/warning.vue'
@@ -31,6 +38,11 @@ import BnIconAppPie from './app/app-pie.vue'
 import BnIconAppSem from './app/app-sem.vue'
 
 const components = [
+  BnIconArrowDown,
+  BnIconArrowLeft,
+  BnIconArrowRight,
+  BnIconArrowUp,
+  BnIconCalendar,
   BnIconCaretFill,
   BnIconCaret,
   BnIconCheckFill,
@@ -48,6 +60,8 @@ const components = [
   BnIconPrompt,
   BnIconSearch,
   BnIconSetting,
+  BnIconSuperArrowLeft,
+  BnIconSuperArrowRight,
   BnIconView,
   BnIconWarningFill,
   BnIconWarning,
@@ -74,6 +88,11 @@ export default {
 }
 
 export {
+  BnIconArrowDown,
+  BnIconArrowLeft,
+  BnIconArrowRight,
+  BnIconArrowUp,
+  BnIconCalendar,
   BnIconCaretFill,
   BnIconCaret,
   BnIconCheckFill,
@@ -91,6 +110,8 @@ export {
   BnIconPrompt,
   BnIconSearch,
   BnIconSetting,
+  BnIconSuperArrowLeft,
+  BnIconSuperArrowRight,
   BnIconView,
   BnIconWarningFill,
   BnIconWarning,

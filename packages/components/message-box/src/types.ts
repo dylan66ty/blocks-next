@@ -1,4 +1,4 @@
-import type { RenderFunction } from 'vue'
+import type { RenderFunction, VNode } from 'vue'
 
 export const messageBoxStaticMethods = ['info', 'success', 'warning', 'strong', 'error'] as const
 
@@ -6,13 +6,13 @@ export type MessageBoxStaticMethod = (typeof messageBoxStaticMethods)[number]
 
 export type MessageBoxBeforeAction = () => boolean | Promise<boolean>
 
-export type MessageBoxContent = string | RenderFunction
+export type MessageBoxContent = string | number | VNode | RenderFunction
 
 export interface MessageBoxOptions {
-  title?: string | RenderFunction
+  title?: MessageBoxContent
   type?: MessageBoxStaticMethod
-  content: MessageBoxContent
-  footer?: boolean | RenderFunction
+  content?: MessageBoxContent
+  footer?: boolean | ((scoped: MessageBoxFooterScoped) => VNode)
   okText?: string
   cancelText?: string
   mask?: boolean

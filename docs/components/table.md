@@ -83,7 +83,7 @@ table/customRender
 |属性|描述|可选值|默认值|
 |---|---|---|:---:|
 |type|表格操作类型|`checkbox`/ `index`|`-`|
-|prop|列信息的标识，对应TableData中的数据，可支持链式。如`a.b.c`|`-`|`-`|
+|prop|列信息的标识，对应TableData中的数据，可支持链式。如`a.b.c`|`string`|`-`|
 |title|列标题|`string`/ `number`|`-`|
 |width|列宽度|`string` / `number`|`-`|
 |sortable|列是否可排序|`boolean`|`false`|

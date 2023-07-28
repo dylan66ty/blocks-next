@@ -16,6 +16,7 @@
     "lib": ["WebWorker", "DOM"],
     "paths": {
       "@blocks-next/*": ["../packages/"],
+      "blocks-next": ["../packages/"],
       "@/*": ["./.vitepress/"]
     }
   },

@@ -1,5 +1,5 @@
 import { createVNode, render, isVNode } from 'vue'
-import type { RenderFunction, VNode } from 'vue'
+import type { VNode } from 'vue'
 import _Dialog from '../../dialog/src/dialog.vue'
 import BnButton from '../../button/src/button.vue'
 import BnSpace from '../../space/src/space.vue'
@@ -79,12 +79,12 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (
 
   const defaultHeader = () => {
     return () => {
-      return <>{defaultRenderIcon(options.type || 'success')}</>
+      return defaultRenderIcon(options.type || 'success')
     }
   }
 
   const defaultBody = () => {
-    const renderTitle = (title: RenderFunction | string) => {
+    const renderTitle = (title: any) => {
       if (isVNode(title)) return title
       if (isFunction(title)) {
         const vnode = title()
@@ -93,7 +93,7 @@ const MessageBox: Partial<MessageBoxMethods> & MessageBoxCaller = (
       return <div class="bn-message-box__title"> {title} </div>
     }
 
-    const renderContent = (content: RenderFunction | string) => {
+    const renderContent = (content: any) => {
       if (isVNode(content)) return content
       if (isFunction(content)) {
         const vnode = content()

@@ -6,7 +6,7 @@ export type NotificationType = (typeof types)[number]
 
 export interface NotificationOptions {
   title?: string
-  message: string | RenderFunction
+  message: string | number | RenderFunction | VNode
   type?: NotificationType
   duration?: number
   position?: NotificationPosition

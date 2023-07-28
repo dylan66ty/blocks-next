@@ -31,6 +31,7 @@ export * from './descriptions-item'
 export * from './popup'
 export * from './dropdown'
 export * from './dropdown-item'
+export * from './date-picker'
 
 // methods
 export * from './message'

@@ -33,12 +33,18 @@
   import SwitchChangeEvent from './components/Switch-change-event.vue'
 
   import Descriptions from './components/Descriptions.vue'
+
+  import DatePicker from './components/DatePicker.vue'
+
+
+
+
 </script>
 
 <template>
   <!-- <Dialog /> -->
 
-  <Select />
+  <DatePicker />
 </template>
 
 <style></style>

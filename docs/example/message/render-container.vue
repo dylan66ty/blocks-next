@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { Message } from 'blocks-next'
-  import { ref } from 'vue'
+  import { h, ref } from 'vue'
   const containerRef = ref()
   const renderToBody = () => {
     Message.info('document.body')
@@ -8,7 +8,7 @@
 
   const renderToCustom = () => {
     Message.info({
-      message: 'custom container',
+      message: () => h('div', {}, 'custom container'),
       renderTo: containerRef.value
     })
   }

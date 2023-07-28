@@ -11,12 +11,9 @@ export interface BuildInfo {
   output: {
     // es
     name: string
-    // dist/xs-components
     path: string
   }
-
   bundle: {
-    // xs-components/es
     path: string
   }
 }
