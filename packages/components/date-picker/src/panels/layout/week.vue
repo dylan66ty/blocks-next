@@ -21,6 +21,8 @@
 
 <template>
   <div :class="[`${ns}__week`]">
-    <div v-for="week in weeks" :key="week.value" :class="[`${ns}__cell`]">{{ week.label }}</div>
+    <div v-for="week in weeks" :key="week.value" :class="[`${ns}__week-cell`]">{{
+      week.label
+    }}</div>
   </div>
 </template>

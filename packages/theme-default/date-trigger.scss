@@ -1,6 +1,7 @@
 @use './mixins/bem.scss' as *;
 
 @include b(date-trigger) {
+  position: relative;
   .#{$namespace}-input__wrapper {
     &:not(.is-disabled) {
       cursor: pointer;
@@ -8,6 +9,58 @@
         cursor: pointer;
       }
     }
+  }
+
+  @include when(range) {
+    width: 280px;
+  }
+
+  @include e(range) {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--bn-color-2);
+    inset: 1px 35px 1px 12px;
+
+    &.is-disabled {
+     pointer-events: none;
+    }
+  }
+
+  @include e(range-separator) {
+    padding: 0 12px;
+    font-size: inherit;
+    text-align: center;
+    color: inherit;
+    flex-grow: 1;
+    cursor: pointer;
+
+  }
+
+  @include e(range-input) {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    width: 39%;
+    height: 100%;
+    font-size: inherit;
+    text-align: center;
+    color: inherit;
+    background: 0 0;
+    outline: none;
+    box-sizing: border-box;
+    line-height: 1;
+    cursor: pointer;
+    
+    &::placeholder {
+      color: var(--bn-color-3);
+    }
+
+    &:disabled {
+      color: var(--bn-color-3);
+    }
+
   }
 
 }

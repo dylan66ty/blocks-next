@@ -1,10 +1,24 @@
 <script lang="ts" setup>
+import { ref, watch} from 'vue';
 
+const date = ref('')
+const date2 = ref('')
+
+watch(() => date.value, val => {
+  console.log(val);
+})
+
+
+
+const disabledDate = (date:Date) => {
+  return  date.getTime() > Date.now()
+}
 </script>
 
 <template>
   <div style="padding-left: 30px;">
-    <bn-date-picker></bn-date-picker>
+    <bn-date-picker v-model="date" type="week" placeholder="年/月/日" clearable>
+    </bn-date-picker>
   </div>
 </template>
 

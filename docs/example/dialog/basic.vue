@@ -11,7 +11,7 @@
   <div>
     <bn-button size="small" @click="openDialog">click open the dialog</bn-button>
 
-    <bn-dialog v-model="visible" title="This is the title" popup-class="test" width="400">
+    <bn-dialog v-model="visible" title="This is the title" width="400">
       <div>This is the dialog content</div>
       <template #footer>
         <bn-space>

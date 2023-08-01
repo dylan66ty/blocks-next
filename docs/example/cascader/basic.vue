@@ -63,7 +63,7 @@
 
 <template>
   <div class="flex gap-x-4">
-    <bn-cascader v-model="model" :data="data" popup-class="test"></bn-cascader>
+    <bn-cascader v-model="model" :data="data"></bn-cascader>
     <bn-cascader v-model="model" :data="data" disabled></bn-cascader>
   </div>
 </template>

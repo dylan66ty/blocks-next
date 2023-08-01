@@ -2,6 +2,10 @@ import type { PropType } from 'vue'
 import type { DateType } from './types'
 
 export const datePickerProps = {
+  modelValue: {
+    type: [String, Date, Array],
+    default: undefined
+  },
   type: {
     type: String as PropType<DateType>,
     default: 'date'
@@ -26,7 +30,22 @@ export const datePickerProps = {
     type: String,
     default: '~'
   },
-
+  dayStartOfWeek: {
+    type: Number as PropType<0 | 1 | 2 | 3 | 4 | 5 | 6>,
+    default: 0
+  },
+  modelValueFormat: {
+    type: String,
+    default: undefined
+  },
+  inputLabelFormat: {
+    type: String,
+    default: 'yyyy-MM-dd'
+  },
+  disabledDate: {
+    type: Function as PropType<(date: Date) => boolean>,
+    default: undefined
+  },
   validateEvent: {
     type: Boolean,
     default: true

@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { computed, defineComponent, onMounted, onUnmounted, ref } from 'vue'
+  import { computed, defineComponent, onMounted, onUnmounted, ref, watch } from 'vue'
+  import type { PropType } from 'vue'
   import { getNamespace } from '../../utils/global-config'
   import { Input } from '../input'
   import type { InputInstance } from '../input'
@@ -13,8 +14,8 @@
       BnIconCalendar
     },
     props: {
-      label: {
-        type: Array,
+      inputValue: {
+        type: Array as PropType<string[]>,
         default: () => []
       },
       clearable: {
@@ -34,25 +35,59 @@
         required: true
       },
       size: {
-        type: String,
+        type: String as PropType<'small' | 'default' | 'large'>,
         required: true
       },
       popupRef: {
         type: Object,
         default: undefined
+      },
+      isRange: {
+        type: Boolean,
+        required: true
       }
     },
-    setup(props) {
+    emits: ['clear'],
+    setup(props, { emit }) {
       const ns = getNamespace('date-trigger')
 
       const inputComponentRef = ref<InputInstance>()
       const selectTriggerDomRef = ref()
-
-      const inputValue = computed(() => {
-        return props.label.join(props.rangeSeparator)
+      const computedInputValue = computed(() => {
+        if (props.isRange) {
+          if (props.inputValue.length) {
+            return ' '
+          }
+          return ''
+        }
+        return props.inputValue[0]
       })
 
-      const readonly = computed(() => true)
+      const computedPlaceholder = computed(() => {
+        if (props.isRange) {
+          return ''
+        }
+        return props.placeholder
+      })
+
+      const computedReadonly = computed(() => true)
+
+      const inputRange = ref<{ l: string; r: string }>({ l: '', r: '' })
+
+      watch(
+        () => props.inputValue,
+        (values) => {
+          inputRange.value.l = values[0]
+          inputRange.value.r = values[1]
+        },
+        {
+          immediate: true
+        }
+      )
+
+      const handleClear = () => {
+        emit('clear')
+      }
 
       const clickOutside = (e: MouseEvent) => {
         const el = e.target as HTMLElement
@@ -79,30 +114,52 @@
 
       return {
         ns,
-        readonly,
-        inputValue,
         inputComponentRef,
-        selectTriggerDomRef
+        selectTriggerDomRef,
+        computedInputValue,
+        computedPlaceholder,
+        computedReadonly,
+        inputRange,
+        handleClear
       }
     }
   })
 </script>
 
 <template>
-  <div ref="selectTriggerDomRef" :class="[ns]">
+  <div ref="selectTriggerDomRef" :class="[ns, isRange && `is-range`]">
     <Input
       ref="inputComponentRef"
-      :model-value="inputValue"
+      :model-value="computedInputValue"
       :validate-event="false"
-      :readonly="readonly"
-      :placeholder="placeholder"
+      :readonly="computedReadonly"
+      :placeholder="computedPlaceholder"
       :clearable="clearable"
       :size="size"
       :disabled="disabled"
+      @clear="handleClear"
     >
       <template #suffix-icon>
         <BnIconCalendar />
       </template>
     </Input>
+
+    <div v-if="isRange" :class="[`${ns}__range`, disabled && 'is-disabled']">
+      <input
+        v-model="inputRange.l"
+        :class="[`${ns}__range-input`]"
+        type="text"
+        :disabled="disabled"
+        placeholder="开始时间"
+      />
+      <span :class="[`${ns}__range-separator`]">{{ rangeSeparator }}</span>
+      <input
+        v-model="inputRange.r"
+        :class="[`${ns}__range-input`]"
+        type="text"
+        :disabled="disabled"
+        placeholder="结束时间"
+      />
+    </div>
   </div>
 </template>

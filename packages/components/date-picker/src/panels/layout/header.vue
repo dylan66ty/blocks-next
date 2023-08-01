@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { PropType } from 'vue'
   import { defineComponent } from 'vue'
   import { getNamespace } from '../../../../../utils/global-config'
   import {
@@ -16,21 +17,32 @@
       BnIconArrowLeft,
       BnIconArrowRight
     },
-    setup() {
+    props: {
+      content: {
+        type: String,
+        default: ''
+      },
+      actions: {
+        type: Array as PropType<string[]>,
+        default: () => ['prevSuper', 'prev', 'next', 'nextSuper']
+      }
+    },
+    emits: ['prevSuper', 'prev', 'next', 'nextSuper'],
+    setup(_props, { emit }) {
       const ns = getNamespace('date-picker')
 
       const handlePrevSuper = () => {
-        console.log('handlePrevSuper')
+        emit('prevSuper')
       }
       const handlePrev = () => {
-        console.log('handlePrev')
+        emit('prev')
       }
       const handleNextSuper = () => {
-        console.log('handleNextSuper')
+        emit('nextSuper')
       }
 
       const handleNext = () => {
-        console.log('handleNext')
+        emit('next')
       }
 
       return {
@@ -47,13 +59,21 @@
 <template>
   <div :class="[`${ns}__header`]">
     <div :class="[`${ns}__header-left`]">
-      <BnIconSuperArrowLeft @click="handlePrevSuper" />
-      <BnIconArrowLeft @click="handlePrev" />
+      <div :class="[`${ns}__header-icon`]">
+        <BnIconSuperArrowLeft v-if="actions.includes('prevSuper')" @click="handlePrevSuper" />
+      </div>
+      <div :class="[`${ns}__header-icon`]">
+        <BnIconArrowLeft v-if="actions.includes('prev')" @click="handlePrev" />
+      </div>
     </div>
-    <div :class="[`${ns}__header-content`]"> 2023-07-27 </div>
+    <div :class="[`${ns}__header-content`]">{{ content }}</div>
     <div :class="[`${ns}__header-right`]">
-      <BnIconArrowRight @click="handleNext" />
-      <BnIconSuperArrowRight @click="handleNextSuper" />
+      <div :class="[`${ns}__header-icon`]">
+        <BnIconArrowRight v-if="actions.includes('next')" @click="handleNext" />
+      </div>
+      <div :class="[`${ns}__header-icon`]">
+        <BnIconSuperArrowRight v-if="actions.includes('nextSuper')" @click="handleNextSuper" />
+      </div>
     </div>
   </div>
 </template>

@@ -1,13 +1,32 @@
 @use './mixins/bem.scss' as *;
 
+
+@mixin cell-text-active  {
+  .#{$namespace}-date-picker__cell-text {
+    border-radius: 50%;
+    color: #fff;
+    background-color: var(--bn-primary);
+
+    &.is-month {
+      border-radius: 13px;
+    }
+  }
+}
+
+@include b(date-picker__panel) {
+  --bn-date-picker-range-cell-background-color: rgb(0 86 255 / 10%);
+  --bn-date-picker-cell-disabled-background-color:#f5f7fa;
+  --bn-date-picker-cell-text-gray: rgb(168 171 178 / 80%);
+}
+
+
 @include b(date-picker) {
   display: inline-block;  
 
   @include e(panel) {
     border-radius: 8px;
-    padding: 24px;
-    min-width: 300px;
-    min-height: 350px;
+    padding: 20px;
+    background-color: #fff;
     box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
     box-sizing: border-box;
   }
@@ -16,16 +35,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-bottom: 15px;
     font-size: 14px;
   }
+
 
   @include e(header-left) {
     display: flex;
     color: var(--bn-color-3);
     gap: 14px;
 
-    > i {
+     i {
       cursor: pointer;
+
+      &:hover {
+        color: var(--bn-primary);
+      }
     }
   }
 
@@ -34,9 +59,19 @@
     color: var(--bn-color-3);
     gap: 14px;
 
-    > i {
+     i {
       cursor: pointer;
+
+      &:hover {
+        color: var(--bn-primary);
+      }
     }
+  }
+
+  @include e(header-icon) {
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
   }
 
   @include e(header-content) {
@@ -44,27 +79,150 @@
     text-align: center;
     color: var(--bn-color-1);
     flex-grow: 1;
+    user-select: none;
   }
 
   @include e(week) {
     display: flex;
-    margin-top: 30px;
-    gap: 10px;
+    border-bottom: 1px solid var(--bn-split-color);
+    padding-top: 20px;
+    padding-bottom: 16px;
+    
+  }
+
+  @include e(week-cell) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% / 7);
+    font-size: 12px;
+    color: var(--bn-text-color);
+    line-height: 1;
+    user-select: none;
   }
 
   @include e(cell-row) {
+    --bn-cell-row-margin-top:7px;
+
     display: flex;
-    gap: 14px;
+
+    & + & {
+      margin-top: var(--bn-cell-row-margin-top);
+    }
+
+    &.is-month {
+      --bn-cell-row-margin-top: 20px;
+    }
   }
 
   @include e(cell) {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30px;
-    height: 30px;
+    height: 32px;
+    font-size: 12px;
+    color: var(--bn-text-color);
+    flex:1;
+    user-select: none;
+    cursor: pointer;
 
+
+    &.is-cur:not(.is-select, .is-range-start, .is-range-end, .is-disabled):hover{
+      color: var(--bn-primary);
+    }
+
+    &.is-prev,
+    &.is-next
+    { 
+      color: var(--bn-date-picker-cell-text-gray);
+    }
+
+    &.is-now {
+      color: var(--bn-primary);
+    }
+
+
+    &.is-select:not(.is-range-start, .is-range-end) {
+       @include cell-text-active()
+    }
+
+    &.is-range {
+      background-color: var(--bn-date-picker-range-cell-background-color);
+    }
+
+    &.is-range-start {
+      --bn-range-border-radius: 50%;
+
+      border-top-left-radius: var(--bn-range-border-radius);
+      border-bottom-left-radius: var(--bn-range-border-radius);
+
+      &.is-month {
+        --bn-range-border-radius: 15px;
+      }
+
+      @include cell-text-active()
+    }
+
+    &.is-range-end {
+      --bn-range-border-radius: 50%;
+
+      border-top-right-radius: var(--bn-range-border-radius);
+      border-bottom-right-radius: var(--bn-range-border-radius);
+
+      &.is-month {
+        --bn-range-border-radius: 15px;
+      }
+
+      @include cell-text-active()
+
+    }
+
+    &.is-disabled {
+      color: var(--bn-date-picker-cell-text-gray);
+      background-color: var(--bn-date-picker-cell-disabled-background-color);
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+
+  @include e(cell-text) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 26px;
+    height: 26px;
+    line-height: 1;
+    color: inherit;
+
+    &.is-month {
+      width: calc(100% - 8px);
+      height: calc(100% - 7px);
+    }
+  }
+
+  @include e(body) {
+    padding-top: 8px;
+    box-sizing: border-box;
+    width: 240px;
+  }
+
+  @include e(range) {
+    position: relative;
+    display: flex;
+    gap: 40px;
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 1px;
+      height: 100%;
+      background-color:var(--bn-color-6);
+      content: '';
+      transform: translate(-50%, 0);
+    }
   }
 }
+
 
 

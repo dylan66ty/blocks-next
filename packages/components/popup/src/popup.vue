@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { computed, defineComponent } from 'vue'
+  import { computed, defineComponent, ref } from 'vue'
   import type { PropType, StyleValue } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
   import Trigger from '../../trigger'
@@ -47,8 +47,9 @@
       }
     },
     emits: ['show', 'hide'],
-    setup(props) {
+    setup(props, { expose }) {
       const ns = getNamespace('popup')
+      const popupVisible = ref(false)
 
       const contentCls = computed(() => [`${ns}__content`, props.contentClass])
 
@@ -73,10 +74,19 @@
         return props.offset
       })
 
+      const changePopupVisible = (visible: boolean) => {
+        popupVisible.value = visible
+      }
+
+      expose({
+        changePopupVisible
+      })
+
       return {
         ns,
         contentCls,
         contentStyle,
+        popupVisible,
         arrowStyle,
         computedOffset
       }
@@ -86,6 +96,7 @@
 
 <template>
   <Trigger
+    v-model:popup-visible="popupVisible"
     :trigger="trigger"
     :position="placement"
     :show-arrow="showArrow"
@@ -96,7 +107,7 @@
     @hide="$emit('hide')"
   >
     <template #default>
-      <slot name="trigger"></slot>
+      <slot name="trigger" :show="popupVisible"></slot>
     </template>
     <template #content>
       <div :class="contentCls" :style="contentStyle">

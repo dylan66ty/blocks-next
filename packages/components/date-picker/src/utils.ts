@@ -1,8 +1,10 @@
+import { isNumber, isSameArray } from '../../../utils/is'
 import type { DateCell } from './types'
 
 // ymd => 不做任何处理 纯获取
 export const getYMD = (date?: Date): number[] => {
-  const _date = new Date(date ? date : new Date())
+  if (!date) return []
+  const _date = new Date(date)
   const y = _date.getFullYear()
   const m = _date.getMonth()
   const d = _date.getDate()
@@ -23,23 +25,40 @@ export const firstDateIsWeekOfMonth = (date?: Date) => {
 
 // date的加减计算
 export const diffOfDate = (date: Date, diff?: number) => {
-  const [, , d] = getYMD(date)
-  date.setDate(d + (diff ? diff : 0))
-  return date
+  const _date = new Date(date)
+  const [, , d] = getYMD(_date)
+  _date.setDate(d + (diff ? diff : 0))
+  return _date
 }
 
 // 月份的加减计算
 export const diffOfMonth = (date: Date, diff?: number) => {
-  const [, m] = getYMD(date)
-  date.setMonth(m + (diff ? diff : 0))
-  return date
+  const [oldYear, oldMonth] = getYMD(date)
+  // 重置为当月的第一天
+  const _date = new Date(oldYear, oldMonth, 1)
+  _date.setMonth(oldMonth + (diff ? diff : 0))
+  return _date
 }
 
 // 年份的加减计算
 export const diffOfYear = (date: Date, diff?: number) => {
-  const [y] = getYMD(date)
-  date.setFullYear(y + (diff ? diff : 0))
-  return date
+  const [oldYear, oldMonth] = getYMD(date)
+  // 重置为当年当月的第一天
+  const _date = new Date(oldYear, oldMonth, 1)
+  _date.setFullYear(oldYear + (diff ? diff : 0))
+  return _date
+}
+
+export const isSameDate = (a: Date | undefined, b: Date | undefined) => {
+  return isSameArray(getYMD(a), getYMD(b))
+}
+
+export const isSameMonth = (a: Date | undefined, b: Date | undefined) => {
+  return isSameArray(getYMD(a).slice(0, 2), getYMD(b).slice(0, 2))
+}
+
+export const isSameYear = (a: Date | undefined, b: Date | undefined) => {
+  return isSameArray(getYMD(a).slice(0, 1), getYMD(b).slice(0, 1))
 }
 
 export const dateFormat = (date: any, format = 'yyyy-MM-dd hh:mm:ss') => {
@@ -87,7 +106,53 @@ export const genCell = (cell: Partial<DateCell>) => {
     isPrev: false,
     isNext: false,
     isRange: false,
-    isSelect: false
+    isSelect: false,
+    isNow: false,
+    isRangeStart: false,
+    isRangeEnd: false,
+    isDisabled: false
   }
   return Object.assign({}, _cell, cell)
+}
+
+export const compareMonth = (newDate: Date | undefined, oldDate: Date | undefined) => {
+  const [newYear, newMonth] = getYMD(newDate)
+  const [, oldMonth] = getYMD(oldDate)
+  if (newMonth !== oldMonth && isNumber(newMonth)) {
+    return new Date(newYear, newMonth, 1)
+  }
+}
+
+export const compareYear = (newDate: Date | undefined, oldDate: Date | undefined) => {
+  const [newYear] = getYMD(newDate)
+  const [oldYear] = getYMD(oldDate)
+  if (newYear !== oldYear && isNumber(newYear)) {
+    return new Date(newYear, 1, 1)
+  }
+}
+
+export const transToStartTimestampOfDay = (date: Date) => {
+  const [y, m, d] = getYMD(date)
+  const _date = new Date(y, m, d) // 转化成 2023-08-01 00:00:00 格式
+  return _date.getTime()
+}
+
+export const dateHasInRange = (dateRange: Date[], date: Date, type: 'range' | 'start' | 'end') => {
+  const time = transToStartTimestampOfDay(date)
+  const times = dateRange.map((d) => transToStartTimestampOfDay(d))
+  const max = Math.max(...times)
+  const min = Math.min(...times)
+  let ret = false
+  switch (type) {
+    case 'range':
+      ret = time >= min && time <= max
+      break
+    case 'start':
+      ret = time === min
+      break
+    case 'end':
+      ret = time === max
+      break
+  }
+  return ret
 }

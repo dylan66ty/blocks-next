@@ -24,6 +24,11 @@ popup/content
 popup/nest
 :::
 
+## 手动打开
+::: demo 此时你只要弹出层实例抛出的方法`changePopupVisible`即可。该方法只接收一个布尔值，传入true打开，false即关闭。
+popup/manual
+:::
+
 ## Attributes
 |参数名|描述|可选值|默认值|
 |-------|-------|---|:---:|
@@ -35,6 +40,11 @@ popup/nest
 |show-arrow|是否显示 popup 箭头|`boolean`|`false`|
 |offset|出现位置的偏移量|`number`|`-`|
 |contentClass|为 popup content 添加类名|`string`|`-`|
+
+## Popup Methods
+|方法名|说明|回调参数|
+|---|---|---|
+|changePopupVisible ^(alpha.33)|手动打开popup|`(visible:boolean) => void`|
 
 
 ## Events

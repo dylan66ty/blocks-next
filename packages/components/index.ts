@@ -39,4 +39,7 @@ export * from './message-box'
 export * from './notification'
 export * from './loading'
 
+// icon exports
+export * from './icon'
+
 export { default as Icon } from './icon'

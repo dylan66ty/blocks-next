@@ -6,6 +6,8 @@
     visible.value = true
   }
 
+  const title = 'This is title'
+
   const data = ref()
 
   setTimeout(() => {
@@ -62,6 +64,10 @@
       }
     ]
   }, 100)
+
+  const onClose = () => {
+    console.log('onClose')
+  }
 </script>
 
 <template>
@@ -73,7 +79,7 @@
     width="700px"
     cancel-text="关闭"
     ok-text="导入"
-    popup-class="test"
+    @close="onClose"
   >
     <template #body>
       <bn-cascader :data="data" popup-class="test"></bn-cascader>

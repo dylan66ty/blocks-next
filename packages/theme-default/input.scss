@@ -77,9 +77,8 @@
     flex-grow: 1;
     line-height: 1;
 
-    /* stylelint-disable selector-pseudo-element-no-unknown */
-    &::input-placeholder {
-      color: var(--bn-input-placeholder-color);
+    &::placeholder {
+      color:var(--bn-input-placeholder-color);
     }
 
     &[readonly] {
@@ -91,7 +90,7 @@
       pointer-events: none;
     }
 
-    &:disabled::input-placeholder {
+    &:disabled::placeholder {
       color: var(--bn-input-placeholder-color);
     }
   }
@@ -229,7 +228,7 @@
     box-sizing: border-box;
     background-image: none;
 
-    &::input-placeholder {
+    &::placeholder {
       color: var(--bn-input-placeholder-color);
     }
 
@@ -241,7 +240,7 @@
       pointer-events: none;
     }
 
-    &:disabled::input-placeholder {
+    &:disabled::placeholder {
       color: var(--bn-input-disabled-border-color);
     }
   }

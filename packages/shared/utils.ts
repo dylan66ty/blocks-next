@@ -113,3 +113,13 @@ export const getUniqueId = (size = 6) => {
   }
   return ret
 }
+
+export const genMatrix = (list: any[], row: number) => {
+  if (!row) return list
+  let offset = 0
+  const rows: any[][] = []
+  while (offset < list.length - 1) {
+    rows.push(list.slice(offset, (offset = offset + row)))
+  }
+  return rows
+}
