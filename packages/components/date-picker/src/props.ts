@@ -40,7 +40,7 @@ export const datePickerProps = {
   },
   inputLabelFormat: {
     type: String,
-    default: 'yyyy-MM-dd'
+    default: undefined
   },
   disabledDate: {
     type: Function as PropType<(date: Date) => boolean>,

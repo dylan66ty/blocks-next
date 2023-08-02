@@ -9,6 +9,8 @@
     "Arrayable",
     "Cascader",
     "consola",
+    "daterange",
+    "monthrange",
     "popconfirm",
     "vitepress",
     "vnode"

@@ -21,8 +21,8 @@
         required: true
       },
       modelValue: {
-        type: Date,
-        default: undefined
+        type: Array,
+        default: () => []
       },
       disabledDate: {
         type: Function,
@@ -35,12 +35,16 @@
 
       const date = ref<Date>()
       const { dayStartOfWeek, disabledDate } = toRefs(props)
-      const dateModel = computed(() => (props.modelValue ? [props.modelValue] : []))
+      const dateModel = ref<Date[]>([])
+      const dateRangeOfWeek = ref<Date[]>([])
+
       const { weeks, rows } = useDateRows({
         dayStartOfWeek,
         date,
         dateModel,
-        disabledDate
+        disabledDate,
+        dateRange: dateModel,
+        dateRangeOfWeek: dateModel
       })
 
       const headerContent = computed(() => {
@@ -55,19 +59,24 @@
         date.value = diffOfMonth(date.value!, count)
       }
 
-      const handleCellClick = (cell: DateCell) => {
-        emit('update:modelValue', cell.date)
+      const handleCellRowClick = (row: DateCell[]) => {
+        emit('update:modelValue', [row[0].date, row[row.length - 1].date])
+      }
+
+      const handleCellRowMouseenter = (row: DateCell[]) => {
+        dateRangeOfWeek.value = [row[0].date, row[row.length - 1].date]
       }
 
       // 同步选中状态
       watch(
         () => props.modelValue,
-        (newDate) => {
-          const d = newDate || new Date()
+        (newDate: Date[]) => {
+          const d = newDate[0] ?? new Date()
           const ret = compareMonth(d, date.value)
           if (ret) {
             date.value = ret
           }
+          dateModel.value = newDate.slice()
         },
         { immediate: true }
       )
@@ -79,7 +88,8 @@
         headerContent,
         handleYearChange,
         handleMonthChange,
-        handleCellClick
+        handleCellRowClick,
+        handleCellRowMouseenter
       }
     }
   })
@@ -94,7 +104,11 @@
     @next="handleMonthChange(1)"
   />
   <PanelWeek :weeks="weeks" />
-  <PanelBody :rows="rows" @on-cell-click="handleCellClick">
+  <PanelBody
+    :rows="rows"
+    @on-cell-row-click="handleCellRowClick"
+    @on-cell-row-mouseenter="handleCellRowMouseenter"
+  >
     <template #cell="scoped">
       <slot name="cell" v-bind="scoped"></slot>
     </template>

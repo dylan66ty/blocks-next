@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import { computed } from 'vue'
-import { genCell, getYMD, isSameDate, dateHasInRange } from '../utils'
+import { genCell, getYMD, isSameMonth, dateHasInRange } from '../utils'
 import { genMatrix } from '../../../../shared/utils'
 
 const MONTHS = [
@@ -40,8 +40,8 @@ export const useMonthRows = ({
         label: MONTHS[i],
         date: dateEffect,
         isCur: true,
-        isNow: isSameDate(new Date(), dateEffect),
-        isSelect: dateModel.value.some((d) => isSameDate(d, dateEffect)),
+        isNow: isSameMonth(new Date(), dateEffect),
+        isSelect: dateModel.value.some((d) => isSameMonth(d, dateEffect)),
         isDisabled: disabledDate?.value?.(new Date(dateEffect)),
         isRange: dateRange?.value.length
           ? dateHasInRange(dateRange!.value, dateEffect, 'range')

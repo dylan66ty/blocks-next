@@ -23,7 +23,7 @@
       },
       modelValue: {
         type: Array as PropType<Date[]>,
-        default: () => new Date()
+        default: () => []
       },
       disabledDate: {
         type: Function,

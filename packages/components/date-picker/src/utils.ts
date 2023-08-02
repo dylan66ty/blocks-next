@@ -11,10 +11,19 @@ export const getYMD = (date?: Date): number[] => {
   return [y, m, d]
 }
 
-// 获取当前月有多少天。（闰年、平年系统已经计算好了）
+// 获取当前月有多少天
 export const daysOfMonth = (date?: Date) => {
   const [y, m] = getYMD(date)
   return new Date(y, m + 1, 0).getDate()
+}
+// 当前日期在本年是第几天
+export const daysOfYear = (date?: Date) => {
+  const [y, m, d] = getYMD(date)
+  let day = d
+  for (let i = 0; i < m; i++) {
+    day += daysOfMonth(new Date(y, i, 1))
+  }
+  return day
 }
 
 // 获取当前月的第一天是星期几
@@ -25,16 +34,15 @@ export const firstDateIsWeekOfMonth = (date?: Date) => {
 
 // date的加减计算
 export const diffOfDate = (date: Date, diff?: number) => {
-  const _date = new Date(date)
-  const [, , d] = getYMD(_date)
-  _date.setDate(d + (diff ? diff : 0))
+  const [oldYear, oldMonth, oldDate] = getYMD(date)
+  const _date = new Date(oldYear, oldMonth, oldDate)
+  _date.setDate(oldDate + (diff ? diff : 0))
   return _date
 }
 
 // 月份的加减计算
 export const diffOfMonth = (date: Date, diff?: number) => {
   const [oldYear, oldMonth] = getYMD(date)
-  // 重置为当月的第一天
   const _date = new Date(oldYear, oldMonth, 1)
   _date.setMonth(oldMonth + (diff ? diff : 0))
   return _date
@@ -43,7 +51,6 @@ export const diffOfMonth = (date: Date, diff?: number) => {
 // 年份的加减计算
 export const diffOfYear = (date: Date, diff?: number) => {
   const [oldYear, oldMonth] = getYMD(date)
-  // 重置为当年当月的第一天
   const _date = new Date(oldYear, oldMonth, 1)
   _date.setFullYear(oldYear + (diff ? diff : 0))
   return _date
@@ -61,7 +68,18 @@ export const isSameYear = (a: Date | undefined, b: Date | undefined) => {
   return isSameArray(getYMD(a).slice(0, 1), getYMD(b).slice(0, 1))
 }
 
-export const dateFormat = (date: any, format = 'yyyy-MM-dd hh:mm:ss') => {
+export const getDateRangeOfOneWeek = (
+  date: Date,
+  weeks: Array<{ label: string; value: number }>
+) => {
+  const dayOfWeek = date.getDay()
+  const index = weeks.findIndex((week) => week.value === dayOfWeek)
+  return [diffOfDate(date, -index), diffOfDate(date, 6 - index)]
+}
+
+// format:yyyy-MM-dd hh:mm:ss
+export const dateFormat = (date: any, format?: string) => {
+  if (!format) return date
   if (typeof date === 'string') {
     const mts = date.match(/(\/Date\((\d+)\)\/)/)
     if (mts && mts.length >= 3) {

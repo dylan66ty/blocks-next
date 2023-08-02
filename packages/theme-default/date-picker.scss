@@ -1,22 +1,76 @@
 @use './mixins/bem.scss' as *;
 
 
-@mixin cell-text-active  {
+@mixin cell-text-active () {
   .#{$namespace}-date-picker__cell-text {
-    border-radius: 50%;
+    border-radius: var(--bn-date-cell-text-border-radius);
     color: #fff;
     background-color: var(--bn-primary);
-
-    &.is-month {
-      border-radius: 13px;
-    }
   }
 }
 
+@mixin ie ($element) {
+  .#{$namespace}-date-picker__#{$element} {
+    @content
+  }
+
+}
+
 @include b(date-picker__panel) {
-  --bn-date-picker-range-cell-background-color: rgb(0 86 255 / 10%);
-  --bn-date-picker-cell-disabled-background-color:#f5f7fa;
-  --bn-date-picker-cell-text-gray: rgb(168 171 178 / 80%);
+  --bn-date-cell-range-background-color: rgb(0 86 255 / 10%);
+  --bn-date-cell-disabled-background-color:#f5f7fa;
+  --bn-date-cell-text-gray: rgb(168 171 178 / 80%);
+  --bn-date-cell-text-border-radius: 50%;
+  --bn-date-cell-row-space: 7px;
+  --bn-date-cell-range-border-radius: 50%;
+  --bn-date-cell-height: 34px;
+  --bn-date-cell-width: 34px;
+  --bn-date-cell-text-width: 25px;
+  --bn-date-cell-text-height: 25px;
+
+
+  &.is-month, 
+  &.is-monthrange {
+    --bn-date-cell-width: 68px;
+    --bn-date-cell-row-space: 16px;
+    --bn-date-cell-text-width: 58px;
+    --bn-date-cell-text-height: 25px;
+    --bn-date-cell-text-border-radius: calc(var(--bn-date-cell-text-height) / 2);
+    --bn-date-cell-range-border-radius: calc(var(--bn-date-cell-height) / 2);
+  }
+
+  &.is-week {
+    @include ie(cell-row) {
+      &.is-disabled {
+        cursor: not-allowed;
+
+        @include ie(cell) {
+          pointer-events: none;
+        }
+      }
+
+      &:not(.is-disabled):hover {
+        cursor: pointer;
+
+        @include ie(cell) {
+          pointer-events: none;
+          background-color: var(--bn-date-cell-range-background-color);
+
+          &:first-child {
+            border-top-left-radius: calc(var(--bn-date-cell-height) / 2);
+            border-bottom-left-radius: calc(var(--bn-date-cell-height) / 2);
+          }
+
+          &:last-child {
+            border-top-right-radius: calc(var(--bn-date-cell-height) / 2);
+            border-bottom-right-radius: calc(var(--bn-date-cell-height) / 2);
+          }
+
+        } 
+      }
+    }
+    
+  }
 }
 
 
@@ -25,7 +79,7 @@
 
   @include e(panel) {
     border-radius: 8px;
-    padding: 20px;
+    padding: 20px 20px 15px;
     background-color: #fff;
     box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
     box-sizing: border-box;
@@ -91,10 +145,11 @@
   }
 
   @include e(week-cell) {
+    flex:1;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: calc(100% / 7);
+    width: var(--bn-date-cell-width);
     font-size: 12px;
     color: var(--bn-text-color);
     line-height: 1;
@@ -102,16 +157,10 @@
   }
 
   @include e(cell-row) {
-    --bn-cell-row-margin-top:7px;
-
     display: flex;
 
     & + & {
-      margin-top: var(--bn-cell-row-margin-top);
-    }
-
-    &.is-month {
-      --bn-cell-row-margin-top: 20px;
+      margin-top: var(--bn-date-cell-row-space);
     }
   }
 
@@ -119,13 +168,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 32px;
+    width: var(--bn-date-cell-width);
+    height: var(--bn-date-cell-height);
     font-size: 12px;
     color: var(--bn-text-color);
-    flex:1;
     user-select: none;
     cursor: pointer;
-
 
     &.is-cur:not(.is-select, .is-range-start, .is-range-end, .is-disabled):hover{
       color: var(--bn-primary);
@@ -134,7 +182,7 @@
     &.is-prev,
     &.is-next
     { 
-      color: var(--bn-date-picker-cell-text-gray);
+      color: var(--bn-date-cell-text-gray);
     }
 
     &.is-now {
@@ -147,39 +195,27 @@
     }
 
     &.is-range {
-      background-color: var(--bn-date-picker-range-cell-background-color);
+      background-color: var(--bn-date-cell-range-background-color);
     }
 
     &.is-range-start {
-      --bn-range-border-radius: 50%;
-
-      border-top-left-radius: var(--bn-range-border-radius);
-      border-bottom-left-radius: var(--bn-range-border-radius);
-
-      &.is-month {
-        --bn-range-border-radius: 15px;
-      }
+      border-top-left-radius: var(--bn-date-cell-range-border-radius);
+      border-bottom-left-radius: var(--bn-date-cell-range-border-radius);
 
       @include cell-text-active()
     }
 
     &.is-range-end {
-      --bn-range-border-radius: 50%;
-
-      border-top-right-radius: var(--bn-range-border-radius);
-      border-bottom-right-radius: var(--bn-range-border-radius);
-
-      &.is-month {
-        --bn-range-border-radius: 15px;
-      }
+      border-top-right-radius: var(--bn-date-cell-range-border-radius);
+      border-bottom-right-radius: var(--bn-date-cell-range-border-radius);
 
       @include cell-text-active()
 
     }
 
     &.is-disabled {
-      color: var(--bn-date-picker-cell-text-gray);
-      background-color: var(--bn-date-picker-cell-disabled-background-color);
+      color: var(--bn-date-cell-text-gray);
+      background-color: var(--bn-date-cell-disabled-background-color);
       cursor: default;
       pointer-events: none;
     }
@@ -189,21 +225,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 26px;
-    height: 26px;
+    width: var(--bn-date-cell-text-width);
+    height: var(--bn-date-cell-text-height);
     line-height: 1;
     color: inherit;
-
-    &.is-month {
-      width: calc(100% - 8px);
-      height: calc(100% - 7px);
-    }
   }
 
   @include e(body) {
     padding-top: 8px;
     box-sizing: border-box;
-    width: 240px;
   }
 
   @include e(range) {

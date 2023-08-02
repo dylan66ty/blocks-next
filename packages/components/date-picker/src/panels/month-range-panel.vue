@@ -18,7 +18,7 @@
     props: {
       modelValue: {
         type: Array as PropType<Date[]>,
-        default: () => new Date()
+        default: () => []
       },
       disabledDate: {
         type: Function,
@@ -103,7 +103,7 @@
         }
 
         if (dateModel.value.length === 2) {
-          emit('update:modelValue', dateModel.value)
+          emit('update:modelValue', dateModel.value.slice())
         }
       }
 
@@ -163,7 +163,6 @@
       />
       <PanelBody
         :rows="leftRows"
-        type="month"
         @on-cell-click="handleCellClick"
         @on-cell-mouseenter="handleCellMouseenter"
       >
@@ -181,7 +180,6 @@
       />
       <PanelBody
         :rows="rightRows"
-        type="month"
         @on-cell-click="handleCellClick"
         @on-cell-mouseenter="handleCellMouseenter"
       >

@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch} from 'vue';
 
-const date = ref('')
-const date2 = ref('')
+const date = ref([])
 
 watch(() => date.value, val => {
   console.log(val);
@@ -17,7 +16,7 @@ const disabledDate = (date:Date) => {
 
 <template>
   <div style="padding-left: 30px;">
-    <bn-date-picker v-model="date" type="week" placeholder="年/月/日" clearable>
+    <bn-date-picker v-model="date" type="week" placeholder="年/月/日" clearable :disabledDate="disabledDate">
     </bn-date-picker>
   </div>
 </template>

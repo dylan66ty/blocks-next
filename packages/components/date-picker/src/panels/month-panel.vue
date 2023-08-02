@@ -3,7 +3,7 @@
   import { useMonthRows } from '../hooks/use-month-rows'
 
   import type { DateCell } from '../types'
-  import { dateFormat, diffOfYear } from '../utils'
+  import { dateFormat, diffOfYear, compareYear } from '../utils'
   import PanelBody from './layout/body.vue'
   import PanelHeader from './layout/header.vue'
 
@@ -45,6 +45,10 @@
         () => props.modelValue,
         (newDate) => {
           const d = newDate || new Date()
+          const ret = compareYear(d, date.value)
+          if (ret) {
+            date.value = ret
+          }
           date.value = d
         },
         { immediate: true }
@@ -67,7 +71,7 @@
     @prev-super="handleYearChange(-1)"
     @next-super="handleYearChange(1)"
   />
-  <PanelBody :rows="rows" type="month" @on-cell-click="handleCellClick">
+  <PanelBody :rows="rows" @on-cell-click="handleCellClick">
     <template #cell="scoped">
       <slot name="cell" v-bind="scoped"> </slot>
     </template>

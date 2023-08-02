@@ -30,7 +30,7 @@ export default defineComponent({
       popupVisible.value = visible
     }
 
-    const isRange = computed(() => props.type.includes('range'))
+    const isRange = computed(() => ['range', 'week'].some((s) => props.type.includes(s)))
 
     const transDateValue = (date: any): any => {
       if (isRange.value) {
@@ -46,16 +46,11 @@ export default defineComponent({
     const formatModelValue = (date: Date | Date[]) => {
       let ret: any = date
       if (isRange.value && isArray(date)) {
+        // 从小到大排序下
         const _date = date.slice().sort((a, b) => a.getTime() - b.getTime())
-        if (props.modelValueFormat) {
-          ret = _date.map((d) => dateFormat(d, props.modelValueFormat))
-        } else {
-          ret = _date
-        }
+        ret = _date.map((d) => dateFormat(d, props.modelValueFormat))
       } else {
-        if (props.modelValueFormat) {
-          ret = dateFormat(date, props.modelValueFormat)
-        }
+        ret = dateFormat(date, props.modelValueFormat)
       }
       return ret
     }
@@ -85,11 +80,24 @@ export default defineComponent({
       { immediate: true }
     )
 
+    const defaultDateTypeFormatter = (date?: Date, formatter?: string) => {
+      if (formatter) {
+        return dateFormat(date, formatter)
+      }
+      if (['month', 'monthrange'].includes(props.type)) {
+        return dateFormat(date, 'yyyy-MM')
+      }
+      if (['date', 'daterange', 'week'].includes(props.type)) {
+        return dateFormat(date, 'yyyy-MM-dd')
+      }
+      return date?.toDateString()
+    }
+
     const inputValue = computed(() => {
       if (isArray(dateModel.value)) {
-        return dateModel.value.map((d) => dateFormat(d, props.inputLabelFormat))
+        return dateModel.value.map((d) => defaultDateTypeFormatter(d, props.inputLabelFormat))
       }
-      return [dateFormat(dateModel.value, props.inputLabelFormat)]
+      return [defaultDateTypeFormatter(dateModel.value, props.inputLabelFormat)]
     })
 
     const handleClear = () => {
@@ -194,7 +202,7 @@ export default defineComponent({
                 />
               ),
               content: () => (
-                <div ref={popupRef} class={[`${ns}__panel`]}>
+                <div ref={popupRef} class={[`${ns}__panel`, `is-${props.type}`]}>
                   {renderContent()}
                 </div>
               )

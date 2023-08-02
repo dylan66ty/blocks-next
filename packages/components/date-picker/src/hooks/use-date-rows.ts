@@ -28,13 +28,15 @@ export const useDateRows = ({
   date,
   dateModel,
   dateRange,
-  disabledDate
+  disabledDate,
+  dateRangeOfWeek
 }: {
   dayStartOfWeek: Ref<number>
   date: Ref<Date | undefined>
   dateModel: Ref<Date[]>
   dateRange?: Ref<Date[]>
   disabledDate?: Ref<Function | undefined>
+  dateRangeOfWeek?: Ref<Date[]>
 }) => {
   const weeks = computed(() => {
     const weeksCopy = WEEKS.slice()
@@ -52,7 +54,7 @@ export const useDateRows = ({
   const rows = computed(() => {
     // 7 * 6
     const COL = 6
-    const ROW = weeks.value.length
+    const ROW = 7
     const cells: DateCell[] = new Array(ROW * COL)
     const days = daysOfMonth(date.value)
     const firstDateIsWeek = firstDateIsWeekOfMonth(date.value)
@@ -68,14 +70,14 @@ export const useDateRows = ({
         date: new Date(cur_y, cur_m, day),
         isCur: true,
         isNow: isSameDate(new Date(), dateEffect),
-        isRange: dateRange?.value.length
+        isRange: dateRange?.value?.length
           ? dateHasInRange(dateRange!.value, dateEffect, 'range')
           : false,
         isSelect: dateModel.value.some((d) => isSameDate(d, dateEffect)),
-        isRangeStart: dateRange?.value.length
+        isRangeStart: dateRange?.value?.length
           ? dateHasInRange(dateRange!.value, dateEffect, 'start')
           : false,
-        isRangeEnd: dateRange?.value.length
+        isRangeEnd: dateRange?.value?.length
           ? dateHasInRange(dateRange!.value, dateEffect, 'end')
           : false,
         isDisabled: disabledDate?.value?.(new Date(dateEffect))
@@ -93,7 +95,16 @@ export const useDateRows = ({
         value: day,
         date: dateEffect,
         isPrev: true,
-        isDisabled: disabledDate?.value?.(new Date(dateEffect))
+        isDisabled: disabledDate?.value?.(new Date(dateEffect)),
+        isRange: dateRangeOfWeek?.value?.length
+          ? dateHasInRange(dateRangeOfWeek!.value, dateEffect, 'range')
+          : false,
+        isRangeStart: dateRangeOfWeek?.value?.length
+          ? dateHasInRange(dateRangeOfWeek!.value, dateEffect, 'start')
+          : false,
+        isRangeEnd: dateRangeOfWeek?.value?.length
+          ? dateHasInRange(dateRangeOfWeek!.value, dateEffect, 'end')
+          : false
       })
     }
     // 补齐后一个月
@@ -107,7 +118,16 @@ export const useDateRows = ({
         value: day,
         date: dateEffect,
         isNext: true,
-        isDisabled: disabledDate?.value?.(new Date(dateEffect))
+        isDisabled: disabledDate?.value?.(new Date(dateEffect)),
+        isRange: dateRangeOfWeek?.value?.length
+          ? dateHasInRange(dateRangeOfWeek!.value, dateEffect, 'range')
+          : false,
+        isRangeStart: dateRangeOfWeek?.value?.length
+          ? dateHasInRange(dateRangeOfWeek!.value, dateEffect, 'start')
+          : false,
+        isRangeEnd: dateRangeOfWeek?.value?.length
+          ? dateHasInRange(dateRangeOfWeek!.value, dateEffect, 'end')
+          : false
       })
     }
 
