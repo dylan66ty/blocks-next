@@ -3,7 +3,7 @@ import { computed, defineComponent, ref, toRef, watch } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import Trigger from '../../trigger/src/trigger'
 import DateTrigger from '../../common/date-trigger.vue'
-import { isArray, isDate, isString } from '../../../utils/is'
+import { isArray, isString } from '../../../utils/is'
 import { useFormItem } from '../../form/src/hooks/use-form-item'
 import { NOOP } from '../../../shared/utils'
 import { datePickerProps } from './props'
@@ -22,7 +22,7 @@ import type { DateType } from './types'
 export default defineComponent({
   name: getComponentNamespace('DatePicker'),
   props: datePickerProps,
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'change', 'show', 'hide'],
   setup(props, { emit, slots }) {
     const ns = getNamespace('date-picker')
     const { formItem } = useFormItem()
@@ -43,20 +43,14 @@ export default defineComponent({
       switch (props.type) {
         case 'date':
         case 'month':
-          if (date && (isDate(date) || isString(date))) {
+          if (date) {
             ret = new Date(date)
-          }
-          if (isArray(date)) {
-            ret = date[0] ? new Date(date[0]) : undefined
           }
           break
         case 'daterange':
         case 'monthrange':
           if (isArray(date)) {
             ret = date.map((d) => (d ? new Date(d) : undefined))
-          }
-          if (date && (isDate(date) || isString(date))) {
-            ret = [new Date(date)]
           }
           if (!date) {
             ret = []
@@ -83,14 +77,21 @@ export default defineComponent({
       return ret
     }
 
+    const dateFormatEnhanced = (date: Date, formatter?: string) => {
+      if (formatter === 'timestamp') {
+        return date.getTime()
+      }
+      return dateFormat(date, formatter)
+    }
+
     const formatModelValue = (date: Date | Date[]) => {
       let ret: any = date
       if (isArray(date)) {
         // 从小到大排序下
         const _date = date.slice().sort((a, b) => a.getTime() - b.getTime())
-        ret = _date.map((d) => dateFormat(d, props.modelValueFormat))
+        ret = _date.map((d) => dateFormatEnhanced(d, props.modelValueFormat))
       } else {
-        ret = dateFormat(date, props.modelValueFormat)
+        ret = dateFormatEnhanced(date, props.modelValueFormat)
       }
       return ret
     }
@@ -101,6 +102,7 @@ export default defineComponent({
       },
       set(date: Date | Date[]) {
         emit('update:modelValue', formatModelValue(date))
+        emit('change', date)
         handlePopupVisibleChange(false)
       }
     })
@@ -119,7 +121,13 @@ export default defineComponent({
     const onPopupHide = () => {
       // 在popup关闭的时候同步状态给picker
       pickerVisible.value = false
+      emit('hide')
     }
+
+    const onPopupShow = () => {
+      emit('show')
+    }
+
     watch(
       () => popupVisible.value,
       (visible) => {
@@ -264,6 +272,7 @@ export default defineComponent({
             popup-offset={8}
             disabled={mergeDisabled.value}
             onHide={onPopupHide}
+            onShow={onPopupShow}
             v-slots={{
               default: () => (
                 <DateTrigger
@@ -278,7 +287,7 @@ export default defineComponent({
                 />
               ),
               content: () => (
-                <div ref={popupRef} class={[`${ns}__panel`, `is-${props.type}`]}>
+                <div ref={popupRef} class={[`${ns}__panel`, `is-${props.type}`, props.popupClass]}>
                   {renderContent()}
                 </div>
               )

@@ -7,22 +7,26 @@ lang: zh-CN
 按钮和图标上的数字或状态标记。
 
 ## 基本使用
-::: demo 设置 `value` 来展示角标数字。
+设置 `value` 来展示角标数字
+::: demo 
 badge/basic
 :::
 
 ## 最大值
-::: demo 设置 `max` 来设置最大值，`max`默认值为99。注意：只有设置 `value` 和 `max` 是number类型才生效。
+设置 `max` 来设置最大值，`max`默认值为99。注意：只有设置 `value` 和 `max` 是number类型才生效
+::: demo 
 badge/max
 :::
 
 ## 红点
-::: demo 设置 `is-dot`  即可。
+设置 `is-dot`  即可
+::: demo 
 badge/dot
 :::
 
 ## 自定义内容
-::: demo 设置 `value`  为非数字类型即可。
+设置 `value`  为非数字类型即可
+::: demo 
 badge/custom
 :::
 

@@ -2,13 +2,13 @@
   import { ref } from 'vue'
 
   const form = ref({
-    eat: '',
-    sleep: '',
-    play: ''
+    field1: '',
+    field2: '',
+    field3: ''
   })
 
   const rules = {
-    eat: [
+    field1: [
       {
         required: true,
         min: 1,
@@ -17,7 +17,7 @@
         trigger: ['change']
       }
     ],
-    sleep: [
+    field2: [
       {
         required: true,
         min: 1,
@@ -26,7 +26,7 @@
         trigger: ['change']
       }
     ],
-    play: [
+    field3: [
       {
         required: true,
         min: 1,
@@ -38,7 +38,6 @@
   }
 
   const formRef = ref()
-
   const submitForm = (props) => {
     formRef.value.validateField(props, (valid) => {
       console.log(valid)
@@ -47,27 +46,25 @@
 </script>
 
 <template>
-  <div>
-    <bn-form ref="formRef" :model="form" :rules="rules">
-      <bn-form-item label="吃饭" prop="eat">
-        <bn-input v-model="form.eat"></bn-input>
-      </bn-form-item>
+  <bn-form ref="formRef" :model="form" :rules="rules">
+    <bn-form-item label="字段1" prop="field1">
+      <bn-input v-model="form.field1"></bn-input>
+    </bn-form-item>
 
-      <bn-form-item label="睡觉" prop="sleep">
-        <bn-input v-model="form.sleep"></bn-input>
-      </bn-form-item>
+    <bn-form-item label="字段2" prop="field2">
+      <bn-input v-model="form.field2"></bn-input>
+    </bn-form-item>
 
-      <bn-form-item label="打豆豆" prop="play">
-        <bn-input v-model="form.play"></bn-input>
-      </bn-form-item>
+    <bn-form-item label="字段3" prop="field3">
+      <bn-input v-model="form.field3"></bn-input>
+    </bn-form-item>
 
-      <bn-form-item>
-        <bn-space>
-          <bn-button type="primary" size="small" @click="submitForm(['eat'])">校验1</bn-button>
-          <bn-button type="primary" size="small" @click="submitForm(['sleep'])">校验2</bn-button>
-          <bn-button type="primary" size="small" @click="submitForm(['play'])">校验3</bn-button>
-        </bn-space>
-      </bn-form-item>
-    </bn-form>
-  </div>
+    <bn-form-item>
+      <bn-space>
+        <bn-button type="primary" size="small" @click="submitForm(['field1'])">校验字段1</bn-button>
+        <bn-button type="primary" size="small" @click="submitForm(['field2'])">校验字段2</bn-button>
+        <bn-button type="primary" size="small" @click="submitForm(['field3'])">校验字段3</bn-button>
+      </bn-space>
+    </bn-form-item>
+  </bn-form>
 </template>

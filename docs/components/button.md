@@ -7,40 +7,46 @@ lang: zh-CN
 按钮是一种命令组件，可发起一个即时操作。
 
 ## 基本使用
-
-::: demo 使用 `type` 、`plain` 来定义按钮的样式
+使用 `type` 、`plain` 来定义按钮的样式
+::: demo 
 button/basic
 :::
 
 ## 形状
-::: demo 设置属性 **shape**为 `circle` 圆形、`round`全圆角
+设置属性 `shape` 为 `circle` 圆形、`round` 全圆角
+::: demo 
 button/shape
 :::
 
 ## 文字按钮
-::: demo 设置属性 `link` 即可
+设置属性 `link` 即可
+::: demo 
 button/text
 :::
 
 ## 无边框按钮
-::: demo 设置属性 **border**为 `false` 即可
+设置属性 `border` 为 `false` 即可
+::: demo 
 button/border
 :::
 
 ## 卡片按钮
-::: demo 设置属性 **type**为 `card` 即可
+设置属性 `type*` 为 `card` 即可
+::: demo 
 button/card
 :::
 
 
 ## 禁用状态
-::: demo 设置属性**disabled**为`true`即可
+设置属性 `disabled` 为 `true` 即可
+::: demo 
 button/disabled
 :::
 
 
 ## 按钮大小
-::: demo 设置属性 **size**为 `mini`、`small`、`normal`默认、`large` 来定义按钮的大小。
+设置属性 `size` 为 `mini`、`small`、`large` 来定义按钮的大小
+::: demo 
 button/size
 :::
 

@@ -3,7 +3,7 @@ import type { DateType } from './types'
 
 export const datePickerProps = {
   modelValue: {
-    type: [String, Date, Array],
+    type: [String, Date, Array, Number],
     default: undefined
   },
   type: {
@@ -32,7 +32,7 @@ export const datePickerProps = {
   },
   dayStartOfWeek: {
     type: Number as PropType<0 | 1 | 2 | 3 | 4 | 5 | 6>,
-    default: 0
+    default: 1
   },
   modelValueFormat: {
     type: String,

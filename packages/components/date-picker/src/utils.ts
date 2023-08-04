@@ -173,7 +173,8 @@ export const genCell = (cell: Partial<DateCell>) => {
     isNow: false,
     isRangeStart: false,
     isRangeEnd: false,
-    isDisabled: false
+    isDisabled: false,
+    format: dateFormat
   }
   return Object.assign({}, _cell, cell)
 }

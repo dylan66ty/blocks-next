@@ -3,116 +3,42 @@
 
   const form = ref({
     name: '',
-    birth: '',
     age: '',
-    hobby: [],
-    contact: '',
-    suggest: '',
-    isAddFriends: false,
-    lang: '',
-    region: []
+    section: '',
+    province: [],
+    options: [],
+    date: '',
+    radio: 'radio1',
+    slider: 5,
+    score: 5,
+    switch: false,
+    multipleSelect: []
   })
 
-  // validator支持 string =>  (email ｜ url | mobile | chinese | number)
-  // 也可以是function =>  (rule,value,callback) => {}
-  // 验证细节参考 async-validator
   const rules = {
     name: [
-      {
-        required: false,
-        message: '名字必填',
-        trigger: 'change'
-      }
+      { required: true, message: 'name is required' },
+      { min: 5, message: 'must be greater than 5 characters' }
     ],
-    birth: [
+    section: [{ required: true, message: 'Section is required' }],
+    province: [{ required: true, message: 'Province is required' }],
+    options: [{ required: true, message: 'Options is required' }],
+    date: [{ required: true, message: 'Date is required' }],
+    radio: [{ required: true, message: 'Radio is required' }],
+    switch: [
       {
         required: true,
-        message: '生日必填项',
-        trigger: 'change'
-      }
-    ],
-    age: [
-      {
-        required: true,
-        message: '年龄必填项'
-      }
-    ],
-    hobby: [
-      {
-        type: 'array',
-        required: true,
-        message: '爱好至少选一项'
-      }
-    ],
-    contact: [
-      {
-        required: true,
-        message: '联系方式必填项'
-      }
-    ],
-    isAddFriends: [
-      {
-        required: true,
-        message: '勾选允许添加好友',
-        validator(rule, value, callback) {
+        validator: (rule, value, callback) => {
           if (!value) {
             return callback(new Error(rule.message))
           }
           callback()
-        }
+        },
+        message: 'Switch must true'
       }
     ],
-    suggest: [
-      {
-        required: true,
-        min: 3,
-        max: 20,
-        message: '3-20字',
-        trigger: 'change'
-      }
-    ],
-    lang: [
-      {
-        required: true,
-        message: '请选择框架',
-        trigger: 'change'
-      }
-    ],
-    region: [
-      {
-        type: 'array',
-        required: true,
-        message: '选择地区'
-      }
-    ]
+    multipleSelect: [{ required: true, message: 'MultipleSelect is required' }]
   }
-
-  const cascaderData = ref([
-    {
-      label: '安徽',
-      value: 'anhui',
-      children: [
-        {
-          label: '合肥',
-          value: 'hefei',
-          children: [
-            {
-              label: '瑶海区',
-              value: 'yaohai'
-            },
-            {
-              label: '包河区',
-              value: 'baohe'
-            },
-            {
-              label: '庐阳区',
-              value: 'luyang'
-            }
-          ]
-        }
-      ]
-    }
-  ])
 
   const formRef = ref()
 
@@ -128,67 +54,110 @@
   const resetForm = () => {
     formRef.value.resetFields()
   }
+
+  const regionData = [
+    {
+      value: 'beijing',
+      label: 'Beijing',
+      children: [
+        {
+          value: 'chaoyang',
+          label: 'ChaoYang',
+          children: [
+            {
+              value: 'datunli',
+              label: 'Datunli'
+            }
+          ]
+        },
+        {
+          value: 'haidian',
+          label: 'Haidian'
+        },
+        {
+          value: 'dongcheng',
+          label: 'Dongcheng'
+        },
+        {
+          value: 'xicheng',
+          label: 'XiCheng'
+        }
+      ]
+    },
+    {
+      value: 'shanghai',
+      label: 'Shanghai',
+      children: [
+        {
+          value: 'shanghaishi',
+          label: 'Shanghai',
+          children: [
+            {
+              value: 'huangpu',
+              label: 'Huangpu'
+            }
+          ]
+        }
+      ]
+    }
+  ]
 </script>
 
 <template>
-  <div>
-    <bn-form ref="formRef" :model="form" :rules="rules" label-width="90px">
-      <bn-form-item prop="name">
-        <bn-input v-model="form.name"></bn-input>
-        <template #label>姓名</template>
-        <!-- <template #error="{error}">
-          <span style="font-size: 12px;color: blue;line-height: 1;">插槽：{{ error }}</span>
-        </template> -->
-      </bn-form-item>
-      <!-- 表单嵌套 -->
-      <bn-form-item label="生日/年龄" required>
-        <bn-space>
-          <bn-form-item prop="birth">
-            <bn-input v-model="form.birth"></bn-input>
-          </bn-form-item>
-          <bn-form-item prop="age">
-            <bn-input v-model="form.age"></bn-input>
-          </bn-form-item>
-        </bn-space>
-      </bn-form-item>
-      <bn-form-item label="爱好" prop="hobby">
-        <bn-checkbox-group v-model="form.hobby">
-          <bn-checkbox label="Coding"></bn-checkbox>
-          <bn-checkbox label="旅游"></bn-checkbox>
-          <bn-checkbox label="动漫"></bn-checkbox>
-        </bn-checkbox-group>
-      </bn-form-item>
-      <bn-form-item label="熟悉框架" prop="lang">
-        <bn-select v-model="form.lang">
-          <bn-option label="Vue" value="vue"></bn-option>
-          <bn-option label="React" value="react"></bn-option>
-          <bn-option label="Angular" value="angular"></bn-option>
-        </bn-select>
-      </bn-form-item>
-      <bn-form-item label="地区" prop="region">
-        <bn-cascader v-model="form.region" :data="cascaderData" clearable></bn-cascader>
-      </bn-form-item>
-      <bn-form-item label="联系方式" prop="contact">
-        <bn-radio-group v-model="form.contact">
-          <bn-radio label="qq">QQ</bn-radio>
-          <bn-radio label="wx">微信</bn-radio>
-        </bn-radio-group>
-      </bn-form-item>
-      <bn-form-item label="添加好友" prop="isAddFriends">
-        <bn-switch v-model="form.isAddFriends" />
-      </bn-form-item>
-      <bn-form-item prop="suggest" label="意见">
-        <bn-input v-model="form.suggest" type="textarea"></bn-input>
-      </bn-form-item>
+  <bn-form ref="formRef" :model="form" :rules="rules" label-position="right" label-width="120">
+    <bn-form-item label="Username" prop="name">
+      <bn-input v-model="form.name" clearable></bn-input>
+    </bn-form-item>
+    <bn-form-item label="Age" prop="age">
+      <bn-input v-model="form.age" clearable></bn-input>
+    </bn-form-item>
+    <bn-form-item label="Section" prop="section">
+      <bn-select v-model="form.section" clearable>
+        <bn-option value="section1" label="Section1" />
+        <bn-option value="section2" label="Section2" />
+        <bn-option value="section3" label="Section3" />
+      </bn-select>
+    </bn-form-item>
+    <bn-form-item label="province" prop="province">
+      <bn-cascader v-model="form.province" :data="regionData" clearable></bn-cascader>
+    </bn-form-item>
+    <bn-form-item label="Options" prop="options">
+      <bn-checkbox-group v-model="form.options">
+        <bn-checkbox label="option1">Option1</bn-checkbox>
+        <bn-checkbox label="option2">Option2</bn-checkbox>
+        <bn-checkbox label="option3">Option3</bn-checkbox>
+        <bn-checkbox label="option4" disabled>Option4</bn-checkbox>
+      </bn-checkbox-group>
+    </bn-form-item>
+    <bn-form-item label="Date" prop="date">
+      <bn-date-picker v-model="form.date" clearable model-value-format="yyyy-MM-dd" />
+    </bn-form-item>
+    <bn-form-item label="Radio" prop="radio">
+      <bn-radio-group v-model="form.radio">
+        <bn-radio label="radio1">Radio1</bn-radio>
+        <bn-radio label="radio2">Radio2</bn-radio>
+        <bn-radio label="radio3" disabled>Radio3</bn-radio>
+      </bn-radio-group>
+    </bn-form-item>
+    <bn-form-item label="Switch" prop="switch">
+      <bn-switch v-model="form.switch"></bn-switch>
+    </bn-form-item>
+    <bn-form-item label="MultipleSelect" prop="multipleSelect">
+      <bn-select v-model="form.multipleSelect" multiple clearable>
+        <bn-option value="section1" label="Section1" />
+        <bn-option value="section2" label="Section2" />
+        <bn-option value="section3" label="Section3" />
+      </bn-select>
+    </bn-form-item>
+    <bn-form-item>
+      <bn-space>
+        <bn-button type="primary" size="small" @click="submitForm">Submit</bn-button>
+        <bn-button size="small" @click="resetForm">Reset</bn-button>
+      </bn-space>
+    </bn-form-item>
+  </bn-form>
 
-      <bn-form-item>
-        <bn-space>
-          <bn-button type="primary" size="small" @click="submitForm">提交</bn-button>
-          <bn-button size="small" @click="resetForm">重置</bn-button>
-        </bn-space>
-      </bn-form-item>
-    </bn-form>
-  </div>
+  <div>form: {{ form }}</div>
 </template>
 
 <style lang="scss"></style>

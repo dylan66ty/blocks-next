@@ -5,7 +5,7 @@
 - Components [DatePicker] ✨ 时间日期组件(date/daterange/month/monthrange/week)
 - Components [Icon] ✨ 按需加载
 - Components [Popup] ✨ 手动调用显示和隐藏方法
-- Components [Pagination] 🐛 分页页数过多样式调整
+- Components [Pagination] 💄 分页页数过多样式调整
 
 ## 1.0.1-alpha.32
 `2023-07-24`

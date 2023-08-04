@@ -13,4 +13,5 @@ export interface DateCell {
   isRangeStart: boolean
   isRangeEnd: boolean
   isDisabled: boolean
+  format: (date?: Date, formatter?: string) => string | undefined
 }

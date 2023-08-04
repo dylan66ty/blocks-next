@@ -7,24 +7,26 @@ lang: zh-CN
 在一组数据中，用户可通过复选框选择一个或多个数据。
 
 ## 基本使用
-
+可以表示两种状态之间的切换
 ::: demo 
 checkbox/basic
 :::
 
 ## 禁用
-
-::: demo 设置属性 **disabled**为 `true` 即可。
+设置属性 `disabled` 为 `true` 即可。
+::: demo 
 checkbox/disabled
 :::
 
 ## 多选框组
+适用于多个勾选框绑定到同一个数组的情景，通过是否勾选来表示这一组选项中选中的项。
 ::: demo 
 checkbox/group
 :::
 
-## indeterminate 状态
-::: demo **indeterminate**属性用以表示 checkbox 的不确定状态，一般用于实现全选的效果
+## 半选状态
+`indeterminate` 属性用以表示 checkbox 的不确定状态，一般用于实现全选的效果
+::: demo 
 checkbox/indeterminate
 :::
 
