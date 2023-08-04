@@ -4,7 +4,7 @@
   const pageConfig = ref({
     page: 1,
     pageSize: 10,
-    total: 50
+    total: 100
   })
 </script>
 

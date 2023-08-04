@@ -36,6 +36,40 @@ import BnIconAppMoney from './app/app-money.vue'
 import BnIconAppOa from './app/app-oa.vue'
 import BnIconAppPie from './app/app-pie.vue'
 import BnIconAppSem from './app/app-sem.vue'
+import BnIconAppAddress from './bus/app-address.vue'
+import BnIconAppArrowUp from './bus/app-arrow-up.vue'
+import BnIconAppCallUp from './bus/app-call-up.vue'
+import BnIconAppCall from './bus/app-call.vue'
+import BnIconAppCopy from './bus/app-copy.vue'
+import BnIconAppDownload from './bus/app-download.vue'
+import BnIconAppDrag from './bus/app-drag.vue'
+import BnIconAppEdit from './bus/app-edit.vue'
+import BnIconAppEnterprise from './bus/app-enterprise.vue'
+import BnIconAppExclamationPoint from './bus/app-exclamation-point.vue'
+import BnIconAppFax from './bus/app-fax.vue'
+import BnIconAppIphone from './bus/app-iphone.vue'
+import BnIconAppLetter from './bus/app-letter.vue'
+import BnIconAppLove2 from './bus/app-love-2.vue'
+import BnIconAppLove from './bus/app-love.vue'
+import BnIconAppMinus from './bus/app-minus.vue'
+import BnIconAppNewPage from './bus/app-new-page.vue'
+import BnIconAppOaBirthday from './bus/app-oa-birthday.vue'
+import BnIconAppOaCircle from './bus/app-oa-circle.vue'
+import BnIconAppOaLocation from './bus/app-oa-location.vue'
+import BnIconAppOaSend from './bus/app-oa-send.vue'
+import BnIconAppOaTelephone from './bus/app-oa-telephone.vue'
+import BnIconAppOverview from './bus/app-overview.vue'
+import BnIconAppPc2 from './bus/app-pc-2.vue'
+import BnIconAppPc from './bus/app-pc.vue'
+import BnIconAppPlus from './bus/app-plus.vue'
+import BnIconAppQq from './bus/app-qq.vue'
+import BnIconAppQuery from './bus/app-query.vue'
+import BnIconAppQuestion from './bus/app-question.vue'
+import BnIconAppSearch2 from './bus/app-search-2.vue'
+import BnIconAppSearch from './bus/app-search.vue'
+import BnIconAppSetting from './bus/app-setting.vue'
+import BnIconAppTodo from './bus/app-todo.vue'
+import BnIconAppWechat from './bus/app-wechat.vue'
 
 const components = [
   BnIconArrowDown,
@@ -74,7 +108,41 @@ const components = [
   BnIconAppMoney,
   BnIconAppOa,
   BnIconAppPie,
-  BnIconAppSem
+  BnIconAppSem,
+  BnIconAppAddress,
+  BnIconAppArrowUp,
+  BnIconAppCallUp,
+  BnIconAppCall,
+  BnIconAppCopy,
+  BnIconAppDownload,
+  BnIconAppDrag,
+  BnIconAppEdit,
+  BnIconAppEnterprise,
+  BnIconAppExclamationPoint,
+  BnIconAppFax,
+  BnIconAppIphone,
+  BnIconAppLetter,
+  BnIconAppLove2,
+  BnIconAppLove,
+  BnIconAppMinus,
+  BnIconAppNewPage,
+  BnIconAppOaBirthday,
+  BnIconAppOaCircle,
+  BnIconAppOaLocation,
+  BnIconAppOaSend,
+  BnIconAppOaTelephone,
+  BnIconAppOverview,
+  BnIconAppPc2,
+  BnIconAppPc,
+  BnIconAppPlus,
+  BnIconAppQq,
+  BnIconAppQuery,
+  BnIconAppQuestion,
+  BnIconAppSearch2,
+  BnIconAppSearch,
+  BnIconAppSetting,
+  BnIconAppTodo,
+  BnIconAppWechat
 ]
 
 const install = (app: App) => {
@@ -124,5 +192,39 @@ export {
   BnIconAppMoney,
   BnIconAppOa,
   BnIconAppPie,
-  BnIconAppSem
+  BnIconAppSem,
+  BnIconAppAddress,
+  BnIconAppArrowUp,
+  BnIconAppCallUp,
+  BnIconAppCall,
+  BnIconAppCopy,
+  BnIconAppDownload,
+  BnIconAppDrag,
+  BnIconAppEdit,
+  BnIconAppEnterprise,
+  BnIconAppExclamationPoint,
+  BnIconAppFax,
+  BnIconAppIphone,
+  BnIconAppLetter,
+  BnIconAppLove2,
+  BnIconAppLove,
+  BnIconAppMinus,
+  BnIconAppNewPage,
+  BnIconAppOaBirthday,
+  BnIconAppOaCircle,
+  BnIconAppOaLocation,
+  BnIconAppOaSend,
+  BnIconAppOaTelephone,
+  BnIconAppOverview,
+  BnIconAppPc2,
+  BnIconAppPc,
+  BnIconAppPlus,
+  BnIconAppQq,
+  BnIconAppQuery,
+  BnIconAppQuestion,
+  BnIconAppSearch2,
+  BnIconAppSearch,
+  BnIconAppSetting,
+  BnIconAppTodo,
+  BnIconAppWechat
 }

@@ -36,7 +36,6 @@
       const date = ref<Date>()
       const { dayStartOfWeek, disabledDate } = toRefs(props)
       const dateModel = ref<Date[]>([])
-      const dateRangeOfWeek = ref<Date[]>([])
 
       const { weeks, rows } = useDateRows({
         dayStartOfWeek,
@@ -63,16 +62,12 @@
         emit('update:modelValue', [row[0].date, row[row.length - 1].date])
       }
 
-      const handleCellRowMouseenter = (row: DateCell[]) => {
-        dateRangeOfWeek.value = [row[0].date, row[row.length - 1].date]
-      }
-
       // 同步选中状态
       watch(
         () => props.modelValue,
         (newDate: Date[]) => {
-          const d = newDate[0] ?? new Date()
-          const ret = compareMonth(d, date.value)
+          const std = newDate[1] ?? new Date()
+          const ret = compareMonth(std, date.value)
           if (ret) {
             date.value = ret
           }
@@ -88,8 +83,7 @@
         headerContent,
         handleYearChange,
         handleMonthChange,
-        handleCellRowClick,
-        handleCellRowMouseenter
+        handleCellRowClick
       }
     }
   })
@@ -104,11 +98,7 @@
     @next="handleMonthChange(1)"
   />
   <PanelWeek :weeks="weeks" />
-  <PanelBody
-    :rows="rows"
-    @on-cell-row-click="handleCellRowClick"
-    @on-cell-row-mouseenter="handleCellRowMouseenter"
-  >
+  <PanelBody :rows="rows" @on-cell-row-click="handleCellRowClick">
     <template #cell="scoped">
       <slot name="cell" v-bind="scoped"></slot>
     </template>

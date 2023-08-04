@@ -86,8 +86,7 @@
         return props.suffixIcon || slots['suffix-icon']
       })
       const hasClearableIcon = computed(() => {
-        if (!props.clearable) return false
-        if (!computedModelValue.value) return false
+        if (!props.clearable || props.disabled || !computedModelValue.value) return false
         if (isHover.value || isFocus.value) return true
         return false
       })

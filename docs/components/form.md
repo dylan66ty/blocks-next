@@ -39,13 +39,6 @@ form/custom-validate
 :::
 
 
-
-## 表单嵌套
-::: demo
-form/nest
-:::
-
-
 ## 自定义字段验证
 ::: demo 在一个表单中，可能需要分步骤校验表单字段。下面demo可能适合你。
 form/validate-field

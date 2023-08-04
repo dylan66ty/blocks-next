@@ -131,9 +131,6 @@
           overflow: hidden;
           color: var(--color-text-1);
           font-size: 12px;
-          white-space: nowrap;
-          text-align: center;
-          text-overflow: ellipsis;
           line-height: initial;
         }
       }

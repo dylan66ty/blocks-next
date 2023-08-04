@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { computed, defineComponent, ref, watch } from 'vue'
+  import { computed, defineComponent, ref, toRefs, watch } from 'vue'
   import { useMonthRows } from '../hooks/use-month-rows'
 
   import type { DateCell } from '../types'
@@ -17,15 +17,21 @@
       modelValue: {
         type: Date,
         default: undefined
+      },
+      disabledDate: {
+        type: Function,
+        default: undefined
       }
     },
     emits: ['update:modelValue'],
     setup(props, { emit }) {
       const date = ref<Date>()
       const dateModel = computed(() => (props.modelValue ? [props.modelValue] : []))
+      const { disabledDate } = toRefs(props)
       const { rows } = useMonthRows({
         date,
-        dateModel
+        dateModel,
+        disabledDate
       })
 
       const handleCellClick = (cell: DateCell) => {

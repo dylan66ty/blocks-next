@@ -23,7 +23,7 @@
   margin-right: 10px;
   font-size: 14px;
   flex-shrink: 0;
-  // color: var(--bn-pagination-pager-number-color);
+  color: var(--bn-pagination-pager-number-color);
 }
 
 @include b(pagination-pager) {
@@ -38,13 +38,15 @@
     align-items: center;
     border: 1px solid #e1e4e8;
     border-radius: var(--bn-pagination-pager-number-radius);
-    width: var(--bn-pagination-pager-number-size);
+    padding:0 3px;
+    min-width: var(--bn-pagination-pager-number-size);
     height: var(--bn-pagination-pager-number-size);
     font-size: 14px;
     color: var(--bn-pagination-pager-number-color);
     background-color: #fff;
     cursor: pointer;
     user-select: none;
+    box-sizing: border-box;
 
     & + .number {
       margin-left: 4px;

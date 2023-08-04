@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch} from 'vue';
 
-const date = ref([])
+const date = ref('2023-21周')
 
 watch(() => date.value, val => {
   console.log(val);

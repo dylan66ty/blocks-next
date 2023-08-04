@@ -32,8 +32,8 @@ export const useDateRows = ({
   dateRangeOfWeek
 }: {
   dayStartOfWeek: Ref<number>
-  date: Ref<Date | undefined>
-  dateModel: Ref<Date[]>
+  date?: Ref<Date | undefined>
+  dateModel?: Ref<Date[]>
   dateRange?: Ref<Date[]>
   disabledDate?: Ref<Function | undefined>
   dateRangeOfWeek?: Ref<Date[]>
@@ -41,7 +41,7 @@ export const useDateRows = ({
   const weeks = computed(() => {
     const weeksCopy = WEEKS.slice()
     const index = WEEKS.findIndex((week) => week.value === dayStartOfWeek.value)
-    if (index > -1) {
+    if (~index) {
       const move = weeksCopy.slice(0, index)
       const reset = weeksCopy.slice(index)
       reset.push(...move)
@@ -56,11 +56,11 @@ export const useDateRows = ({
     const COL = 6
     const ROW = 7
     const cells: DateCell[] = new Array(ROW * COL)
-    const days = daysOfMonth(date.value)
-    const firstDateIsWeek = firstDateIsWeekOfMonth(date.value)
+    const days = daysOfMonth(date?.value)
+    const firstDateIsWeek = firstDateIsWeekOfMonth(date?.value)
     const startIndex = weeks.value.findIndex((week) => week.value === firstDateIsWeek)
     // 当前
-    const [cur_y, cur_m] = getYMD(date.value)
+    const [cur_y, cur_m] = getYMD(date?.value)
     for (let i = 0; i < days; i++) {
       const day = i + 1
       const dateEffect = new Date(cur_y, cur_m, day)
@@ -73,7 +73,7 @@ export const useDateRows = ({
         isRange: dateRange?.value?.length
           ? dateHasInRange(dateRange!.value, dateEffect, 'range')
           : false,
-        isSelect: dateModel.value.some((d) => isSameDate(d, dateEffect)),
+        isSelect: dateModel?.value.some((d) => isSameDate(d, dateEffect)),
         isRangeStart: dateRange?.value?.length
           ? dateHasInRange(dateRange!.value, dateEffect, 'start')
           : false,
@@ -84,7 +84,7 @@ export const useDateRows = ({
       })
     }
     // 补齐前一个月
-    const prevDate = diffOfMonth(date.value!, -1)
+    const prevDate = diffOfMonth(date!.value!, -1)
     const prevDays = daysOfMonth(prevDate)
     const [prev_y, prev_m] = getYMD(prevDate)
     for (let i = 0; i < startIndex; i++) {
@@ -108,7 +108,7 @@ export const useDateRows = ({
       })
     }
     // 补齐后一个月
-    const nextDate = diffOfMonth(date.value!, 1)
+    const nextDate = diffOfMonth(date!.value!, 1)
     const [next_y, next_m] = getYMD(nextDate)
     for (let i = startIndex + days, j = 0; i < ROW * COL; i++) {
       const day = ++j

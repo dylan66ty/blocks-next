@@ -45,5 +45,44 @@
       "app-pie",
       "app-sem"
     ]
+  },
+  "bus": {
+    "label": "业务图标",
+    "filenames": [
+      "app-address",
+      "app-arrow-up",
+      "app-call-up",
+      "app-call",
+      "app-copy",
+      "app-download",
+      "app-drag",
+      "app-edit",
+      "app-enterprise",
+      "app-exclamation-point",
+      "app-fax",
+      "app-iphone",
+      "app-letter",
+      "app-love-2",
+      "app-love",
+      "app-minus",
+      "app-new-page",
+      "app-oa-birthday",
+      "app-oa-circle",
+      "app-oa-location",
+      "app-oa-send",
+      "app-oa-telephone",
+      "app-overview",
+      "app-pc-2",
+      "app-pc",
+      "app-plus",
+      "app-qq",
+      "app-query",
+      "app-question",
+      "app-search-2",
+      "app-search",
+      "app-setting",
+      "app-todo",
+      "app-wechat"
+    ]
   }
 }

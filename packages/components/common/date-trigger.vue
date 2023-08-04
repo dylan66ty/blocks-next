@@ -42,19 +42,18 @@
         type: Object,
         default: undefined
       },
-      isRange: {
+      rangePattern: {
         type: Boolean,
-        required: true
+        default: false
       }
     },
     emits: ['clear'],
     setup(props, { emit }) {
       const ns = getNamespace('date-trigger')
-
       const inputComponentRef = ref<InputInstance>()
       const selectTriggerDomRef = ref()
       const computedInputValue = computed(() => {
-        if (props.isRange) {
+        if (props.rangePattern) {
           if (props.inputValue.length) {
             return ' '
           }
@@ -64,7 +63,7 @@
       })
 
       const computedPlaceholder = computed(() => {
-        if (props.isRange) {
+        if (props.rangePattern) {
           return ''
         }
         return props.placeholder
@@ -77,8 +76,10 @@
       watch(
         () => props.inputValue,
         (values) => {
-          inputRange.value.l = values[0]
-          inputRange.value.r = values[1]
+          if (props.rangePattern) {
+            inputRange.value.l = values[0]
+            inputRange.value.r = values[1]
+          }
         },
         {
           immediate: true
@@ -127,7 +128,7 @@
 </script>
 
 <template>
-  <div ref="selectTriggerDomRef" :class="[ns, isRange && `is-range`]">
+  <div ref="selectTriggerDomRef" :class="[ns, rangePattern && `is-range`]">
     <Input
       ref="inputComponentRef"
       :model-value="computedInputValue"
@@ -144,7 +145,7 @@
       </template>
     </Input>
 
-    <div v-if="isRange" :class="[`${ns}__range`, disabled && 'is-disabled']">
+    <div v-if="rangePattern" :class="[`${ns}__range`, disabled && 'is-disabled']">
       <input
         v-model="inputRange.l"
         :class="[`${ns}__range-input`]"

@@ -68,13 +68,58 @@ export const isSameYear = (a: Date | undefined, b: Date | undefined) => {
   return isSameArray(getYMD(a).slice(0, 1), getYMD(b).slice(0, 1))
 }
 
-export const getDateRangeOfOneWeek = (
-  date: Date,
-  weeks: Array<{ label: string; value: number }>
-) => {
+export const getDateRangeOfWeek = (date: Date, weeks: Array<{ label: string; value: number }>) => {
   const dayOfWeek = date.getDay()
   const index = weeks.findIndex((week) => week.value === dayOfWeek)
-  return [diffOfDate(date, -index), diffOfDate(date, 6 - index)]
+  const range: Date[] = [date]
+  for (let i = 1; i <= index; i++) {
+    range.unshift(diffOfDate(date, -i))
+  }
+  for (let i = 1; i < 7 - index; i++) {
+    range.push(diffOfDate(date, i))
+  }
+  return range
+}
+
+export const parseWeek2DateRange = (
+  year: number,
+  week: number,
+  weeks: Array<{ label: string; value: number }>
+) => {
+  const firstDay = new Date(year, 0, 1)
+  const index = weeks.findIndex((w) => w.value === firstDay.getDay())
+  const range = getDateRangeOfWeek(firstDay, weeks)
+  const start = range[0]
+  const end = range[range.length - 1]
+  const std = index > 3 ? diffOfDate(end, 1) : start
+  const s = diffOfDate(std, (week - 1) * 7)
+  const e = diffOfDate(std, week * 7 - 1)
+  return [s, e]
+}
+
+export const weekOfYear = (
+  date: Date,
+  weeks: Array<{ label: string; value: number }>
+): { year: number; week: number } => {
+  const range = getDateRangeOfWeek(date, weeks)
+  const [prevYear] = getYMD(range[0])
+  const [nextYear] = getYMD(range[range.length - 1])
+  let stdYear = range[0].getFullYear()
+  if (prevYear !== nextYear) {
+    const prevDates = range.filter((d) => d.getFullYear() === prevYear)
+    const nextDates = range.filter((d) => d.getFullYear() === nextYear)
+    if (prevDates.length < nextDates.length) {
+      stdYear = range[range.length - 1].getFullYear()
+    }
+  }
+  const yearStartDate = new Date(stdYear, 0, 1)
+  const index = weeks.findIndex((week) => week.value === yearStartDate.getDay())
+  const start = index > 3 ? diffOfDate(yearStartDate, 6 - index) : diffOfDate(yearStartDate, -index)
+  const weekCounter = Math.floor((date.getTime() - start.getTime()) / (24 * 60 * 60 * 1000) / 7) + 1
+  return {
+    year: stdYear,
+    week: weekCounter
+  }
 }
 
 // format:yyyy-MM-dd hh:mm:ss

@@ -311,7 +311,7 @@
 
     <div :class="contentCls" :style="contentStyle">
       <slot></slot>
-      <transition name="bn-slide-bottom">
+      <transition name="bn-zoom-in-top">
         <slot v-if="shouldShowError" name="error" :error="validateMessage">
           <div class="bn-form-item__error">
             {{ validateMessage }}

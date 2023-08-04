@@ -1,0 +1,93 @@
+<script lang="ts">
+  import type { StyleValue } from 'vue'
+  import { defineComponent, computed } from 'vue'
+  import { getNamespace } from '../../../utils/global-config'
+  import { addUnit } from '../../../shared/utils'
+
+  export default defineComponent({
+    name: 'BnIconAppQq',
+    props: {
+      size: {
+        type: [Number, String],
+        default: undefined
+      },
+      rotate: {
+        type: Number,
+        default: undefined
+      },
+      spin: {
+        type: Boolean,
+        default: false
+      },
+      color: {
+        type: String,
+        default: undefined
+      }
+    },
+    setup(props) {
+      const ns = getNamespace('icon')
+
+      const styles = computed(() => {
+        const styles: StyleValue = {}
+        if (props.size) {
+          styles.fontSize = addUnit(props.size)
+        }
+
+        if (props.rotate) {
+          styles.transform = `rotate(${props.rotate}deg)`
+        }
+
+        if (props.color) {
+          styles.color = props.color
+        }
+        return styles
+      })
+
+      const cls = computed(() => [
+        ns,
+        {
+          [`${ns}-loading`]: props.spin
+        }
+      ])
+
+      return {
+        cls,
+        styles
+      }
+    }
+  })
+</script>
+
+<template>
+  <i :class="cls" :style="styles">
+    <svg
+      width="16px"
+      height="16px"
+      viewBox="0 0 16 16"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
+      <title>编组 12</title>
+      <g id="抓潜拓客" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g
+          id="企业详情-联系方式-解锁"
+          transform="translate(-274.000000, -1066.000000)"
+          fill-rule="nonzero"
+          stroke="#242934"
+        >
+          <g id="编组-20" transform="translate(242.000000, 565.000000)">
+            <g id="编组-5" transform="translate(0.000000, 480.000000)">
+              <g id="编组-12" transform="translate(32.000000, 21.000000)">
+                <path
+                  id="路径"
+                  d="M7.99743689,1.5 C9.31324236,1.5 10.2847679,2.00606408 10.930042,2.85477539 C11.6868194,3.85014376 12.003919,5.28197898 11.9653037,6.86406606 C12.0974636,7.29955851 12.1866532,7.51706961 12.2704252,7.7213668 C12.6229115,8.58098568 12.8781521,9.20184616 13.1059107,9.92028694 C13.3343207,10.6366579 13.4447442,11.1858803 13.4834554,11.5892387 C13.2257791,11.6227297 12.9638266,10.8219914 12.9638266,10.8219914 L12.9638266,10.8219914 L12.2151834,8.53353336 L12.0957539,11.0293687 C12.0506129,11.9727229 11.6006526,12.8516592 10.8601173,13.4451528 L10.8601173,13.4451528 L10.1243122,14.0348554 L11.0252907,14.3130568 C11.1988178,14.366638 11.4690844,14.4544969 11.7016448,14.5680981 C11.523966,14.678501 11.0456476,14.5445665 11.0456476,14.5445665 C9.86635866,14.5145021 8.58789048,14.4508953 8.05643895,14.3920378 C7.39063695,14.4531753 6.01458908,14.5201306 4.95586005,14.4939268 C4.69842482,14.4035546 4.85845101,14.3490474 4.97463881,14.3139345 L4.97463881,14.3139345 L5.88630202,14.038422 L5.14182251,13.4444631 C4.3994562,12.8521901 3.94791179,11.9731059 3.90227959,11.0291253 L3.90227959,11.0291253 L3.82544668,9.43970397 L2.97972378,10.7868964 C2.97972378,10.7868964 2.79290215,11.0844935 2.5621263,11.4013013 L2.533,11.44 L2.53401393,11.4297879 C2.57673962,11.0996788 2.66268834,10.6860768 2.8113212,10.1798769 L2.8909514,9.9190184 C3.12553997,9.17644559 3.38852392,8.5394717 3.75931373,7.6389795 C3.83338271,7.45909717 3.91169606,7.26890603 3.9948732,7.06557748 C3.98959981,5.29803113 4.30102785,3.85807737 5.06315962,2.85513247 C5.70554488,2.00977077 6.67512476,1.5 7.99743689,1.5 Z"
+                ></path>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </i>
+</template>

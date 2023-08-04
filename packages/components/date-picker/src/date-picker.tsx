@@ -1,10 +1,14 @@
 import type { VNode } from 'vue'
-import { computed, defineComponent, ref, watch } from 'vue'
+import { computed, defineComponent, ref, toRef, watch } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import Trigger from '../../trigger/src/trigger'
 import DateTrigger from '../../common/date-trigger.vue'
-import { isArray } from '../../../utils/is'
+import { isArray, isDate, isString } from '../../../utils/is'
+import { useFormItem } from '../../form/src/hooks/use-form-item'
+import { NOOP } from '../../../shared/utils'
 import { datePickerProps } from './props'
+
+import { useDateRows } from './hooks/use-date-rows'
 
 import DatePanel from './panels/date-panel.vue'
 import DateRangePanel from './panels/date-range-panel.vue'
@@ -12,7 +16,7 @@ import MonthPanel from './panels/month-panel.vue'
 import MonthRangePanel from './panels/month-range-panel.vue'
 import WeekPanel from './panels/week-panel.vue'
 
-import { dateFormat } from './utils'
+import { dateFormat, parseWeek2DateRange, weekOfYear } from './utils'
 import type { DateType } from './types'
 
 export default defineComponent({
@@ -21,31 +25,67 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup(props, { emit, slots }) {
     const ns = getNamespace('date-picker')
+    const { formItem } = useFormItem()
     const popupVisible = ref(false)
     const mergeDisabled = computed(() => props.disabled)
     const popupRef = ref()
     const pickerVisible = ref(false)
+    const rangePattern = computed(() => props.type.endsWith('range'))
+
+    const { weeks } = useDateRows({ dayStartOfWeek: toRef(props, 'dayStartOfWeek') })
 
     const handlePopupVisibleChange = (visible: boolean) => {
       popupVisible.value = visible
     }
 
-    const isRange = computed(() => ['range', 'week'].some((s) => props.type.includes(s)))
-
     const transDateValue = (date: any): any => {
-      if (isRange.value) {
-        if (isArray(date)) {
-          return date.map((d) => (d ? new Date(d) : undefined))
-        }
-        return []
+      let ret
+      switch (props.type) {
+        case 'date':
+        case 'month':
+          if (date && (isDate(date) || isString(date))) {
+            ret = new Date(date)
+          }
+          if (isArray(date)) {
+            ret = date[0] ? new Date(date[0]) : undefined
+          }
+          break
+        case 'daterange':
+        case 'monthrange':
+          if (isArray(date)) {
+            ret = date.map((d) => (d ? new Date(d) : undefined))
+          }
+          if (date && (isDate(date) || isString(date))) {
+            ret = [new Date(date)]
+          }
+          if (!date) {
+            ret = []
+          }
+          break
+        case 'week':
+          if (isArray(date)) {
+            ret = date.map((d) => (d ? new Date(d) : undefined))
+          }
+
+          if (isString(date) && date) {
+            const matcher = date.match(/(\d+)(?:年|[yY]ear|\s*)[\/-]*(?:\s*)(\d+)(?:周|[wW]eek)/)
+            if (matcher) {
+              ret = parseWeek2DateRange(+matcher[1], +matcher[2], weeks.value)
+            } else {
+              throw new Error('week模式下v-model格式错误，请查阅文档')
+            }
+          }
+          if (!date) {
+            ret = []
+          }
+          break
       }
-      if (!date) return
-      return new Date(date)
+      return ret
     }
 
     const formatModelValue = (date: Date | Date[]) => {
       let ret: any = date
-      if (isRange.value && isArray(date)) {
+      if (isArray(date)) {
         // 从小到大排序下
         const _date = date.slice().sort((a, b) => a.getTime() - b.getTime())
         ret = _date.map((d) => dateFormat(d, props.modelValueFormat))
@@ -65,6 +105,17 @@ export default defineComponent({
       }
     })
 
+    // 表单验证
+    watch(
+      () => props.modelValue,
+      () => {
+        // 表单验证
+        if (props.validateEvent) {
+          formItem?.validate?.('change').catch(NOOP)
+        }
+      }
+    )
+
     const onPopupHide = () => {
       // 在popup关闭的时候同步状态给picker
       pickerVisible.value = false
@@ -80,29 +131,52 @@ export default defineComponent({
       { immediate: true }
     )
 
-    const defaultDateTypeFormatter = (date?: Date, formatter?: string) => {
-      if (formatter) {
-        return dateFormat(date, formatter)
-      }
-      if (['month', 'monthrange'].includes(props.type)) {
-        return dateFormat(date, 'yyyy-MM')
-      }
-      if (['date', 'daterange', 'week'].includes(props.type)) {
-        return dateFormat(date, 'yyyy-MM-dd')
-      }
-      return date?.toDateString()
+    const defaultFormat = (formatter: string) => {
+      return props.inputLabelFormat ? props.inputLabelFormat : formatter
     }
-
     const inputValue = computed(() => {
-      if (isArray(dateModel.value)) {
-        return dateModel.value.map((d) => defaultDateTypeFormatter(d, props.inputLabelFormat))
+      const date = dateModel.value
+      let ret: string[] = []
+      switch (props.type) {
+        case 'date': {
+          ret = [dateFormat(date, defaultFormat('yyyy-MM-dd'))]
+          break
+        }
+        case 'daterange': {
+          ret = date.map((d: Date) => dateFormat(d, defaultFormat('yyyy-MM-dd')))
+          break
+        }
+        case 'month': {
+          ret = [dateFormat(date, defaultFormat('yyyy-MM'))]
+          break
+        }
+        case 'monthrange': {
+          ret = date.map((d: Date) => dateFormat(d, defaultFormat('yyyy-MM')))
+          break
+        }
+        case 'week': {
+          const stdDate = date[0]
+          if (stdDate) {
+            const { year, week } = weekOfYear(stdDate, weeks.value)
+            const formatter = props.inputLabelFormat || 'yyyy年-ww周'
+            const label = formatter.replace(/([yw])+/g, (all: any, t: any) => {
+              if (t === 'w') return String(week).slice(2 - all.length)
+              if (t === 'y') return String(year).slice(4 - all.length)
+              return all
+            })
+            ret = [label]
+          } else {
+            ret = []
+          }
+          break
+        }
       }
-      return [defaultDateTypeFormatter(dateModel.value, props.inputLabelFormat)]
+      return ret
     })
 
     const handleClear = () => {
       let reset: any = ''
-      if (isRange.value) {
+      if (['week', 'range'].some((s) => props.type.includes(s))) {
         reset = []
       }
       emit('update:modelValue', reset)
@@ -138,6 +212,7 @@ export default defineComponent({
         return (
           <MonthPanel
             v-model={dateModel.value}
+            disabledDate={props.disabledDate}
             v-slots={{
               cell: (scoped: any) => slots.cell?.(scoped)
             }}
@@ -148,6 +223,7 @@ export default defineComponent({
         return (
           <MonthRangePanel
             v-model={dateModel.value}
+            disabledDate={props.disabledDate}
             v-slots={{
               cell: (scoped: any) => slots.cell?.(scoped)
             }}
@@ -197,7 +273,7 @@ export default defineComponent({
                   placeholder={props.placeholder}
                   disabled={mergeDisabled.value}
                   size={props.size}
-                  isRange={isRange.value}
+                  rangePattern={rangePattern.value}
                   onClear={handleClear}
                 />
               ),

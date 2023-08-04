@@ -1,6 +1,6 @@
 @use './mixins/bem.scss' as *;
 
-@include b('form') {
+@include b(form) {
   @include m(inline) {
     width: auto;
     .#{$namespace}-form-item {
@@ -34,7 +34,7 @@
   }
 }
 
-@include b('form-item') {
+@include b(form-item) {
   --bn-form-item-font-size: 14px;
   --bn-form-item-error-color: var(--bn-danger);
   --bn-form-item-error-font-size: 12px;
@@ -42,7 +42,7 @@
   --bn-form-item-required-color: #f56c6c;
 }
 
-@include b('form-item') {
+@include b(form-item) {
   margin-bottom: 22px;
 
   // 嵌套表单不给marginBottom

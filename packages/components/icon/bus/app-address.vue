@@ -1,0 +1,93 @@
+<script lang="ts">
+  import type { StyleValue } from 'vue'
+  import { defineComponent, computed } from 'vue'
+  import { getNamespace } from '../../../utils/global-config'
+  import { addUnit } from '../../../shared/utils'
+
+  export default defineComponent({
+    name: 'BnIconAppAddress',
+    props: {
+      size: {
+        type: [Number, String],
+        default: undefined
+      },
+      rotate: {
+        type: Number,
+        default: undefined
+      },
+      spin: {
+        type: Boolean,
+        default: false
+      },
+      color: {
+        type: String,
+        default: undefined
+      }
+    },
+    setup(props) {
+      const ns = getNamespace('icon')
+
+      const styles = computed(() => {
+        const styles: StyleValue = {}
+        if (props.size) {
+          styles.fontSize = addUnit(props.size)
+        }
+
+        if (props.rotate) {
+          styles.transform = `rotate(${props.rotate}deg)`
+        }
+
+        if (props.color) {
+          styles.color = props.color
+        }
+        return styles
+      })
+
+      const cls = computed(() => [
+        ns,
+        {
+          [`${ns}-loading`]: props.spin
+        }
+      ])
+
+      return {
+        cls,
+        styles
+      }
+    }
+  })
+</script>
+
+<template>
+  <i :class="cls" :style="styles">
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 24 24"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
+      <title>编组 16</title>
+      <g id="抓潜拓客" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g
+          id="菜单图标"
+          transform="translate(-200.000000, -412.000000)"
+          fill="#9CA6B9"
+          fill-rule="nonzero"
+        >
+          <g id="编组-16" transform="translate(200.000000, 412.000000)">
+            <path
+              id="椭圆形"
+              d="M11.5,7 C13.4329966,7 15,8.56700338 15,10.5 C15,12.4329966 13.4329966,14 11.5,14 C9.56700338,14 8,12.4329966 8,10.5 C8,8.56700338 9.56700338,7 11.5,7 Z M11.5,8.6 C10.450659,8.6 9.6,9.45065898 9.6,10.5 C9.6,11.549341 10.450659,12.4 11.5,12.4 C12.549341,12.4 13.4,11.549341 13.4,10.5 C13.4,9.45065898 12.549341,8.6 11.5,8.6 Z"
+            ></path>
+            <path
+              id="椭圆形"
+              d="M11.5,3 C15.6421356,3 19,6.28663695 19,10.3409091 C19,12.5808143 17.2830565,15.8624569 13.8491696,20.1858371 C13.7070026,20.3648301 13.5448443,20.5269885 13.3658513,20.6691554 C12.1183419,21.660002 10.3256051,21.4980477 9.27345432,20.3307314 L9.15083334,20.1858372 L8.8522972,19.8070673 C5.6174324,15.670321 4,12.5149349 4,10.3409091 C4,6.28663695 7.35786438,3 11.5,3 Z M11.5,4.6 C8.23393295,4.6 5.6,7.17806164 5.6,10.3409091 C5.6,11.9500511 6.90882548,14.6009116 9.57575292,18.1239251 L10.1089043,18.8166438 L10.4037239,19.1907165 C10.8846144,19.7961738 11.7652733,19.8971553 12.3707306,19.4162648 C12.4542606,19.3499203 12.5299345,19.2742465 12.596279,19.1907165 C13.1650872,18.4745676 13.6827365,17.7907244 14.1495691,17.1403553 L14.5994755,16.5011875 C16.475778,13.7801871 17.4,11.6950695 17.4,10.3409091 C17.4,7.17806164 14.7660671,4.6 11.5,4.6 Z"
+            ></path>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </i>
+</template>

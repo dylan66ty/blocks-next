@@ -34,13 +34,16 @@
         },
         {
           "text": "选择器 Select",
-          "link": "select",
-          "promotion": "enhanced"
+          "link": "select"
         },
         {
           "text": "级联选择 Cascader",
-          "link": "cascader",
-          "promotion": "enhanced"
+          "link": "cascader"
+        },
+        {
+          "text": "日期选择器 DatePicker",
+          "link": "datePicker",
+          "promotion": "alpha.33"
         },
         {
           "text": "开关 Switch",
@@ -122,13 +125,11 @@
         },
         {
           "text": "描述列表 Descriptions",
-          "link": "descriptions",
-          "promotion": "alpha.30"
+          "link": "descriptions"
         },
         {
           "text": "下拉菜单 Dropdown",
-          "link": "dropdown",
-          "promotion": "alpha.31"
+          "link": "dropdown"
         }
       ]
     },
@@ -141,8 +142,7 @@
         },
         {
           "text": "弹出层 Popup",
-          "link": "popup",
-          "promotion": "alpha.30"
+          "link": "popup"
         }
       ]
     }
