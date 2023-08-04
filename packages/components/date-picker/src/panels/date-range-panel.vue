@@ -19,7 +19,7 @@
     props: {
       dayStartOfWeek: {
         type: Number,
-        required: true
+        default: 0
       },
       modelValue: {
         type: Array as PropType<Date[]>,
@@ -67,8 +67,8 @@
       const actions = computed(() => {
         const [ly, lm] = getYMD(leftDate.value)
         const [ry, rm] = getYMD(rightDate.value)
-        const left = []
-        const right = []
+        const left: string[] = []
+        const right: string[] = []
         if (ly === ry && lm === rm - 1) {
           left.push('prev', 'prevSuper')
           right.push('next', 'nextSuper')

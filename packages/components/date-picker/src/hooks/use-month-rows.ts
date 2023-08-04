@@ -2,6 +2,7 @@ import type { Ref } from 'vue'
 import { computed } from 'vue'
 import { genCell, getYMD, isSameMonth, dateHasInRange } from '../utils'
 import { genMatrix } from '../../../../shared/utils'
+import type { DateCell } from '../types'
 
 const MONTHS = [
   '一月',
@@ -30,7 +31,7 @@ export const useMonthRows = ({
   disabledDate?: Ref<Function | undefined>
 }) => {
   const rows = computed(() => {
-    const cells = []
+    const cells: DateCell[] = []
     const ROW = 4
     const [y] = getYMD(date.value)
     for (let i = 0; i < 12; i++) {

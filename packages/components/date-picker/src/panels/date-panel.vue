@@ -18,7 +18,7 @@
     props: {
       dayStartOfWeek: {
         type: Number,
-        required: true
+        default: 0
       },
       modelValue: {
         type: Date,

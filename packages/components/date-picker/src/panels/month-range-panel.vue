@@ -59,8 +59,8 @@
       const actions = computed(() => {
         const [ly] = getYMD(leftDate.value)
         const [ry] = getYMD(rightDate.value)
-        const left = []
-        const right = []
+        const left: string[] = []
+        const right: string[] = []
         if (ly === ry - 1) {
           left.push('prevSuper')
           right.push('nextSuper')
