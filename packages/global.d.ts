@@ -31,6 +31,7 @@ declare module '@vue/runtime-core' {
     BnDescriptions: typeof import('blocks-next')['Descriptions']
     BnDescriptionsItem: typeof import('blocks-next')['DescriptionsItem']
     BnPopup: typeof import('blocks-next')['Popup']
+    BnDatePicker: typeof import('blocks-next')['DatePicker']
   }
 
   interface ComponentCustomProperties {

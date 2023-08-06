@@ -11,6 +11,7 @@
     "consola",
     "daterange",
     "monthrange",
+    "npmjs",
     "popconfirm",
     "vitepress",
     "vnode"

@@ -176,6 +176,8 @@
   --bn-input-color: var(--bn-color-1);
   --bn-input-disabled-text-color: var(--bn-color-3);
   --bn-input-background-color: #fff;
+  --bn-input-disabled-background-color: rgb(245 247 251 / 50%);
+
 }
 
 @include b(textarea) {
@@ -221,9 +223,7 @@
     font-size: inherit;
     color: var(--bn-input-color);
     background: 0 0;
-    background-color: #fff;
     outline: none;
-    resize: vertical;
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     line-height: 1.5;
     box-sizing: border-box;
@@ -239,10 +239,11 @@
 
     &:disabled {
       pointer-events: none;
+      color: var(--bn-input-disabled-text-color);
     }
 
     &:disabled::placeholder {
-      color: var(--bn-input-disabled-border-color);
+      color: var(--bn-input-placeholder-color);
     }
   }
 

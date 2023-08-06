@@ -95,7 +95,7 @@ datePicker/formats
 
 
 ## 每周的第一天开始于周几
-使用 `day-start-of-week` 可以禁用某些日期。
+使用 `day-start-of-week` 可以重置第一天开始于周几
 ::: demo
 datePicker/week-start
 :::
@@ -140,7 +140,7 @@ export interface DateCell {
 |day-start-of-week|每周的第一天开始于周几，0:周日，1:周一，以此类推。|`0 / 1 / 2 / 3 / 4 / 5 / 6`|`1`|
 |model-value-format|可选，绑定值的格式。 不指定则绑定值为 Date 对象|`string`|`-`|
 |input-label-format|显示在输入框中的格式,具体规则请看 [这里](/components/datePicker#日期格式) |`string`|`-`|
-|disabled-date|不可选取的日期|`(date?: Date) => boolean`|`-`|
+|disabled-date|不可选取的日期|`(date: Date) => boolean`|`-`|
 |popup-class|自定义弹出层类名|`string`|`-`|
 
 
@@ -155,7 +155,7 @@ export interface DateCell {
 ## Slots
 |name|描述|scoped|
 |---|---|---|
-|cell|自定义单元格内容|`{cell:CellDate}`|
+|cell|自定义单元格内容|`{cell:DateCell}`|
 
 
 

@@ -44,7 +44,7 @@
 <template>
   <!-- <Dialog /> -->
 
-  <DatePicker />
+  <Input />
 </template>
 
 <style></style>

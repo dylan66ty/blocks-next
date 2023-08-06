@@ -7,3 +7,5 @@ bin
 *.local
 
 pnpm-lock.yaml
+
+.publish.env

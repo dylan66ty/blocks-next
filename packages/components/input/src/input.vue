@@ -27,6 +27,7 @@
     setup(props, { emit, slots, attrs }) {
       const inputNs = getNamespace('input')
       const textareaNs = getNamespace('textarea')
+
       const mergeDisable = computed(() => props.disabled)
 
       const inputWrapperCls = computed(() => [
@@ -131,7 +132,6 @@
         ;(e.target as TargetElement).value = value
       }
 
-      // input change事件
       const handleChange = (e: Event) => {
         emit('change', (e.target as TargetElement).value)
       }
@@ -175,29 +175,31 @@
 
       // textarea
       const textareaRef = shallowRef<HTMLTextAreaElement>()
+
       const textareaCalcStyle = shallowRef({})
-      const textareaStyle = computed(() => [textareaCalcStyle.value, { resize: props.resize }])
+      const textareaBaseStyle = computed(() => {
+        const style: any = {}
+        style.resize = props.resize ? 'vertical' : 'none'
+        return style
+      })
 
       const resizeTextarea = () => {
         const { type, autosize } = props
-
         if (!isClient || type !== 'textarea' || !textareaRef.value) return
 
         if (autosize) {
           const minRows = isObject(autosize) ? autosize.minRows : undefined
           const maxRows = isObject(autosize) ? autosize.maxRows : undefined
-          const textareaStyle = calcTextareaHeight(textareaRef.value, minRows, maxRows)
+          const style = calcTextareaHeight(textareaRef.value, minRows, maxRows)
           textareaCalcStyle.value = {
             overflowY: 'hidden',
-            ...textareaStyle
+            ...style,
+            ...textareaBaseStyle.value
           }
-          nextTick(() => {
-            textareaRef.value!.offsetHeight
-            textareaCalcStyle.value = textareaStyle
-          })
         } else {
           textareaCalcStyle.value = {
-            minHeight: calcTextareaHeight(textareaRef.value).minHeight
+            minHeight: calcTextareaHeight(textareaRef.value).minHeight,
+            ...textareaBaseStyle.value
           }
         }
       }
@@ -240,7 +242,7 @@
         computedModelValue,
         inputType,
         inputRef,
-        textareaStyle,
+        textareaCalcStyle,
         textareaRef,
         mergeDisable,
         currentValueLength,
@@ -273,11 +275,10 @@
     :style="containerStyle"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
-    @mousedown="manualInputFocus"
   >
     <!-- input -->
     <template v-if="type === 'text'">
-      <div :class="inputWrapperCls">
+      <div :class="inputWrapperCls" @mousedown="manualInputFocus">
         <span v-if="hasPrefixIcon" :class="[`${inputNs}__prefix`]">
           <span :class="[`${inputNs}__icon`]">
             <slot name="prefix-icon">
@@ -337,10 +338,10 @@
     <template v-if="type === 'textarea'">
       <div :class="textareaWrapperCls">
         <textarea
-          ref="inputRef"
+          ref="textareaRef"
           :class="[`${textareaNs}__inner`]"
           :disabled="mergeDisable"
-          :style="textareaStyle"
+          :style="textareaCalcStyle"
           :placeholder="placeholder"
           :value="computedModelValue"
           :readonly="readonly"

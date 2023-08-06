@@ -57,7 +57,7 @@ switch/intercept
 |falseValue|未激活状态绑定的值|`boolean` / `string` / `number`|`-`|
 |active-color|激活状态时的背景颜色|`string`|`-`|
 |inactive-color|未激活激活状态时的背景颜色|`string`|`-`|
-|before-change|switch 状态改变前的钩子， 返回 false 或者返回 Promise 且被 reject 则停止切换|`() => Promise<boolean> ` \ ` boolean`|`-`|
+|before-change|switch 状态改变前的钩子， 返回 false 或者返回 Promise 且被 reject 则停止切换|`() => Promise<boolean> ` / ` boolean`|`-`|
 
 ## Events
 |name|描述|回调参数|

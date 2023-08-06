@@ -6,7 +6,8 @@
 
 <template>
   <div>
-    <bn-input v-model="inp"></bn-input>
+    <bn-input type="textarea"></bn-input>
+
   </div>
 </template>
 

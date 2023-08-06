@@ -91,3 +91,34 @@
     }
   }
 }
+
+
+.form-blink-enter-from,
+.form-blink-appear-from {
+  opacity: 0;
+}
+
+.form-blink-enter-to,
+.form-blink-appear-to {
+  opacity: 1;
+}
+
+.form-blink-enter-active,
+.form-blink-appear-active {
+  transition: opacity 0.3s linear;
+  animation: blink 0.5s linear;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

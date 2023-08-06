@@ -5,7 +5,7 @@
 
 <template>
   <div>
-    <div style="margin-bottom: 10px">激活 : {{ radio }}</div>
+    <div style="margin-bottom: 10px">radio: {{ radio }}</div>
     <bn-radio-group v-model="radio">
       <bn-radio label="vue">Vue</bn-radio>
       <bn-radio label="react">React</bn-radio>

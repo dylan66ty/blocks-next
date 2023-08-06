@@ -59,13 +59,13 @@ cascader/footer
 :::
 
 ## 模糊搜索 ^(beta)
-可以利用模糊搜索功能快速查找选项。通过添加`filterable`来启用过滤。`filter-method`自定义搜索方法，该方法必须是个函数，第一个参数是node，第二个参数是搜索关键词query，通过返回布尔值表示是否命中
+可以利用模糊搜索功能快速查找选项。通过添加 `filterable` 来启用过滤。`filter-method` 自定义搜索方法，该方法必须是个函数，第一个参数是node，第二个参数是搜索关键词query，通过返回布尔值表示是否命中
 ::: demo 
 cascader/filterable
 :::
 
 ## 自定义节点内容 
-你可以通过 scoped slot 自定义节点的内容。 您可以访问 scope 中的 node 和 data 属性，分别表示当前节点的 Node 对象和当前节点的数据
+你可以通过 scoped slot 自定义节点的内容。 你可以访问 scoped 中的 node 和 data 属性，分别表示当前节点的 Node 对象和当前节点的数据
 ::: demo 
 cascader/custom-node-value
 :::

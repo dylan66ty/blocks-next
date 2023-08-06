@@ -4,9 +4,7 @@
 </script>
 
 <template>
-  <div>
-    <bn-checkbox v-model="checked">Vue</bn-checkbox>
-  </div>
+  <bn-checkbox v-model="checked">Vue</bn-checkbox>
 </template>
 
 <style lang="scss"></style>
