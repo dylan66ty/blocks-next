@@ -5,7 +5,8 @@ const config = require('../config')
 async function uploadDocs() {
   const client = new ftp.Client()
   const localPath = path.resolve(process.cwd(), config.DOC_PKG_DIST_PATH)
-  client.ftp.verbose = true
+  // 关闭日志输出
+  client.ftp.verbose = false
   try {
     await client.access({
       host: config.HOST,

@@ -47,7 +47,7 @@
     ]
   },
   "bus": {
-    "label": "业务图标",
+    "label": "业务图标（alpha.33）",
     "filenames": [
       "app-address",
       "app-arrow-up",

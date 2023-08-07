@@ -16,7 +16,7 @@ const svgSource = path.join(`${process.cwd()}/packages/svgs`)
 const maps = {
   base: '基础图标',
   app: '应用图标',
-  bus: '业务图标'
+  bus: '业务图标（alpha.33）'
 }
 
 const formatComponentName = (name) => {
