@@ -1,5 +1,13 @@
 # 更新日志
 
+## 1.0.1-alpha.34
+`2023-08-07`
+- Components [Dialog] 🐛 css的inset属性在chrome 4-86 版本不支持修复
+- Components [MessageBox] 🐛 css的inset属性在chrome 4-86 版本不支持修复
+- Components [Drawer] 🐛 css的inset属性在chrome 4-86 版本不支持修复
+- Components [Loading] 🐛 css的inset属性在chrome 4-86 版本不支持修复
+
+
 ## 1.0.1-alpha.33
 `2023-08-04`
 - Components [DatePicker] ✨ 时间日期组件(date/daterange/month/monthrange/week)
