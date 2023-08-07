@@ -37,7 +37,7 @@
     "@dylan66ty/commitlint-config": "^0.0.1",
     "@dylan66ty/eslint-config-vue": "^0.0.8",
     "@dylan66ty/prettier-config": "^0.0.2",
-    "@dylan66ty/stylelint-config": "^0.0.8",
+    "@dylan66ty/stylelint-config": "^0.0.9",
     "@jsdevtools/version-bump-prompt": "^6.1.0",
     "@types/inquirer": "^9.0.3",
     "@types/node": "*",

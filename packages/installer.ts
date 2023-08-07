@@ -34,6 +34,7 @@ import { Popup } from './components/popup'
 import { Dropdown } from './components/dropdown'
 import { DropdownItem } from './components/dropdown-item'
 import { DatePicker } from './components/date-picker'
+import { Tree } from './components/tree'
 
 // plugin
 import { Message } from './components/message'
@@ -74,7 +75,8 @@ const components = [
   Popup,
   Dropdown,
   DropdownItem,
-  DatePicker
+  DatePicker,
+  Tree
 ] as Plugin[]
 
 const plugins = [Message, MessageBox, Notification, Loading]

@@ -7,7 +7,7 @@ importers:
       '@dylan66ty/commitlint-config': ^0.0.1
       '@dylan66ty/eslint-config-vue': ^0.0.8
       '@dylan66ty/prettier-config': ^0.0.2
-      '@dylan66ty/stylelint-config': ^0.0.8
+      '@dylan66ty/stylelint-config': ^0.0.9
       '@jsdevtools/version-bump-prompt': ^6.1.0
       '@types/inquirer': ^9.0.3
       '@types/node': '*'
@@ -47,7 +47,7 @@ importers:
       '@dylan66ty/commitlint-config': registry.npmmirror.com/@dylan66ty/commitlint-config/0.0.1_czg@1.4.1+husky@8.0.3
       '@dylan66ty/eslint-config-vue': registry.npmmirror.com/@dylan66ty/eslint-config-vue/0.0.8_4vsywjlpuriuw3tl5oq6zy5a64
       '@dylan66ty/prettier-config': registry.npmmirror.com/@dylan66ty/prettier-config/0.0.2_6xprzernlpxwjedpj2snzq4bpq
-      '@dylan66ty/stylelint-config': registry.npmmirror.com/@dylan66ty/stylelint-config/0.0.8_stylelint@15.8.0
+      '@dylan66ty/stylelint-config': registry.npmmirror.com/@dylan66ty/stylelint-config/0.0.9_stylelint@15.8.0
       '@jsdevtools/version-bump-prompt': 6.1.0
       '@types/inquirer': registry.npmmirror.com/@types/inquirer/9.0.3
       '@types/node': 18.11.17
@@ -9628,11 +9628,11 @@ packages:
       prettier: 2.8.3
     dev: true
 
-  registry.npmmirror.com/@dylan66ty/stylelint-config/0.0.8_stylelint@15.8.0:
-    resolution: {integrity: sha512-C9IXFhPxPkbYgmclDpOfGvsjzSteABx7rTYLfcNjOPvIN9dcELIPLPZzhfnUCICDt7xqY9elKk5mL6QZL9vAYw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@dylan66ty/stylelint-config/-/stylelint-config-0.0.8.tgz}
-    id: registry.npmmirror.com/@dylan66ty/stylelint-config/0.0.8
+  registry.npmmirror.com/@dylan66ty/stylelint-config/0.0.9_stylelint@15.8.0:
+    resolution: {integrity: sha512-Hp037IgX1nlbYOtgfBCxkuJPch7fVAkI6GADUgy4Sqmr285M0P5nSDvu040PMWP1GdqPhpLmP0R/Wr62yM9olw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@dylan66ty/stylelint-config/-/stylelint-config-0.0.9.tgz}
+    id: registry.npmmirror.com/@dylan66ty/stylelint-config/0.0.9
     name: '@dylan66ty/stylelint-config'
-    version: 0.0.8
+    version: 0.0.9
     peerDependencies:
       stylelint: '>=15.8.0'
     dependencies:

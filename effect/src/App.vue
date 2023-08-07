@@ -35,7 +35,7 @@
   import Descriptions from './components/Descriptions.vue'
 
   import DatePicker from './components/DatePicker.vue'
-
+  import Tree from './components/Tree.vue'
 
 
 
@@ -44,7 +44,7 @@
 <template>
   <!-- <Dialog /> -->
 
-  <Input />
+  <Tree />
 </template>
 
 <style></style>

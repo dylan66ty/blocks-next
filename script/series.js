@@ -88,8 +88,8 @@ const execTasks = async (tasks = []) => {
   const taskFns = tasks.reverse().map((cmd) => () => cmdMap[cmd]())
 
   composeAsync(...taskFns, async () => {
-    const exist = await fs.exists(path.resolve(process.cwd(), '.publish.env'))
-    if (!exist) throw '项目根目录缺少 .publish.env 文件'
+    const config = await fs.exists(path.resolve(process.cwd(), '.publish.env'))
+    if (!config) throw '项目根目录缺少 .publish.env 文件'
   })().catch((err) => {
     log.error(err)
     process.exit(1)
