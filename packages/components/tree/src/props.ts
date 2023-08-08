@@ -10,16 +10,26 @@ export const treeProps = {
     type: Boolean,
     default: false
   },
-  checkedKeys: {
+  selected: {
     type: Array as PropType<string[]>,
-    default: undefined
+    default: () => []
   },
   showLine: {
     type: Boolean,
     default: false
   },
-  size: {
-    type: String as PropType<'small' | 'default' | 'large'>,
-    default: 'small'
+  defaultExpandAll: {
+    type: Boolean,
+    default: false
+  },
+  // 节点独占一行
+  blockNode: {
+    type: Boolean,
+    default: false
+  },
+  // 带复选框
+  checkable: {
+    type: Boolean,
+    default: false
   }
 }

@@ -1,0 +1,111 @@
+@use './mixins/bem.scss' as *;
+
+
+
+@mixin ie ($element) {
+  .#{$namespace}-tree__#{$element} {
+    @content;
+  }
+}
+
+
+@include b(tree) {
+  --bn-tree-indent-size:12px;
+  --bn-tree-indent-gap: 10px;
+  --bn-tree-node-height: 32px;
+  --bn-tree-line-background-color: rgb(229 230 235 / 100%);
+
+}
+
+
+@include b(tree) {
+  @include e(node) {
+    display: flex;
+    align-items: center;
+    height: var(--bn-tree-node-height);
+    font-size: var(--bn-font-size);
+
+
+    &.is-selected {
+        @include ie(node-label) {
+          color: var(--bn-primary);
+        }
+
+    }
+
+  }
+
+  @include e(indent) {
+    display: flex;
+    height: 100%;
+  }
+
+  @include e(indent-block) {
+    margin-right: var(--bn-tree-indent-gap);
+    width: var(--bn-tree-indent-size);
+
+    &.is-line {
+    position: relative;
+
+      &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%,0);
+      width: 1px;
+      height: 100%;
+      background-color:var(--bn-tree-line-background-color);
+
+      }
+    }
+  }
+
+  @include e(placeholder) {
+    display: flex;
+    align-items: center;
+    margin-right: 6px;
+    width: 14px;
+    height: 100%;
+    color: #bec3cf;
+    cursor: pointer;
+
+    > i {
+      transition: transform 0.3s;
+    }
+
+    &.is-bottom-line {
+      position: relative;
+
+        &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%,50%);
+        width: 1px;
+        height: calc(var(--bn-tree-node-height) / 3);
+        background-color:var(--bn-tree-line-background-color);
+  
+        }
+      }
+  }
+
+  @include e(node-label) {
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    height: 100%;
+    color: var(--bn-color-1);
+
+    &:hover {
+      background-color:#f2f3f5;
+      cursor: pointer;
+    }
+
+    .is-block {
+      flex: 1;
+    }
+  }
+}
+

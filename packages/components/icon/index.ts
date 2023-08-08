@@ -12,7 +12,10 @@ import BnIconClock from './base/clock.vue'
 import BnIconCloseFill from './base/close-fill.vue'
 import BnIconClose from './base/close.vue'
 import BnIconDelete from './base/delete.vue'
+import BnIconDocument from './base/document.vue'
 import BnIconEmpty from './base/empty.vue'
+import BnIconFolderOpen from './base/folder-open.vue'
+import BnIconFolder from './base/folder.vue'
 import BnIconHide from './base/hide.vue'
 import BnIconLoading from './base/loading.vue'
 import BnIconMinus from './base/minus.vue'
@@ -85,7 +88,10 @@ const components = [
   BnIconCloseFill,
   BnIconClose,
   BnIconDelete,
+  BnIconDocument,
   BnIconEmpty,
+  BnIconFolderOpen,
+  BnIconFolder,
   BnIconHide,
   BnIconLoading,
   BnIconMinus,
@@ -169,7 +175,10 @@ export {
   BnIconCloseFill,
   BnIconClose,
   BnIconDelete,
+  BnIconDocument,
   BnIconEmpty,
+  BnIconFolderOpen,
+  BnIconFolder,
   BnIconHide,
   BnIconLoading,
   BnIconMinus,

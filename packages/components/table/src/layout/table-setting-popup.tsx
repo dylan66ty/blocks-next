@@ -27,6 +27,7 @@ export default defineComponent({
     const columnsList = ref<TableColumnData[]>([])
 
     const handleCheckboxChange = (column: TableColumnData, status: boolean) => {
+      if (column.disabled) return
       column.hidden = !status
       column.checked = status
     }

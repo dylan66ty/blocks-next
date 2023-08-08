@@ -1,16 +1,9 @@
 import type MarkdownIt from 'markdown-it'
 
 export default (md: MarkdownIt): void => {
-  /**
-   * To enable the plugin to be parsed in the demo description, the content is rendered as span instead of ElTag.
-   */
   md.renderer.rules.tag = (tokens, idx) => {
     const token = tokens[idx]
     const value = token.content
-    /**
-     * Add styles for some special tags
-     * vitepress/styles/content/tag-mark-content.scss
-     */
     const tagClass = ['beta', 'delete'].includes(value) ? `is-${value}` : ''
     return `<span class="vp-tag ${tagClass}">${value}</span>`
   }
