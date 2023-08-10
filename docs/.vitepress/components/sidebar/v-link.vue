@@ -1,7 +1,6 @@
 <script lang="ts" setup>
   import { computed, ref, watch } from 'vue'
-  import { useRoute } from 'vitepress'
-
+  import { useRoute , useData} from 'vitepress'
   import type { Link } from '../types'
 
   const props = defineProps<{
@@ -13,10 +12,10 @@
   const sidebarItem = ref<HTMLElement>()
 
   const route = useRoute()
-
+  const { site } = useData()
   const activeLink = computed<boolean>(() => {
     const link = route.path.split('.html')
-    return props.item.link === link[0]
+    return link[0] === site.value.base + props.item.link
   })
 
   watch([activeLink, sidebarItem], ([active, el]) => {
@@ -34,7 +33,7 @@
       active: activeLink,
       'is-promotion': item.promotion
     }"
-    :href="item.link"
+    :href="site.base + item.link"
     @click="$emit('close')"
   >
     <p class="link-text">{{ item.text }}</p>

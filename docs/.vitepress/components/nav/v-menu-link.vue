@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { useRoute } from 'vitepress'
+  import { useData, useRoute } from 'vitepress'
   import type { Link } from '../types'
 
   defineProps<{
@@ -7,18 +7,17 @@
   }>()
 
   const route = useRoute()
+  const { site } = useData()
 
   const isActiveLink = (item: Link) => {
-    const activeMatch = item.activeMatch
-    if(!activeMatch) return
-    return route.path?.includes(activeMatch)
+    return route.path?.includes(item.link)
   }
 </script>
 
 <template>
   <component
     :is="item.link ? 'a' : 'span'"
-    :href="item.link"
+    :href="site.base + item.link"
     :class="{
       'is-menu-link': true,
       active: isActiveLink(item)
@@ -42,6 +41,7 @@
 
     &.active {
       border-bottom-color: var(--brand-color);
+      color: var(--brand-color);
     }
 
     &:hover {

@@ -1,12 +1,10 @@
 [
   {
     "text": "指南",
-    "link": "/docs/guide/getting-started",
-    "activeMatch": "/guide/"
+    "link": "guide/getting-started"
   },
   {
     "text": "组件",
-    "link": "/docs/components/button",
-    "activeMatch": "/components/"
+    "link": "components/button"
   }
 ]

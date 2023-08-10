@@ -13,14 +13,15 @@ export const useSidebar = () => {
   const sidebars = computed(() => {
     if (page.value.frontmatter.sidebar === false) return []
     const sidebar = site.value.themeConfig.sidebar
-    const path = route.path
+    const path = route.path 
     for (const dir in sidebar) {
-      if (path.startsWith(dir)) {
+      if (path.includes(dir)) {
         return sidebar[dir]
       }
     }
     return []
   })
+  console.log(sidebars);
   return {
     sidebars,
     hasSidebar: computed(() => sidebars.value.length > 0)

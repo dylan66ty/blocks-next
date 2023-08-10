@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-  const goHome = () => {
-    location.href = '/docs/'
-  }
+  import { useData } from "vitepress";
+  const { site } = useData()
+
 </script>
 
 <template>
-  <div class="navbar-logo" @click="goHome">
+  <a class="navbar-logo" :href="site.base" >
     <img src="/blocks-next-logo.svg" alt="" />
-  </div>
+  </a>
 </template>
 
 <style lang="scss">

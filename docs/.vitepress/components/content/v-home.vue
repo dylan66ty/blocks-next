@@ -1,8 +1,10 @@
 <script lang="ts" setup>
   import { onMounted, onUnmounted } from 'vue'
-
-  const goto = (url) => {
-    location.href = url
+  import { useData } from 'vitepress'
+  
+  const { site } = useData()
+  const navigation = (path) => {
+    location.href = site.value.base + path
   }
  
   let originOverflow = ''
@@ -27,7 +29,7 @@
         >一个更加『轻量』和『快速』的基于 Vue3 组件库</div
       >
       <div class="banner__ops animate__animated animate__fadeIn animate__slower">
-        <bn-button type="primary" size="small" @click="goto('/docs/guide/getting-started.html')">
+        <bn-button type="primary" size="small" @click="navigation('guide/getting-started.html')">
           <span>开始使用</span>
           <svg
             class="icon"
@@ -42,7 +44,7 @@
             ></path>
           </svg>
         </bn-button>
-        <bn-button size="small" @click="goto('/docs/guide/changelogs.html')">更新日志</bn-button>
+        <bn-button size="small" @click="navigation('guide/changelogs.html')">更新日志</bn-button>
       </div>
     </div>
     <div class="home-bg-left-bottom">
