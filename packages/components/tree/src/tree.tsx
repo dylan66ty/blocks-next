@@ -1,49 +1,90 @@
-import { defineComponent, provide, reactive, ref, toRefs, watch } from 'vue'
+import { defineComponent, onUnmounted, provide, reactive, ref, toRefs, watch } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
+import { isArray } from '../../../utils/is'
 import { treeProps } from './props'
 import TreeNodeComp from './layout/node.vue'
 import { transDataToNodes } from './utils'
 import type { TreeNode } from './type'
+import { treeInjectKey } from './context'
+
 import { useRenderFlattenNodes } from './hooks/use-render-flatten-nodes'
 import { useSelected } from './hooks/use-selected'
-import { treeInjectKey } from './context'
+import { useChecked } from './hooks/use-checked'
 
 export default defineComponent({
   name: getComponentNamespace('Tree'),
   props: treeProps,
-  emits: ['update:selected'],
-  setup(props, { slots }) {
-    const { selected, showLine, defaultExpandAll, multiple, blockNode } = toRefs(props)
+  emits: ['update:selected', 'update:checked'],
+  setup(props, { slots, expose }) {
+    const {
+      selected,
+      checked,
+      checkStrictly,
+      showLine,
+      defaultUnfoldAll,
+      defaultUnfoldValues,
+      multiple,
+      blockNode,
+      showCheckbox,
+      data,
+      accordion
+    } = toRefs(props)
     const ns = getNamespace('tree')
     const nodes = ref<TreeNode[]>([])
     const nodesMap = reactive(new Map<string, TreeNode>())
 
-    const { renderFlattenNodes, toggleNodeExpand } = useRenderFlattenNodes({
+    expose({})
+
+    const { renderFlattenNodes, toggleNodeUnfoldOrFold } = useRenderFlattenNodes({
       nodes,
-      defaultExpandAll
+      nodesMap,
+      originData: data,
+      defaultUnfoldAll,
+      defaultUnfoldValues,
+      accordion
     })
 
-    const { handleNodeSelected, selectedValues } = useSelected({ selected, multiple, nodesMap })
+    const { handleNodeSelected, selectedValues } = useSelected({
+      selected,
+      multiple,
+      nodesMap
+    })
+
+    const { toggleNodeCheckStatus, checkedNodesPathKeys } = useChecked({
+      checked,
+      checkStrictly,
+      nodesMap
+    })
 
     provide(
       treeInjectKey,
       reactive({
         showLine,
         blockNode,
+        showCheckbox,
         selectedValues,
-        toggleNodeExpand,
+        checkedNodesPathKeys,
+        rootSlots: slots,
+        toggleNodeUnfoldOrFold,
         handleNodeSelected,
-        rootSlots: slots
+        toggleNodeCheckStatus
       })
     )
 
     watch(
       () => props.data,
-      (newData) => {
-        nodes.value = transDataToNodes(newData, { nodesMap })
+      () => {
+        if (isArray(props.data)) {
+          nodes.value = transDataToNodes(props.data, { nodesMap })
+        }
       },
-      { immediate: true }
+      { immediate: true, deep: true }
     )
+
+    onUnmounted(() => {
+      nodesMap.clear()
+      nodes.value = []
+    })
 
     return () => {
       return (

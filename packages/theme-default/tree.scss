@@ -10,10 +10,14 @@
 
 
 @include b(tree) {
-  --bn-tree-indent-size:12px;
-  --bn-tree-indent-gap: 10px;
+  --bn-tree-indent-size:18px;
+  --bn-tree-indent-gap: 8px;
   --bn-tree-node-height: 32px;
   --bn-tree-line-background-color: rgb(229 230 235 / 100%);
+  --bn-tree-expand-icon-color: #bec3cf;
+  --bn-tree-expand-action-color: #f2f3f5;
+  --bn-tree-label-color: var(--bn-color-1);
+  --bn-tree-disabled-color: var(--bn-color-4);
 
 }
 
@@ -63,12 +67,22 @@
 
   @include e(placeholder) {
     display: flex;
+    justify-content: center;
     align-items: center;
-    margin-right: 6px;
-    width: 14px;
-    height: 100%;
-    color: #bec3cf;
+    margin-right: 4px;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    color: var(--bn-tree-expand-icon-color);
     cursor: pointer;
+
+    // &:active {
+    //   background-color: var(--bn-tree-expand-action-color);
+    // }
+
+    // &:hover {
+    //   background-color: var(--bn-tree-expand-action-color);
+    // }
 
     > i {
       transition: transform 0.3s;
@@ -80,15 +94,28 @@
         &::after {
         content: '';
         position: absolute;
-        bottom: 0;
+        bottom:-12px;
         left: 50%;
-        transform: translate(-50%,50%);
+        transform: translate(-50%,0);
         width: 1px;
         height: calc(var(--bn-tree-node-height) / 3);
         background-color:var(--bn-tree-line-background-color);
   
         }
-      }
+    }
+
+    &.is-leaf {
+      cursor: default;
+      pointer-events: none;
+    }
+
+  }
+
+  @include e(checkbox) {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+    margin-left: 4px;  
   }
 
   @include e(node-label) {
@@ -96,16 +123,26 @@
     align-items: center;
     padding: 0 4px;
     height: 100%;
-    color: var(--bn-color-1);
+    color: var(--bn-tree-label-color);
+    cursor: pointer;
 
-    &:hover {
+
+    &:hover:not(.is-disabled) {
       background-color:#f2f3f5;
-      cursor: pointer;
     }
 
-    .is-block {
+    &.is-block {
       flex: 1;
     }
+
+    &.is-disabled {
+      cursor: not-allowed;
+      color: var(--bn-tree-disabled-color);
+    }
+  }
+
+  @include e(node-extra) {
+    margin-left: 20px;
   }
 }
 

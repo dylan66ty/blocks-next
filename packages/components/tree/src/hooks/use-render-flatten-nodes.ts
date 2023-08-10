@@ -1,63 +1,159 @@
 import type { Ref } from 'vue'
-import { ref, watch, getCurrentInstance } from 'vue'
-import type { TreeNode } from '../type'
-import { findAllUnfoldNodes, unfoldAllNodes, foldAllNodes } from '../utils'
+import { ref, watch, getCurrentInstance, computed } from 'vue'
+import type { TreeNode, TreeData } from '../type'
+import { transToFlattenNodes, findParentNodeByValue } from '../utils'
+import { isArray } from '../../../../utils/is'
+import { compose } from '../../../../shared/utils'
+import { dfs } from '../../../../utils/tree-traverse'
 
 export const useRenderFlattenNodes = ({
   nodes,
-  defaultExpandAll
+  nodesMap,
+  originData,
+  defaultUnfoldAll,
+  defaultUnfoldValues,
+  accordion
 }: {
   nodes: Ref<TreeNode[]>
-  defaultExpandAll: Ref<boolean>
+  nodesMap: Map<string | number, TreeNode>
+  originData: Ref<TreeData[]>
+  defaultUnfoldAll: Ref<boolean>
+  defaultUnfoldValues: Ref<(string | number)[]>
+  accordion: Ref<boolean>
 }) => {
   const renderFlattenNodes = ref<TreeNode[]>([])
 
-  watch(
-    () => nodes.value,
-    (newData) => {
-      renderFlattenNodes.value = defaultExpandAll.value ? unfoldAllNodes(newData) : newData
-    }
-  )
+  const flattenNodes = computed(() => [...nodesMap.values()])
+
+  const updateRenderFlattenNodes = () => {
+    renderFlattenNodes.value = compose(transToFlattenNodes, (nodes) => {
+      if (defaultUnfoldAll.value) {
+        flattenNodes.value.forEach((node) => {
+          if (!node.isLeaf) {
+            node.unfold = true
+          }
+        })
+      } else if (isArray(defaultUnfoldValues.value)) {
+        defaultUnfoldValues.value.forEach((value) => {
+          const node = nodesMap.get(value)
+          if (node) {
+            node.pathNode.forEach((n) => {
+              n.unfold = true
+            })
+          }
+        })
+      }
+      return nodes
+    })(nodes.value)
+  }
+
+  watch(() => nodes.value, updateRenderFlattenNodes)
 
   const instance = getCurrentInstance()
 
-  const handleToggleExpandAll = (status: boolean) => {
-    if (status) {
-      renderFlattenNodes.value = unfoldAllNodes(nodes.value)
-    } else {
-      renderFlattenNodes.value = foldAllNodes(nodes.value)
+  const exposed: Record<string, Function> = {
+    // 展开节点
+    unfoldNodes(values?: (number | string)[]) {
+      renderFlattenNodes.value = compose(transToFlattenNodes, (nodes) => {
+        if (isArray(values)) {
+          values.forEach((value) => {
+            const node = nodesMap.get(value)
+            if (node) {
+              node.pathNode.forEach((n) => {
+                n.unfold = true
+              })
+            }
+          })
+        } else {
+          flattenNodes.value.forEach((node) => {
+            node.unfold = true
+          })
+        }
+        return nodes
+      })(nodes.value)
+    },
+    // 折叠节点
+    foldNodes(values?: (number | string)[]) {
+      renderFlattenNodes.value = compose(transToFlattenNodes, (nodes) => {
+        if (isArray(values)) {
+          values.forEach((value) => {
+            const node = nodesMap.get(value)
+            if (node) {
+              node.unfold = false
+            }
+          })
+        } else {
+          flattenNodes.value.forEach((node) => {
+            node.unfold = false
+          })
+        }
+        return nodes
+      })(nodes.value)
+    },
+    // 新增node
+    insertNodes(parentValue: number | string, dataItems: TreeData[]) {
+      if (!parentValue) {
+        originData.value.push(...dataItems)
+        return
+      }
+      const node = flattenNodes.value.find((n) => n.value === parentValue)
+      if (!node) return
+      const dataChildren = node.data.children
+      if (dataChildren) {
+        dataChildren.push(...dataItems)
+      } else {
+        node.data.children = [...dataItems]
+      }
+    },
+    // 删除node
+    removeNodes(values: (number | string)[]) {
+      values.forEach((value) => {
+        const parent = findParentNodeByValue(value, nodes.value)
+        const children = parent ? parent.data.children : originData.value
+        if (!children) return
+        const index = children.findIndex((n) => n.value === value)
+        if (~index) {
+          children.splice(index, 1)
+        }
+        const node = nodesMap.get(value)
+        if (!node) return
+        dfs<TreeNode>([node!], {
+          visitor(node) {
+            if (nodesMap.has(node.value)) {
+              nodesMap.delete(node.value)
+            }
+          }
+        })
+      })
     }
   }
 
-  if (instance) {
-    instance.exposed = {
-      handleToggleExpandAll
-    }
+  if (instance?.exposed) {
+    Object.keys(exposed).forEach((method) => {
+      instance.exposed![method] = exposed[method]
+    })
   }
 
-  const toggleNodeExpand = (node: TreeNode) => {
-    const { key } = node
-    const nodes = renderFlattenNodes.value.slice()
-    const index = nodes.findIndex((node) => node.key === key)
-    if (index < 0) return
+  const toggleNodeUnfoldOrFold = (node: TreeNode) => {
     const children = node.children
     if (!children) return
-    if (!node.unfold) {
-      // 展开
-      const left = nodes.slice(0, index + 1)
-      const right = nodes.slice(index + 1)
-      node.unfold = true
-      renderFlattenNodes.value = [...left, ...findAllUnfoldNodes(node), ...right]
-    } else {
-      // 折叠
-      nodes.splice(index + 1, findAllUnfoldNodes(node).length)
-      renderFlattenNodes.value = nodes
-      node.unfold = false
-    }
+    renderFlattenNodes.value = compose(transToFlattenNodes, (nodes) => {
+      if (accordion.value) {
+        const parent = findParentNodeByValue(node.value, nodes)
+        const children = parent ? parent.children : nodes
+        children?.forEach((n) => {
+          if (n.value !== node.value) {
+            n.unfold = false
+          }
+        })
+      }
+      node.unfold = !node.unfold
+      return nodes
+    })(nodes.value)
   }
 
   return {
     renderFlattenNodes,
-    toggleNodeExpand
+    toggleNodeUnfoldOrFold
   }
 }

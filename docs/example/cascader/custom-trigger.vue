@@ -73,10 +73,10 @@
     <template #trigger>
       <span :class="['custom-trigger', { 'is-active': model.length }]">open cascader</span>
     </template>
-    <template #footer>
+    <template #footer="{ ok, cancel }">
       <div style="width: 100%; display: flex; justify-content: center; gap: 8px">
-        <bn-button size="small">取消</bn-button>
-        <bn-button type="primary" size="small">确认</bn-button>
+        <bn-button size="small" @click="cancel()">取消</bn-button>
+        <bn-button type="primary" size="small" @click="ok()">确认</bn-button>
       </div>
     </template>
   </bn-cascader>

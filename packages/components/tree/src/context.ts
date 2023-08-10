@@ -5,9 +5,12 @@ export interface TreeContext {
   showLine: boolean
   rootSlots: Slots
   blockNode: boolean
+  showCheckbox: boolean
   selectedValues: (number | string | undefined)[]
-  toggleNodeExpand(node: TreeNode): void
+  checkedNodesPathKeys: (number | string | undefined)[]
+  toggleNodeUnfoldOrFold(node: TreeNode): void
   handleNodeSelected(node: TreeNode): void
+  toggleNodeCheckStatus(node: TreeNode, checked: boolean): void
 }
 
 export const treeInjectKey: InjectionKey<TreeContext> = Symbol('Tree')

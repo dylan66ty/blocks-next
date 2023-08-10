@@ -77,7 +77,6 @@
 
   @include when(disabled) {
     cursor: not-allowed;
-    pointer-events: none;
 
     .#{$namespace}-checkbox__label {
       color: var(--bn-color-4);
@@ -92,6 +91,15 @@
       &--square {
         border-color: #e2e4e8;
         background-color: #f5f7fb;
+      }
+
+      &--half {
+        border-color:#e2e4e8;
+
+
+        &::after {
+          background-color: #ebedf1;
+        }
       }
     }
   }

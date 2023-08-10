@@ -114,6 +114,7 @@
       watch(
         () => props.data,
         (newData: CascaderData[]) => {
+          nodesMap.clear()
           nodesData.value = transDataToNodes(newData, { nodesMap, totalLevel })
         },
         { immediate: true, deep: true }

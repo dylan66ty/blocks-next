@@ -8,29 +8,38 @@ export const useSelected = ({
   multiple,
   nodesMap
 }: {
-  selected: Ref<string[] | undefined>
+  selected: Ref<(string | number)[] | undefined>
   multiple: Ref<boolean>
   nodesMap: Map<string | number, TreeNode>
 }) => {
   const instance = getCurrentInstance()
 
+  const hasUpdateSelectedEvent = computed(() => instance?.vnode?.props?.['onUpdate:selected'])
+
   const selectedValues: WritableComputedRef<(number | string | undefined)[]> = computed({
     get() {
-      return isArray(selected.value) ? selected.value : [selected.value]
+      if (selected.value) {
+        return isArray(selected.value) ? selected.value : [selected.value]
+      }
+      return []
     },
     set(val) {
-      instance?.emit('update:selected', val)
+      if (hasUpdateSelectedEvent.value) {
+        instance?.emit('update:selected', val)
+      }
     }
   })
 
-  const getNodesByValues = (values: (string | number)[]) => {
-    return values.map((key) => nodesMap.get(key))
+  const exposed: Record<string, Function> = {
+    getSelectedNodes() {
+      return selectedValues.value.map((key) => nodesMap.get(key!))
+    }
   }
 
-  if (instance) {
-    instance.exposed = {
-      getNodesByValues
-    }
+  if (instance?.exposed) {
+    Object.keys(exposed).forEach((method) => {
+      instance.exposed![method] = exposed[method]
+    })
   }
 
   const handleNodeSelected = (node: TreeNode) => {

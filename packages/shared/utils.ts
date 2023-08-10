@@ -71,7 +71,7 @@ export const upperFirstChar = (text: string) => {
   return text.slice(0, 1).toUpperCase() + text.slice(1)
 }
 
-export const compose = (...fns: any[]) => {
+export const compose = <T>(...fns: ((...v: T[]) => T)[]) => {
   return fns.reduce(
     (a, v) =>
       (...args: any[]) =>
@@ -79,7 +79,7 @@ export const compose = (...fns: any[]) => {
   )
 }
 
-export const pipe = (...fns: any[]) => {
+export const pipe = <T>(...fns: ((...v: T[]) => T)[]) => {
   return fns.reduceRight(
     (a, v) =>
       (...args: any[]) =>
