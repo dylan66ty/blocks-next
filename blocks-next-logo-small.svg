@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="44px" height="44px" viewBox="0 0 44 44" version="1.1">
+    <defs>
+        <linearGradient x1="29.8697725%" y1="12.9735046%" x2="75.2080393%" y2="65.7225144%" id="linearGradient-1">
+            <stop stop-color="#0056FF" offset="0%"/>
+            <stop stop-color="#ADC8FF" offset="100%"/>
+        </linearGradient>
+        <polygon id="path-2" points="14.3910306 -1.83388976e-15 24.624533 -1.83388976e-15 29.8124091 8.64767173 19.4477702 8.64767173"/>
+        <linearGradient x1="74.1012743%" y1="24.0972849%" x2="29.1930062%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#0056FF" offset="0%"/>
+            <stop stop-color="#C8DBFF" offset="100%"/>
+        </linearGradient>
+        <linearGradient x1="5.19341621%" y1="34.7565443%" x2="40.3502498%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#C8DBFF" offset="0%"/>
+            <stop stop-color="#0056FF" offset="100%"/>
+        </linearGradient>
+        <linearGradient x1="115.599273%" y1="59.4262999%" x2="9.90287172%" y2="59.4262999%" id="linearGradient-5">
+            <stop stop-color="#0056FF" offset="0%"/>
+            <stop stop-color="#C1D6FF" offset="100%"/>
+        </linearGradient>
+        <polygon id="path-6" points="29.2498235 25.1131842 39.2672967 25.0577551 34.1505455 33.9202281 24.0675041 34.1333333"/>
+        <linearGradient x1="15.2426123%" y1="50%" x2="83.8650642%" y2="56.1494483%" id="linearGradient-7">
+            <stop stop-color="#0056FF" offset="0%"/>
+            <stop stop-color="#C8DBFF" offset="100%"/>
+        </linearGradient>
+        <linearGradient x1="37.1015746%" y1="112.893458%" x2="60.6848376%" y2="12.162423%" id="linearGradient-8">
+            <stop stop-color="#0056FF" offset="0%"/>
+            <stop stop-color="#ADC8FF" offset="100%"/>
+        </linearGradient>
+        <polygon id="path-9" points="4.87569364 16.3995874 10.0580131 25.375628 5.0822345 34.1333333 1.99718889e-16 25.2664604"/>
+    </defs>
+    <g id="01-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编组-3" transform="translate(2.000000, 5.000000)">
+            <g id="路径-3">
+                <use fill="url(#linearGradient-1)" xlink:href="#path-2"/>
+                <use fill-opacity="0.1" fill="#FFFFFF" xlink:href="#path-2"/>
+            </g>
+            <polygon id="路径-4" fill="url(#linearGradient-3)" points="14.3910306 0 4.87569364 16.3995874 14.1111407 16.5827347 19.4477702 8.64767173"/>
+            <polygon id="路径-5" fill="#F6F9FF" points="19.4477702 8.64767173 29.8124091 8.64767173 25.0474866 16.5827347 29.2498235 25.1131842 24.0675041 34.1333333 19.5147894 25.7349455 10.0580131 25.375628 4.87569364 16.3995874 14.1111407 16.5827347"/>
+            <polygon id="路径-7" fill="url(#linearGradient-4)" points="29.8122974 8.64767173 25.0474866 16.5827347 29.2498235 25.1131842 39.2672967 25.0577551"/>
+            <g id="路径-8">
+                <use fill="url(#linearGradient-5)" xlink:href="#path-6"/>
+                <use fill-opacity="0.1" fill="#FFFFFF" xlink:href="#path-6"/>
+            </g>
+            <polygon id="路径-9" fill="url(#linearGradient-7)" points="10.0580131 25.375628 19.5147894 25.7349455 24.0675041 34.1333333 5.0822345 34.1333333"/>
+            <g id="路径-10">
+                <use fill="url(#linearGradient-8)" xlink:href="#path-9"/>
+                <use fill-opacity="0.1" fill="#FFFFFF" xlink:href="#path-9"/>
+            </g>
+        </g>
+    </g>
+</svg>
