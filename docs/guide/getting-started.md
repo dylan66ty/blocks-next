@@ -23,7 +23,7 @@ pnpm install blocks-next
 
 ```ts
 // main.ts
-import BlocksNext, {Icon} from blocks-next
+import BlocksNext, {Icon} from 'blocks-next'
 // 引入BlocksNext样式
 import 'blocks-next/theme-default/index.css'
 
