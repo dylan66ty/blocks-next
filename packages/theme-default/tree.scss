@@ -115,7 +115,11 @@
     display: flex;
     align-items: center;
     margin-right: 8px;
-    margin-left: 4px;  
+    margin-left: 4px;
+    
+    .#{$namespace}-checkbox {
+      --bn-checkbox-size: 14px;
+    }
   }
 
   @include e(node-label) {

@@ -1,6 +1,15 @@
 @use './mixins/bem.scss' as *;
 
 @include b(checkbox) {
+  --bn-checkbox-disabled-background-color-1:#f5f7fb;
+  --bn-checkbox-disabled-background-color-2:#ebedf1;
+  --bn-checkbox-disabled-border-color:#e2e4e8;
+  --bn-checkbox-size: 16px;
+
+
+}
+
+@include b(checkbox) {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -12,8 +21,8 @@
     position: relative;
     border: 1px solid #9ca6b9;
     border-radius: 2px;
-    width: 16px;
-    height: 16px;
+    width: var(--bn-checkbox-size);
+    height: var(--bn-checkbox-size);
     box-sizing: border-box;
 
     &:hover {
@@ -26,8 +35,8 @@
         top: 50%;
         left: 50%;
         border-radius: 1px;
-        width: 6px;
-        height: 6px;
+        width: calc(var(--bn-checkbox-size) * 0.375);
+        height: calc(var(--bn-checkbox-size) * 0.375);
         background-color: var(--bn-primary);
         content: '';
         transform: translate(-50%, -50%);
@@ -40,13 +49,13 @@
 
       &::after {
         position: absolute;
-        top: 1px;
-        left: 5px;
+        top: 6.25%;
+        left: 31.25%;
         border: 2px solid #fff;
         border-top: 0;
         border-left: 0;
-        width: 3px;
-        height: 7px;
+        width: 18.75%;
+        height: 47.75%;
         box-sizing: content-box;
         content: '';
         transform: rotate(45deg) scaleY(1);
@@ -83,22 +92,21 @@
     }
 
     .#{$namespace}-checkbox__icon {
-      &--checked {
-        border-color: #e2e4e8;
-        background-color: #ebedf1;
-      }
+      border-color: var(--bn-checkbox-disabled-border-color);
 
       &--square {
-        border-color: #e2e4e8;
-        background-color: #f5f7fb;
+        background-color: var(--bn-checkbox-disabled-background-color-1);
+      }
+
+      &--checked {
+        background-color: var(--bn-checkbox-disabled-background-color-2);
       }
 
       &--half {
-        border-color:#e2e4e8;
-
+        background-color: var(--bn-checkbox-disabled-background-color-2);
 
         &::after {
-          background-color: #ebedf1;
+          background-color: #fff;
         }
       }
     }

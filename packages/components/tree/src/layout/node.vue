@@ -59,7 +59,19 @@
       }
 
       const checkedStatus = computed(() => {
-        return getCheckedStatus(props.node, treeContext?.checkedNodesPathKeys as string[])
+        // 父子节点无关联关系
+        if (treeContext?.checkStrictly) {
+          return {
+            checked: treeContext.checkedNodesPathKeys.includes(props.node.key),
+            indeterminate: false
+          }
+        }
+        // 父子存在关联关系
+        return getCheckedStatus(
+          props.node,
+          treeContext?.checkedNodesPathKeys,
+          treeContext?.nodePathMap
+        )
       })
 
       return {
@@ -81,7 +93,7 @@
 </script>
 
 <template>
-  <div :class="[cls]" :date-key="node.key">
+  <div :class="[cls]" :date-key="node.key" :data-deep="node.deep">
     <div :class="`${ns}__indent`">
       <span
         v-for="(indent, indentIndex) in node.indents"

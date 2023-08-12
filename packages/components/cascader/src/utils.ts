@@ -117,7 +117,7 @@ export const getCheckedStatus = (node: CascaderNode, nodeKeys?: string[]) => {
       }
       return pre
     }, 0)
-    if (checkedLeafOptionNumber! > 0 && checkedLeafOptionNumber! >= (node.totalLeafNumber ?? 1)) {
+    if (checkedLeafOptionNumber! >= (node.totalLeafNumber ?? 1)) {
       checked = true
     } else if (checkedLeafOptionNumber! > 0) {
       indeterminate = true

@@ -8,14 +8,14 @@ import { dfs } from '../../../../utils/tree-traverse'
 
 export const useRenderFlattenNodes = ({
   nodes,
-  nodesMap,
+  nodeValueMap,
   originData,
   defaultUnfoldAll,
   defaultUnfoldValues,
   accordion
 }: {
   nodes: Ref<TreeNode[]>
-  nodesMap: Map<string | number, TreeNode>
+  nodeValueMap: Map<string | number, TreeNode>
   originData: Ref<TreeData[]>
   defaultUnfoldAll: Ref<boolean>
   defaultUnfoldValues: Ref<(string | number)[]>
@@ -23,7 +23,7 @@ export const useRenderFlattenNodes = ({
 }) => {
   const renderFlattenNodes = ref<TreeNode[]>([])
 
-  const flattenNodes = computed(() => [...nodesMap.values()])
+  const flattenNodes = computed(() => [...nodeValueMap.values()])
 
   const updateRenderFlattenNodes = () => {
     renderFlattenNodes.value = compose(transToFlattenNodes, (nodes) => {
@@ -35,7 +35,7 @@ export const useRenderFlattenNodes = ({
         })
       } else if (isArray(defaultUnfoldValues.value)) {
         defaultUnfoldValues.value.forEach((value) => {
-          const node = nodesMap.get(value)
+          const node = nodeValueMap.get(value)
           if (node) {
             node.pathNode.forEach((n) => {
               n.unfold = true
@@ -57,7 +57,7 @@ export const useRenderFlattenNodes = ({
       renderFlattenNodes.value = compose(transToFlattenNodes, (nodes) => {
         if (isArray(values)) {
           values.forEach((value) => {
-            const node = nodesMap.get(value)
+            const node = nodeValueMap.get(value)
             if (node) {
               node.pathNode.forEach((n) => {
                 n.unfold = true
@@ -77,7 +77,7 @@ export const useRenderFlattenNodes = ({
       renderFlattenNodes.value = compose(transToFlattenNodes, (nodes) => {
         if (isArray(values)) {
           values.forEach((value) => {
-            const node = nodesMap.get(value)
+            const node = nodeValueMap.get(value)
             if (node) {
               node.unfold = false
             }
@@ -115,12 +115,12 @@ export const useRenderFlattenNodes = ({
         if (~index) {
           children.splice(index, 1)
         }
-        const node = nodesMap.get(value)
+        const node = nodeValueMap.get(value)
         if (!node) return
         dfs<TreeNode>([node!], {
           visitor(node) {
-            if (nodesMap.has(node.value)) {
-              nodesMap.delete(node.value)
+            if (nodeValueMap.has(node.value)) {
+              nodeValueMap.delete(node.value)
             }
           }
         })

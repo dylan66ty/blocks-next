@@ -103,12 +103,26 @@ import { ref,watch } from 'vue';
     }])
   }
 
+  const checked = ref(['0-0-0-0'])
+
+  watch(checked,val => {
+    console.log(val);
+  })
+
+  const checkStrictly = ref(false)
+  watch(() => checkStrictly.value, () => {
+    checked.value = []
+  })
+
 </script>
 
 <template>
   <div>
     <!-- defaultUnfoldValues="defaultUnfoldValues" -->
-    <bn-tree :data="treeData" ref="treeRef"  show-line show-checkbox :defaultUnfoldValues="defaultUnfoldValues" >
+
+    checkStrictly <bn-switch v-model="checkStrictly"></bn-switch>
+
+    <bn-tree :data="treeData" ref="treeRef" v-model:checked="checked" :checkStrictly="checkStrictly"  show-line show-checkbox :defaultUnfoldValues="defaultUnfoldValues" >
       <template #node-icon="{node}">
         <template v-if="node.isLeaf">
           <bn-icon-document />

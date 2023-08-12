@@ -6,11 +6,11 @@ import { isArray, isUndefined } from '../../../../utils/is'
 export const useSelected = ({
   selected,
   multiple,
-  nodesMap
+  nodeValueMap
 }: {
   selected: Ref<(string | number)[] | undefined>
   multiple: Ref<boolean>
-  nodesMap: Map<string | number, TreeNode>
+  nodeValueMap: Map<string | number, TreeNode>
 }) => {
   const instance = getCurrentInstance()
 
@@ -32,7 +32,7 @@ export const useSelected = ({
 
   const exposed: Record<string, Function> = {
     getSelectedNodes() {
-      return selectedValues.value.map((key) => nodesMap.get(key!))
+      return selectedValues.value.map((key) => nodeValueMap.get(key!))
     }
   }
 

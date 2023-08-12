@@ -31,13 +31,15 @@ export default defineComponent({
     } = toRefs(props)
     const ns = getNamespace('tree')
     const nodes = ref<TreeNode[]>([])
-    const nodesMap = reactive(new Map<string, TreeNode>())
+    // 以value作为key的map
+    const nodeValueMap = reactive(new Map<string, TreeNode>())
+    const nodePathMap = reactive(new Map<string, TreeNode>())
 
     expose({})
 
     const { renderFlattenNodes, toggleNodeUnfoldOrFold } = useRenderFlattenNodes({
       nodes,
-      nodesMap,
+      nodeValueMap,
       originData: data,
       defaultUnfoldAll,
       defaultUnfoldValues,
@@ -47,13 +49,14 @@ export default defineComponent({
     const { handleNodeSelected, selectedValues } = useSelected({
       selected,
       multiple,
-      nodesMap
+      nodeValueMap
     })
 
     const { toggleNodeCheckStatus, checkedNodesPathKeys } = useChecked({
       checked,
-      checkStrictly,
-      nodesMap
+      nodeValueMap,
+      nodePathMap,
+      checkStrictly
     })
 
     provide(
@@ -62,8 +65,10 @@ export default defineComponent({
         showLine,
         blockNode,
         showCheckbox,
+        checkStrictly,
         selectedValues,
         checkedNodesPathKeys,
+        nodePathMap,
         rootSlots: slots,
         toggleNodeUnfoldOrFold,
         handleNodeSelected,
@@ -71,18 +76,28 @@ export default defineComponent({
       })
     )
 
+    const updateNodes = () => {
+      if (isArray(props.data)) {
+        nodes.value = transDataToNodes(props.data, {
+          nodeValueMap,
+          nodePathMap,
+          checkStrictly: props.checkStrictly
+        })
+      }
+    }
+
+    watch(() => props.data, updateNodes, { immediate: true, deep: true })
+
     watch(
-      () => props.data,
+      () => props.checkStrictly,
       () => {
-        if (isArray(props.data)) {
-          nodes.value = transDataToNodes(props.data, { nodesMap })
-        }
-      },
-      { immediate: true, deep: true }
+        updateNodes()
+      }
     )
 
     onUnmounted(() => {
-      nodesMap.clear()
+      nodeValueMap.clear()
+      nodePathMap.clear()
       nodes.value = []
     })
 
