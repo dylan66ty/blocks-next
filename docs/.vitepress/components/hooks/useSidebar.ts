@@ -21,7 +21,6 @@ export const useSidebar = () => {
     }
     return []
   })
-  console.log(sidebars);
   return {
     sidebars,
     hasSidebar: computed(() => sidebars.value.length > 0)

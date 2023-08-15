@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-  import { Message } from 'blocks-next'
   import { h } from 'vue'
+  import { Message } from 'blocks-next'
 
   const handleInfo = () => {
     Message('今晚加个班')

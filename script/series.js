@@ -17,6 +17,7 @@ prompt({
   message: 'Select tasks',
   name: 'tasks',
   choices: [
+    { name: 'release', value: 'release' },
     { name: '打包组件库', value: 'build:components' },
     { name: '打包文档', value: 'build:docs' },
     { name: '发布组件库', value: 'publish:components' },
@@ -47,18 +48,17 @@ const step = () => {
 }
 
 const cmdMap = {
-  'build:components': () => {
-    return composeAsync(
-      async () => {
-        const S = step().start('Building components')
-        await spawn('npm', ['run', 'build'], { cwd })
-        S.end('Building components successfully!')
-      },
-      async () => {
-        await spawn('npm', ['run', 'release'], { cwd, stdio: 'inherit' })
-        log.success('Change version successfully!')
-      }
-    )()
+  release: async () => {
+    await spawn('npm', ['run', 'release'], { cwd, stdio: 'inherit' })
+    log.success('Change version successfully!')
+  },
+  'build:components': async () => {
+    const S = step().start('Building components')
+    const ret = await spawn('npm', ['run', 'build'], { cwd })
+    if (ret.includes('Failed to generate dts.')) {
+      throw ret
+    }
+    S.end('Building components successfully!')
   },
   'build:docs': async () => {
     const S = step().start('Building docs')

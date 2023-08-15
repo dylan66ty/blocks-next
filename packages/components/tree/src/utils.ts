@@ -2,15 +2,16 @@ import { isArray, isNumber } from '../../../utils/is'
 import { dfs } from '../../../utils/tree-traverse'
 import type { TreeData, TreeNode } from './type'
 
+// 双向链表
 export const transDataToNodes = (
   data: TreeData[],
   {
     nodeValueMap,
-    nodePathMap,
+    nodeKeyMap,
     checkStrictly
   }: {
     nodeValueMap: Map<string | number, TreeNode>
-    nodePathMap: Map<string | number, TreeNode>
+    nodeKeyMap: Map<string | number, TreeNode>
     checkStrictly: boolean
   }
 ) => {
@@ -52,7 +53,7 @@ export const transDataToNodes = (
       }
 
       nodeValueMap.set(node.value, node)
-      nodePathMap.set(key, node)
+      nodeKeyMap.set(key, node)
 
       if (isArray(item.children) && item.children.length) {
         node.children = traverse(item.children, node, deep + 1)
@@ -111,7 +112,7 @@ export const findParentNodeByValue = (
   dfs<TreeNode>(nodes, {
     visitor(node, done) {
       if (node.value === value) {
-        parent = node.parent
+        parent = node.parent as null
         done()
       }
     }
@@ -121,20 +122,20 @@ export const findParentNodeByValue = (
 
 export const getCheckedStatus = (
   node: TreeNode,
-  nodePathKeys: string[] | undefined,
-  nodePathMap: Map<string, TreeNode> | undefined
+  nodeKeys: string[] | undefined,
+  nodeKeyMap: Map<string, TreeNode> | undefined
 ) => {
   let checked = false
   let indeterminate = false
 
   if (node.isLeaf) {
-    if (nodePathKeys?.includes(node.key)) {
+    if (nodeKeys?.includes(node.key)) {
       checked = true
     }
   } else {
     const reg = new RegExp(`^${node.key}(-|$)`)
-    const checkedLeafNumber = nodePathKeys?.reduce((pre, key) => {
-      if (reg.test(key) && !nodePathMap?.get(key)?.disabled) {
+    const checkedLeafNumber = nodeKeys?.reduce((pre, key) => {
+      if (reg.test(key) && !nodeKeyMap?.get(key)?.disabled) {
         return (pre as number) + 1
       }
       return pre

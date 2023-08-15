@@ -38,8 +38,8 @@
       footer: (scoped) => {
         return (
           <Space>
-            <Button onclick={scoped.cancel}>取消</Button>
-            <Button onclick={scoped.ok} type="primary">
+            <Button onClick={scoped.cancel}>取消</Button>
+            <Button onClick={scoped.ok} type="primary">
               确认
             </Button>
           </Space>

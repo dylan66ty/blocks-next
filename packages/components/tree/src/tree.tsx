@@ -14,8 +14,8 @@ import { useChecked } from './hooks/use-checked'
 export default defineComponent({
   name: getComponentNamespace('Tree'),
   props: treeProps,
-  emits: ['update:selected', 'update:checked'],
-  setup(props, { slots, expose }) {
+  emits: ['update:selected', 'update:checked', 'click-node', 'unfold-node', 'fold-node'],
+  setup(props, { slots, expose, emit }) {
     const {
       selected,
       checked,
@@ -24,16 +24,16 @@ export default defineComponent({
       defaultUnfoldAll,
       defaultUnfoldValues,
       multiple,
-      blockNode,
       showCheckbox,
       data,
-      accordion
+      accordion,
+      unfoldOnClickNode
     } = toRefs(props)
     const ns = getNamespace('tree')
     const nodes = ref<TreeNode[]>([])
     // 以value作为key的map
     const nodeValueMap = reactive(new Map<string, TreeNode>())
-    const nodePathMap = reactive(new Map<string, TreeNode>())
+    const nodeKeyMap = reactive(new Map<string, TreeNode>())
 
     expose({})
 
@@ -46,33 +46,39 @@ export default defineComponent({
       accordion
     })
 
-    const { handleNodeSelected, selectedValues } = useSelected({
+    const { handleNodeSelected, selectedValues, focusNodeValues } = useSelected({
       selected,
       multiple,
       nodeValueMap
     })
 
-    const { toggleNodeCheckStatus, checkedNodesPathKeys } = useChecked({
+    const { toggleNodeCheckStatus, checkedNodeKeys } = useChecked({
       checked,
       nodeValueMap,
-      nodePathMap,
+      nodeKeyMap,
       checkStrictly
     })
+
+    const clickNode = (node: TreeNode) => {
+      emit('click-node', node)
+    }
 
     provide(
       treeInjectKey,
       reactive({
         showLine,
-        blockNode,
         showCheckbox,
         checkStrictly,
+        unfoldOnClickNode,
         selectedValues,
-        checkedNodesPathKeys,
-        nodePathMap,
+        focusNodeValues,
+        checkedNodeKeys,
+        nodeKeyMap,
         rootSlots: slots,
         toggleNodeUnfoldOrFold,
         handleNodeSelected,
-        toggleNodeCheckStatus
+        toggleNodeCheckStatus,
+        clickNode
       })
     )
 
@@ -80,7 +86,7 @@ export default defineComponent({
       if (isArray(props.data)) {
         nodes.value = transDataToNodes(props.data, {
           nodeValueMap,
-          nodePathMap,
+          nodeKeyMap,
           checkStrictly: props.checkStrictly
         })
       }
@@ -97,7 +103,7 @@ export default defineComponent({
 
     onUnmounted(() => {
       nodeValueMap.clear()
-      nodePathMap.clear()
+      nodeKeyMap.clear()
       nodes.value = []
     })
 

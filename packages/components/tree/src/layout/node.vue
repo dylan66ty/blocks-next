@@ -28,14 +28,17 @@
       const cls = computed(() => [
         `${ns}__node`,
         props.node.isLeaf && 'is-leaf',
-        isSelected.value && 'is-selected'
+        isSelected.value && 'is-selected',
+        isFocus.value && 'is-focus'
       ])
 
       const showLine = computed(() => treeContext?.showLine)
       const isSelected = computed(() => treeContext?.selectedValues.includes(props.node.value))
-      const blockNode = computed(() => treeContext?.blockNode)
       const showCheckbox = computed(() => treeContext?.showCheckbox)
       const rootSlots = computed(() => treeContext?.rootSlots)
+      const isFocus = computed(() => treeContext?.focusNodeValues.includes(props.node.value))
+
+      const unfoldOnClickNode = computed(() => treeContext?.unfoldOnClickNode)
 
       const handleNodeSelected = () => {
         if (props.node.disabled) return
@@ -50,6 +53,14 @@
         treeContext?.toggleNodeCheckStatus(props.node, checked)
       }
 
+      const handleNodeItem = () => {
+        treeContext?.clickNode(props.node)
+        if (unfoldOnClickNode.value) {
+          toggleNodeUnfoldOrFold()
+        }
+        handleNodeSelected()
+      }
+
       const hasIndentVerticalLine = (indent: number) => {
         return showLine.value && indent
       }
@@ -62,29 +73,24 @@
         // 父子节点无关联关系
         if (treeContext?.checkStrictly) {
           return {
-            checked: treeContext.checkedNodesPathKeys.includes(props.node.key),
+            checked: treeContext.checkedNodeKeys.includes(props.node.key),
             indeterminate: false
           }
         }
         // 父子存在关联关系
-        return getCheckedStatus(
-          props.node,
-          treeContext?.checkedNodesPathKeys,
-          treeContext?.nodePathMap
-        )
+        return getCheckedStatus(props.node, treeContext?.checkedNodeKeys, treeContext?.nodeKeyMap)
       })
 
       return {
         ns,
         cls,
         showLine,
-        blockNode,
         showCheckbox,
         rootSlots,
         checkedStatus,
-        toggleNodeUnfoldOrFold,
-        handleNodeSelected,
+        handleNodeItem,
         toggleNodeCheckStatus,
+        toggleNodeUnfoldOrFold,
         hasIndentVerticalLine,
         hasPlaceholderBottomVerticalLine
       }
@@ -93,7 +99,7 @@
 </script>
 
 <template>
-  <div :class="[cls]" :date-key="node.key" :data-deep="node.deep">
+  <div :class="[cls]" :date-key="node.key" :data-deep="node.deep" @click="handleNodeItem">
     <div :class="`${ns}__indent`">
       <span
         v-for="(indent, indentIndex) in node.indents"
@@ -109,13 +115,13 @@
           'is-leaf': !node.hasChildren
         }
       ]"
-      @click="toggleNodeUnfoldOrFold"
+      @click.stop="toggleNodeUnfoldOrFold"
     >
       <RenderSlotFunction :slot-fn="rootSlots?.['node-icon']" :node="node">
         <BnIconArrowRight v-if="node.hasChildren" :rotate="!node.unfold ? 0 : 90" />
       </RenderSlotFunction>
     </div>
-    <div :class="[`${ns}__checkbox`]">
+    <div v-if="showCheckbox" :class="[`${ns}__checkbox`]">
       <Checkbox
         :disabled="node.disabled"
         :model-value="checkedStatus.checked"
@@ -129,18 +135,16 @@
       :class="[
         `${ns}__node-label`,
         {
-          'is-block': blockNode,
           'is-disabled': node.disabled
         }
       ]"
-      @click="handleNodeSelected"
     >
       <RenderSlotFunction :slot-fn="rootSlots?.['node-label']" :node="node">
-        {{ node.label }} 【{{ node.value }}】 ({{ node.totalLeafNumber }})
+        {{ node.label }}
       </RenderSlotFunction>
     </div>
 
-    <div v-if="rootSlots?.['node-extra']" :class="[`${ns}__node-extra`]">
+    <div v-if="rootSlots?.['node-extra']" :class="[`${ns}__node-extra`]" @click.stop>
       <RenderSlotFunction :slot-fn="rootSlots?.['node-extra']" :node="node" />
     </div>
   </div>

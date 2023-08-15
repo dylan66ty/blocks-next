@@ -35,11 +35,6 @@ export const treeProps = {
     type: definePropType<(string | number)[]>(Array),
     default: () => []
   },
-  // 节点独占一行
-  blockNode: {
-    type: Boolean,
-    default: false
-  },
   // 是否显示复选框
   showCheckbox: {
     type: Boolean,
@@ -54,5 +49,10 @@ export const treeProps = {
   accordion: {
     type: Boolean,
     default: false
+  },
+  // 点击node时候是否展开
+  unfoldOnClickNode: {
+    type: Boolean,
+    default: true
   }
 }

@@ -18,6 +18,7 @@
   --bn-tree-expand-action-color: #f2f3f5;
   --bn-tree-label-color: var(--bn-color-1);
   --bn-tree-disabled-color: var(--bn-color-4);
+  --bn-tree-selected-background-color: rgb(245 247 250);
 
 }
 
@@ -26,17 +27,25 @@
   @include e(node) {
     display: flex;
     align-items: center;
+    padding: 0 15px;
     height: var(--bn-tree-node-height);
     font-size: var(--bn-font-size);
 
+    &.is-focus:not(.is-selected) {
+      background-color: var(--bn-tree-selected-background-color);
+    }
 
     &.is-selected {
+      background-color:var(--bn-primary-9);
+
         @include ie(node-label) {
           color: var(--bn-primary);
         }
-
     }
 
+    &:hover:not(.is-disabled,.is-selected) {
+      background-color:var(--bn-tree-selected-background-color);
+    }
   }
 
   @include e(indent) {
@@ -76,13 +85,6 @@
     color: var(--bn-tree-expand-icon-color);
     cursor: pointer;
 
-    // &:active {
-    //   background-color: var(--bn-tree-expand-action-color);
-    // }
-
-    // &:hover {
-    //   background-color: var(--bn-tree-expand-action-color);
-    // }
 
     > i {
       transition: transform 0.3s;
@@ -129,15 +131,8 @@
     height: 100%;
     color: var(--bn-tree-label-color);
     cursor: pointer;
-
-
-    &:hover:not(.is-disabled) {
-      background-color:#f2f3f5;
-    }
-
-    &.is-block {
-      flex: 1;
-    }
+    flex:1;
+    user-select: none;
 
     &.is-disabled {
       cursor: not-allowed;

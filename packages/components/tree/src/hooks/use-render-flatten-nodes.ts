@@ -134,9 +134,16 @@ export const useRenderFlattenNodes = ({
     })
   }
 
+  const emitEvent = (node: TreeNode) => {
+    if (node.unfold) {
+      instance?.emit('unfold-node', node)
+    } else {
+      instance?.emit('fold-node', node)
+    }
+  }
+
   const toggleNodeUnfoldOrFold = (node: TreeNode) => {
-    const children = node.children
-    if (!children) return
+    if (node.isLeaf) return
     renderFlattenNodes.value = compose(transToFlattenNodes, (nodes) => {
       if (accordion.value) {
         const parent = findParentNodeByValue(node.value, nodes)
@@ -150,6 +157,7 @@ export const useRenderFlattenNodes = ({
       node.unfold = !node.unfold
       return nodes
     })(nodes.value)
+    emitEvent(node)
   }
 
   return {

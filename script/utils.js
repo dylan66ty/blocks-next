@@ -86,8 +86,7 @@ const spawn = (cmd, args, options) => {
   }
 
   child.on('close', () => {
-    const ret = outStr || errStr
-    resolve(ret)
+    resolve(errStr || outStr)
   })
 
   child.on('error', (err) => {

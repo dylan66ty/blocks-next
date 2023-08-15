@@ -103,7 +103,7 @@ import { ref,watch } from 'vue';
     }])
   }
 
-  const checked = ref(['0-0-0-0'])
+  const checked = ref(['0-2-0','0-2'])
 
   watch(checked,val => {
     console.log(val);

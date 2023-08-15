@@ -134,8 +134,6 @@ function typeCheck(project: Project) {
   const diagnostics = project.getPreEmitDiagnostics()
   if (diagnostics.length > 0) {
     consola.error(project.formatDiagnosticsWithColorAndContext(diagnostics))
-    const err = new Error('Failed to generate dts.')
-    consola.error(err)
-    throw err
+    throw new Error('Failed to generate dts.')
   }
 }

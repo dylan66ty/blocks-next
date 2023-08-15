@@ -130,6 +130,11 @@
         {
           "text": "下拉菜单 Dropdown",
           "link": "dropdown"
+        },
+        {
+          "text": "树 Tree",
+          "link": "tree",
+          "promotion": "alpha.35"
         }
       ]
     },

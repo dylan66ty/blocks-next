@@ -1,5 +1,5 @@
-import { computed, getCurrentInstance } from 'vue'
-import type { WritableComputedRef, Ref } from 'vue'
+import { computed, getCurrentInstance, ref } from 'vue'
+import type { Ref } from 'vue'
 import type { TreeNode } from '../type'
 import { isArray, isUndefined } from '../../../../utils/is'
 
@@ -15,20 +15,19 @@ export const useSelected = ({
   const instance = getCurrentInstance()
 
   const hasUpdateSelectedEvent = computed(() => instance?.vnode?.props?.['onUpdate:selected'])
+  const innerSelectedValues = ref<(string | number)[]>([])
+  const focusNodeValues = ref<(string | number)[]>([])
 
-  const selectedValues: WritableComputedRef<(number | string | undefined)[]> = computed({
-    get() {
-      if (selected.value) {
-        return isArray(selected.value) ? selected.value : [selected.value]
-      }
-      return []
-    },
-    set(val) {
-      if (hasUpdateSelectedEvent.value) {
-        instance?.emit('update:selected', val)
-      }
-    }
+  const selectedValues = computed(() => {
+    const values = selected.value ?? innerSelectedValues.value
+    return isArray(values) ? values : [values]
   })
+
+  const updateSelectedValues = (values: (string | number)[]) => {
+    if (hasUpdateSelectedEvent.value) {
+      instance?.emit('update:selected', values)
+    }
+  }
 
   const exposed: Record<string, Function> = {
     getSelectedNodes() {
@@ -49,11 +48,13 @@ export const useSelected = ({
     if (values.includes(key)) return
     if (multiple.value) {
       values.push(key)
-      selectedValues.value = values
-      return
+      updateSelectedValues(values)
+    } else {
+      updateSelectedValues([key])
     }
-    selectedValues.value = [key]
+
+    focusNodeValues.value = [key]
   }
 
-  return { handleNodeSelected, selectedValues }
+  return { handleNodeSelected, selectedValues, focusNodeValues }
 }
