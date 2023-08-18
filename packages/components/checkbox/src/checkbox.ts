@@ -1,17 +1,17 @@
-import type { PropType, ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes } from 'vue'
 
 export const checkboxProps = {
-  indeterminate: Boolean as PropType<boolean>,
-  checked: Boolean as PropType<boolean>,
-  disabled: Boolean as PropType<boolean>,
+  indeterminate: Boolean,
+  checked: Boolean,
+  disabled: Boolean,
   label: {
-    type: [String, Number, Boolean] as PropType<string | number | boolean>,
+    type: [String, Number, Boolean],
     default: ''
   },
-  modelValue: [String, Number, Boolean] as PropType<string | number | boolean>,
+  modelValue: [String, Number, Boolean],
   // native
   name: {
-    type: String as PropType<string>
+    type: String
   },
   //form表单验证相关
   validateEvent: {

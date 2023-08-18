@@ -1,4 +1,6 @@
-import type { PropType, ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes } from 'vue'
+import { definePropType } from '../../../utils/vue-utils'
+
 export const selectProps = {
   modelValue: {
     type: [String, Number, Array],
@@ -29,7 +31,7 @@ export const selectProps = {
     default: undefined
   },
   size: {
-    type: String as PropType<'small' | 'default' | 'large'>,
+    type: definePropType<'small' | 'default' | 'large'>(String),
     default: 'default'
   },
   placeholder: {
@@ -43,7 +45,7 @@ export const selectProps = {
     default: ''
   },
   autocomplete: {
-    type: String as PropType<'off' | 'no'>,
+    type: definePropType<'off' | 'no'>(String),
     default: 'off'
   },
   //表单验证

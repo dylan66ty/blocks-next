@@ -12,7 +12,9 @@
     slider: 5,
     score: 5,
     switch: false,
-    multipleSelect: []
+    multipleSelect: [],
+    treeSelect: [],
+    multipleTreeSelect: []
   })
 
   const rules = {
@@ -37,7 +39,9 @@
         message: 'Switch must true'
       }
     ],
-    multipleSelect: [{ required: true, message: 'MultipleSelect is required' }]
+    multipleSelect: [{ required: true, message: 'MultipleSelect is required' }],
+    treeSelect: [{ required: true, message: 'TreeSelect is required' }],
+    multipleTreeSelect: [{ required: true, message: 'MultipleTreeSelect is required' }]
   }
 
   const formRef = ref()
@@ -101,6 +105,37 @@
       ]
     }
   ]
+
+  const treeData = [
+    {
+      label: '节点A',
+      value: 'A',
+      children: [
+        {
+          label: 'leafA-1',
+          value: 'A-1'
+        },
+        {
+          label: 'leafA-2',
+          value: 'A-2'
+        }
+      ]
+    },
+    {
+      label: '节点B',
+      value: 'B',
+      children: [
+        {
+          label: 'leafB-1',
+          value: 'B-1'
+        },
+        {
+          label: 'leafB-2',
+          value: 'B-2'
+        }
+      ]
+    }
+  ]
 </script>
 
 <template>
@@ -148,6 +183,17 @@
         <bn-option value="section2" label="Section2" />
         <bn-option value="section3" label="Section3" />
       </bn-select>
+    </bn-form-item>
+    <bn-form-item label="TreeSelect" prop="treeSelect">
+      <bn-tree-select v-model="form.treeSelect" :data="treeData" clearable></bn-tree-select>
+    </bn-form-item>
+    <bn-form-item label="MultiTreeSelect" prop="multipleTreeSelect">
+      <bn-tree-select
+        v-model="form.multipleTreeSelect"
+        :data="treeData"
+        multiple
+        clearable
+      ></bn-tree-select>
     </bn-form-item>
     <bn-form-item>
       <bn-space>

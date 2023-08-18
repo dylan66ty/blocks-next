@@ -55,7 +55,8 @@ table/columnDrag
 :::
 
 ## 自定义渲染
-::: demo 通过在column里面配置插槽`slotName`渲染数据，配置`headerSlotName`渲染表头。你也可以直接column中配置renderCell函数来渲染渲染数据，配置renderHeader函数来渲染表头。如果你既用了插槽也用了渲染函数，那么渲染函数的优先级高于插槽。
+通过在column里面配置插槽`slotName`渲染数据，配置`headerSlotName`渲染表头。你也可以直接column中配置renderCell函数来渲染渲染数据，配置renderHeader函数来渲染表头。如果你既用了插槽也用了渲染函数，那么渲染函数的优先级高于插槽。
+::: demo
 table/customRender
 :::
 
@@ -105,5 +106,12 @@ table/customRender
 
 
 
+
+
+## Table Slots
+|name|描述|
+|---|---|
+|header|头部插槽|
+|footer|尾部插槽|
 
 

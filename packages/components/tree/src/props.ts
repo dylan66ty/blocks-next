@@ -54,5 +54,10 @@ export const treeProps = {
   unfoldOnClickNode: {
     type: Boolean,
     default: true
+  },
+  // 点击node时候是否触发checked
+  checkedOnClickNode: {
+    type: Boolean,
+    default: false
   }
 }

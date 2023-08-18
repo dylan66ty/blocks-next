@@ -31,7 +31,7 @@ button/border
 :::
 
 ## 卡片按钮
-设置属性 `type*` 为 `card` 即可
+设置属性 `type` 为 `card` 即可
 ::: demo 
 button/card
 :::
@@ -53,21 +53,24 @@ button/size
 
 
 ## 块级按钮
-
-::: demo 设置属性 **block**为 `true` 将按钮定义为块级按钮。
+设置属性 `block` 为 `true` 即可将按钮独占一行
+::: demo
 button/block
 :::
 
 ## Loading状态
-
-::: demo 设置属性 **loading**为 `true`为加载状态。如果你绑定点击函数是个promise的话，内部会自动处理loading状态。不用传递loading属性。
+设置属性 `loading` 为 `true` 即可使按钮处于加载状态。
+::: tip
+如果你绑定点击函数是个 Promise 的话，内部会自动处理 loading 状态。不用传递 loading 属性。具体下面的示例
+:::
+::: demo 
 button/loading
 :::
 
 
 ## 组合按钮
-
-::: demo 通过 `<bu-button-group>` 组件使按钮以组合方式出现。可用在同级多项操作中。
+组合 `<bu-button-group>` 组件使按钮以组合方式出现。可用在同级多项操作中
+::: demo 
 button/group
 :::
 
@@ -84,6 +87,6 @@ button/group
 |disabled|是否禁用|`boolean`|`false`|
 |block|是否块级按钮|`boolean`|`false`|
 |loading|按钮加载中|`boolean`|`false`|
-|loading-fill ^(beta)|加载中是否全局填充|`boolean`|`false`|
+|loading-fill|加载中是否全局填充|`boolean`|`false`|
 
 

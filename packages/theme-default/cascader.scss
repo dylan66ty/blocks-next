@@ -2,6 +2,7 @@
 
 @include b(cascader) {
   display: inline-block;
+  width: 260px;
 }
 
 @include b(cascader-panel) {

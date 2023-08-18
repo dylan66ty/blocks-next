@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { PropType } from 'vue'
   import { defineComponent, ref, watch, computed, onUnmounted, onMounted } from 'vue'
   import { getNamespace } from '../../utils/global-config'
   import { isElement } from '../../utils/is'
+  import { definePropType } from '../../utils/vue-utils'
 
   import BnInput from '../input'
   import { BnIconCaret, BnIconClose } from '../icon'
@@ -23,7 +23,7 @@
       },
       disabled: Boolean,
       size: {
-        type: String as PropType<'small' | 'default' | 'large'>,
+        type: definePropType<'small' | 'default' | 'large'>(String),
         default: 'default'
       },
       placeholder: {
@@ -34,7 +34,7 @@
       popupVisible: Boolean,
       multiple: Boolean,
       multipleTags: {
-        type: Array as PropType<{ label: any; key: any }[]>,
+        type: definePropType<{ label: any; key: any }[]>(Array),
         default: () => []
       },
       filterable: {
@@ -60,7 +60,7 @@
       const multipleQuery = ref('')
       const placeholder = ref<string | undefined>()
 
-      const setLayoutInputHeight = () => {
+      const setBnInputHeight = () => {
         const height = multipleTagsRef.value?.clientHeight + 'px'
         const inputElement = inputComponentRef.value?.inputRef
         if (inputElement) {
@@ -74,13 +74,6 @@
       }
 
       const multipleTagsRef = ref<HTMLElement>()
-
-      const addMultipleTag = () => {
-        setLayoutInputHeight()
-      }
-      const removeMultipleTag = () => {
-        setLayoutInputHeight()
-      }
 
       const computedInputValue = computed({
         get() {
@@ -171,7 +164,7 @@
       const clickOutside = (e: MouseEvent) => {
         const el = e.target as HTMLElement
         const deps: HTMLElement[] = [popupTargetElement.value, selectTriggerDomRef.value]
-        const inner = deps.some((container) => container.contains(el))
+        const inner = deps.some((container) => container?.contains(el))
         requestAnimationFrame(() => {
           inputComponentRef.value?.setFocus(inner)
           !inner && resetQuery()
@@ -194,6 +187,34 @@
         document.documentElement.removeEventListener('mousedown', clickOutside, true)
       })
 
+      const transitionEvent = {
+        beforeEnter(el: HTMLElement) {
+          el.style.transition = 'all 0.2s'
+          el.style.transformOrigin = 'left'
+          el.style.transform = 'scale(0)'
+        },
+        enter(el: HTMLElement) {
+          setBnInputHeight()
+          setTimeout(() => {
+            el.style.transform = 'scale(1)'
+          }, 0)
+        },
+        afterEnter() {},
+        beforeLeave(el: HTMLElement) {
+          el.style.transition = 'all 0.15s'
+          el.style.transformOrigin = 'right'
+          el.style.transform = 'scale(1)'
+        },
+        leave(el: HTMLElement) {
+          setTimeout(() => {
+            el.style.transform = 'scale(0)'
+          }, 0)
+        },
+        afterLeave() {
+          setBnInputHeight()
+        }
+      }
+
       return {
         ns,
         inputComponentRef,
@@ -202,14 +223,13 @@
         multipleInputReadonly,
         computedPlaceholder,
         computedInputValue,
+        multipleInputRef,
+        multipleQuery,
+        selectTriggerDomRef,
+        transitionEvent,
         handleSelectTrigger,
         handleClear,
         onInputEvent,
-        multipleQuery,
-        selectTriggerDomRef,
-        addMultipleTag,
-        removeMultipleTag,
-        multipleInputRef,
         resetQuery,
         handleMultipleInput
       }
@@ -237,10 +257,13 @@
     </BnInput>
     <div v-if="multiple" ref="multipleTagsRef" :class="[`${ns}__multiple`, `is-${size}`]">
       <transition-group
-        name="bn-zoom-in"
         appear
-        @enter="addMultipleTag"
-        @after-leave="removeMultipleTag"
+        @before-enter="transitionEvent.beforeEnter"
+        @enter="transitionEvent.enter"
+        @after-enter="transitionEvent.afterEnter"
+        @before-leave="transitionEvent.beforeLeave"
+        @leave="transitionEvent.leave"
+        @after-leave="transitionEvent.afterLeave"
       >
         <div v-for="tag in multipleTags" :key="`${tag.key}`" :class="[`${ns}__tag`, `is-${size}`]">
           <span :class="[`${ns}__tag-text`]">{{ tag.label }}</span>

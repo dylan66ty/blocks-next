@@ -41,9 +41,8 @@
 </script>
 
 <template>
-  <bn-table :columns="columns" :data="data" max-height="200"> </bn-table>
-
-  <bn-button block class="mt-5" @click="addItem">add Item</bn-button>
+  <bn-table class="mb-5" :columns="columns" :data="data" max-height="200"></bn-table>
+  <bn-button block type="default" @click="addItem">add Item</bn-button>
 </template>
 
 <style lang="scss"></style>

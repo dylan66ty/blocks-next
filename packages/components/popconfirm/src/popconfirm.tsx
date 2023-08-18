@@ -34,6 +34,7 @@ export default defineComponent({
     let defaultSlot: VNode[] | undefined
     let vm: VNode | null
     let popupTarget: HTMLElement | null
+
     const container = document.createElement('div')
 
     const innerVisible = ref(false)
@@ -56,8 +57,7 @@ export default defineComponent({
         // 外部状态
         emit('update:modelValue', false)
         emit('change', false)
-
-        removeClickOutsize()
+        removeClickOutside()
       }
     }
 
@@ -76,14 +76,13 @@ export default defineComponent({
       if ((popupTarget as HTMLElement).contains(e.target as HTMLElement)) {
         return
       }
-
       changeVisible(false)
     }
 
     const listenerClickOutside = () => {
       on(document.documentElement, 'click', handleOutside)
     }
-    const removeClickOutsize = () => {
+    const removeClickOutside = () => {
       off(document.documentElement, 'click', handleOutside)
     }
 
@@ -194,6 +193,7 @@ export default defineComponent({
         if (props.disabled) return
         if (val) {
           nextTick(createPopup)
+          emit('change', true)
         } else {
           changeVisible(false)
         }

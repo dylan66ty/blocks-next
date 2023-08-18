@@ -62,11 +62,9 @@
 </script>
 
 <template>
-  <div style="margin-bottom: 10px">
-    <bn-space>
-      <span>{{ model }}</span>
-      <bn-tag @click="model = []">清空</bn-tag>
-    </bn-space>
+  <div class="mb-1"> model: {{ model }} </div>
+  <div class="mb-4">
+    <bn-tag @click="model = []">清空</bn-tag>
   </div>
 
   <bn-cascader v-model="model" :data="data" multiple show-footer>

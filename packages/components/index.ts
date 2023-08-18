@@ -33,6 +33,7 @@ export * from './dropdown'
 export * from './dropdown-item'
 export * from './date-picker'
 export * from './tree'
+export * from './tree-select'
 
 // methods
 export * from './message'

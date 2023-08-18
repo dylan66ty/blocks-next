@@ -1,8 +1,9 @@
 <script lang="ts">
-  import type { PropType } from 'vue'
   import { getCurrentInstance, reactive, computed, defineComponent } from 'vue'
   import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
   import { isArray, isFunction, isPromise } from '../../../utils/is'
+  import { definePropType } from '../../../utils/vue-utils'
+
   // 方便添加动画
   import LoadingIcon from './LoadingIcon'
 
@@ -20,7 +21,7 @@
         default: false
       },
       shape: {
-        type: String as PropType<'circle' | 'round'>,
+        type: definePropType<'circle' | 'round'>(String),
         default: undefined
       },
       link: {
@@ -28,7 +29,9 @@
         default: false
       },
       type: {
-        type: String as PropType<'primary' | 'success' | 'danger' | 'warning' | 'strong' | 'card'>,
+        type: definePropType<'primary' | 'success' | 'danger' | 'warning' | 'strong' | 'card'>(
+          String
+        ),
         default: undefined
       },
       plain: {
@@ -36,7 +39,7 @@
         default: false
       },
       size: {
-        type: String as PropType<'mini' | 'small' | 'large' | 'normal'>,
+        type: definePropType<'mini' | 'small' | 'large' | 'normal'>(String),
         default: 'normal'
       },
       border: {

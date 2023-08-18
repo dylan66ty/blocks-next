@@ -1,0 +1,28 @@
+@use './mixins/bem.scss' as *;
+
+@include b(tree-select) {
+  display: inline-block;
+  width: 260px;
+
+  @include e(menu) {
+   border-radius: 8px;
+   background: #fff;
+   box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
+
+   .#{$namespace}-tree { 
+    padding: 8px 0;
+   }
+  }
+
+  @include e(empty) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    font-size: 14px;
+    color: #a8abb2;
+  }
+
+}
+
+

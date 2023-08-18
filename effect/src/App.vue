@@ -36,7 +36,7 @@
 
   import DatePicker from './components/DatePicker.vue'
   import Tree from './components/Tree.vue'
-
+  import TreeSelect from './components/Tree-Select.vue'
 
 
 </script>
@@ -44,7 +44,7 @@
 <template>
   <!-- <Dialog /> -->
 
-  <Tree />
+  <TreeSelect />
 </template>
 
 <style></style>

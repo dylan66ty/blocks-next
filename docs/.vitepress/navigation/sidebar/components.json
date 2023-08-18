@@ -33,6 +33,10 @@
           "link": "radio"
         },
         {
+          "text": "开关 Switch",
+          "link": "switch"
+        },
+        {
           "text": "选择器 Select",
           "link": "select"
         },
@@ -46,8 +50,9 @@
           "promotion": "alpha.33"
         },
         {
-          "text": "开关 Switch",
-          "link": "switch"
+          "text": "树选择 TreeSelect",
+          "link": "treeSelect",
+          "promotion": "alpha.36"
         },
         {
           "text": "表单 Form",

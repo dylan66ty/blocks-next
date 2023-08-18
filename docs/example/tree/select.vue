@@ -12,6 +12,7 @@
         {
           label: '节点 A1',
           value: '0-1',
+          disabled: true,
           children: [
             {
               label: '叶子节点 A1.1',
@@ -58,6 +59,10 @@
   watch(multiple, () => {
     selected.value = []
   })
+
+  const onChangeSelected = (val) => {
+    console.log('selected:', val)
+  }
 </script>
 
 <template>
@@ -68,6 +73,8 @@
     :data="data"
     :multiple="multiple"
     :unfold-on-click-node="false"
+    check-strictly
+    @change-selected="onChangeSelected"
   />
 </template>
 

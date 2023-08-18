@@ -1,7 +1,7 @@
 import { computed, getCurrentInstance, ref } from 'vue'
 import type { Ref } from 'vue'
 import type { TreeNode } from '../type'
-import { isArray, isUndefined } from '../../../../utils/is'
+import { isArray } from '../../../../utils/is'
 
 export const useSelected = ({
   selected,
@@ -27,11 +27,16 @@ export const useSelected = ({
     if (hasUpdateSelectedEvent.value) {
       instance?.emit('update:selected', values)
     }
+
+    instance?.emit('change-selected', values)
   }
 
   const exposed: Record<string, Function> = {
     getSelectedNodes() {
-      return selectedValues.value.map((key) => nodeValueMap.get(key!))
+      return selectedValues.value.map((value) => nodeValueMap.get(value))
+    },
+    getNodesByValues(values: (string | number)[]) {
+      return values.map((value) => nodeValueMap.get(value))
     }
   }
 
@@ -42,18 +47,18 @@ export const useSelected = ({
   }
 
   const handleNodeSelected = (node: TreeNode) => {
-    const values = selectedValues.value.slice()
-    const key = node.value
-    if (isUndefined(key)) return
-    if (values.includes(key)) return
+    const value = node.value
     if (multiple.value) {
-      values.push(key)
-      updateSelectedValues(values)
+      const origin = selectedValues.value.slice()
+      if (!origin.includes(value)) {
+        origin.push(value)
+      }
+      updateSelectedValues(origin)
     } else {
-      updateSelectedValues([key])
+      updateSelectedValues([value])
     }
 
-    focusNodeValues.value = [key]
+    focusNodeValues.value = [value]
   }
 
   return { handleNodeSelected, selectedValues, focusNodeValues }

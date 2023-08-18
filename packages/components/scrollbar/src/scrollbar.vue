@@ -197,12 +197,12 @@
 </script>
 
 <template>
-  <div :class="cls" :style="style" @mouseenter.stop="handleResize">
-    <ResizeObserver @resize="handleResize">
-      <div ref="containerRef" :class="`${ns}__container`" v-bind="$attrs" @scroll="handleScroll">
-        <slot></slot>
-      </div>
-    </ResizeObserver>
+  <div :class="cls" :style="style">
+    <div ref="containerRef" :class="`${ns}__container`" v-bind="$attrs" @scroll="handleScroll">
+      <ResizeObserver @resize="handleResize">
+        <slot :resize="handleResize"></slot>
+      </ResizeObserver>
+    </div>
 
     <Thumb
       v-if="!hide && hasHorizontalScrollbar"

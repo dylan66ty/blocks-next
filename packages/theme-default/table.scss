@@ -165,6 +165,14 @@
     }
   }
 
+  @include e(external-header) {
+    display: flex;
+    border-bottom: 1px solid #edf1f6;
+    padding: 24px 32px;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
+
   @include e(external-footer) {
     display: flex;
     justify-content: flex-end;

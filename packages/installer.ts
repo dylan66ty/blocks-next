@@ -35,6 +35,7 @@ import { Dropdown } from './components/dropdown'
 import { DropdownItem } from './components/dropdown-item'
 import { DatePicker } from './components/date-picker'
 import { Tree } from './components/tree'
+import { TreeSelect } from './components/tree-select'
 
 // plugin
 import { Message } from './components/message'
@@ -76,7 +77,8 @@ const components = [
   Dropdown,
   DropdownItem,
   DatePicker,
-  Tree
+  Tree,
+  TreeSelect
 ] as Plugin[]
 
 const plugins = [Message, MessageBox, Notification, Loading]

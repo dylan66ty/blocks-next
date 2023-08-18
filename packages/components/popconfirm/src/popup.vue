@@ -16,26 +16,44 @@
       BnIconPrompt
     },
     props: {
-      // eslint-disable-next-line vue/require-default-prop
-      width: [String, Number],
-      // eslint-disable-next-line vue/require-default-prop
-      content: Object,
-      // eslint-disable-next-line vue/require-default-prop
-      okText: String,
-      // eslint-disable-next-line vue/require-default-prop
-      cancelText: String,
-      // eslint-disable-next-line vue/require-default-prop
-      popupClass: String,
-      // eslint-disable-next-line vue/require-default-prop
-      onBeforeCancel: Function,
-      // eslint-disable-next-line vue/require-default-prop
-      onBeforeOk: Function,
-      // eslint-disable-next-line vue/require-default-prop
-      type: String
+      width: {
+        type: [String, Number],
+        default: ''
+      },
+      content: {
+        type: Object,
+        default: () => ({})
+      },
+      okText: {
+        type: String,
+        default: 'String'
+      },
+      cancelText: {
+        type: String,
+        default: ''
+      },
+      popupClass: {
+        type: String,
+        default: undefined
+      },
+      onBeforeCancel: {
+        type: Function,
+        default: undefined
+      },
+      onBeforeOk: {
+        type: Function,
+        default: undefined
+      },
+      type: {
+        type: String,
+        default: undefined
+      }
     },
     emits: ['ok', 'cancel', 'close', 'destroy'],
     setup(props, { emit }) {
       const ns = getNamespace('popconfirm')
+      const visible = ref(true)
+
       const popupCls = computed(() => [
         ns,
         props.popupClass && props.popupClass,
@@ -48,8 +66,6 @@
         style.width = addUnit(props.width)
         return style
       })
-
-      const visible = ref(true)
 
       const loadingObj = reactive({
         ok: false,
@@ -101,6 +117,15 @@
           emit('cancel', e)
         }
       }
+
+      const beforeLeave = () => {
+        emit('close')
+      }
+
+      const afterLeave = () => {
+        emit('destroy')
+      }
+
       onUnmounted(() => {
         visible.value = false
       })
@@ -110,10 +135,12 @@
         visible,
         popupCls,
         popupStyle,
+        loadingObj,
         changeVisible,
         handleOk,
         handleCancel,
-        loadingObj
+        beforeLeave,
+        afterLeave
       }
     }
   })
@@ -123,8 +150,8 @@
   <transition
     name="bn-fade-in-standard"
     appear
-    @before-leave="$emit('close')"
-    @after-leave="$emit('destroy')"
+    @before-leave="beforeLeave"
+    @after-leave="afterLeave"
   >
     <div v-show="visible" :class="popupCls" :style="popupStyle">
       <div :class="[`${ns}__content`]">

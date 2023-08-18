@@ -11,6 +11,7 @@ export interface TreeContext {
   nodeKeyMap: Map<string, TreeNode>
   focusNodeValues: (number | string | undefined)[]
   unfoldOnClickNode: boolean
+  checkedOnClickNode: boolean
   toggleNodeUnfoldOrFold(node: TreeNode): void
   handleNodeSelected(node: TreeNode): void
   toggleNodeCheckStatus(node: TreeNode, checked: boolean): void

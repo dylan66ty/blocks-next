@@ -41,7 +41,7 @@ datePicker/monthrange
 
 
 ## 双向绑定
-通过 `v-model` 实现值的双向绑定。`v-model`绑定的值要根据`type`类型来定义。具体定义请参考以下demo。
+通过 `v-model` 实现值的双向绑定。`v-model`绑定的值要根据`type`类型来定义。参考下面示例。
 ::: demo
 datePicker/default-value
 :::
@@ -133,7 +133,7 @@ export interface DateCell {
 |-------|-------|---|:---:|
 |v-model|双向绑定的值|`array / string / Date / number`|`-`|
 |disabled|是否禁用|`boolean`|`false`|
-|placeholder|占位符|`string`|`请选择`|
+|placeholder|提示文案|`string`|`请选择`|
 |size|输入框的大小|`small` / `default` / `large`|`default`|
 |clearable|是否可清空|`boolean`|`-`|
 |range-separator|输入框中日期展示的分隔符，一般只用于日期的范围选择|`string`|`～`|
@@ -147,9 +147,9 @@ export interface DateCell {
 ## Events
 |name|描述|回调参数|
 |---|---|---|
-|show|当 DatePicker 的下拉列表显示|`-`|
-|hide|当 DatePicker 的下拉列表隐藏|`-`|
 |change|选中值改变时触发|`(date: Date \| Date[])`|
+|show|当下拉列表显示时触发|`-`|
+|hide|当下拉列表隐藏时触发|`-`|
 
 
 ## Slots

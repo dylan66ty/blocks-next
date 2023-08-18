@@ -2,6 +2,8 @@
 
 @include b(select) {
   display: inline-block;
+  width: 260px;
+
 
   @include e(empty) {
     display: flex;

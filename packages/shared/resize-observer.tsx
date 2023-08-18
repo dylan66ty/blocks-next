@@ -7,6 +7,7 @@ export default defineComponent({
   emits: ['resize'],
   setup(props, { emit, slots }) {
     const { children, firstElement } = useFirstElement()
+
     let resizeObserver: ResizeObserver | null
 
     const createResizeObserver = (target: HTMLElement) => {

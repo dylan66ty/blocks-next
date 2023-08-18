@@ -91,18 +91,18 @@ export const useRenderFlattenNodes = ({
       })(nodes.value)
     },
     // 新增node
-    insertNodes(parentValue: number | string, dataItems: TreeData[]) {
+    insertNodes(parentValue: number | string, data: TreeData[]) {
       if (!parentValue) {
-        originData.value.push(...dataItems)
+        originData.value.push(...data)
         return
       }
       const node = flattenNodes.value.find((n) => n.value === parentValue)
       if (!node) return
       const dataChildren = node.data.children
       if (dataChildren) {
-        dataChildren.push(...dataItems)
+        dataChildren.push(...data)
       } else {
-        node.data.children = [...dataItems]
+        node.data.children = [...data]
       }
     },
     // 删除node

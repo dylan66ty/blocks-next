@@ -58,6 +58,10 @@
   watch(checkStrictly, () => {
     checked.value = []
   })
+
+  const onChangeChecked = (val) => {
+    console.log('checked:', val)
+  }
 </script>
 
 <template>
@@ -67,8 +71,9 @@
     v-model:checked="checked"
     :data="data"
     :unfold-on-click-node="false"
-    show-checkbox
     :check-strictly="checkStrictly"
+    show-checkbox
+    @change-checked="onChangeChecked"
   />
 </template>
 

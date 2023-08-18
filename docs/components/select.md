@@ -7,44 +7,50 @@ lang: zh-CN
 当用户需要从一组同类数据中选择一个或多个时，可以使用下拉选择器，点击后选择对应项。
 
 ## 基础用法
-
-::: demo v-model的值为当前被选中的el-option的 value 属性值
+`v-model` 的值为当前被选中的el-option的 `value` 属性值
+::: demo 
 select/basic
 :::
 
 ## 禁用状态
-::: demo 选择器不可用状态,设置属性disabled即可
+选择器不可用状态,设置属性 `disabled` 即可
+::: demo 
 select/disabled
 :::
 
 ## 可清空单选
-::: demo 包含清空按钮，可将选择器清空为初始状态
+设置 `clearable` 属性即可
+::: demo 
 select/clearable
 :::
 
 ## 有禁用选项
-::: demo 在bn-option中，设定disabled值为 true，即可禁用该选项
+在bn-option中，设定 `disabled` 值为 `true`，即可禁用该选项
+::: demo 
 select/option-disabled
 :::
 
-## 多选 ^(beta)
-::: demo 设置属性`multiple`即可。注意此时`v-model`要绑定是个`数组`的字段。
+## 多选
+设置属性 `multiple` 即可。注意此时 `v-model` 要绑定是个 `数组` 的字段。
+::: demo
 select/multiple
 :::
 
 
 ## 自定义模板
-::: demo 在bn-option中，设定默认插槽即可
+在bn-option中，设定默认插槽即可
+::: demo 
 select/option-default-slots
 :::
 
-## 模糊搜索 ^(beta)
-::: demo 可以利用模糊搜索功能快速查找选项。通过添加`filterable`来启用过滤。`filter-method`自定义搜索方法，该方法必须是个函数，第一个参数是option实例对象代理，第二个参数是搜索关键词query，通过返回布尔值表示是否命中。
+## 模糊搜索
+可以利用模糊搜索功能快速查找选项。通过添加 `filterable` 来启用过滤。`filter-method`自定义搜索方法，该方法必须是个函数，第一个参数是option实例对象代理，第二个参数是搜索关键词query，通过返回布尔值表示是否命中。
+::: demo 
 select/filterable
 :::
 
-## 远程搜索 ^(beta)
-::: demo 输入关键字以从远程服务器中查找数据。此功能必须将`filterable`和`remote`设置为true，同时传入一个`remote-method`。 remote-method为一个Function，它会在输入值发生变化时调用，参数为当前输入值。此时你可以拿到当前输入框的query,然后你在请求接口拿到数据后在渲染option。
+## 远程搜索
+::: demo 输入关键字以从远程服务器中查找数据。此功能必须将 `filterable` 和 `remote` 设置为true，同时传入一个 `remote-method`。 remote-method为一个Function，它会在输入值发生变化时调用，参数为当前输入值。此时你可以拿到当前输入框的query,然后你在请求接口拿到数据后在渲染option。
 select/remote
 :::
 
@@ -56,7 +62,7 @@ select/remote
 |disabled|是否禁用|`boolean` |`false`|
 |clearable|是否可以清空选项|`boolean` |`false`|
 |size|尺寸大小|`small` / `default` / `large`|`default`|
-|placeholder|占位符|`string`|`请选择`|
+|placeholder|提示文案|`string`|`请选择`|
 |filterable ^(alpha.32)|是否开启模糊搜索|`boolean`|`false`|
 |filter-method ^(alpha.32)|自定义筛选方法，返回的布尔值表示是否保留该选项|`(optVmProxy, query) => boolean`|`-`|
 |remote ^(alpha.32)|是否从服务器远程加载|`boolean`|`false`|
@@ -64,7 +70,7 @@ select/remote
 |loading|是否正在从远程获取数据|`boolean`|`false`|
 |loading-text|正在加载文字|`string`|`-`|
 |no-data-text|选项为空时显示的文字|`string`|`暂无数据`|
-
+|popup-class|自定义弹出层类名|`string`|`-`|
 
 ## Select Events
 |事件名|描述|回调|

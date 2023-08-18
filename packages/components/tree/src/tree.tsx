@@ -4,7 +4,7 @@ import { isArray } from '../../../utils/is'
 import { treeProps } from './props'
 import TreeNodeComp from './layout/node.vue'
 import { transDataToNodes } from './utils'
-import type { TreeNode } from './type'
+import type { TreeData, TreeNode } from './type'
 import { treeInjectKey } from './context'
 
 import { useRenderFlattenNodes } from './hooks/use-render-flatten-nodes'
@@ -14,7 +14,15 @@ import { useChecked } from './hooks/use-checked'
 export default defineComponent({
   name: getComponentNamespace('Tree'),
   props: treeProps,
-  emits: ['update:selected', 'update:checked', 'click-node', 'unfold-node', 'fold-node'],
+  emits: [
+    'update:selected',
+    'change-selected',
+    'update:checked',
+    'change-checked',
+    'click-node',
+    'unfold-node',
+    'fold-node'
+  ],
   setup(props, { slots, expose, emit }) {
     const {
       selected,
@@ -27,7 +35,8 @@ export default defineComponent({
       showCheckbox,
       data,
       accordion,
-      unfoldOnClickNode
+      unfoldOnClickNode,
+      checkedOnClickNode
     } = toRefs(props)
     const ns = getNamespace('tree')
     const nodes = ref<TreeNode[]>([])
@@ -70,6 +79,7 @@ export default defineComponent({
         showCheckbox,
         checkStrictly,
         unfoldOnClickNode,
+        checkedOnClickNode,
         selectedValues,
         focusNodeValues,
         checkedNodeKeys,
@@ -116,5 +126,22 @@ export default defineComponent({
         </div>
       )
     }
+  },
+  methods: {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getNodesByValues(values: (string | number)[]): TreeNode[] {
+      return []
+    },
+    getSelectedNodes(): TreeNode[] {
+      return []
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    unfoldNodes(values?: (number | string)[]) {},
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    foldNodes(values?: (number | string)[]) {},
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    insertNodes(parentValue: number | string, data: TreeData[]) {},
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    removeNodes(values: (number | string)[]) {}
   }
 })

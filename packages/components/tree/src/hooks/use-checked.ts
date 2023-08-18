@@ -52,6 +52,7 @@ export const useChecked = ({
     } else {
       innerCheckedValues.value = values
     }
+    instance?.emit('change-checked', values)
   }
 
   const toggleNodeCheckStatus = (node: TreeNode, checked: boolean) => {

@@ -14,7 +14,7 @@
   import Trigger from '../../trigger/src/trigger'
   import { BnIconLoading, BnIconEmpty } from '../../icon'
   import SelectTrigger from '../../common/select-trigger.vue'
-  import Scrollbar from '../../scrollbar/src/scrollbar.vue'
+  import { Scrollbar } from '../../scrollbar'
   import type { ScrollbarInstance } from '../../scrollbar'
 
   // 表单

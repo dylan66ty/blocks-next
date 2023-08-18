@@ -39,9 +39,9 @@
       const isFocus = computed(() => treeContext?.focusNodeValues.includes(props.node.value))
 
       const unfoldOnClickNode = computed(() => treeContext?.unfoldOnClickNode)
+      const checkedOnClickNode = computed(() => treeContext?.checkedOnClickNode)
 
       const handleNodeSelected = () => {
-        if (props.node.disabled) return
         treeContext?.handleNodeSelected(props.node)
       }
 
@@ -54,9 +54,13 @@
       }
 
       const handleNodeItem = () => {
+        if (props.node.disabled) return
         treeContext?.clickNode(props.node)
         if (unfoldOnClickNode.value) {
           toggleNodeUnfoldOrFold()
+        }
+        if (checkedOnClickNode.value) {
+          toggleNodeCheckStatus(!checkedStatus.value.checked)
         }
         handleNodeSelected()
       }

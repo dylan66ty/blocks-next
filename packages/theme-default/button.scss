@@ -476,7 +476,6 @@
   @include e(loading) {
     display: flex;
     margin-left: 4px;
-    transition: all 0.15s linear;
 
     &.is-fill {
       position: absolute;

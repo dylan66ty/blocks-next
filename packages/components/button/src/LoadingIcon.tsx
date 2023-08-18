@@ -11,6 +11,7 @@ const getCollapsedWidth = (node: HTMLSpanElement) => {
 const getRealWidth = (node: HTMLSpanElement) => {
   nextTick(() => {
     if (node) {
+      node.style.transition = 'all 0.15s'
       node.style.width = `${node.scrollWidth}px`
       node.style.opacity = '1'
       node.style.transform = 'scale(1)'

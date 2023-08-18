@@ -3,7 +3,7 @@ import { computed, defineComponent, provide, reactive, ref, toRefs } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import { isUndefined } from '../../../utils/is'
 import { getAllElements, isComponent } from '../../../utils/vue-utils'
-import { tabsProps } from './tabs-props'
+import { tabsProps } from './props'
 import { tabsInjectionKey } from './context'
 import type { TabPaneData } from './types'
 

@@ -77,6 +77,7 @@
 
 <template>
   <bn-table :columns="columns" :data="data">
+    <template #header>Header</template>
     <template #footer>
       <bn-pagination
         :page-config="pageConfig"

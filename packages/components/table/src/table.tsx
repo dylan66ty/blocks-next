@@ -286,11 +286,7 @@ export default defineComponent({
       )
     }
 
-    const renderFooter = () => {
-      // return slots.footer && (
-      //   <div class={`${ns}__footer`}>{slots.footer()}</div>
-      // )
-    }
+    const renderFooter = () => {}
 
     const allEnabledSelectionRows = computed(() => {
       const rows: TableData[] = []
@@ -374,14 +370,11 @@ export default defineComponent({
             props.stripe && 'is-stripe'
           ]}
         >
+          {slots.header && <div class={[`${ns}__external-header`]}>{slots.header()}</div>}
           {renderTable()}
           {slots.footer && <div class={[`${ns}__external-footer`]}>{slots.footer()}</div>}
 
-          {
-            <>
-              <Transition name="bn-fade-in">{props.loading && <Loading />}</Transition>
-            </>
-          }
+          {<Transition name="bn-fade-in">{props.loading && <Loading />}</Transition>}
         </div>
       )
     }

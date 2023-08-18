@@ -76,6 +76,8 @@
 
 @include b(date-picker) {
   display: inline-block;  
+  width: 230px;
+
 
   @include e(panel) {
     border-radius: 8px;
