@@ -4,7 +4,7 @@
   import { useFormItem } from '../../form/src/hooks/use-form-item'
   import { NOOP } from '../../../shared/utils'
   import { checkboxGroupContextKey } from './constant'
-  import { checkboxProps } from './checkbox'
+  import { checkboxProps } from './props'
   import RenderIcon from './icon'
 
   import type { CheckboxGroupContext } from './types'

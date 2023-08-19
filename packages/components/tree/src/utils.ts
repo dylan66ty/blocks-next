@@ -113,7 +113,7 @@ export const findParentNodeByValue = (
     visitor(node, done) {
       if (node.value === value) {
         parent = node.parent as null
-        done()
+        done && done()
       }
     }
   })

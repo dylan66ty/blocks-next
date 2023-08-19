@@ -9,7 +9,6 @@ import { projRoot } from '../utils/paths'
 import tag from '../plugins/tag'
 import codeBlock from '../plugins/code-block'
 import tableWrapper from '../plugins/table-wrapper'
-import font from '../plugins/font'
 
 import { red } from 'kolorist'
 

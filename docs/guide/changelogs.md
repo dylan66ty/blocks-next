@@ -1,6 +1,6 @@
 # 更新日志
 
-## 1.0.1-alpha.35
+## 1.0.1-alpha.36
 `2023-08-19`
 - Components [TreeSelect] ✨ 树选择器（单选、多选、模糊搜索、表单验证）
 - Components [Input] 🐛 flex布局下size属性不生效

@@ -18,6 +18,6 @@ export const checkboxProps = {
     type: Boolean,
     default: true
   }
-} as const
+}
 
 export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>
