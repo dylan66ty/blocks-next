@@ -16,11 +16,6 @@
   import { NOOP } from '../../../shared/utils'
   import { treeSelectProps } from './props'
 
-  interface Tag {
-    key: string
-    label: string
-  }
-
   export default defineComponent({
     name: getComponentNamespace('TreeSelect'),
     components: {
@@ -48,7 +43,12 @@
 
       const popupRef = ref<HTMLElement>()
       const inputValue = ref('')
-      const multipleTags = ref<Tag[]>([])
+      const multipleTags = ref<
+        {
+          key: string
+          label: string
+        }[]
+      >([])
 
       const isEmpty = computed(() => props.data.length === 0)
 
@@ -101,7 +101,10 @@
                 key: node.value,
                 label: node.label
               }
-            }) as Tag[]
+            }) as {
+              key: string
+              label: string
+            }[]
           }
         },
         { immediate: true }
@@ -126,7 +129,7 @@
         emit('update:modelValue', [])
         emit('clear')
       }
-      const handleTagClose = (tag: Tag) => {
+      const handleTagClose = (tag: { key: string; label: string }) => {
         const tags = multipleTags.value.slice()
         const originSelectedValues = selected.value.slice()
         const key = tag.key
