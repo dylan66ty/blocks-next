@@ -31,31 +31,34 @@ checkbox/indeterminate
 :::
 
 
+## API
 ## Checkbox Attributes
-|参数名|描述|可选值|默认值|
+|属性名|描述|类型|默认值|
 |---|---|---|:---:|
-|v-model|绑定值|`boolean`|`false`|
-|label|选中状态的值|`string`/ `number` / `boolean` |`-`|
-|disabled|是否禁用|`boolean`|`false`|
-|name|原生 name 属性|`string`|`-`|
-|checked|当前是否勾选|`boolean`|`false`|
-|indeterminate|半选状态|`boolean`|`false`|
+|v-model|绑定值|`boolean`|false|
+|label|选中状态的值|`string`/ `number \| boolean` |-|
+|disabled|是否禁用|`boolean`|false|
+|name|原生 name 属性|`string`|-|
+|checked|当前是否勾选|`boolean`|false|
+|indeterminate|半选状态|`boolean`|false|
+
+## Checkbox Group Attributes
+|属性名|描述|类型|默认值
+|---|---|---|:---:|
+|v-model|绑定值|`array`|-|
+
 
 ## Checkbox Events
-|事件名|描述|回调|
+|事件名|描述|函数类型|
 |---|---|---|
-|change|当绑定值变化时触发的事件|`(val:boolean)`|
+|change|当绑定值变化时触发的事件|`(val:boolean) => void`|
 
 
-## CheckboxGroup Attributes
-|参数名|描述|可选值|默认值|
-|---|---|---|:---:|
-|value / v-model|绑定值|`array`|`-`|
 
-## CheckboxGroup Events
-|事件名|描述|回调|
+## Checkbox Group Events
+|事件名|描述|函数类型|
 |---|---|---|
-|change|当绑定值变化时触发的事件|`(val:array)`|
+|change|当绑定值变化时触发的事件|`(val:(number\|string\|boolean)[]) => void`|
 
 
 

@@ -7,7 +7,7 @@
     total: 50
   })
 
-  const sizes = [10, 20, 30, 40, 50]
+  const sizes = [10, 30, 50]
 
   const onPageChange = (page) => {
     console.log('page', page)
@@ -22,7 +22,7 @@
   <bn-pagination
     :page-config="pageConfig"
     :page-sizes="sizes"
-    layout="prev, pager, next,sizes,jumper"
+    layout="total,prev,pager,next,sizes,jumper"
     @page-change="onPageChange"
     @page-size-change="onPageSizeChange"
   ></bn-pagination>

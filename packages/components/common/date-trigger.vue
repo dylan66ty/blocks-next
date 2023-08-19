@@ -45,6 +45,10 @@
       rangePattern: {
         type: Boolean,
         default: false
+      },
+      card: {
+        type: Boolean,
+        default: false
       }
     },
     emits: ['clear'],
@@ -138,6 +142,7 @@
       :clearable="clearable"
       :size="size"
       :disabled="disabled"
+      :card="card"
       @clear="handleClear"
     >
       <template #suffix-icon>

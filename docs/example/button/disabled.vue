@@ -19,6 +19,15 @@
       <bn-button type="strong" plain disabled>强烈警告</bn-button>
       <bn-button type="danger" plain disabled>危险</bn-button>
     </bn-space>
+
+    <bn-space size="small">
+      <bn-button disabled link>plain</bn-button>
+      <bn-button disabled type="primary" link>Primary</bn-button>
+      <bn-button disabled type="success" link>Success</bn-button>
+      <bn-button disabled type="warning" link>Warning</bn-button>
+      <bn-button disabled type="strong" link>Strong</bn-button>
+      <bn-button disabled type="danger" link>Danger</bn-button>
+    </bn-space>
   </bn-space>
 </template>
 

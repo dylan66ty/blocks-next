@@ -44,6 +44,10 @@
       popupRef: {
         type: Object,
         default: undefined
+      },
+      card: {
+        type: Boolean,
+        default: false
       }
     },
     emits: ['show', 'clear', 'tagClose', 'filter'],
@@ -248,6 +252,7 @@
       :readonly="readonly"
       :placeholder="computedPlaceholder"
       :clearable="clearable"
+      :card="card"
       @clear="handleClear"
       @input="onInputEvent"
     >
@@ -256,15 +261,7 @@
       </template>
     </BnInput>
     <div v-if="multiple" ref="multipleTagsRef" :class="[`${ns}__multiple`, `is-${size}`]">
-      <transition-group
-        appear
-        @before-enter="transitionEvent.beforeEnter"
-        @enter="transitionEvent.enter"
-        @after-enter="transitionEvent.afterEnter"
-        @before-leave="transitionEvent.beforeLeave"
-        @leave="transitionEvent.leave"
-        @after-leave="transitionEvent.afterLeave"
-      >
+      <transition-group appear v-on="transitionEvent">
         <div v-for="tag in multipleTags" :key="`${tag.key}`" :class="[`${ns}__tag`, `is-${size}`]">
           <span :class="[`${ns}__tag-text`]">{{ tag.label }}</span>
           <BnIconClose @click.stop="$emit('tagClose', tag)" />

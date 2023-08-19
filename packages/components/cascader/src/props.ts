@@ -68,5 +68,9 @@ export const cascaderProps = {
   popupClass: {
     type: String,
     default: undefined
+  },
+  card: {
+    type: Boolean,
+    default: false
   }
 }

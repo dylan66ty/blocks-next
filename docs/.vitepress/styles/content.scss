@@ -29,6 +29,19 @@
     @include respond-to('xxl') {
       width: var(--content-width);
     }
+
+    h2 ~ p {
+      font-size: 0.9rem;
+    }
+
+    h2 ~ ul > li {
+      font-size: 0.9rem;
+      margin: 0.2em 0;
+    }
+
+    a {
+      color: var(--bn-primary);
+    }
   }
 
   @include respond-to('md') {

@@ -9,10 +9,14 @@
   }
 
   h2 {
-    @apply text-2xl mt-9 mb-2 font-[600] text-[#606266];
+    @apply text-2xl mt-9 mb-4 font-[600] text-[#606266];
   }
 
   h3 {
-    @apply text-xl mt-9 mb-2 font-[600] text-[#606266];
+    @apply text-xl mt-9 mb-3 font-[600] text-[#606266];
+  }
+
+  p {
+    @apply my-2;
   }
 }
