@@ -11,10 +11,6 @@
     }
   }
 
-  @include when(range) {
-    width: 280px;
-  }
-
   @include e(range) {
     position: absolute;
     display: flex;

@@ -78,6 +78,9 @@
   display: inline-block;  
   width: 230px;
 
+  @include when(range) {
+    width: 280px;
+  }
 
   @include e(panel) {
     border-radius: 8px;

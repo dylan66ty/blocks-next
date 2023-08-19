@@ -4,7 +4,7 @@ lang: zh-CN
 ---
 
 # 日期选择器 DatePicker
-选择日期。支持月、周、日类型，也支持范围选择等。
+选择日期。支持月、周、日类型，也支持范围选择等
 
 
 ## 基本使用
@@ -15,47 +15,47 @@ datePicker/basic
 
 
 ## 月份选择器
-月份输入器的基础使用。设置`type`为`month`即可。
+月份输入器的基础使用。设置`type`为`month`即可
 ::: demo 
 datePicker/month
 :::
 
 
 ## 周选择器
-周输入器的基础使用。设置`type`为`week`即可。
+周输入器的基础使用。设置 `type` 为 `week` 即可
 ::: demo
 datePicker/week
 :::
 
 ## 选择日期范围
-你可以通过以下例子来学习如何设置一个日期范围选择器。
+你可以通过以下例子来学习如何设置一个日期范围选择器
 ::: demo 
 datePicker/daterange
 :::
 
 ## 选择月份范围
-你当然还可以选择一个月的范围。
+你当然还可以选择一个月的范围
 ::: demo 
 datePicker/monthrange
 :::
 
 
 ## 双向绑定
-通过 `v-model` 实现值的双向绑定。`v-model`绑定的值要根据`type`类型来定义。参考下面示例。
+通过 `v-model` 实现值的双向绑定。`v-model`绑定的值要根据`type`类型来定义。参考下面示例
 ::: demo
 datePicker/default-value
 :::
 
 
 ## 不可选取的时间
-使用 `disabled-date` 可以禁用某些日期。
+使用 `disabled-date` 可以禁用某些日期
 ::: demo
 datePicker/disabled-date
 :::
 
 
 ## 日期格式
-1.使用 `input-label-format` 指定输入框显示时间的格式。
+1.使用 `input-label-format` 指定输入框显示时间的格式
 |type|默认format|
 |---|---|
 |date|`yyyy-MM-dd`|
@@ -64,7 +64,7 @@ datePicker/disabled-date
 |monthrange|`yyyy-MM`|
 |week|`yyyy-ww周`|
 
-2.使用 `model-value-format` 指定绑定值的格式。默认情况下，组件接受并返回Date对象。
+2.使用 `model-value-format` 指定绑定值的格式。默认情况下，组件接受并返回Date对象
 
 :::warning 
 请一定要注意传入参数的大小写是否正确

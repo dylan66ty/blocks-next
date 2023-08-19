@@ -50,7 +50,10 @@ export const useSelected = ({
     const value = node.value
     if (multiple.value) {
       const origin = selectedValues.value.slice()
-      if (!origin.includes(value)) {
+      const index = origin.findIndex((val) => val === value)
+      if (~index) {
+        origin.splice(index, 1)
+      } else {
         origin.push(value)
       }
       updateSelectedValues(origin)

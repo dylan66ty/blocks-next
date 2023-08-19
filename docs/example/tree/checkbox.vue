@@ -3,6 +3,7 @@
 
   const checked = ref([])
   const checkStrictly = ref(false)
+  const checkedOnClickNode = ref(false)
 
   const data = ref([
     {
@@ -66,13 +67,18 @@
 
 <template>
   <div class="mb-2">selected: {{ checked }}</div>
-  <bn-checkbox v-model="checkStrictly" class="mb-2">checkStrictly</bn-checkbox>
+  <div class="mb-2 flex gap-x-5">
+    <bn-checkbox v-model="checkStrictly">checkStrictly</bn-checkbox>
+    <bn-checkbox v-model="checkedOnClickNode">checkedOnClickNode</bn-checkbox>
+  </div>
+
   <bn-tree
     v-model:checked="checked"
     :data="data"
     :unfold-on-click-node="false"
     :check-strictly="checkStrictly"
     show-checkbox
+    :checked-on-click-node="checkedOnClickNode"
     @change-checked="onChangeChecked"
   />
 </template>
