@@ -8,7 +8,8 @@ import { projRoot } from '../utils/paths'
 // markdown plugin
 import tag from '../plugins/tag'
 import codeBlock from '../plugins/code-block'
-import TableWrapper from '../plugins/table-wrapper'
+import tableWrapper from '../plugins/table-wrapper'
+import font from '../plugins/font'
 
 import { red } from 'kolorist'
 
@@ -73,5 +74,5 @@ export const mdPlugin = (md: markdownit) => {
       return '</Demo>'
     }
   } as ContainerOpts)
-  md.use(TableWrapper)
+  md.use(tableWrapper)
 }

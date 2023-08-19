@@ -10,9 +10,11 @@
     "Cascader",
     "consola",
     "daterange",
+    "fullscreen",
     "monthrange",
     "npmjs",
     "popconfirm",
+    "rgba",
     "vitepress",
     "vnode"
   ]

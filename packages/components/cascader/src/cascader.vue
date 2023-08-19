@@ -322,6 +322,7 @@
             :multiple-tags="multipleTags"
             :filterable="filterable"
             :popup-ref="popupRef"
+            :card="card"
             @clear="handleClear"
             @filter="handleFilter"
             @tag-close="handleTagClose"

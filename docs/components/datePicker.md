@@ -128,26 +128,28 @@ export interface DateCell {
 
 ```
 
+## API
 ## Checkbox Attributes
-|参数名|描述|可选值|默认值|
+|属性名|描述|类型|默认值|
 |-------|-------|---|:---:|
-|v-model|双向绑定的值|`array / string / Date / number`|`-`|
-|disabled|是否禁用|`boolean`|`false`|
-|placeholder|提示文案|`string`|`请选择`|
-|size|输入框的大小|`small` / `default` / `large`|`default`|
-|clearable|是否可清空|`boolean`|`-`|
-|range-separator|输入框中日期展示的分隔符，一般只用于日期的范围选择|`string`|`～`|
-|day-start-of-week|每周的第一天开始于周几，0:周日，1:周一，以此类推。|`0 / 1 / 2 / 3 / 4 / 5 / 6`|`1`|
-|model-value-format|可选，绑定值的格式。 不指定则绑定值为 Date 对象|`string`|`-`|
-|input-label-format|显示在输入框中的格式,具体规则请看 [这里](/components/datePicker#日期格式) |`string`|`-`|
-|disabled-date|不可选取的日期|`(date: Date) => boolean`|`-`|
-|popup-class|自定义弹出层类名|`string`|`-`|
+|v-model|双向绑定的值|`array \| string \| Date \| number`|date|
+|disabled|是否禁用|`boolean`|false|
+|placeholder|提示文案|`string`|请选择|
+|size|尺寸大小|`small \| default \| large`|default|
+|clearable|是否可清空|`boolean`|-|
+|range-separator|输入框中日期展示的分隔符，一般只用于日期的范围选择|`string`|～|
+|day-start-of-week|每周的第一天开始于周几，0:周日，1:周一，以此类推。|`0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6`|1|
+|model-value-format|可选，绑定值的格式。 不指定则绑定值为 Date 对象|`string`|-|
+|input-label-format|显示在输入框中的格式,具体规则请看 [这里](/components/datePicker#日期格式) |`string`|-|
+|disabled-date|不可选取的日期|`(date: Date) => boolean`|-|
+|popup-class|自定义弹出层类名|`string`|-|
+|card|输入框卡片模式 [详情](/components/input.html#卡片输入框)|`boolean`|-|
 
 
 ## Events
-|name|描述|回调参数|
+|name|描述|函数类型|
 |---|---|---|
-|change|选中值改变时触发|`(date: Date \| Date[])`|
+|change|选中值改变时触发|`(date: Date \| Date[]) => void`|
 |show|当下拉列表显示时触发|`-`|
 |hide|当下拉列表隐藏时触发|`-`|
 

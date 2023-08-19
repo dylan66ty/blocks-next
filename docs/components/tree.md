@@ -86,35 +86,35 @@ export interface TreeNode extends Omit<TreeData, 'children'> {
 }
 ```
 
-
+## API
 ## Attributes
-|参数名|描述|可选值|默认值|
+|属性名|描述|类型|默认值|
 |-------|-------|---|:---:|
-|data|传入data,生成对应的树结构|`TreeData[]`|`-`|
-|v-model:selected|双向绑定节点selected|`(string \| number)[]`|`-`|
-|v-model:checked|双向绑定节点checked|`(string \| number)[]`|`-`|
-|multiple|是否支持多选|`boolean`|`false`|
-|show-line|是否展示连接线|`boolean`|`false`|
-|show-checkbox|节点否显示checkbox|`boolean`|`false`|
-|check-strictly|父子不互相关联,父级状态不会影响子级状态|`boolean`|`false`|
-|default-unfold-all|是否默认展开全部的节点|`boolean`|`false`|
-|default-unfold-values|默认展开节点的value集合|`array`|`-`|
-|accordion|是否每次只打开一个同级树节点展开|`boolean`|`false`|
-|unfold-on-click-node|点击节点的时候触发展开或折叠|`boolean`|`false`|
-|checked-on-click-node|点击节点的时候改变复选框的状态|`boolean`|`false`|
+|data|传入data,生成对应的树结构|`TreeData[]`|-|
+|v-model:selected|双向绑定节点selected|`(string \| number)[]`|-|
+|v-model:checked|双向绑定节点checked|`(string \| number)[]`|-|
+|multiple|是否支持多选|`boolean`|false|
+|show-line|是否展示连接线|`boolean`|false|
+|show-checkbox|节点否显示checkbox|`boolean`|false|
+|check-strictly|父子不互相关联,父级状态不会影响子级状态|`boolean`|false|
+|default-unfold-all|是否默认展开全部的节点|`boolean`|false|
+|default-unfold-values|默认展开节点的value集合|`array`|-|
+|accordion|是否每次只打开一个同级树节点展开|`boolean`|false|
+|unfold-on-click-node|点击节点的时候触发展开或折叠|`boolean`|false|
+|checked-on-click-node|点击节点的时候改变复选框的状态|`boolean`|false|
 
 
 ## TreeData
-|属性|描述|可选值|默认值|
+|属性|描述|类型|默认值|
 |---|---|---|:---:|
-|label|节点展示的文本|`string`|`-`|
-|value|节点选中的值(必须全局唯一)|`string` / `number`|`-`|
-|disabled|是否禁用|`boolean`|`false`|
-|children|子节点|`TreeNode[]`|`-`|
-|isLeaf|是否是叶子节点|`boolean`|`false`|
+|label|节点展示的文本|`string`|-|
+|value|节点选中的值(必须全局唯一)|`string \| number`|-|
+|disabled|是否禁用|`boolean`|false|
+|children|子节点|`TreeNode[]`|-|
+|isLeaf|是否是叶子节点|`boolean`|false|
 
 ## Tree Methods
-|方法名|说明|回调参数|
+|方法名|说明|函数类型|
 |---|---|---|
 |unfoldNodes|展开节点。此方法可传入节点的value（数组形式），来展开相对应的节点。注意不传参数的时候，展开所有节点。|`(values?:string[]) => void`|
 |foldNodes|折叠节点。此方法可传入节点的value（数组形式），来折叠相对应的节点。注意不传参数的时候，折叠所有节点。|`(values?:string[]) => void`|
@@ -124,24 +124,22 @@ export interface TreeNode extends Omit<TreeData, 'children'> {
 |getSelectedNodes|获取当前树所有选中(selected)的节点|`() => TreeNode[]`|
 
 
-
-
 ## Events
-|name|描述|回调参数|
+|name|描述|函数类型|
 |---|---|---|
-|unfold-node|展开节点时触发|`(node: TreeNode)`|
-|fold-node|折叠节点时触发|`(node: TreeNode)`|
-|click-node|点击节点时触发|`(node: TreeNode)`|
-|change-selected|选中节点时触发|`(values: (string \| number)[])`|
-|change-checked|点击节点复选框时触发|`(values: (string \| number)[])`|
+|unfold-node|展开节点时触发|`(node: TreeNode) => void`|
+|fold-node|折叠节点时触发|`(node: TreeNode) => void`|
+|click-node|点击节点时触发|`(node: TreeNode) => void`|
+|change-selected|选中节点时触发|`(values: (string \| number)[]) => void`|
+|change-checked|点击节点复选框时触发|`(values: (string \| number)[]) => void`|
 
 
 ## Slots
 |name|描述|scoped|
 |---|---|---|
-|node-icon|节点左侧图标|`{node}: {node:TreeNode}`|
-|node-label|节点展示的内容|`{node}: {node:TreeNode}`|
-|node-extra|节点右侧渲染内容|`{node}: {node:TreeNode}`|
+|node-icon|节点左侧图标|`{node:TreeNode}`|
+|node-label|节点展示的内容|`{node:TreeNode}`|
+|node-extra|节点右侧渲染内容|`{node:TreeNode}`|
 
 
 

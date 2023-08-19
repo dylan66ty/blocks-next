@@ -11,7 +11,7 @@ node --version
 
 ## 使用
 
-**安装blocks-next**
+### 安装blocks-next
 
 ``` shell
 pnpm install blocks-next
@@ -19,9 +19,9 @@ pnpm install blocks-next
 
 
 
-**在vue3项目中注册block-next**
+### 在vue3项目中注册block-next
 
-```ts
+```js
 // main.ts
 import BlocksNext, {Icon} from 'blocks-next'
 // 引入BlocksNext样式

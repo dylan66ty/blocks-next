@@ -284,6 +284,7 @@ export default defineComponent({
                   size={props.size}
                   rangePattern={rangePattern.value}
                   onClear={handleClear}
+                  card={props.card}
                 />
               ),
               content: () => (

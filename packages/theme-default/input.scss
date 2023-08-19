@@ -11,7 +11,6 @@
   --bn-input-font-size: var(--bn-font-size);
   --bn-input-placeholder-color: var(--bn-color-3);
   --bn-input-height: 40px;
-  --bn-input-width: 100%;
   --bn-input-icon-color: var(--bn-color-3);
   --bn-input-focus-border-color: var(--bn-primary);
   --bn-input-hover-border-color: rgb(188 196 214 / 100%);
@@ -19,8 +18,6 @@
 
 @include b(input) {
   position: relative;
-  display: inline-flex;
-  width: var(--bn-input-width);
   box-sizing: border-box;
   vertical-align: middle;
 
@@ -31,6 +28,7 @@
     border: 1px solid var(--bn-input-border-color);
     border-radius: var(--bn-input-border-radius);
     padding: 0 12px;
+    width: 100%;
     font-size: var(--bn-input-font-size);
     color: var(--bn-input-color);
     background-color: var(--bn-input-background-color);
@@ -145,6 +143,7 @@
   @include m(small) {
     --bn-input-height: 32px;
   }
+
 
   @include m(large) {
     --bn-input-height: 48px;

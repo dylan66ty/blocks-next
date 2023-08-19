@@ -72,6 +72,10 @@ export const selectProps = {
   filterDebounce: {
     type: Number,
     default: 300
+  },
+  card: {
+    type: Boolean,
+    default: false
   }
 }
 

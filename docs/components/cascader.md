@@ -118,40 +118,43 @@ export interface CascaderNode {
 }
 ```
 
+## API
 ## Attributes
-|参数名|描述|可选值|默认值|
+|属性名|描述|类型|默认值|
 |-------|-------|---|:---:|
-|v-model|双向绑定的值|`array`|`-`|
-|data|级联选择器的选项数据|`array`|`-`|
-|disabled|是否禁用|`boolean`|`false`|
-|placeholder|提示文案|`string`|`请选择`|
-|multiple|是否为多选状态|`boolean`|`false`|
-|clearable|是否可清空|`boolean`|`-`|
-|show-all-levels ^(alpha.32)|是否显示选中值的完整路径|`boolean`|`true`|
-|expand-child|是否展开子菜单|`boolean`|
-|input-label-format|格式化展示内容|`(labels:string[]) => string`|`-`|
-|separator|用于分隔选项的字符|`string`|`/`|
-|filterable ^(alpha.32)|是否开启模糊搜索|`boolean`|`false`|
-|filter-method ^(alpha.32)|自定义筛选方法，返回的布尔值表示是否保留该选项|`(node:CascaderNode,query:string) => boolean`|`-`|
-|show-footer|是否展示底部区域，只在开启多选时生效|`boolean`|`false`|
-|popup-class|自定义弹出层类名|`string`|`-`|
+|v-model|双向绑定的值|`array`|-|
+|data|级联选择器的选项数据|`array`|-|
+|disabled|是否禁用|`boolean`|false|
+|placeholder|提示文案|`string`|请选择|
+|size|尺寸大小|`small \| default \| large`|default|
+|multiple|是否为多选状态|`boolean`|false|
+|clearable|是否可清空|`boolean`|-|
+|show-all-levels ^(alpha.32)|是否显示选中值的完整路径|`boolean`|true|
+|expand-child|是否展开子菜单|`boolean`|false|
+|input-label-format|格式化展示内容|`(labels:string[]) => string`|-|
+|separator|用于分隔选项的字符|`string`|/|
+|filterable ^(alpha.32)|是否开启模糊搜索|`boolean`|false|
+|filter-method ^(alpha.32)|自定义筛选方法，返回的布尔值表示是否保留该选项|`(node:CascaderNode,query:string) => boolean`|-|
+|show-footer|是否展示底部区域，只在开启多选时生效|`boolean`|false|
+|popup-class|自定义弹出层类名|`string`|-|
+|card|输入框卡片模式 [详情](/components/input.html#卡片输入框)|`boolean`|-|
 
 
 ## Option
-|属性|描述|可选值|默认值|
+|属性|描述|类型|默认值|
 |---|---|---|:---:|
-|label|选项文本|`string`|`-`|
-|value|选项值|`string`|`-`|
-|disabled|是否禁用|`boolean`|`false`|
-|children|下一级选项|`array`|`-`|
-|isLeaf|是否是叶子节点|`boolean`|`false`|
-|render|自定义渲染|`RenderFunction`|`-`|
+|label|选项文本|`string`|-|
+|value|选项值|`string`|-|
+|disabled|是否禁用|`boolean`|false|
+|children|下一级选项|`array`|-|
+|isLeaf|是否是叶子节点|`boolean`|false|
+|render|自定义渲染|`RenderFunction`|-|
 
 
 ## Events
-|name|描述|回调参数|
+|name|描述|函数类型|
 |---|---|---|
-|change|选中值改变时触发|`(value: []string)`|
+|change|选中值改变时触发|`(value: []string) => void`|
 |clear|点击清除时触发|`-`|
 
 

@@ -79,5 +79,9 @@ export const treeSelectProps = {
   filterMethod: {
     type: Function,
     default: undefined
+  },
+  card: {
+    type: Boolean,
+    default: false
   }
 }

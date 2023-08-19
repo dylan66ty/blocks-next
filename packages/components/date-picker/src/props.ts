@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import { definePropType } from '../../../utils/vue-utils'
 import type { DateType } from './types'
 
 export const datePickerProps = {
@@ -7,7 +7,7 @@ export const datePickerProps = {
     default: undefined
   },
   type: {
-    type: String as PropType<DateType>,
+    type: definePropType<DateType>(String),
     default: 'date'
   },
   disabled: {
@@ -19,7 +19,7 @@ export const datePickerProps = {
     default: '请选择'
   },
   size: {
-    type: String as PropType<'small' | 'default' | 'large'>,
+    type: definePropType<'small' | 'default' | 'large'>(String),
     default: 'default'
   },
   clearable: {
@@ -31,7 +31,7 @@ export const datePickerProps = {
     default: '~'
   },
   dayStartOfWeek: {
-    type: Number as PropType<0 | 1 | 2 | 3 | 4 | 5 | 6>,
+    type: definePropType<0 | 1 | 2 | 3 | 4 | 5 | 6>(Number),
     default: 1
   },
   modelValueFormat: {
@@ -43,7 +43,7 @@ export const datePickerProps = {
     default: undefined
   },
   disabledDate: {
-    type: Function as PropType<(date: Date) => boolean>,
+    type: definePropType<(date: Date) => boolean>(Function),
     default: undefined
   },
   validateEvent: {
@@ -53,5 +53,9 @@ export const datePickerProps = {
   popupClass: {
     type: String,
     default: undefined
+  },
+  card: {
+    type: Boolean,
+    default: false
   }
 }
