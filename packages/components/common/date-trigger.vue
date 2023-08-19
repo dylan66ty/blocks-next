@@ -132,7 +132,7 @@
 </script>
 
 <template>
-  <div ref="selectTriggerDomRef" :class="[ns, rangePattern && `is-range`]">
+  <div ref="selectTriggerDomRef" :class="[ns]">
     <Input
       ref="inputComponentRef"
       :model-value="computedInputValue"

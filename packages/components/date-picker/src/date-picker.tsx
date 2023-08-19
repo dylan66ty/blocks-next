@@ -262,7 +262,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <div class={ns}>
+        <div class={[ns, rangePattern.value && 'is-range']}>
           <Trigger
             v-model:popupVisible={popupVisible.value}
             position="bl"

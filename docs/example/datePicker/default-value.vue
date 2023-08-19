@@ -9,30 +9,16 @@
 </script>
 
 <template>
-  <div class="flex items-center gap-x-6">
-    <div class="flex flex-col items-center">
-      <div class="text-sm mb-2">日期</div>
-      <bn-date-picker v-model="date"></bn-date-picker>
-    </div>
-    <div class="flex flex-col items-center">
-      <div class="text-sm mb-2">月份</div>
-      <bn-date-picker v-model="month" type="month"></bn-date-picker>
-    </div>
-    <div class="flex flex-col items-center">
-      <div class="text-sm mb-2">周</div>
-      <bn-date-picker v-model="week" type="week"></bn-date-picker>
-    </div>
-  </div>
-  <div class="flex items-center gap-x-10 mt-5">
-    <div class="flex flex-col items-center">
-      <div class="text-sm mb-2">日期范围</div>
-      <bn-date-picker v-model="daterange" type="daterange"></bn-date-picker>
-    </div>
-    <div class="flex flex-col items-center">
-      <div class="text-sm mb-2">月份范围</div>
-      <bn-date-picker v-model="monthrange" type="monthrange"></bn-date-picker>
-    </div>
-  </div>
+  <div class="text-sm mb-2">日期</div>
+  <bn-date-picker v-model="date"></bn-date-picker>
+  <div class="text-sm mb-2 mt-4">月份</div>
+  <bn-date-picker v-model="month" type="month"></bn-date-picker>
+  <div class="text-sm mb-2 mt-4">周</div>
+  <bn-date-picker v-model="week" type="week"></bn-date-picker>
+  <div class="text-sm mb-2 mt-4">日期范围</div>
+  <bn-date-picker v-model="daterange" type="daterange"></bn-date-picker>
+  <div class="text-sm mb-2 mt-4">月份范围</div>
+  <bn-date-picker v-model="monthrange" type="monthrange"></bn-date-picker>
 </template>
 
 <style lang="scss"></style>
