@@ -1,5 +1,5 @@
 ---
-title: 数企 Vue3 UI 框架
+title: Vue3 UI 框架
 page: true
 lang: zh-CN
 ---

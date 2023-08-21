@@ -20,17 +20,17 @@
     </div>
 
     <div class="mt-5 flex gap-x-5">
-      <bn-select card placeholder="input large"></bn-select>
-      <bn-select card size="large" placeholder="input large"></bn-select>
+      <bn-select card placeholder="select"></bn-select>
+      <bn-select card size="large" placeholder="select large"></bn-select>
     </div>
 
     <div class="mt-5 flex gap-x-5">
-      <bn-cascader card placeholder="cascader large"></bn-cascader>
+      <bn-cascader card placeholder="cascader"></bn-cascader>
       <bn-cascader card size="large" placeholder="cascader large"></bn-cascader>
     </div>
 
     <div class="mt-5 flex gap-x-5">
-      <bn-date-picker card style="width: 260px" placeholder="datePicker large"></bn-date-picker>
+      <bn-date-picker card style="width: 260px" placeholder="datePicker"></bn-date-picker>
       <bn-date-picker
         card
         style="width: 260px"
