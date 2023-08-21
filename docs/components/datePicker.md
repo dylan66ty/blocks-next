@@ -107,7 +107,7 @@ datePicker/week-start
 datePicker/custom-cell
 :::
 
-## DateCell类型
+## DateCell
 ```js
 export interface DateCell {
   value: string | number
