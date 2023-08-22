@@ -16,14 +16,13 @@
 
   @include e(column) {
     position: relative;
-    border-right: 1px solid transparent;
     width: 180px;
     height: 220px;
     background-color: #fff;
     box-sizing: border-box;
 
     &:not(:last-child) {
-      border-color: var(--bn-background-color);
+      border-right: 1px solid var(--bn-background-color);
     }
   }
 

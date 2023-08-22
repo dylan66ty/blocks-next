@@ -54,7 +54,7 @@ export default defineComponent({
               <div class={[`${ns}__empty`]}>
                 <Empty
                   v-slots={{
-                    image: () => <BnIconEmpty size={40} />
+                    image: () => <BnIconEmpty size={38} />
                   }}
                 />
               </div>

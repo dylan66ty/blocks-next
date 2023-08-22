@@ -28,11 +28,18 @@ cascader/clearable
 cascader/no-show-all-levels
 :::
 
-
 ## 多选
 设置 `multiple` 属性即可
 ::: demo 
 cascader/multiple
+:::
+
+## 选择任意一级选项
+在单选模式下，你只能选择叶子节点；而在多选模式下，勾选父节点真正选中的都是叶子节点。 启用该功能后，可让父子节点取消关联，选择任意一级选项。
+
+可通过设置 `check-strictly` 属性来设置父子节点取消选中关联，从而达到选择任意一级选项的目的。
+::: demo 
+cascader/check-strictly
 :::
 
 
@@ -128,6 +135,7 @@ export interface CascaderNode {
 |placeholder|提示文案|`string`|请选择|
 |size|尺寸大小|`small \| default \| large`|default|
 |multiple|是否为多选状态|`boolean`|false|
+|check-strictly|父子不互相关联,父级状态不会影响子级状态 ^(alpha.36.2)|`boolean`|false|
 |clearable|是否可清空|`boolean`|-|
 |show-all-levels ^(alpha.32)|是否显示选中值的完整路径|`boolean`|true|
 |expand-child|是否展开子菜单|`boolean`|false|
