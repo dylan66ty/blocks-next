@@ -3,6 +3,8 @@
 
   const model = ref([['1', '1-1', '1-1-1']])
 
+  const showAllLevels = ref(false)
+
   const data = ref([
     {
       label: '分组1',
@@ -58,7 +60,14 @@
 </script>
 
 <template>
-  <div>
-    <bn-cascader v-model="model" :data="data" multiple clearable></bn-cascader>
+  <div class="mb-2">
+    <bn-checkbox v-model="showAllLevels">仅显示最后一级</bn-checkbox>
   </div>
+  <bn-cascader
+    v-model="model"
+    :data="data"
+    :show-all-levels="showAllLevels"
+    multiple
+    clearable
+  ></bn-cascader>
 </template>

@@ -15,7 +15,6 @@
     transDataToNodes,
     formatModelValue,
     getLeafNodes,
-    getLeafNodeKeys,
     getNodeKey,
     getAllLeafNodesByQuery
   } from './utils'
@@ -88,9 +87,13 @@
         if (!props.multiple) return []
         const tagLabels = pathValueToNodeKeys.value.map((nodeKey) => {
           const node = nodesMap.get(nodeKey)
+          const key = node?.key
+          const label = props.showAllLevels
+            ? node?.pathLabel?.[node.pathLabel?.length - 1]
+            : node?.pathLabel?.join(props.separator)
           return {
-            label: node?.pathLabel?.join(props.separator),
-            key: node?.key
+            label,
+            key
           }
         })
         return tagLabels
@@ -226,20 +229,20 @@
 
       // check:当前选中还是取消
       const selectMultiple = (node: CascaderNode, checked: boolean) => {
-        const originPathValue = computedModelValue.value.map((m) => m.slice(0)) as string[][]
+        const originPathValue = computedModelValue.value.slice() as string[][]
+        const nodes: CascaderNode[] = props.checkStrictly ? [node] : getLeafNodes(node)
         if (checked) {
-          const pathValues: string[][] = [...originPathValue]
-          const leafNodes = getLeafNodes(node)
-          leafNodes.map((n) => pathValues.push(n.pathValue?.slice(0) ?? []))
-          updatePathValue(pathValues)
-        } else {
-          const leafNodeKeysNodeKeys = getLeafNodeKeys(node)
-          const pathValues: string[][] = []
-          originPathValue.forEach((value) => {
-            if (!leafNodeKeysNodeKeys.includes(value.join('-'))) {
-              pathValues.push(value)
+          nodes.forEach((n) => {
+            if (n.pathValue) {
+              originPathValue.push(n.pathValue.slice(0))
             }
           })
+          updatePathValue(originPathValue)
+        } else {
+          const keys = nodes.map((n) => n.key)
+          const pathValues: string[][] = originPathValue.filter(
+            (value) => !keys.includes(value.join('-'))
+          )
           updatePathValue(pathValues)
         }
       }

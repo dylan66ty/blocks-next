@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { defineComponent, ref, watch, computed, onUnmounted, onMounted } from 'vue'
+  import { defineComponent, ref, watch, computed, onUnmounted, onMounted, nextTick } from 'vue'
   import { getNamespace } from '../../utils/global-config'
   import { isElement } from '../../utils/is'
   import { definePropType } from '../../utils/vue-utils'
@@ -156,6 +156,15 @@
         },
         {
           immediate: true
+        }
+      )
+
+      watch(
+        () => props.multipleTags,
+        () => {
+          if (props.multiple) {
+            nextTick(setBnInputHeight)
+          }
         }
       )
 

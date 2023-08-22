@@ -33,33 +33,38 @@ export default defineComponent({
 
     const isLoading = ref(false)
 
-    const handlePathChange = () => {
-      cascaderContext.setSelectedPath?.(props.node.key)
-    }
+    const events = computed(() => {
+      const _events: Record<string, any> = {}
+      if (!props.node.disabled) {
+        _events.onMouseenter = []
+        _events.onMouseleave = []
+        _events.onClick = []
 
-    const events: Record<string, any> = {}
-
-    if (!props.node.disabled) {
-      events.onMouseenter = []
-      events.onMouseleave = []
-      events.onClick = []
-
-      events.onMouseenter.push(() => {
-        handlePathChange()
-      })
-
-      if (props.node.isLeaf && !props.multiple) {
-        events.onClick.push(() => {
-          cascaderContext.emitPath?.(props.node)
+        _events.onMouseenter.push(() => {
+          cascaderContext.setSelectedPath?.(props.node.key)
         })
-      }
 
-      if (props.multiple) {
-        events.onClick.push(() => {
-          cascaderContext.emitPath?.(props.node, !checkedStatus.value.checked)
-        })
+        if (!props.multiple) {
+          if (!props.checkStrictly && props.node.isLeaf) {
+            _events.onClick.push(() => {
+              cascaderContext.emitPath?.(props.node)
+            })
+          }
+          if (props.checkStrictly) {
+            _events.onClick.push(() => {
+              cascaderContext.emitPath?.(props.node)
+            })
+          }
+        }
+
+        if (props.multiple) {
+          _events.onClick.push(() => {
+            cascaderContext.emitPath?.(props.node, !checkedStatus.value.checked)
+          })
+        }
       }
-    }
+      return _events
+    })
 
     const handleCheckedChange = () => {
       cascaderContext.emitPath?.(props.node, !checkedStatus.value.checked)
@@ -118,7 +123,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <li class={cls.value} {...events}>
+        <li class={cls.value} {...events.value}>
           {renderOps()}
 
           <div class={[`${ns}__option-label`]}>

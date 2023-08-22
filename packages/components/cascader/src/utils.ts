@@ -13,7 +13,7 @@ export const transDataToNodes = (
   }
 ) => {
   let innerLevel = totalLevel.value
-  const travel = (data: CascaderData[], parent: CascaderNode | null = null, level = 0) => {
+  const traverse = (data: CascaderData[], parent: CascaderNode | null = null, level = 0) => {
     innerLevel = Math.max(innerLevel, level)
 
     return data.map((item: CascaderData, index) => {
@@ -48,7 +48,7 @@ export const transDataToNodes = (
       if (item.children && item.children.length !== 0) {
         node.isLeaf = false
         node.hasChildren = true
-        node.children = travel(item.children, node, level + 1)
+        node.children = traverse(item.children, node, level + 1)
 
         if (!item.disabled) {
           // 计算出当前node下所有leaf数量
@@ -75,7 +75,7 @@ export const transDataToNodes = (
       return node
     })
   }
-  const nodes = travel(data)
+  const nodes = traverse(data)
 
   totalLevel.value = innerLevel
 
@@ -132,36 +132,19 @@ export const getCheckedStatus = (node: CascaderNode, nodeKeys?: string[]) => {
 
 export const getLeafNodes = (node: CascaderNode) => {
   const leafNodes: CascaderNode[] = []
-  const travel = (children: CascaderNode[]) => {
+  const traverse = (children: CascaderNode[]) => {
     children.forEach((node) => {
       if (node.isLeaf) {
         leafNodes.push(node)
       }
       if (node.hasChildren) {
-        travel(node.children!)
+        traverse(node.children!)
       }
     })
   }
-  travel([node])
+  traverse([node])
 
   return leafNodes
-}
-
-export const getLeafNodeKeys = (node: CascaderNode) => {
-  const leafNodeKeys: string[] = []
-  const travel = (children: CascaderNode[]) => {
-    children.forEach((node) => {
-      if (node.isLeaf) {
-        leafNodeKeys.push(node.key)
-      }
-      if (node.hasChildren) {
-        travel(node.children!)
-      }
-    })
-  }
-  travel([node])
-
-  return leafNodeKeys
 }
 
 export const getAllLeafNodesByQuery = (
