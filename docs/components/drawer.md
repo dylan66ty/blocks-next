@@ -46,6 +46,7 @@ drawer/custom-container
 |属性名|描述|类型|默认值|
 |---|---|---|:---:|
 |v-model|抽屉是否可见|`boolean`|false|
+|show-footer ^(alpha.36.3)|是否显示footer|`boolean`|true|
 |placement|抽屉放置的位置|`top \| right \| bottom \| left`|right|
 |title|标题|`string`|-|
 |mask|是否显示遮罩层|`boolean`|true|

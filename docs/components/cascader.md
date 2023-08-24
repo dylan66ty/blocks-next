@@ -35,9 +35,9 @@ cascader/multiple
 :::
 
 ## 选择任意一级选项 ^(alpha.36.2)
-在单选模式下，你只能选择叶子节点；而在多选模式下，勾选父节点真正选中的都是叶子节点。 启用该功能后，可让父子节点取消关联，选择任意一级选项。
+在单选模式下，你只能选择叶子节点；而在多选模式下，勾选父节点真正选中的都是叶子节点。 启用该功能后，可让父子节点取消关联，选择任意一级选项
 
-可通过设置 `check-strictly` 属性来设置父子节点取消选中关联，从而达到选择任意一级选项的目的。
+可通过设置 `check-strictly` 属性来设置父子节点取消选中关联，从而达到选择任意一级选项的目的
 ::: demo 
 cascader/check-strictly
 :::
@@ -56,8 +56,8 @@ cascader/inputLabelFormat
 cascader/option-disabled
 :::
 
-## 开启Footer
-设置 `showFooter` 属性即可。
+## 底部插槽
+设置 `show-footer` 属性即可开启底部插槽
 ::: warning
 该属性只在多选模式中生效
 :::
