@@ -72,6 +72,11 @@
       white-space: nowrap;
       line-height: 1;
     }
+
+    &.is-bottom-line {
+      border-bottom: 1px solid var(--bn-split-color);
+      padding-bottom: 20px;
+    }
   }
 
   @include e(body) {

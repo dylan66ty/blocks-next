@@ -1,7 +1,7 @@
-import type { PropType, ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes } from 'vue'
 export const dialogProps = {
   renderTo: {
-    type: [String, Object] as PropType<string | HTMLElement>,
+    type: [String, Object],
     default: 'body'
   },
   disabled: {
@@ -80,6 +80,10 @@ export const dialogProps = {
   showClose: {
     type: Boolean,
     default: true
+  },
+  showHeaderBottomLine: {
+    type: Boolean,
+    default: false
   }
 }
 

@@ -203,11 +203,17 @@
             :class="[`${ns}__container`, { 'is-fullscreen': fullscreen }]"
             :style="containerStyle"
           >
-            <div :class="[`${messageBox ? messageBoxNs : ns}__header`]">
-              <div v-if="!$slots['title']" :class="[`${ns}__header-title`]">
-                {{ title }}
-              </div>
-              <slot v-else name="title"></slot>
+            <div
+              :class="[
+                `${messageBox ? messageBoxNs : ns}__header`,
+                showHeaderBottomLine && `is-bottom-line`
+              ]"
+            >
+              <slot name="title">
+                <div :class="[`${ns}__header-title`]">
+                  {{ title }}
+                </div>
+              </slot>
             </div>
             <div :class="[`${messageBox ? messageBoxNs : ns}__body`]">
               <slot></slot>

@@ -1,8 +1,9 @@
-import type { PropType, ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes } from 'vue'
+import { definePropType } from '../../../utils/vue-utils'
 
 const nativeProps = {
   autocomplete: {
-    type: String as PropType<'off' | 'on'>,
+    type: definePropType<'off' | 'on'>(String),
     default: 'off'
   },
   name: {
@@ -25,15 +26,11 @@ const nativeProps = {
 
 export const inputProps = {
   modelValue: {
-    type: [String, Number] as PropType<string | number>,
+    type: String,
     default: undefined
   },
-  value: {
-    type: [String, Number] as PropType<string | number>,
-    default: ''
-  },
   type: {
-    type: String as PropType<'text' | 'textarea'>,
+    type: definePropType<'text' | 'textarea'>(String),
     default: 'text'
   },
   placeholder: {
@@ -45,7 +42,7 @@ export const inputProps = {
     default: false
   },
   size: {
-    type: String as PropType<'small' | 'default' | 'large'>,
+    type: definePropType<'small' | 'default' | 'large'>(String),
     default: 'default'
   },
   showPassword: {
@@ -65,7 +62,7 @@ export const inputProps = {
     default: ''
   },
   autosize: {
-    type: [Object, Boolean] as PropType<{ minRows: number; maxRows: number } | boolean>,
+    type: definePropType<{ minRows: number; maxRows: number } | boolean>([Object, Boolean]),
     default: false
   },
   // 过滤器

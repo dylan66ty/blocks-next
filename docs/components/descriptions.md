@@ -112,8 +112,8 @@ export interface DescriptionsData {
 |label-align|label对齐方式|`left \| center \| right` |left|
 |value-class-name|value的自定义类名| `string` |-|
 |label-class-name|label的自定义类名| `string` |-|
-|renderValue|自定义渲染value| `(scoped) => VNode` |-|
-|renderLabel|自定义渲染label| `(scoped) => VNode` |-|
+|render-value|自定义渲染value| `(scoped) => VNode` |-|
+|render-label|自定义渲染label| `(scoped) => VNode` |-|
 
 
 ## Descriptions Item Slots

@@ -2,14 +2,14 @@
   import { computed, defineComponent, ref } from 'vue'
   import type { PropType } from 'vue'
   import { getNamespace } from '../../../../utils/global-config'
-  import BnSelect from '../../../select/src/select.vue'
-  import BnOption from '../../../select/src/option.vue'
+  import { Select } from '../../../select'
+  import { Option } from '../../../select-option'
 
   export default defineComponent({
     name: 'PaginationSizes',
     components: {
-      BnSelect,
-      BnOption
+      Select,
+      Option
     },
     props: {
       pageSize: {
@@ -53,19 +53,19 @@
 
 <template>
   <div :class="cls">
-    <BnSelect
+    <Select
       v-model="pageSizeModel"
       :disabled="disabled"
       :validate-event="false"
       size="small"
       @change="handleChange"
     >
-      <BnOption
+      <Option
         v-for="item in pageSizesTrans"
         :key="item.value"
         :value="item.value"
         :label="item.label"
       />
-    </BnSelect>
+    </Select>
   </div>
 </template>
