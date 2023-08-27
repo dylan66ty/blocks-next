@@ -74,10 +74,10 @@
 
   <bn-tree
     v-model:checked="checked"
+    show-checkbox
     :data="data"
     :unfold-on-click-node="false"
     :check-strictly="checkStrictly"
-    show-checkbox
     :checked-on-click-node="checkedOnClickNode"
     @change-checked="onChangeChecked"
   />

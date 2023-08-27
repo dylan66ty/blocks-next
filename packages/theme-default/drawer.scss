@@ -24,10 +24,7 @@
     background-color: #fff;
     box-shadow: -10px 0 40px 0 rgb(100 107 122 / 15%);
 
-    &.is-template {
-      display: inline-flex;
-      flex-direction: column;
-    }
+
 
     &.is-right {
       top: 0;
@@ -100,9 +97,13 @@
     line-height: 1;
   }
 
+
   @include e(footer) {
+    display: flex;
+    align-items: center;
     margin-top: auto;
-    padding: 20px 28px;
+    padding: 0 28px;
+    height: 80px;
     background: #fff;
     box-shadow: 0 0 40px 0 rgb(100 107 122 / 15%);
     box-sizing: border-box;

@@ -19,7 +19,7 @@ dialog/size
 :::
 
 ## 关闭前验证
-设置属性 `onBeforeCancel` 为函数即可添加验证。该函数 `必须` 返回 `boolean` 或者是个`Promise<boolean>`。`true`表示可以关闭，`false`表示不可以关闭
+设置属性 `on-before-cancel` 为函数即可添加验证。该函数 `必须` 返回 `boolean` 或者是个`Promise<boolean>`。`true`表示可以关闭，`false`表示不可以关闭
 ::: demo 
 dialog/before-cancel
 :::
@@ -43,7 +43,7 @@ dialog/fullscreen
 :::
 
 ## 挂载位置
-设置 `renderTo` 即可自定义在哪个容器中弹出, 默认在 `document.body` 弹出
+设置 `render-to` 即可自定义在哪个容器中弹出, 默认在 `document.body` 弹出
 ::: demo 
 dialog/render-to
 :::
@@ -54,21 +54,22 @@ dialog/render-to
 |属性名|描述|类型|默认值|
 |---|---|---|:---:|
 |v-model|对话框是否可见|`boolean`|false|
+|show-header-bottom-line ^(alpha.36.4)|对话框头部区域下方显示边框|`boolean`|false|
 |width|对话框的宽度|`string \| number`|-|
-|minWidth|对话框的最小宽度|`string \| number`|-|
+|min-width|对话框的最小宽度|`string \| number`|-|
 |height|对话框的高度|`string \|number`|-|
-|minHeight|对话框的最小高度|`string \| number`|-|
+|min-height|对话框的最小高度|`string \| number`|-|
 |top|对话框的距离顶部的高度，居中显示开启的情况下不生效|`string \| number`  |-|
 |mask|是否显示遮罩层|`boolean`|true|
-|showClose ^(alpha.30)|是否显示关闭按钮|`boolean`|true|
+|show-close ^(alpha.30)|是否显示关闭按钮|`boolean`|true|
 |center|是否居中|`boolean`|false|
-|destroyOnClosed|dialog是否在关闭时卸载|`boolean`|true|
-|maskToClose|是否点击遮罩层可以关闭对话框|`boolean`|true|
-|escToClose|是否可以通过按下esc键关闭|`boolean`|true|
+|destroy-on-closed|dialog是否在关闭时卸载|`boolean`|true|
+|mask-to-close|是否点击遮罩层可以关闭对话框|`boolean`|true|
+|esc-to-close|是否可以通过按下esc键关闭|`boolean`|true|
 |fullscreen|是否全屏|`boolean`|false|
-|onBeforeCancel|触发 cancel 事件前的回调函数。如果返回 false 则不会触发后续事件。|`boolean \| Promise<boolean>`|-|
-|renderTo|dialog挂在哪个容器下|`string \| HTMLElement`|body|
-|popupClass|dialog添加自定义类名|`string`|-|
+|on-before-cancel|触发 cancel 事件前的回调函数。如果返回 false 则不会触发后续事件。|`boolean \| Promise<boolean>`|-|
+|render-to|dialog挂在哪个容器下|`string \| HTMLElement`|body|
+|popup-class|dialog添加自定义类名|`string`|-|
 
 
 ## Events

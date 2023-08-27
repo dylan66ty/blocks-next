@@ -215,7 +215,7 @@
         afterEnter() {},
         beforeLeave(el: HTMLElement) {
           el.style.transition = 'all 0.15s'
-          el.style.transformOrigin = 'right'
+          el.style.transformOrigin = 'right bottom'
           el.style.transform = 'scale(1)'
         },
         leave(el: HTMLElement) {

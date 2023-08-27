@@ -1,7 +1,7 @@
 import { computed, defineComponent, h, toRefs } from 'vue'
 import type { VNode } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
-import { paginationProps } from './_pagination'
+import { paginationProps } from './props'
 
 import LayoutComponentTotal from './layout/total.vue'
 import LayoutComponentPager from './layout/pager.vue'

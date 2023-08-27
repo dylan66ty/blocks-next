@@ -1,12 +1,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
   const visible = ref(false)
-
-  const handler = () => {
-    visible.value = true
-  }
-
-  const title = 'This is title'
+  const visible2 = ref(false)
 
   const data = ref()
 
@@ -71,23 +66,30 @@
 </script>
 
 <template>
-  <bn-button size="small" @click="handler">Open Drawer</bn-button>
-
+  <div class="flex gap-x-3">
+    <bn-button size="small" @click="visible = true">Open Drawer(显示footer)</bn-button>
+    <bn-button size="small" @click="visible2 = true">Open Drawer(隐藏footer)</bn-button>
+  </div>
   <bn-drawer
     v-model="visible"
-    :title="title"
+    title="This is title"
     width="700px"
     cancel-text="关闭"
     ok-text="导入"
     @close="onClose"
   >
-    <template #body>
-      <bn-cascader :data="data" popup-class="test"></bn-cascader>
-      <bn-select>
-        <bn-option label="Vue" value="vue"></bn-option>
-        <bn-option label="React" value="react"></bn-option>
-      </bn-select>
-    </template>
+    <template #body> 显示footer </template>
+  </bn-drawer>
+
+  <bn-drawer
+    v-model="visible2"
+    title="This is title"
+    width="700px"
+    cancel-text="关闭"
+    :show-footer="false"
+    ok-text="导入"
+  >
+    <template #body> 不显示footer </template>
   </bn-drawer>
 </template>
 

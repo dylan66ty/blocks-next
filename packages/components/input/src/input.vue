@@ -1,6 +1,15 @@
 <script lang="ts">
   import type { StyleValue } from 'vue'
-  import { defineComponent, computed, ref, shallowRef, nextTick, onMounted, watch } from 'vue'
+  import {
+    defineComponent,
+    computed,
+    ref,
+    shallowRef,
+    nextTick,
+    onMounted,
+    watch,
+    getCurrentInstance
+  } from 'vue'
   import { getNamespace, getComponentNamespace } from '../../../utils/global-config'
   import { isClient } from '../../../utils/browser'
   import { isObject, isUndefined } from '../../../utils/is'
@@ -27,6 +36,7 @@
     setup(props, { emit, slots, attrs }) {
       const inputNs = getNamespace('input')
       const textareaNs = getNamespace('textarea')
+      const instance = getCurrentInstance()
 
       const mergeDisable = computed(() => props.disabled)
 
@@ -59,9 +69,26 @@
       const eyeStatus = ref(false)
       const isHover = ref(false)
       const isFocus = ref(false)
+      let isComposing = false
 
-      const innerValue = ref(props.value)
-      const computedModelValue = computed(() => props.modelValue ?? innerValue.value)
+      const currentRef = computed(() => inputRef.value || textareaRef.value)
+      const setNativeInputValue = () => {
+        const target = currentRef.value as HTMLInputElement
+        target.value = computedInputValue.value
+      }
+      const nativeInputValue = ref('')
+      const computedInputValue = computed({
+        get() {
+          return props.modelValue ?? nativeInputValue.value
+        },
+        set(val) {
+          if (instance?.vnode.props?.['onUpdate:modelValue']) {
+            emit('update:modelValue', val)
+          } else {
+            nativeInputValue.value = val
+          }
+        }
+      })
 
       const inputType = computed(() => {
         if (props.showPassword) {
@@ -87,13 +114,13 @@
         return props.suffixIcon || slots['suffix-icon']
       })
       const hasClearableIcon = computed(() => {
-        if (!props.clearable || props.disabled || !computedModelValue.value) return false
+        if (!props.clearable || props.disabled || !computedInputValue.value) return false
         if (isHover.value || isFocus.value) return true
         return false
       })
 
       const hasPasswordIcon = computed(() => {
-        return props.showPassword && computedModelValue.value
+        return props.showPassword && computedInputValue.value
       })
 
       const showInputInnerSuffixArea = computed(() => {
@@ -104,49 +131,55 @@
 
       // 输入文本字数
       const currentValueLength = computed<number>(() => {
-        const value = computedModelValue.value
-        return String(value).length
+        return String(computedInputValue.value).length
       })
 
       const isOverLimit = computed(() => {
         if (isUndefined(props.maxlength)) return false
-        return currentValueLength.value > (props.maxlength as number)
+        return currentValueLength.value > Number(props.maxlength)
       })
 
       // input输入事件
       const handleInput = (e: Event) => {
         let { value } = e.target as TargetElement
-
+        if (isComposing) return
         // 过滤器
         if (props.formatter) {
           value = props.formatter(value)
         }
-
-        if (props.maxlength) {
-          value = value.slice(0, Number(props.maxlength))
-        }
-
-        emit('update:modelValue', value)
         emit('input', value)
-        innerValue.value = value
-        ;(e.target as TargetElement).value = value
+        computedInputValue.value = value
+        nextTick(setNativeInputValue)
       }
 
-      const handleChange = (e: Event) => {
+      const handleChange = (e: InputEvent) => {
         emit('change', (e.target as TargetElement).value)
       }
 
-      const handleFocus = (e?: Event) => {
+      const handleFocus = (e: FocusEvent) => {
         isFocus.value = true
         emit('focus', e)
       }
 
-      const handleBlur = (e: Event) => {
+      const handleBlur = (e: FocusEvent) => {
         isFocus.value = false
         emit('blur', e)
         // 表单验证关联-失去焦点触发
         if (props.validateEvent) {
           formItem?.validate?.('blur').catch(NOOP)
+        }
+      }
+
+      const onCompositionstart = () => {
+        isComposing = true
+      }
+
+      const onCompositionupdate = () => {}
+
+      const onCompositionend = (e: CompositionEvent) => {
+        if (isComposing) {
+          isComposing = false
+          handleInput(e)
         }
       }
 
@@ -160,15 +193,13 @@
 
       // 清空
       const handleClear = () => {
-        emit('update:modelValue', '')
         emit('clear', '')
-        innerValue.value = ''
-        inputRef.value?.focus()
+        computedInputValue.value = ''
+        nextTick(setNativeInputValue)
       }
 
       // 手动触发input focus事件
-      const manualInputFocus = async (e?: MouseEvent) => {
-        e && e.preventDefault()
+      const manualInputFocus = async () => {
         await nextTick()
         inputRef.value?.focus()
       }
@@ -206,21 +237,22 @@
 
       onMounted(() => {
         nextTick(resizeTextarea)
+        nextTick(setNativeInputValue)
       })
 
       watch(
         () => props.type,
-        async () => {
-          await nextTick()
-          resizeTextarea()
+        () => {
+          nextTick(resizeTextarea)
+          nextTick(setNativeInputValue)
         }
       )
 
       watch(
-        () => computedModelValue.value,
+        () => computedInputValue.value,
         () => {
-          nextTick(() => resizeTextarea())
-
+          nextTick(resizeTextarea)
+          nextTick(setNativeInputValue)
           if (props.validateEvent) {
             formItem?.validate?.('change').catch(NOOP)
           }
@@ -239,7 +271,7 @@
         inputWrapperCls,
         textareaWrapperCls,
         eyeStatus,
-        computedModelValue,
+        computedInputValue,
         inputType,
         inputRef,
         textareaCalcStyle,
@@ -263,7 +295,10 @@
         handleEye,
         manualInputFocus,
         setFocus,
-        isFocus
+        isFocus,
+        onCompositionstart,
+        onCompositionupdate,
+        onCompositionend
       }
     }
   })
@@ -278,7 +313,7 @@
   >
     <!-- input -->
     <template v-if="type === 'text'">
-      <div :class="inputWrapperCls" @mousedown="manualInputFocus">
+      <div :class="inputWrapperCls" @click="manualInputFocus">
         <span v-if="hasPrefixIcon" :class="[`${inputNs}__prefix`]">
           <span :class="[`${inputNs}__icon`]">
             <slot name="prefix-icon">
@@ -293,14 +328,17 @@
           :placeholder="placeholder"
           :disabled="mergeDisable"
           :type="inputType"
-          :value="computedModelValue"
           :readonly="readonly"
           :autocomplete="autocomplete"
           :form="form"
+          :maxlength="maxlength"
           @input="handleInput"
           @change="handleChange"
           @focus="handleFocus"
           @blur="handleBlur"
+          @compositionstart="onCompositionstart"
+          @compositionupdate="onCompositionupdate"
+          @compositionend="onCompositionend"
         />
 
         <span v-if="showInputInnerSuffixArea" :class="[`${inputNs}__suffix`]">
@@ -315,7 +353,7 @@
           <span
             v-if="hasClearableIcon"
             :class="[`${inputNs}__icon`, `${inputNs}__clearable`]"
-            @click.stop="handleClear"
+            @click="handleClear"
           >
             <BnIconCloseFill color="#d9dbe2" />
           </span>
@@ -343,13 +381,16 @@
           :disabled="mergeDisable"
           :style="textareaCalcStyle"
           :placeholder="placeholder"
-          :value="computedModelValue"
           :readonly="readonly"
           :form="form"
+          :maxlength="maxlength"
           @input="handleInput"
           @change="handleChange"
           @focus="handleFocus"
           @blur="handleBlur"
+          @compositionstart="onCompositionstart"
+          @compositionupdate="onCompositionupdate"
+          @compositionend="onCompositionend"
         />
 
         <span v-if="showWordLimit" :class="[`${textareaNs}__count`]">

@@ -46,8 +46,8 @@ export default defineComponent({
     const translateX = ref<number>(0)
 
     const showSlideIcon = computed(() => {
-      // 注意像素小数点偏差
-      return Math.ceil(scrollWidth.value) > Math.ceil(wrapperWidth.value)
+      // 注意像素小数点偏差 【子应用中计算偏差】
+      return Math.ceil(scrollWidth.value) > Math.ceil(wrapperWidth.value) + 1
     })
     const prevDisabled = computed(() => translateX.value <= 0)
     const nextDisabled = computed(() => translateX.value >= scrollWidth.value - viewportWidth.value)

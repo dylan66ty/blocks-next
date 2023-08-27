@@ -1,12 +1,12 @@
 <script lang="ts">
   import { computed, defineComponent, ref, watch } from 'vue'
   import { getNamespace } from '../../../../utils/global-config'
-  import BnInput from '../../../input/src/input.vue'
+  import { Input } from '../../../input'
 
   export default defineComponent({
     name: 'PaginationJumper',
     components: {
-      BnInput
+      Input
     },
     props: {
       currentPage: {
@@ -69,7 +69,13 @@
 <template>
   <div :class="cls">
     <span>前往</span>
-    <BnInput v-model="pageModel" size="small" :validate-event="false" @change="handleChange" />
+    <Input
+      v-model="pageModel"
+      size="small"
+      :validate-event="false"
+      placeholder=""
+      @change="handleChange"
+    />
     <span>页</span>
   </div>
 </template>

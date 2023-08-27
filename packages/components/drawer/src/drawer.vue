@@ -10,13 +10,15 @@
   import { KEYBOARD_KEY } from '../../../utils/keyboard'
   import { getElement, off, on } from '../../../utils/dom'
   import usePopupManager from '../../../hooks/use-popup-manager'
-  import { drawerProps } from './drawer'
+  import { Scrollbar } from '../../scrollbar'
+  import { drawerProps } from './props'
 
   export default defineComponent({
     name: getComponentNamespace('Drawer'),
     components: {
       BnButton,
-      BnSpace
+      BnSpace,
+      Scrollbar
     },
     inheritAttrs: false,
     props: drawerProps,
@@ -42,6 +44,16 @@
 
       const teleportContainer = computed(() => getElement(props.renderTo))
       const drawerRef = ref<HTMLElement>()
+
+      const drawerBodyStyle = computed(() => {
+        const style: StyleValue = {}
+        if (props.showFooter) {
+          style.height = `calc(100% - 68px - 80px)`
+        } else {
+          style.height = `calc(100% - 68px)`
+        }
+        return style
+      })
 
       const { zIndex, isLastDialog } = usePopupManager('dialog', {
         visible: modelVisible
@@ -72,7 +84,7 @@
         let result: boolean | Promise<boolean> = true
         loadingObj[action] = true
         if (isFunction(interceptFn)) {
-          result = interceptFn(action) ?? false
+          result = interceptFn() ?? false
         }
         if (isPromise(result)) {
           result.then((res) => {
@@ -166,6 +178,7 @@
         drawerRef,
         modelVisible,
         mergeVisible,
+        drawerBodyStyle,
         handleMask,
         afterEnter,
         afterLeave,
@@ -199,7 +212,7 @@
       >
         <div
           v-show="modelVisible"
-          :class="[`${ns}__container`, `is-${placement}`, !$slots.default && 'is-template']"
+          :class="[`${ns}__container`, `is-${placement}`]"
           :style="containerStyle"
         >
           <slot>
@@ -209,11 +222,13 @@
                 <span :class="[`${ns}__title`]">{{ title }}</span>
               </slot>
             </div>
-            <div :class="[`${ns}__body`]">
-              <!-- body插槽 -->
-              <slot name="body"></slot>
+            <div :class="[`${ns}__body`]" :style="drawerBodyStyle">
+              <Scrollbar>
+                <!-- body插槽 -->
+                <slot name="body"></slot>
+              </Scrollbar>
             </div>
-            <div :class="[`${ns}__footer`, `is-${placement}`]">
+            <div v-if="showFooter" :class="[`${ns}__footer`, `is-${placement}`]">
               <!-- footer插槽 -->
               <slot name="footer" :ok="handleOk" :cancel="handleCancel" :loading-obj="loadingObj">
                 <BnSpace :size="12">

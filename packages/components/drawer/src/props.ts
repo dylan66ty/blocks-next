@@ -1,5 +1,7 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes } from 'vue'
+import { definePropType } from '../../../utils/vue-utils'
 import type { Placement } from './types'
+
 export const drawerProps = {
   disabled: {
     type: Boolean,
@@ -10,7 +12,7 @@ export const drawerProps = {
     default: false
   },
   placement: {
-    type: String as PropType<Placement>,
+    type: definePropType<Placement>(String),
     default: 'right'
   },
   title: {
@@ -18,6 +20,10 @@ export const drawerProps = {
     default: ''
   },
   mask: {
+    type: Boolean,
+    default: true
+  },
+  showFooter: {
     type: Boolean,
     default: true
   },
@@ -52,13 +58,13 @@ export const drawerProps = {
     default: ''
   },
   onBeforeOk: {
-    type: Function as PropType<(action: 'ok' | 'cancel') => boolean | Promise<boolean>>
+    type: definePropType<() => boolean | Promise<boolean>>(Function)
   },
   onBeforeCancel: {
-    type: Function as PropType<(action: 'cancel' | 'ok') => boolean | Promise<boolean>>
+    type: definePropType<() => boolean | Promise<boolean>>(Function)
   },
   renderTo: {
-    type: [String, Object] as PropType<string | HTMLElement>,
+    type: definePropType<string | HTMLElement>([String, Object]),
     default: 'body'
   },
   popupClass: {
