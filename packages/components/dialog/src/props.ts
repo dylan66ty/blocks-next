@@ -1,7 +1,9 @@
 import type { ExtractPropTypes } from 'vue'
+import { definePropType } from '../../../utils/vue-utils'
+
 export const dialogProps = {
   renderTo: {
-    type: [String, Object],
+    type: definePropType<string | HTMLElement>([String, Object]),
     default: 'body'
   },
   disabled: {

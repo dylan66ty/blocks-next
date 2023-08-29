@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import { Button } from '../index'
+import { ButtonGroup } from '../../button-group'
 
 describe('Button.vue', () => {
   it('type', () => {
@@ -57,5 +58,14 @@ describe('Button.vue', () => {
     const wrapper = mount(() => <Button onClick={handler} />)
     await wrapper.trigger('click')
     expect(wrapper.classes()).toContain('is-loading')
+  })
+  it('Button Group', async () => {
+    const wrapper = mount(() => (
+      <ButtonGroup>
+        <Button>Prev</Button>
+        <Button>Next</Button>
+      </ButtonGroup>
+    ))
+    expect(wrapper.findAll('button').length).toBe(2)
   })
 })
