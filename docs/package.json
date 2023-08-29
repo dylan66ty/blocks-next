@@ -1,6 +1,6 @@
 {
   "name": "blocks-next-docs",
-  "version": "1.0.1-alpha.36.3",
+  "version": "1.0.1-alpha.36.4",
   "private": true,
   "scripts": {
     "dev": "vitepress dev .",
