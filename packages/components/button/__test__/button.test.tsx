@@ -59,7 +59,6 @@ describe('Button.vue', () => {
     await wrapper.trigger('click')
     expect(wrapper.classes()).toContain('is-loading')
   })
-
   it('Button Group', async () => {
     const wrapper = mount(() => (
       <ButtonGroup>
