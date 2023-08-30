@@ -2,7 +2,7 @@
   <img width="200" src="https://dylan66ty.github.io/blocks-next/blocks-next-logo.svg">
 </p>
 <p align="center">
-  <a href="https://github.com/dylan66ty/blocks-next">
+  <a href="https://www.npmjs.com/package/blocks-next">
     <img src="https://img.shields.io/npm/v/blocks-next.svg">
   </a>
   <a href="https://vuejs.org">
