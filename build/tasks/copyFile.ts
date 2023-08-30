@@ -23,3 +23,7 @@ export const copyThemeCdn = () => {
 export const copyComponentsPackages = () => {
   return copyFile(resolve(pkgRoot, 'package.json'), join(epOutput, 'package.json'))
 }
+
+export const copyComponentsReadme = () => {
+  return copyFile(resolve(pkgRoot, 'README.md'), join(epOutput, 'README.md'))
+}
