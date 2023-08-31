@@ -1,14 +1,17 @@
 {
   "name": "blocks-next",
-  "version": "1.0.1-alpha.37",
+  "version": "1.0.1-alpha.37.1",
   "description": "Vue3 Component Library",
   "license": "MIT",
   "repository": {
     "type": "git"
   },
   "keywords": [
+    "component library",
     "ui framework",
-    "vue"
+    "ui",
+    "vue",
+    "blocks-next"
   ],
   "sideEffects": [
     "cdn/*",
@@ -19,16 +22,40 @@
   ],
   "exports": {
     ".": {
+      "types": "./es/index.d.ts",
       "require": "./lib/index.js",
-      "import": "./es/index.mjs",
-      "types/*": "./es/index.ts"
+      "import": "./es/index.mjs"
     },
-    "./es": "./es/index.mjs",
-    "./lib": "./lib/index.js",
-    "./es/*.mjs": "./es/*.mjs",
-    "./es/*": "./es/*.mjs",
-    "./lib/*.js": "./lib/*.js",
-    "./lib/*": "./lib/*.js",
+    "./es": {
+      "types": "./es/index.d.ts",
+      "import": "./es/index.mjs"
+    },
+    "./lib": {
+      "types": "./lib/index.d.ts",
+      "require": "./lib/index.js"
+    },
+    "./es/*.mjs": {
+      "types": "./es/*.d.ts",
+      "import": "./es/*.mjs"
+    },
+    "./es/*": {
+      "types": [
+        "./es/*.d.ts",
+        "./es/*/index.d.ts"
+      ],
+      "import": "./es/*.mjs"
+    },
+    "./lib/*.js": {
+      "types": "./lib/*.d.ts",
+      "require": "./lib/*.js"
+    },
+    "./lib/*": {
+      "types": [
+        "./lib/*.d.ts",
+        "./lib/*/index.d.ts"
+      ],
+      "require": "./lib/*.js"
+    },
     "./*": "./*"
   },
   "main": "lib/index.js",
