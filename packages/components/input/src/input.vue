@@ -72,9 +72,12 @@
       let isComposing = false
 
       const currentRef = computed(() => inputRef.value || textareaRef.value)
+
       const setNativeInputValue = () => {
         const target = currentRef.value as HTMLInputElement
-        target.value = computedInputValue.value
+        if (target) {
+          target.value = computedInputValue.value
+        }
       }
       const nativeInputValue = ref('')
       const computedInputValue = computed({
@@ -82,7 +85,7 @@
           return props.modelValue ?? nativeInputValue.value
         },
         set(val) {
-          if (instance?.vnode.props?.['onUpdate:modelValue']) {
+          if (instance?.vnode?.props?.['onUpdate:modelValue']) {
             emit('update:modelValue', val)
           } else {
             nativeInputValue.value = val

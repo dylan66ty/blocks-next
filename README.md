@@ -34,8 +34,7 @@ Blocks Next is an enterprise-level component library developed based on `Vue3`, 
 - 🚀 Provide 30+ high quality general purpose components
 - 🚀 Based on Vue 3, fully utilizing all Vue 3 features
 - 🔥 Written in TypeScript with predictable static types.
-- 💡 Supports code suggestions within VSCode
-- 📖 Clear component documentation
+- 💡 Code highlighting in VSCode is supported
 - 💪 Developed by Chinese programmers, with comprehensive documentation and support
 - ✊ Ongoing component improvements
 
@@ -84,8 +83,9 @@ createApp(App).use(BlocksNext).use(Icon).mount('#app')
 - Style: Scss、CSS var
 - Unit test: Jest、Vitest [Continuous improvement]
 - Build：Rollup、esbuild、TypeScript、Gulp
-- Code style: ESLint、Prettier
-- Code submission: Commitizen、Commitlint、Husky
+- Code specification: ESLint、Prettier
+- Submission specification: Commitizen、Commitlint、Husky
+- Automatic deployment: GitHub Actions
 
 ## Thanks to our contributors for their efforts
 
