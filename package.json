@@ -99,7 +99,7 @@
     }
   },
   "lint-staged": {
-    "*.{vue,js,ts,jsx,tsx,md,json}": [
+    "*.{vue,js,ts,jsx,tsx,md}": [
       "eslint --fix"
     ],
     "*.{scss,html}": [
