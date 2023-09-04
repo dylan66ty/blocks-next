@@ -1,7 +1,7 @@
 {
   "components/": [
     {
-      "text": "Basic 基础组件",
+      "text": "基础组件 Basic",
       "items": [
         {
           "text": "按钮 Button",

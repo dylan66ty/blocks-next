@@ -58,10 +58,15 @@
         isFocus.value && 'is-focus'
       ])
 
+      const isPrependGroup = computed(() => props.type === 'text' && slots.prepend)
+      const isAppendGroup = computed(() => props.type === 'text' && slots.append)
+
       const containerCls = computed(() => [
         props.type === 'text' ? inputNs : textareaNs,
         attrs.class,
-        isOverLimit.value && 'is-over-limit'
+        isOverLimit.value && 'is-over-limit',
+        isPrependGroup.value && 'is-prepend-group',
+        isAppendGroup.value && 'is-append-group'
       ])
 
       const containerStyle = computed(() => [attrs.style as StyleValue])
@@ -157,6 +162,9 @@
 
       const handleChange = (e: InputEvent) => {
         emit('change', (e.target as TargetElement).value)
+        if (props.validateEvent) {
+          formItem?.validate?.('change').catch(NOOP)
+        }
       }
 
       const handleFocus = (e: FocusEvent) => {
@@ -308,15 +316,18 @@
 </script>
 
 <template>
-  <div
-    :class="containerCls"
-    :style="containerStyle"
-    @mouseenter="handleMouseEnter"
-    @mouseleave="handleMouseLeave"
-  >
+  <div :class="containerCls" :style="containerStyle">
     <!-- input -->
     <template v-if="type === 'text'">
-      <div :class="inputWrapperCls" @click="manualInputFocus">
+      <div v-if="$slots['prepend']" :class="[`${inputNs}__group-prepend`]">
+        <slot name="prepend"></slot>
+      </div>
+      <div
+        :class="inputWrapperCls"
+        @click="manualInputFocus"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave"
+      >
         <span v-if="hasPrefixIcon" :class="[`${inputNs}__prefix`]">
           <span :class="[`${inputNs}__icon`]">
             <slot name="prefix-icon">
@@ -324,7 +335,6 @@
             </slot>
           </span>
         </span>
-
         <input
           ref="inputRef"
           :class="[`${inputNs}__inner`]"
@@ -343,7 +353,6 @@
           @compositionupdate="onCompositionupdate"
           @compositionend="onCompositionend"
         />
-
         <span v-if="showInputInnerSuffixArea" :class="[`${inputNs}__suffix`]">
           <span
             v-if="hasPasswordIcon"
@@ -373,11 +382,18 @@
           </span>
         </span>
       </div>
+      <div v-if="$slots['append']" :class="[`${inputNs}__group-append`]">
+        <slot name="append"></slot>
+      </div>
     </template>
 
     <!-- textarea -->
     <template v-if="type === 'textarea'">
-      <div :class="textareaWrapperCls">
+      <div
+        :class="textareaWrapperCls"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave"
+      >
         <textarea
           ref="textareaRef"
           :class="[`${textareaNs}__inner`]"

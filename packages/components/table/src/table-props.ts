@@ -1,13 +1,14 @@
 import type { PropType, ExtractPropTypes } from 'vue'
+import { definePropType } from '../../../utils/vue-utils'
 import type { TableData, TableColumnData } from './types'
 
 export const tableProps = {
   data: {
-    type: Array as PropType<TableData[]>,
+    type: definePropType<TableData[]>(Array),
     default: () => []
   },
   columns: {
-    type: Array as PropType<TableColumnData[]>,
+    type: definePropType<TableColumnData[]>(Array),
     default: () => []
   },
   border: {
@@ -23,7 +24,7 @@ export const tableProps = {
     default: false
   },
   selection: {
-    type: Array as PropType<TableData[]>,
+    type: definePropType<TableData[]>(Array),
     default: undefined
   },
   // 是否可以拖拽改变column的宽度
@@ -33,11 +34,11 @@ export const tableProps = {
   },
   // 表格固定高度。固定表头
   height: {
-    type: [String, Number] as PropType<string | number>,
+    type: [String, Number],
     default: undefined
   },
   maxHeight: {
-    type: [String, Number] as PropType<string | number>,
+    type: [String, Number],
     default: undefined
   },
   defaultSort: {

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
+
   const columns = ref([
     {
       prop: 'time',
@@ -40,6 +41,7 @@
       width: 100
     }
   ])
+
   const data = ref([
     {
       time: '2023-05-25',

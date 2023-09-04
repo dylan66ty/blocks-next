@@ -1,7 +1,7 @@
 export interface PageConfig {
   page?: number
   pageSize?: number
-  total?: 0
+  total?: number
 }
 
 export type LayoutKey = 'total' | 'sizes' | 'prev' | 'pager' | 'next' | 'jumper'

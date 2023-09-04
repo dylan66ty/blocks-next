@@ -5,8 +5,6 @@
   --bn-checkbox-disabled-background-color-2:#ebedf1;
   --bn-checkbox-disabled-border-color:#e2e4e8;
   --bn-checkbox-size: 16px;
-
-
 }
 
 @include b(checkbox) {
@@ -49,7 +47,7 @@
 
       &::after {
         position: absolute;
-        top: 10%;
+        top: 14%;
         left: 34%;
         border: 2px solid #fff;
         border-top: 0;
@@ -66,6 +64,8 @@
 
   @include e(label) {
     padding-left: 8px;
+    font-size: var(--bn-font-size);
+    line-height: 1;
   }
 
   @include e(origin) {
