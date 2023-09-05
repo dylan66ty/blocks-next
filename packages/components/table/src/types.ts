@@ -37,7 +37,7 @@ export interface TableFilterable {
   defaultFilteredValue?: string[]
 }
 
-export const tableColumnTypes = ['checkbox', 'index']
+export const tableColumnTypes = ['checkbox', 'index'] as const
 
 export type TableColumnTypes = (typeof tableColumnTypes)[number]
 

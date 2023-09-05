@@ -2,7 +2,7 @@
 
 @include b(button) {
   --bn-button-width: auto;
-  --bn-button-height: 40px;
+  --bn-button-height: var(--bn-size-default);
   --bn-button-font-weight: 400;
   --bn-button-font-size: 14px;
   --bn-button-padding: 0 26px;
@@ -11,15 +11,15 @@
   --bn-button-border-color: var(--bn-border-color);
   --bn-button-background-color: var(--bn-background-color);
   --bn-button-color: var(--bn-text-color);
-  --bn-button-mini-height: 24px;
+  --bn-button-mini-height: var(--bn-size-mini);
   --bn-button-mini-font-size: 12px;
   --bn-button-mini-padding: 0 8px;
   --bn-button-mini-border-radius: 4px;
-  --bn-button-small-height: 36px;
+  --bn-button-small-height: var(--bn-size-small);
   --bn-button-small-font-size: 14px;
-  --bn-button-small-padding: 0 13px;
+  --bn-button-small-padding: 0 12px;
   --bn-button-small-border-radius: 4px;
-  --bn-button-large-height: 48px;
+  --bn-button-large-height: var(--bn-size-large);
   --bn-button-large-font-size: 14px;
   --bn-button-large-padding: 0 16px;
   --bn-button-large-border-radius: 6px;

@@ -1,3 +1,3 @@
 <template>
-  <bn-input />
+  <bn-input></bn-input>
 </template>

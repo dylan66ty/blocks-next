@@ -1,6 +1,7 @@
 @use './mixins/bem.scss' as *;
 
 @include b(input) {
+  --bn-input-height: var(--bn-size-default);
   --bn-input-border-color: var(--bn-border-color);
   --bn-input-border-radius: 4px;
   --bn-input-background-color: #fff;
@@ -10,19 +11,59 @@
   --bn-input-color: var(--bn-color-1);
   --bn-input-font-size: var(--bn-font-size);
   --bn-input-placeholder-color: var(--bn-color-3);
-  --bn-input-height: 40px;
   --bn-input-icon-color: var(--bn-color-3);
   --bn-input-focus-border-color: var(--bn-primary);
   --bn-input-hover-border-color: rgb(188 196 214 / 100%);
   --bn-input-gap-y: 2px;
+  --bn-group-background-color: #f5f7fa;
+
+}
+
+
+@mixin set-ground-inner-element-style ($direction) {
+  > .#{$namespace}-button {
+    border-top-#{$direction}-radius: 0;
+    border-bottom-#{$direction}-radius: 0;
+    border: 0;
+    height: 100%;
+    background-color: transparent;
+  }
+
+  > .#{$namespace}-select {
+    margin: -1px;
+    .#{$namespace}-input__wrapper {
+      border-top-#{$direction}-radius: 0;
+      border-bottom-#{$direction}-radius: 0;
+      background-color: transparent;
+    }
+  }
 }
 
 @include b(input) {
   position: relative;
-  box-sizing: border-box;
-  vertical-align: middle;
+
+  @include when(prepend-group) {
+    display: inline-flex;
+    width: 100%;
+    > .#{$namespace}-input__wrapper {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  @include when(append-group) {
+    display: inline-flex; 
+    width: 100%;
+   > .#{$namespace}-input__wrapper {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+  }
+
 
   @include e(wrapper) {
+    position: relative;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -44,6 +85,7 @@
     }
 
     &.is-focus:not(.is-disabled) {
+      z-index: 2;
       border-color: var(--bn-input-focus-border-color);
     }
 
@@ -62,6 +104,40 @@
           
     }
   }
+
+
+  @include e(group-prepend) {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid var(--bn-input-border-color);
+    border-bottom: 1px solid var(--bn-input-border-color);
+    border-left: 1px solid var(--bn-input-border-color);
+    background-color: var(--bn-group-background-color);
+    box-sizing: border-box;
+    border-top-left-radius: var(--bn-input-border-radius);
+    border-bottom-left-radius: var(--bn-input-border-radius);
+
+    @include set-ground-inner-element-style(right)
+  }
+
+  @include e(group-append) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid var(--bn-input-border-color);
+    border-right: 1px solid var(--bn-input-border-color);
+    border-bottom: 1px solid var(--bn-input-border-color);
+    border-top-right-radius: var(--bn-input-border-radius);
+    border-bottom-right-radius: var(--bn-input-border-radius);
+    background-color: var(--bn-group-background-color);
+
+    @include set-ground-inner-element-style(left)
+  }
+
 
   @include e(inner) {
     margin: 0;
@@ -142,12 +218,12 @@
   }
 
   @include m(small) {
-    --bn-input-height: 32px;
+    --bn-input-height: var(--bn-size-small);
   }
 
 
   @include m(large) {
-    --bn-input-height: 48px;
+    --bn-input-height: var(--bn-size-large);
   }
 
   @include m(card) {

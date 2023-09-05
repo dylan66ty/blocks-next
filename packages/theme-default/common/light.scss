@@ -1,26 +1,39 @@
 :root {
+  // colors 
+
+  // primary
   --bn-primary: rgb(0 86 255 / 100%);
-  --bn-success: rgb(46 212 169 / 100%);
-  --bn-danger: rgb(241 37 37 / 100%);
-  --bn-strong: rgb(255 113 37 / 100%);
-  --bn-warning: rgb(255 196 32 / 100%);
   --bn-primary-1: rgb(0 70 208 / 100%);
   --bn-primary-3: rgb(0 77 229 / 100%);
   --bn-primary-6: rgb(0 77 229 / 30%);
   --bn-primary-8: rgb(0 86 255 / 18%);
   --bn-primary-9: rgb(0 86 255 / 5%);
+
+  // success
+  --bn-success: rgb(46 212 169 / 100%);
   --bn-success-1: rgb(24 192 148 / 100%);
   --bn-success-8: rgb(46 212 169 / 18%);
   --bn-success-9: rgb(46 212 169 / 5%);
+
+  // danger
+  --bn-danger: rgb(241 37 37 / 100%);
   --bn-danger-1: rgb(191 23 23 / 100%);
   --bn-danger-3: rgb(216 33 33 / 100%);
   --bn-dander-6: rgb(191 23 23 / 30%);
   --bn-danger-8: rgb(241 37 37 / 18%);
   --bn-danger-9: rgb(241 37 37 / 5%);
+  
+  // strong 
+  --bn-strong: rgb(255 113 37 / 100%);
   --bn-strong-8: rgb(255 113 37 / 18%);
   --bn-strong-9: rgb(255 113 37 / 5%);
+
+  // warning 
+  --bn-warning: rgb(255 196 32 / 100%);
   --bn-warning-8: rgb(255 196 32 / 18%);
   --bn-warning-9: rgb(255 196 32 / 5%);
+
+  // gray
   --bn-color-1: rgb(36 41 52 / 100%);
   --bn-color-2: rgb(100 107 122 / 100%);
   --bn-color-3: rgb(156 166 185 / 100%);
@@ -36,4 +49,11 @@
   --bn-split-color: var(--bn-color-6);
   --bn-background-color: var(--bn-color-7);
   --bn-disabled-color: var(--bn-color-4);
+
+  // size
+  --bn-size-mini: 24px;
+  --bn-size-small: 32px;
+  --bn-size-default: 40px;
+  --bn-size-large: 48px;
+
 }

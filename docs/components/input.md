@@ -52,6 +52,15 @@ input/password
 input/icon
 :::
 
+
+## 复合型输入框 ^(alpha.38)
+可以在输入框中前置或后置添加一个元素，通常是按钮和选择器
+
+通过 `slot` 来指定在 `Input` 前置或者后置的内容
+::: demo 
+input/composite
+:::
+
 ## 过滤器
 添加 `formatter` 函数即可自定义过滤器
 ::: demo 
@@ -122,8 +131,10 @@ input/limit-length
 ## Slots
 |name|描述|scoped|
 |---|---|---|
-|prefix-icon|输入框头部图标|-|
-|suffix-icon|输入框尾部图标|-|
+|prefix-icon|输入框头部图标，只对非 `type="textarea"` 有效|-|
+|suffix-icon|输入框尾部图标,只对非 `type="textarea"` 有效|-|
+|prepend ^(alpha.38)|输入框前置内容,只对非 `type="textarea"` 有效|-|
+|append ^(alpha.38)|输入框后置内容,只对非 `type="textarea"` 有效|-|
 
 
 

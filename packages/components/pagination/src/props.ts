@@ -1,5 +1,5 @@
 import type { PropType, ExtractPropTypes } from 'vue'
-import type { PageConfig, LayoutKey } from './types'
+import type { PageConfig } from './types'
 
 export const paginationProps = {
   pageConfig: {
@@ -11,7 +11,7 @@ export const paginationProps = {
     default: () => [10, 20, 30]
   },
   layout: {
-    type: String as PropType<LayoutKey>,
+    type: String,
     default: 'prev, pager, next'
   },
   disabled: {
