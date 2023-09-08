@@ -234,7 +234,7 @@
           const maxRows = isObject(autosize) ? autosize.maxRows : undefined
           const style = calcTextareaHeight(textareaRef.value, minRows, maxRows)
           textareaCalcStyle.value = {
-            overflowY: 'hidden',
+            overflowY: 'scroll',
             ...style,
             ...textareaBaseStyle.value
           }
