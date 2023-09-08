@@ -1,12 +1,11 @@
 import type { VNode } from 'vue'
-import { computed, defineComponent, provide, reactive, ref, toRefs } from 'vue'
+import { computed, defineComponent, nextTick, provide, reactive, ref, toRefs } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import { isUndefined } from '../../../utils/is'
 import { getAllElements, isComponent } from '../../../utils/vue-utils'
 import { tabsProps } from './props'
 import { tabsInjectionKey } from './context'
 import type { TabPaneData } from './types'
-
 import TabNavs from './tab-navs'
 
 export default defineComponent({
@@ -18,7 +17,6 @@ export default defineComponent({
     const { destroyOnHide } = toRefs(props)
 
     const _activeKey = ref()
-
     const panesMap = ref<Map<number, any>>(new Map())
 
     const renderTabsNavsData = computed(() => {
@@ -66,6 +64,10 @@ export default defineComponent({
       )
     }
 
+    const wrapRef = ref<HTMLElement>()
+    const extraRef = ref<HTMLElement>()
+    const maxWidth = ref<string>()
+
     const renderNav = () => {
       const handleChangeActiveKey = (key: string | number) => {
         if (key !== computedActiveKey.value) {
@@ -75,16 +77,28 @@ export default defineComponent({
         }
       }
       if (slots.extra) {
+        nextTick(() => {
+          const wrapRect = wrapRef.value?.getBoundingClientRect()
+          const extraRect = extraRef.value?.getBoundingClientRect()
+          if (wrapRect && extraRect) {
+            maxWidth.value = `${wrapRect.width - extraRect.width - 8}px`
+          }
+        })
         return (
-          <div class={[`${ns}__extra-wrapper`]}>
+          <div class={[`${ns}__extra-wrapper`]} ref={wrapRef}>
             <TabNavs
               tabs={renderTabsNavsData.value}
               type={props.type}
               activeKey={computedActiveKey.value}
               changeActiveKey={handleChangeActiveKey}
               animation={props.animation}
+              when-extra-max-nav-width={maxWidth.value}
             />
-            {slots.extra()}
+            {slots.extra && (
+              <div class={[`${ns}__extra`]} ref={extraRef}>
+                {slots.extra()}
+              </div>
+            )}
           </div>
         )
       }
@@ -114,7 +128,6 @@ export default defineComponent({
       const paneChildren = getAllElements(slots.default?.()).filter(
         (vn) => isComponent(vn, vn.type) && vn.type.name === 'BnTabPane'
       )
-
       return (
         <div class={[ns]}>
           {renderNav()}

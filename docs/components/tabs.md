@@ -41,6 +41,12 @@ tabs/panes
 tabs/extra
 :::
 
+## 动态tab
+动态添加tab
+::: demo 
+tabs/dynamic
+:::
+
 ## API
 ## Tabs Attributes
 |属性名|描述|类型|默认值|
