@@ -6,8 +6,8 @@
   align-items: center;
   white-space: nowrap;
   outline: none;
-  line-height: 1;
   cursor: pointer;
+  vertical-align: middle;
 
   @include when(checked) {
     .#{$namespace}-radio__label {
@@ -23,6 +23,8 @@
   }
 
   @include e(input) {
+    display: flex;
+
     @include when(disabled) {
       .#{$namespace}-radio__inner {
         border-color: #ebecef;
@@ -59,7 +61,6 @@
 
   @include e(inner) {
     position: relative;
-    display: inline-flex;
     border: 1px solid #9ca6b9;
     border-radius: 100%;
     width: 16px;
@@ -88,6 +89,8 @@
 
   @include e(label) {
     padding-left: 8px;
+    line-height: 1;
+    font-size: var(--bn-font-size);
   }
 }
 

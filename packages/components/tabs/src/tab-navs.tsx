@@ -1,5 +1,5 @@
 import type { PropType, CSSProperties } from 'vue'
-import { computed, defineComponent, ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import { computed, defineComponent, ref, watch, onMounted, onUnmounted } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import { BnIconCaret } from '../../icon'
 import { useResizeObserver } from '../../../hooks/use-resize-observer'
@@ -26,6 +26,10 @@ export default defineComponent({
     },
     animation: {
       type: Boolean
+    },
+    whenExtraMaxNavWidth: {
+      type: String,
+      default: undefined
     }
   },
   setup(props) {
@@ -47,7 +51,7 @@ export default defineComponent({
 
     const showSlideIcon = computed(() => {
       // 注意像素小数点偏差 【子应用中计算偏差】
-      return Math.ceil(scrollWidth.value) > Math.ceil(wrapperWidth.value) + 1
+      return Math.ceil(scrollWidth.value) > Math.ceil(wrapperWidth.value) + 2
     })
     const prevDisabled = computed(() => translateX.value <= 0)
     const nextDisabled = computed(() => translateX.value >= scrollWidth.value - viewportWidth.value)
@@ -123,7 +127,11 @@ export default defineComponent({
 
     // 更新线的偏移位置
     const updateNavInkPosition = (ele: HTMLElement) => {
-      if (!ele) return
+      if (!ele) {
+        // 清空下划线
+        navInkStyle.value = {}
+        return
+      }
       const { width } = ele.getBoundingClientRect()
       const offsetLeft = ele.offsetLeft
       // const offsetTop = ele.offsetTop
@@ -158,16 +166,13 @@ export default defineComponent({
 
     watch(
       () => props.tabs,
-      (newTabs) => {
-        if (newTabs.length === 0) return
-        nextTick(() => {
+      () => {
+        setTimeout(() => {
           updateSlideIconStatus()
-          setTimeout(() => {
-            // 在下一帧更新偏移量
-            updateNavViewportPosition()
-            updateNavInkPosition(navItemRefs.value[props.activeKey!])
-          }, 16)
-        })
+          // 在下一帧更新偏移量
+          updateNavViewportPosition()
+          updateNavInkPosition(navItemRefs.value[props.activeKey!])
+        }, 16)
       },
       { immediate: true }
     )
@@ -175,16 +180,25 @@ export default defineComponent({
     watch(
       () => props.activeKey,
       (activeKey: string | number) => {
-        nextTick(() => {
+        setTimeout(() => {
           updateNavViewportPosition()
           updateNavInkPosition(navItemRefs.value[activeKey])
-        })
+        }, 16)
       }
     )
 
     return () => {
+      const wrapStyle: CSSProperties = {}
+      if (props.whenExtraMaxNavWidth) {
+        wrapStyle.width = props.whenExtraMaxNavWidth
+      }
       return (
-        <div class={[`${ns}__navs-wrapper`]} ref={wrapperRef} onMouseleave={handleMouseleave}>
+        <div
+          class={[`${ns}__navs-wrapper`]}
+          style={{ ...wrapStyle }}
+          ref={wrapperRef}
+          onMouseleave={handleMouseleave}
+        >
           {showSlideIcon.value && (
             <BnIconCaret
               class={[
