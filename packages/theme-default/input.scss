@@ -64,8 +64,7 @@
 
   @include e(wrapper) {
     position: relative;
-    display: inline-flex;
-    justify-content: center;
+    display: flex;
     align-items: center;
     border: 1px solid var(--bn-input-border-color);
     border-radius: var(--bn-input-border-radius);
@@ -76,7 +75,6 @@
     background-color: var(--bn-input-background-color);
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     box-sizing: border-box;
-    flex-grow: 1;
     background-image: none;
     transform: translateZ(0);
 

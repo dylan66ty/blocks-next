@@ -3,6 +3,7 @@
 @include b(cascader) {
   display: inline-block;
   width: 260px;
+  vertical-align: bottom;
 }
 
 @include b(cascader-panel) {

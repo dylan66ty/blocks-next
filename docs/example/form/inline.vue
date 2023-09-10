@@ -17,7 +17,7 @@
         <bn-input v-model="form.password" show-password></bn-input>
       </bn-form-item>
       <bn-form-item>
-        <bn-button type="primary" size="small">Login</bn-button>
+        <bn-button type="primary">Login</bn-button>
       </bn-form-item>
     </bn-form>
   </div>

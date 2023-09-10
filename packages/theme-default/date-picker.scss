@@ -77,6 +77,8 @@
 @include b(date-picker) {
   display: inline-block;  
   width: 230px;
+  vertical-align: bottom;
+
 
   @include when(range) {
     width: 280px;

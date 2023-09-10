@@ -46,7 +46,7 @@
 </script>
 
 <template>
-  <bn-form ref="formRef" :model="form" :rules="rules">
+  <bn-form ref="formRef" :model="form" :rules="rules" label-width="80px">
     <bn-form-item label="字段1" prop="field1">
       <bn-input v-model="form.field1"></bn-input>
     </bn-form-item>

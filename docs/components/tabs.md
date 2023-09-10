@@ -37,12 +37,13 @@ tabs/panes
 :::
 
 ## 附加内容
-::: demo 通过 `extra` 插槽可以自定义额外显示内容。
+demo 通过 `extra` 插槽可以自定义额外显示内容
+::: 
 tabs/extra
 :::
 
-## 动态tab
-动态添加tab
+## 动态增减标签页
+动态增减标签页
 ::: demo 
 tabs/dynamic
 :::
