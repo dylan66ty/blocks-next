@@ -41,28 +41,30 @@
 
 @include b(input) {
   position: relative;
+  width: 100%;
 
   @include when(prepend-group) {
-    display: inline-flex;
-    width: 100%;
+    display: flex;
     > .#{$namespace}-input__wrapper {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
+      flex:1;
     }
   }
 
   @include when(append-group) {
-    display: inline-flex; 
-    width: 100%;
+    display: flex; 
    > .#{$namespace}-input__wrapper {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
+      flex:1;
     }
 
   }
 
 
   @include e(wrapper) {
+    box-sizing: border-box;
     position: relative;
     display: flex;
     align-items: center;
@@ -73,10 +75,8 @@
     font-size: var(--bn-input-font-size);
     color: var(--bn-input-color);
     background-color: var(--bn-input-background-color);
-    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-    box-sizing: border-box;
     background-image: none;
-    transform: translateZ(0);
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 
     &.is-hover:not(.is-disabled) {
       border-color: var(--bn-input-hover-border-color);
@@ -109,10 +109,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     border-top: 1px solid var(--bn-input-border-color);
     border-bottom: 1px solid var(--bn-input-border-color);
     border-left: 1px solid var(--bn-input-border-color);
     background-color: var(--bn-group-background-color);
+    flex-shrink: 0;
     box-sizing: border-box;
     border-top-left-radius: var(--bn-input-border-radius);
     border-bottom-left-radius: var(--bn-input-border-radius);
@@ -122,16 +124,19 @@
 
   @include e(group-append) {
     position: relative;
-    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     border-top: 1px solid var(--bn-input-border-color);
     border-right: 1px solid var(--bn-input-border-color);
     border-bottom: 1px solid var(--bn-input-border-color);
+    background-color: var(--bn-group-background-color);
+    flex-shrink: 0;
+    box-sizing: border-box;
     border-top-right-radius: var(--bn-input-border-radius);
     border-bottom-right-radius: var(--bn-input-border-radius);
-    background-color: var(--bn-group-background-color);
+
 
     @include set-ground-inner-element-style(left)
   }
@@ -259,9 +264,6 @@
 
 @include b(textarea) {
   position: relative;
-  display: inline-block;
-  width: 100%;
-  vertical-align: bottom;
   font-size: var(--bn-input-font-size);
 
   @include e(wrapper) {
