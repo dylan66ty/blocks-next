@@ -47,12 +47,12 @@ export default defineComponent({
     const translateX = ref(0)
     const controller = ref(false)
 
-    const prevDisabled = computed(() => translateX.value === 0)
+    const prevDisabled = computed(() => translateX.value <= 0)
 
     const nextDisabled = computed(() => {
       const viewportWidth = viewportRef.value!.getBoundingClientRect().width
       const arrangeWidth = arrangeRef.value!.getBoundingClientRect().width
-      return translateX.value > arrangeWidth - viewportWidth
+      return translateX.value >= arrangeWidth - viewportWidth
     })
 
     const updateController = async () => {
@@ -64,12 +64,12 @@ export default defineComponent({
     }
 
     // 边界判断
-    const boundaryProcessing = (x: number, viewportWidth: number, scrollWidth: number) => {
+    const boundaryProcessing = (x: number, viewportWidth: number, arrangeWidth: number) => {
       if (x <= 0) {
         x = 0
       }
-      if (x >= scrollWidth - viewportWidth) {
-        x = scrollWidth - viewportWidth
+      if (x >= arrangeWidth - viewportWidth) {
+        x = arrangeWidth - viewportWidth
       }
       return x
     }
@@ -111,7 +111,7 @@ export default defineComponent({
     const handleSlide = (direction: number) => {
       const viewportWidth = viewportRef.value!.getBoundingClientRect().width
       const arrangeNode = arrangeRef.value!
-      const scrollWidth = arrangeNode.scrollWidth
+      const arrangeWidth = arrangeNode.getBoundingClientRect().width
       const offset = Math.ceil(viewportWidth / 2)
       const transform = getStyle(arrangeNode, 'transform')
       const matcher = transform.match(/translateX\((.*?)px\)/)
@@ -119,7 +119,7 @@ export default defineComponent({
       const x = boundaryProcessing(
         Math.abs(+matcher[1]) + direction * offset,
         viewportWidth,
-        scrollWidth
+        arrangeWidth
       )
       translateX.value = x
     }
