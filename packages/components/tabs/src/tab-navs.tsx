@@ -46,7 +46,6 @@ export default defineComponent({
 
     const translateX = ref(0)
     const controller = ref(false)
-
     const prevDisabled = computed(() => translateX.value <= 0)
 
     const nextDisabled = computed(() => {
@@ -163,6 +162,9 @@ export default defineComponent({
       () => translateX.value,
       (x: number) => {
         arrangeStyle.value.transform = `translateX(${-x}px)`
+      },
+      {
+        immediate: true
       }
     )
 
@@ -196,7 +198,7 @@ export default defineComponent({
                 }
               ]}
               // @ts-ignore: click
-              onClick={() => handleSlide(-1)}
+              onClick={() => !prevDisabled.value && handleSlide(-1)}
             />
           )}
           <div class={[`${ns}__navs-viewport`]} ref={viewportRef}>
@@ -238,7 +240,7 @@ export default defineComponent({
                 }
               ]}
               // @ts-ignore: click
-              onClick={() => handleSlide(1)}
+              onClick={() => !nextDisabled.value && handleSlide(1)}
             />
           )}
         </div>
