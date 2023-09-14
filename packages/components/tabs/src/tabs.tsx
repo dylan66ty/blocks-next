@@ -1,5 +1,5 @@
 import type { VNode } from 'vue'
-import { computed, defineComponent, nextTick, provide, reactive, ref, toRefs } from 'vue'
+import { computed, defineComponent, provide, reactive, ref, toRefs } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
 import { isUndefined } from '../../../utils/is'
 import { getAllElements, isComponent } from '../../../utils/vue-utils'
@@ -64,10 +64,6 @@ export default defineComponent({
       )
     }
 
-    const wrapRef = ref<HTMLElement>()
-    const extraRef = ref<HTMLElement>()
-    const maxWidth = ref<string>()
-
     const renderNav = () => {
       const handleChangeActiveKey = (key: string | number) => {
         if (key !== computedActiveKey.value) {
@@ -77,28 +73,17 @@ export default defineComponent({
         }
       }
       if (slots.extra) {
-        nextTick(() => {
-          const wrapRect = wrapRef.value?.getBoundingClientRect()
-          const extraRect = extraRef.value?.getBoundingClientRect()
-          if (wrapRect && extraRect) {
-            maxWidth.value = `${wrapRect.width - extraRect.width - 8}px`
-          }
-        })
         return (
-          <div class={[`${ns}__extra-wrapper`]} ref={wrapRef}>
+          <div class={[`${ns}__extra-wrapper`]}>
             <TabNavs
               tabs={renderTabsNavsData.value}
               type={props.type}
+              size={props.size}
               activeKey={computedActiveKey.value}
               changeActiveKey={handleChangeActiveKey}
               animation={props.animation}
-              when-extra-max-nav-width={maxWidth.value}
             />
-            {slots.extra && (
-              <div class={[`${ns}__extra`]} ref={extraRef}>
-                {slots.extra()}
-              </div>
-            )}
+            {slots.extra && <div class={[`${ns}__extra`]}>{slots.extra()}</div>}
           </div>
         )
       }
@@ -107,6 +92,7 @@ export default defineComponent({
         <TabNavs
           tabs={renderTabsNavsData.value}
           type={props.type}
+          size={props.size}
           activeKey={computedActiveKey.value}
           changeActiveKey={handleChangeActiveKey}
           animation={props.animation}

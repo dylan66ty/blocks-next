@@ -1,0 +1,10 @@
+@mixin append-input-style ($namespace) {
+  .#{$namespace}-input {
+    --bn-input-color: var(--bn-text-gray-2)
+  }
+  .#{$namespace}-input__wrapper {
+    &.is-focus {
+      --bn-input-color: var(--bn-text-gray)
+    }
+  }
+}

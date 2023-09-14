@@ -39,6 +39,7 @@ export default defineComponent({
       checkedOnClickNode
     } = toRefs(props)
     const ns = getNamespace('tree')
+
     const nodes = ref<TreeNode[]>([])
     // 以value作为key的map
     const nodeValueMap = reactive(new Map<string, TreeNode>())
@@ -52,7 +53,8 @@ export default defineComponent({
       originData: data,
       defaultUnfoldAll,
       defaultUnfoldValues,
-      accordion
+      accordion,
+      filterNodeMethod: props.filterNodeMethod
     })
 
     const { handleNodeSelected, selectedValues, focusNodeValues } = useSelected({
@@ -102,7 +104,13 @@ export default defineComponent({
       }
     }
 
-    watch(() => props.data, updateNodes, { immediate: true, deep: true })
+    watch(
+      () => props.data,
+      () => {
+        updateNodes()
+      },
+      { immediate: true, deep: true }
+    )
 
     watch(
       () => props.checkStrictly,
@@ -142,6 +150,8 @@ export default defineComponent({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     insertNodes(parentValue: number | string, data: TreeData[]) {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    removeNodes(values: (number | string)[]) {}
+    removeNodes(values: (number | string)[]) {},
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    filter(query: string) {}
   }
 })

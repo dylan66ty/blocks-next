@@ -4,18 +4,10 @@
   --bn-input-height: var(--bn-size-default);
   --bn-input-border-color: var(--bn-border-color);
   --bn-input-border-radius: 4px;
-  --bn-input-background-color: #fff;
-  --bn-input-disabled-background-color: rgb(245 247 251 / 50%);
-  --bn-input-disabled-border-color: var(--bn-color-5);
-  --bn-input-disabled-text-color: var(--bn-color-3);
-  --bn-input-color: var(--bn-color-1);
-  --bn-input-font-size: var(--bn-font-size);
-  --bn-input-placeholder-color: var(--bn-color-3);
-  --bn-input-icon-color: var(--bn-color-3);
-  --bn-input-focus-border-color: var(--bn-primary);
-  --bn-input-hover-border-color: rgb(188 196 214 / 100%);
+  --bn-input-color: var(--bn-text-gray);
+  --bn-input-placeholder-color: var(--bn-text-gray-2);
   --bn-input-gap-y: 2px;
-  --bn-group-background-color: #f5f7fa;
+  --bn-input-group-background-color: #f5f7fa;
 
 }
 
@@ -30,6 +22,15 @@
   }
 
   > .#{$namespace}-select {
+    margin: -1px;
+    .#{$namespace}-input__wrapper {
+      border-top-#{$direction}-radius: 0;
+      border-bottom-#{$direction}-radius: 0;
+      background-color: transparent;
+    }
+  }
+
+  > .#{$namespace}-cascader {
     margin: -1px;
     .#{$namespace}-input__wrapper {
       border-top-#{$direction}-radius: 0;
@@ -62,7 +63,6 @@
 
   }
 
-
   @include e(wrapper) {
     box-sizing: border-box;
     position: relative;
@@ -72,28 +72,32 @@
     border-radius: var(--bn-input-border-radius);
     padding: 0 12px;
     width: 100%;
-    font-size: var(--bn-input-font-size);
+    font-size: var(--bn-fs);
     color: var(--bn-input-color);
-    background-color: var(--bn-input-background-color);
+    background-color: #fff;
     background-image: none;
     transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 
     &.is-hover:not(.is-disabled) {
-      border-color: var(--bn-input-hover-border-color);
+      border-color: var(--bn-hover-bc);
     }
 
     &.is-focus:not(.is-disabled) {
       z-index: 2;
-      border-color: var(--bn-input-focus-border-color);
+      border-color: var(--bn-focus-bc);
     }
 
     &.is-disabled {
       cursor: not-allowed;
 
       &:not(.#{$namespace}-input--card) {
-        border-color: var(--bn-input-disabled-border-color);
-        color: var(--bn-input-disabled-text-color);
-        background-color: var(--bn-input-disabled-background-color);
+        border-color: var(--bn-disabled-bc);
+        color: var(--bn-disabled-color);
+        background-color: var(--bn-disabled-bgc);
+
+        .#{$namespace}-input__icon {
+          color: var(--bn-disabled-color);
+        }
       }
 
       &.#{$namespace}-input--card {
@@ -103,17 +107,15 @@
     }
   }
 
-
   @include e(group-prepend) {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     border-top: 1px solid var(--bn-input-border-color);
     border-bottom: 1px solid var(--bn-input-border-color);
     border-left: 1px solid var(--bn-input-border-color);
-    background-color: var(--bn-group-background-color);
+    background-color: var(--bn-input-group-background-color);
     flex-shrink: 0;
     box-sizing: border-box;
     border-top-left-radius: var(--bn-input-border-radius);
@@ -127,11 +129,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     border-top: 1px solid var(--bn-input-border-color);
     border-right: 1px solid var(--bn-input-border-color);
     border-bottom: 1px solid var(--bn-input-border-color);
-    background-color: var(--bn-group-background-color);
+    background-color: var(--bn-input-group-background-color);
     flex-shrink: 0;
     box-sizing: border-box;
     border-top-right-radius: var(--bn-input-border-radius);
@@ -140,7 +141,6 @@
 
     @include set-ground-inner-element-style(left)
   }
-
 
   @include e(inner) {
     margin: 0;
@@ -165,7 +165,7 @@
     }
 
     &:disabled {
-      color: var(--bn-input-disabled-text-color);
+      color: var(--bn-disabled-color);
       pointer-events: none;
     }
 
@@ -178,7 +178,7 @@
     display: flex;
     flex-shrink: 0;
     font-size: inherit;
-    color: var(--bn-input-icon-color);
+    color: var(--bn-text-gray-2);
   }
 
   @include e(prefix) {
@@ -237,7 +237,7 @@
 
 
     &:not(.is-disabled):hover {
-      --bn-input-placeholder-color: rgb(100 107 122 / 100%);
+      --bn-input-placeholder-color: var(--bn-text-gray-1);
     }
   }
 
@@ -248,48 +248,41 @@
 }
 
 @include b(textarea) {
-  --bn-input-font-size: var(--bn-font-size);
   --bn-input-border-color: var(--bn-border-color);
   --bn-input-border-radius: 4px;
   --bn-input-placeholder-color: var(--bn-color-3);
-  --bn-input-disabled-border-color: var(--bn-color-5);
-  --bn-input-focus-border-color: var(--bn-primary);
-  --bn-input-hover-border-color: rgb(188 196 214 / 100%);
+  --bn-disabled-bc: var(--bn-color-5);
   --bn-input-color: var(--bn-color-1);
-  --bn-input-disabled-text-color: var(--bn-color-3);
-  --bn-input-background-color: #fff;
-  --bn-input-disabled-background-color: rgb(245 247 251 / 50%);
 
 }
 
 @include b(textarea) {
   position: relative;
-  font-size: var(--bn-input-font-size);
 
   @include e(wrapper) {
     position: relative;
     overflow: hidden;
     border: 1px solid var(--bn-input-border-color);
     border-radius: var(--bn-input-border-radius);
-    font-size: var(--bn-input-font-size);
+    font-size: var(--bn-fs);
     color: var(--bn-input-color);
-    background-color: var(--bn-input-background-color);
+    background-color: #fff;
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     background-image: none;
     transform: translateZ(0);
 
     &.is-hover:not(.is-disabled) {
-      --bn-input-border-color: var(--bn-input-hover-border-color);
+      --bn-input-border-color: var(--bn-hover-bc);
     }
 
     &.is-focus:not(.is-disabled) {
-      --bn-input-border-color: var(--bn-primary);
+      --bn-input-border-color: var(--bn-focus-bc);
     }
 
     &.is-disabled {
-      border-color: var(--bn-input-disabled-border-color);
-      color: var(--bn-input-disabled-text-color);
-      background-color: var(--bn-input-disabled-background-color);
+      border-color: var(--bn-disabled-bc);
+      color: var(--bn-disabled-color);
+      background-color: var(--bn-disabled-bgc);
       cursor: not-allowed;
     }
   }
@@ -318,7 +311,7 @@
 
     &:disabled {
       pointer-events: none;
-      color: var(--bn-input-disabled-text-color);
+      color: var(--bn-disabled-color);
     }
 
     &:disabled::placeholder {

@@ -35,11 +35,6 @@
       key
     })
   }
-
-  const size = ref('small')
-  setTimeout(() => {
-    size.value = 'large'
-  }, 5000)
 </script>
 
 <template>
@@ -53,7 +48,7 @@
       </template>
     </bn-tab-pane>
     <template #extra>
-      <bn-button :size="size" type="primary" @click="add">Add+</bn-button>
+      <bn-button size="small" type="primary" @click="add">Add+</bn-button>
     </template>
   </bn-tabs>
 </template>

@@ -4,6 +4,7 @@ import type { OptVmProxy } from './types'
 export interface SelectContext {
   multiple: boolean
   popupClass: string | undefined
+  compact: boolean
   optionItemCreate(optVmProxy: OptVmProxy): void
   optionItemDestroy(optVmProxy: OptVmProxy): void
   optionItemSelect(optVmProxy: OptVmProxy): void

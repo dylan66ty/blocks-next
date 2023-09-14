@@ -25,6 +25,7 @@ export const transDataToNodes = (
         disabled: item.disabled,
         unfold: false,
         lasted: false,
+        filter: false,
         hasChildren: false,
         indents: [],
         pathValue: [],

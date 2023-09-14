@@ -1,11 +1,9 @@
 @use './mixins/bem.scss' as *;
 
 @include b(select) {
-  display: inline-block;
+  display: inline-flex;
   width: 260px;
   vertical-align: bottom;
-
-
 
   @include e(empty) {
     display: flex;
@@ -19,14 +17,16 @@
 }
 
 @include b(select-menu) {
-  --bn-menu-hover-background-color: #f8faff;
-  --bn-menu-disabled-color: #a8abb2;
+  --bn-menu-padding: 23px 0;
   --bn-menu-item-height: 40px;
+  --bn-menu-item-gap-y: 6px;
+  --bn-menu-item-padding: 0 24px;
 }
 
 @include b(select-menu) {
   overflow: hidden;
   border-radius: 8px;
+  padding: var(--bn-menu-padding);
   background-color: #fff;
   box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
   box-sizing: border-box;
@@ -37,26 +37,36 @@
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
-    padding: 0 20px;
+    margin-bottom: var(--bn-menu-item-gap-y);
+    padding: var(--bn-menu-item-padding);
     height: var(--bn-menu-item-height);
     font-size: 14px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: var(--bn-default-text-color);
+    color: var(--bn-color-1);
     box-sizing: border-box;
     cursor: pointer;
 
+    &:last-child {
+      margin-bottom: 0;
+    }
+
     &.is-hover {
-      background-color: var(--bn-menu-hover-background-color);
+      background-color: var(--bn-hover-bgc);
     }
 
     &.is-disabled {
       cursor: not-allowed;
-      color: var(--bn-menu-disabled-color);
+      color: var(--bn-disabled-color);
     }
 
     &.is-selected {
-      color: var(--bn-primary);
+      color: var(--bn-select-color);
     }
+  }
+
+  @include when(compact) {
+    --bn-menu-padding:8px 0;
+    --bn-menu-item-height: 32px;
   }
 }

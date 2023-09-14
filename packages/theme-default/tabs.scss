@@ -2,14 +2,11 @@
 
 @include b(tabs) {
   --bn-tabs-active-color: var(--bn-primary);
-  --bn-tabs-line-color: var(--bn-text-color);
   --bn-tabs-ink-background-color: var(--bn-primary);
-  --bn-tabs-button-color: #646b7a;
-  --bn-tabs-button-border-color: var(--bn-border-color);
   --bn-tabs-button-active-background-color: rgb(0 86 255 / 5%);
   --bn-tabs-button-active-border-color: rgb(0 86 255 / 50%);
   --bn-tabs-button-hover-border-color: rgb(0 86 255 / 50%);
-  --bn-tabs-button-group-color: #9ca6b9;
+  --bn-tabs-nav-height: var(--bn-size-small);
 }
 
 @include b(tabs) {
@@ -27,12 +24,28 @@
 
   @include e(navs-wrapper) {
     display: flex;
+    width: 100%;
+    height: var(--bn-tabs-nav-height);
+
+    &.is-small {
+      --bn-tabs-nav-height: var(--bn-size-small);
+    }
+
+    &.is-default {
+      --bn-tabs-nav-height: var(--bn-size-default);
+    }
+
+    &.is-large {
+      --bn-tabs-nav-height: var(--bn-size-large);
+    }
   }
 
   @include e(navs-viewport) {
+    position: relative;
     overflow: hidden;
     flex: 1;
-    height: 100%;
+    height: inherit;
+
   }
 
   @include e(icon-prev) {
@@ -43,7 +56,7 @@
     cursor: pointer;
 
     &.is-disabled {
-      color: var(--bn-color-3);
+      color: var(--bn-disabled-color);
       cursor: not-allowed;
     }
   }
@@ -56,22 +69,19 @@
     cursor: pointer;
 
     &.is-disabled {
-      color: var(--bn-color-3);
+      color: var(--bn-disabled-color);
       cursor: not-allowed;
     }
   }
 
   @include e(navs) {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
+    height: inherit;
     transition: transform 0.3s ease;
-    box-sizing: border-box;
     flex-flow: row nowrap;
-
-    &.is-line {
-      box-sizing: border-box;
-      padding-bottom: 10px;
-    }
 
     &.is-button-group {
       .#{$namespace}-tabs__navs-item {
@@ -97,14 +107,15 @@
   }
 
   @include e(navs-item) {
+    height: inherit;
+    transition: all 0.3 ease;
     cursor: pointer;
     flex-shrink: 0;
-    transition: all 0.3 ease;
     user-select: none;
 
     &.is-line {
       font-size: 16px;
-      color: var(--bn-tabs-line-color);
+      color: var(--bn-text-gray-1);
       line-height: 1;
 
       & + & {
@@ -119,14 +130,14 @@
     }
 
     &.is-button {
-      border: 1px solid #e1e4e8;
+      border: 1px solid var(--bn-bc);
       border-radius: 4px;
       padding: 0 28px;
-      height: 28px;
+      height: var(--bn-tabs-nav-height);
       font-size: 14px;
-      color: var(--bn-tabs-button-color);
+      color: var(--bn-text-gray-2);
       box-sizing: border-box;
-      line-height: 28px;
+      line-height: var(--bn-tabs-nav-height);
 
       & + & {
         margin-left: 6px;
@@ -147,14 +158,14 @@
     &.is-button-group {
       z-index: 0;
       margin-left: -1px;
-      border: 1px solid var(--bn-tabs-button-border-color);
+      border: 1px solid var(--bn-bc);
       border-radius: 4px;
       padding: 0 11px;
-      height: 28px;
+      height: var(--bn-tabs-nav-height);
       font-size: 14px;
-      color: var(--bn-tabs-button-group-color);
+      color: var(--bn-text-gray-2);
       box-sizing: border-box;
-      line-height: 28px;
+      line-height: var(--bn-tabs-nav-height);
 
       &:first-child {
         margin-left: 0;
@@ -175,7 +186,7 @@
 
   @include e(panes-viewport) {
     overflow: hidden;
-    padding-top: 10px;
+    padding-top: 20px;
     width: 100%;
     box-sizing: border-box;
   }

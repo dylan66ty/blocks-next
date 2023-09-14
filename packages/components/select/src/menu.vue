@@ -9,13 +9,11 @@
       const ns = getNamespace('select')
       const selectContext = inject(selectInjectKey)
 
-      const popupClass = computed(() => selectContext?.popupClass)
-      const isMultiple = computed(() => selectContext?.multiple)
-
       const cls = computed(() => [
         `${ns}-menu`,
-        popupClass.value,
-        isMultiple.value && 'is-multiple'
+        selectContext?.popupClass,
+        selectContext?.multiple && 'is-multiple',
+        selectContext?.compact && 'is-compact'
       ])
       return {
         cls

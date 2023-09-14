@@ -58,6 +58,7 @@
       :disabled="disabled"
       :validate-event="false"
       size="small"
+      compact
       @change="handleChange"
     >
       <Option

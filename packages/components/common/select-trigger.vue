@@ -140,8 +140,9 @@
         emit('clear')
       }
 
-      const onInputEvent = () => {
+      const onInputEvent = async () => {
         if (!props.filterable) return
+        await nextTick()
         if (props.multiple) {
           emit('filter', multipleQuery.value)
         } else {

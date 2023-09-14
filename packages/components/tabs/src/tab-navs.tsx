@@ -1,8 +1,10 @@
 import type { PropType, CSSProperties } from 'vue'
-import { computed, defineComponent, ref, watch, onMounted, onUnmounted } from 'vue'
+import { computed, defineComponent, ref, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { getComponentNamespace, getNamespace } from '../../../utils/global-config'
-import { BnIconCaret } from '../../icon'
+import { BnIconArrowLeft, BnIconArrowRight } from '../../icon'
 import { useResizeObserver } from '../../../hooks/use-resize-observer'
+import { getStyle } from '../../../utils/dom'
+import { sleep } from '../../../shared/utils'
 import type { TabPaneData, TabsType } from './types'
 
 export default defineComponent({
@@ -16,6 +18,10 @@ export default defineComponent({
       type: String as PropType<TabsType>,
       default: 'line'
     },
+    size: {
+      type: String,
+      default: 'small'
+    },
     activeKey: {
       type: [String, Number],
       default: undefined
@@ -26,115 +32,74 @@ export default defineComponent({
     },
     animation: {
       type: Boolean
-    },
-    whenExtraMaxNavWidth: {
-      type: String,
-      default: undefined
     }
   },
   setup(props) {
     const ns = getNamespace('tabs')
-    const navsCls = computed(() => [`${ns}__navs`, `is-${props.type}`])
-    const itemCls = computed(() => [`${ns}__navs-item`, `is-${props.type}`])
+
     const navInkStyle = ref<CSSProperties>({})
-    const navsStyle = ref<CSSProperties>({})
+    const arrangeStyle = ref<CSSProperties>({})
 
     const navItemRefs = ref<Record<string, HTMLElement>>({})
-    const wrapperRef = ref<HTMLElement>()
     const viewportRef = ref<HTMLElement>()
-    const panesRef = ref<HTMLElement>()
+    const arrangeRef = ref<HTMLElement>()
 
-    const scrollWidth = ref<number>(0)
-    const wrapperWidth = ref<number>(0)
-    const viewportWidth = ref<number>(0)
-    const translateX = ref<number>(0)
+    const translateX = ref(0)
+    const controller = ref(false)
 
-    const showSlideIcon = computed(() => {
-      // 注意像素小数点偏差 【子应用中计算偏差】
-      return Math.ceil(scrollWidth.value) > Math.ceil(wrapperWidth.value) + 2
-    })
-    const prevDisabled = computed(() => translateX.value <= 0)
-    const nextDisabled = computed(() => translateX.value >= scrollWidth.value - viewportWidth.value)
+    const prevDisabled = computed(() => translateX.value === 0)
 
-    const updateSlideIconStatus = () => {
-      scrollWidth.value = panesRef.value?.scrollWidth as number
-      wrapperWidth.value = wrapperRef.value?.getBoundingClientRect().width as number
-    }
-
-    const onResize = () => {
-      updateSlideIconStatus()
-      updateNavViewportPosition()
-    }
-
-    const { createResizeObserver, destroyResizeObserver } = useResizeObserver({
-      elementRef: ref(document.body),
-      onResize
+    const nextDisabled = computed(() => {
+      const viewportWidth = viewportRef.value!.getBoundingClientRect().width
+      const arrangeWidth = arrangeRef.value!.getBoundingClientRect().width
+      return translateX.value > arrangeWidth - viewportWidth
     })
 
-    onMounted(() => createResizeObserver())
-    onUnmounted(() => destroyResizeObserver())
-
-    const getViewportRect = (key: keyof DOMRect | undefined) => {
-      const rect = viewportRef.value?.getBoundingClientRect()
-      if (!key) return rect
-      return rect && (rect[key] as number)
+    const updateController = async () => {
+      await nextTick()
+      const viewportWidth = viewportRef.value!.getBoundingClientRect().width
+      const arrangeWidth = arrangeRef.value!.getBoundingClientRect().width
+      // 放大误差
+      controller.value = Math.floor(arrangeWidth - viewportWidth) > 1
     }
 
-    // 更新nav视口的偏移位置
-    const updateNavViewportPosition = () => {
-      const ele = navItemRefs.value[props.activeKey!]
-      if (!ele) return
-      viewportWidth.value = getViewportRect('width') as number
-      scrollWidth.value = panesRef.value!.scrollWidth!
-      const offsetLeft = ele.offsetLeft
-      const { width } = ele.getBoundingClientRect()
-      let _translateX = offsetLeft - viewportWidth.value / 2 + width / 2
-      if (_translateX < 0) {
-        _translateX = 0
-      }
-      if (_translateX > scrollWidth.value - viewportWidth.value) {
-        _translateX = scrollWidth.value - viewportWidth.value
-      }
-
-      translateX.value = _translateX
-    }
-
-    const handleSlide = (direction: 'prev' | 'next') => {
-      let x = 0
-      if (direction === 'next') {
-        x = translateX.value + viewportWidth.value
-      }
-      if (direction === 'prev') {
-        x = translateX.value - viewportWidth.value
-      }
-      if (x < 0) {
+    // 边界判断
+    const boundaryProcessing = (x: number, viewportWidth: number, scrollWidth: number) => {
+      if (x <= 0) {
         x = 0
       }
-      if (x > scrollWidth.value - viewportWidth.value) {
-        x = scrollWidth.value - viewportWidth.value
+      if (x >= scrollWidth - viewportWidth) {
+        x = scrollWidth - viewportWidth
       }
-
-      translateX.value = x
+      return x
     }
 
-    // translateX
-    watch(
-      () => translateX.value,
-      (x: number) => {
-        navsStyle.value.transform = `translate(${-x}px,0)`
-      }
-    )
-
-    // 更新线的偏移位置
-    const updateNavInkPosition = (ele: HTMLElement) => {
-      if (!ele) {
+    const updateCenterPosition = async () => {
+      await sleep(16)
+      if (!controller.value) return
+      const navEl = navItemRefs.value[props.activeKey!] as HTMLElement
+      if (!navEl) return
+      const arrangeWidth = arrangeRef.value!.getBoundingClientRect().width
+      const tagWidth = navEl.getBoundingClientRect().width
+      const offsetLeft = navEl.offsetLeft
+      const viewportWidth = viewportRef.value!.getBoundingClientRect().width
+      const x = boundaryProcessing(
+        offsetLeft - viewportWidth / 2 + tagWidth / 2,
+        viewportWidth,
+        arrangeWidth
+      )
+      translateX.value = x
+    }
+    const updateNavInkPosition = async (el?: HTMLElement) => {
+      await nextTick()
+      el = el ?? navItemRefs.value[props.activeKey!]
+      if (!el) {
         // 清空下划线
         navInkStyle.value = {}
         return
       }
-      const { width } = ele.getBoundingClientRect()
-      const offsetLeft = ele.offsetLeft
-      // const offsetTop = ele.offsetTop
+      const { width } = el.getBoundingClientRect()
+      const offsetLeft = el.offsetLeft
 
       // 暂时只考虑水平
       navInkStyle.value.left = offsetLeft + 'px'
@@ -143,11 +108,25 @@ export default defineComponent({
       navInkStyle.value.bottom = 0
     }
 
+    const handleSlide = (direction: number) => {
+      const viewportWidth = viewportRef.value!.getBoundingClientRect().width
+      const arrangeNode = arrangeRef.value!
+      const scrollWidth = arrangeNode.scrollWidth
+      const offset = Math.ceil(viewportWidth / 2)
+      const transform = getStyle(arrangeNode, 'transform')
+      const matcher = transform.match(/translateX\((.*?)px\)/)
+      if (!matcher) return
+      const x = boundaryProcessing(
+        Math.abs(+matcher[1]) + direction * offset,
+        viewportWidth,
+        scrollWidth
+      )
+      translateX.value = x
+    }
+
     const handleNavItem = (key: string | number) => {
       props.changeActiveKey?.(key)
     }
-
-    // const activeIndex = computed(() => props.tabs.findIndex(tab => tab.key === props.activeKey))
 
     const handleMouseenter = (e: Event) => {
       e.stopPropagation()
@@ -164,60 +143,73 @@ export default defineComponent({
       return ['line'].includes(props.type!)
     })
 
+    const { createResizeObserver, destroyResizeObserver } = useResizeObserver({
+      elementRef: viewportRef,
+      onResize: () => {
+        updateController()
+        updateCenterPosition()
+      }
+    })
+
+    onMounted(() => {
+      createResizeObserver()
+    })
+    onUnmounted(() => {
+      destroyResizeObserver()
+    })
+
+    // translateX
+    watch(
+      () => translateX.value,
+      (x: number) => {
+        arrangeStyle.value.transform = `translateX(${-x}px)`
+      }
+    )
+
     watch(
       () => props.tabs,
       () => {
-        setTimeout(() => {
-          updateSlideIconStatus()
-          // 在下一帧更新偏移量
-          updateNavViewportPosition()
-          updateNavInkPosition(navItemRefs.value[props.activeKey!])
-        }, 16)
+        updateController()
+        updateCenterPosition()
+        updateNavInkPosition()
       },
       { immediate: true }
     )
 
     watch(
       () => props.activeKey,
-      (activeKey: string | number) => {
-        setTimeout(() => {
-          updateNavViewportPosition()
-          updateNavInkPosition(navItemRefs.value[activeKey])
-        }, 16)
+      () => {
+        updateCenterPosition()
+        updateNavInkPosition()
       }
     )
 
     return () => {
-      const wrapStyle: CSSProperties = {}
-      if (props.whenExtraMaxNavWidth) {
-        wrapStyle.width = props.whenExtraMaxNavWidth
-      }
       return (
-        <div
-          class={[`${ns}__navs-wrapper`]}
-          style={{ ...wrapStyle }}
-          ref={wrapperRef}
-          onMouseleave={handleMouseleave}
-        >
-          {showSlideIcon.value && (
-            <BnIconCaret
+        <div class={[`${ns}__navs-wrapper`, `is-${props.size}`]} onMouseleave={handleMouseleave}>
+          {controller.value && (
+            <BnIconArrowLeft
               class={[
                 `${ns}__icon-prev`,
                 {
                   'is-disabled': prevDisabled.value
                 }
               ]}
-              rotate={90}
               // @ts-ignore: click
-              onClick={() => handleSlide('prev')}
+              onClick={() => handleSlide(-1)}
             />
           )}
           <div class={[`${ns}__navs-viewport`]} ref={viewportRef}>
-            <div class={navsCls.value} ref={panesRef} style={navsStyle.value}>
+            <div
+              class={[`${ns}__navs`, `is-${props.type}`]}
+              ref={arrangeRef}
+              style={arrangeStyle.value}
+            >
               {props.tabs.map((item) => (
                 <div
                   class={[
-                    ...itemCls.value,
+                    `${ns}__navs-item`,
+                    `is-${props.type}`,
                     {
                       'is-active': item.key === props.activeKey,
                       'is-disabled': item.disabled
@@ -237,17 +229,16 @@ export default defineComponent({
               {showNavInk.value && <div class={[`${ns}__nav-ink`]} style={navInkStyle.value}></div>}
             </div>
           </div>
-          {showSlideIcon.value && (
-            <BnIconCaret
+          {controller.value && (
+            <BnIconArrowRight
               class={[
                 `${ns}__icon-next`,
                 {
                   'is-disabled': nextDisabled.value
                 }
               ]}
-              rotate={-90}
               // @ts-ignore: click
-              onClick={() => handleSlide('next')}
+              onClick={() => handleSlide(1)}
             />
           )}
         </div>
