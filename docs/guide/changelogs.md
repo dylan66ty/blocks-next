@@ -1,5 +1,24 @@
 # 更新日志
 
+## 1.0.1-alpha.41
+`2023-09-14`
+- Components [Tree] 🚀 增加实例filter功能，增加自定义过滤器函数属性
+- Components [Tabs] 🚀 增加size属性，大小对标input组件的size属性
+- Components [Select] 🚀 增加compact属性，适用于小型选择器
+- Components [SelectTree] 🐛 搜索功能优化，修复第一次输入不生效问题
+- 💄 Style Select/Cascader/SelectTree组件弹出层样式对应UI细节调整
+- 💪 Form组件的rules类型修复，以及其他组件TS类型优化
+
+
+
+## 1.0.1-alpha.38
+`2023-09-04`
+- Components [Timeline] ✨ 时间轴组件
+- Components [Steps] ✨ 步骤条组件
+- Components [Input] ✨ prepend、append 插槽 
+- 💪 组件size统一大小(除了组件`Tag`外)。mini: 24px; small: 32px; default: 40px; large: 48px
+
+
 ## 1.0.1-alpha.36
 `2023-08-19`
 - Components [TreeSelect] ✨ 树选择器（单选、多选、模糊搜索、表单验证）
@@ -130,11 +149,3 @@
 - Components [Dialog] ✨ 弹窗自定义类名
 - Components [Drawer] ✨ 弹窗自定义类名
 - Components [MessageBox] ✨ 弹窗自定义类名
-
-
-
-
-
-
-
- 
