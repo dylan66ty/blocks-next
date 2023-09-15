@@ -59,5 +59,9 @@ export const treeProps = {
   checkedOnClickNode: {
     type: Boolean,
     default: false
+  },
+  filterNodeMethod: {
+    type: definePropType<(query: string, data: TreeData) => boolean>(Function),
+    default: undefined
   }
 }

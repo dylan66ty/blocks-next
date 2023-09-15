@@ -114,6 +114,10 @@
 }
 
 @include b(checkbox-group) {
+  display: inline-flex;
+  flex-wrap: wrap;
+  vertical-align: middle;
+
   .#{$namespace}-checkbox + .#{$namespace}-checkbox {
     margin-left: 15px;
   }

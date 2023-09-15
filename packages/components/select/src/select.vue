@@ -315,6 +315,7 @@
         reactive({
           multiple: props.multiple,
           popupClass: props.popupClass,
+          compact: props.compact,
           optionItemCreate,
           optionItemDestroy,
           optionItemSelect,
@@ -385,7 +386,7 @@
 
       <template #content>
         <SelectMenu ref="popupRef">
-          <Scrollbar ref="scrollbarRef" style="max-height: 200px">
+          <Scrollbar ref="scrollbarRef" style="max-height: 224px">
             <OptionsRender :options-vns="optionsVns" />
 
             <template v-if="isEmpty && !loading">

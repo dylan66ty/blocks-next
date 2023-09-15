@@ -14,7 +14,8 @@
     switch: false,
     multipleSelect: [],
     treeSelect: [],
-    multipleTreeSelect: []
+    multipleTreeSelect: [],
+    textarea: ''
   })
 
   const rules = {
@@ -41,7 +42,8 @@
     ],
     multipleSelect: [{ required: true, message: 'MultipleSelect is required' }],
     treeSelect: [{ required: true, message: 'TreeSelect is required' }],
-    multipleTreeSelect: [{ required: true, message: 'MultipleTreeSelect is required' }]
+    multipleTreeSelect: [{ required: true, message: 'MultipleTreeSelect is required' }],
+    textarea: [{ required: true, message: 'textarea is required' }]
   }
 
   const formRef = ref()
@@ -194,6 +196,9 @@
         multiple
         clearable
       ></bn-tree-select>
+    </bn-form-item>
+    <bn-form-item label="Textarea" prop="textarea">
+      <bn-input type="textarea" resize></bn-input>
     </bn-form-item>
     <bn-form-item>
       <bn-space>

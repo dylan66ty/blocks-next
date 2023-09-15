@@ -5,12 +5,14 @@
 </script>
 
 <template>
-  <bn-radio-group v-model="align" style="margin-bottom: 15px">
-    <bn-radio label="center"></bn-radio>
-    <bn-radio label="start"></bn-radio>
-    <bn-radio label="end"></bn-radio>
-    <bn-radio label="baseline"></bn-radio>
-  </bn-radio-group>
+  <div>
+    <bn-radio-group v-model="align" style="margin-bottom: 15px">
+      <bn-radio label="center"></bn-radio>
+      <bn-radio label="start"></bn-radio>
+      <bn-radio label="end"></bn-radio>
+      <bn-radio label="baseline"></bn-radio>
+    </bn-radio-group>
+  </div>
 
   <bn-space size="small" :align="align">
     <span>space:</span>

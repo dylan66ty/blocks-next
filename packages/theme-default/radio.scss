@@ -95,6 +95,9 @@
 }
 
 @include b(radio-group) {
+  display: inline-flex;
+  flex-wrap: wrap;
+  vertical-align: middle;
   .#{$namespace}-radio + .#{$namespace}-radio {
     margin-left: 15px;
   }

@@ -58,6 +58,14 @@ tree/show-line
 tree/accordion
 :::
 
+## 树节点过滤 ^(alpha.41)
+调用 `Tree` 实例对象的 `filter` 方法来过滤树节点。 当然你也可以设置 `filter-node-method` 属性来自定义过滤器。
+
+::: demo 
+tree/filter
+:::
+
+
 ## TreeData & TreeNode
 
 ```js
@@ -102,6 +110,8 @@ export interface TreeNode extends Omit<TreeData, 'children'> {
 |accordion|是否每次只打开一个同级树节点展开|`boolean`|false|
 |unfold-on-click-node|点击节点的时候触发展开或折叠|`boolean`|false|
 |checked-on-click-node|点击节点的时候改变复选框的状态|`boolean`|false|
+|filter-node-method ^(alpha.41)|自定义node过滤器，只有当调用实例方法`filter`方法生效|`boolean`|false|
+
 
 
 ## TreeData
@@ -122,6 +132,8 @@ export interface TreeNode extends Omit<TreeData, 'children'> {
 |removeNodes|移除节点。参数为节点的value（数组形式）|`(values: (number \| string)[]) => void`|
 |getNodesByValues|通过value来获取节点|`(values: (number \| string)[]) => TreeNode[]`|
 |getSelectedNodes|获取当前树所有选中(selected)的节点|`() => TreeNode[]`|
+|filter ^(alpha.41)|树节点过滤|`(query:string) => void`|
+
 
 
 ## Events
@@ -140,9 +152,6 @@ export interface TreeNode extends Omit<TreeData, 'children'> {
 |node-icon|节点左侧图标|`{node:TreeNode}`|
 |node-label|节点展示的内容|`{node:TreeNode}`|
 |node-extra|节点右侧渲染内容|`{node:TreeNode}`|
-
-
-
 
 
 

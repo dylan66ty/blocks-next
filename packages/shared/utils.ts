@@ -123,3 +123,5 @@ export const genMatrix = (list: any[], row: number) => {
   }
   return rows
 }
+
+export const sleep = (delay = 0) => new Promise((resolve) => setTimeout(resolve, delay))

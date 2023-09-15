@@ -2,7 +2,7 @@ import type { Ref } from 'vue'
 import { ref, watch, getCurrentInstance, computed } from 'vue'
 import type { TreeNode, TreeData } from '../type'
 import { transToFlattenNodes, findParentNodeByValue } from '../utils'
-import { isArray } from '../../../../utils/is'
+import { isArray, isFunction } from '../../../../utils/is'
 import { compose } from '../../../../shared/utils'
 import { dfs } from '../../../../utils/tree-traverse'
 
@@ -12,7 +12,8 @@ export const useRenderFlattenNodes = ({
   originData,
   defaultUnfoldAll,
   defaultUnfoldValues,
-  accordion
+  accordion,
+  filterNodeMethod
 }: {
   nodes: Ref<TreeNode[]>
   nodeValueMap: Map<string | number, TreeNode>
@@ -20,17 +21,20 @@ export const useRenderFlattenNodes = ({
   defaultUnfoldAll: Ref<boolean>
   defaultUnfoldValues: Ref<(string | number)[]>
   accordion: Ref<boolean>
+  filterNodeMethod: ((q: string, data: TreeData) => boolean) | undefined
 }) => {
   const renderFlattenNodes = ref<TreeNode[]>([])
 
   const flattenNodes = computed(() => [...nodeValueMap.values()])
 
-  const updateRenderFlattenNodes = () => {
+  const updateRenderFlattenNodes = (nodes: TreeNode[]) => {
     renderFlattenNodes.value = compose(transToFlattenNodes, (nodes) => {
       if (defaultUnfoldAll.value) {
-        flattenNodes.value.forEach((node) => {
-          if (!node.isLeaf) {
-            node.unfold = true
+        dfs<TreeNode>(nodes, {
+          visitor(node) {
+            if (!node.isLeaf) {
+              node.unfold = true
+            }
           }
         })
       } else if (isArray(defaultUnfoldValues.value)) {
@@ -44,7 +48,7 @@ export const useRenderFlattenNodes = ({
         })
       }
       return nodes
-    })(nodes.value)
+    })(nodes)
   }
 
   watch(() => nodes.value, updateRenderFlattenNodes)
@@ -125,6 +129,34 @@ export const useRenderFlattenNodes = ({
           }
         })
       })
+    },
+    // 过滤
+    filter(query: string) {
+      const _nodes = nodes.value.slice()
+      console.log(111)
+      dfs<TreeNode>(_nodes, {
+        visitor(node) {
+          if (!query) {
+            node.filter = false
+            return
+          }
+          const RE = new RegExp(`${query}`, 'ig')
+          let ret = RE.test(String(node.label))
+          if (isFunction(filterNodeMethod)) {
+            ret = filterNodeMethod(query, node.data)
+          }
+          if (ret) {
+            let cur = node
+            while (cur) {
+              cur.filter = false
+              cur = cur.parent as any
+            }
+          } else {
+            node.filter = true
+          }
+        }
+      })
+      updateRenderFlattenNodes(_nodes)
     }
   }
 
@@ -135,11 +167,7 @@ export const useRenderFlattenNodes = ({
   }
 
   const emitEvent = (node: TreeNode) => {
-    if (node.unfold) {
-      instance?.emit('unfold-node', node)
-    } else {
-      instance?.emit('fold-node', node)
-    }
+    instance?.emit(node.unfold ? 'unfold-node' : 'fold-node', node)
   }
 
   const toggleNodeUnfoldOrFold = (node: TreeNode) => {

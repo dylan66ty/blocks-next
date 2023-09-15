@@ -5,13 +5,12 @@
     width: auto;
     .#{$namespace}-form-item {
       display: inline-block;
-      margin-right: 10px;
-      vertical-align: top;
+      margin-right: 16px;
     }
 
     .#{$namespace}-form-item__content {
       display: inline-flex;
-      vertical-align: top;
+      vertical-align: middle;
     }
 
     .#{$namespace}-input {
@@ -23,7 +22,9 @@
     .#{$namespace}-form-item__label {
       display: inline-block;
       float: none;
+      margin-bottom: 8px;
       text-align: left;
+      line-height: 1;
     }
   }
 

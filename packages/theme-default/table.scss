@@ -3,12 +3,13 @@
 @include b(table) {
   --bn-table-radius: 12px;
   --bn-table-height: 68px;
-  --bn-table-header-title-color: #9ca6b9;
-  --bn-table-body-cell-color: #242934;
-  --bn-table-border-color: #edf1f6;
+  --bn-table-header-title-color: var(--bn-color-3);
+  --bn-table-body-cell-color: var(--bn-color-2);
+  --bn-table-border-color: var(--bn-color-6);
   --bn-table-header-background-color: #f2f3f5;
   --bn-table-hover-background-color: #f7f8fa;
   --bn-table-fixed-column-box-shadow-color: #eeeeee85;
+
 }
 
 @include b(table) {

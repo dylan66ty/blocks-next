@@ -20,10 +20,6 @@ import { getElement, setStyle } from '../../../utils/dom'
 import { useResizeObserver } from '../../../hooks/use-resize-observer'
 import Popup from './popup.vue'
 import { tooltipProps } from './props'
-import { getPopupTranslateByPosition, getPopupPositionByEmpty } from './utils'
-import type { Position } from './types'
-
-const defaultStyleBySizes = ['mini']
 
 export default defineComponent({
   name: getComponentNamespace('Tooltip'),
@@ -37,16 +33,9 @@ export default defineComponent({
     })
 
     let defaultSlot: VNode[] | undefined
-    let timer = 0
+    let timer: any = -1
     let popupTarget: HTMLElement | null
     let vm: VNode | null
-
-    const isDefault = computed(() => defaultStyleBySizes.includes(props.size!))
-
-    const translate = computed(() => {
-      if (isDefault.value) return [0, 0]
-      return getPopupTranslateByPosition()
-    })
 
     const renderTo = computed(() => getElement(props.renderTo || document.body))
 
@@ -58,14 +47,6 @@ export default defineComponent({
       vm && (vm.component?.proxy as any).changeVisible(visible)
     }
 
-    const computedPosition = computed(() => {
-      if (isDefault.value) return 'top'
-      if (!slots['content'] && !props.content) {
-        return getPopupPositionByEmpty(props.position) as Position
-      }
-      return props.position as Position
-    })
-
     const updatePopupStyle = async () => {
       if (!popupTarget || !defaultSlot) return
       const triggerTarget = getFirstElement(defaultSlot) as HTMLElement
@@ -74,14 +55,17 @@ export default defineComponent({
       const getPopupScrollRect = () =>
         getElementScrollRect(popupTarget as HTMLElement, containerRect)
       const { style, position } = getPopupStyle(
-        computedPosition.value,
+        props.position,
         containerRect,
         triggerScrollRect,
         getPopupScrollRect(),
         {
-          translate: translate.value as [number, number],
+          translate: [0, 0],
           autoFitPosition: true,
-          offset: isDefault.value ? 6 : 0
+          offset: {
+            mini: 7,
+            default: 10
+          }[props.size ?? 'default']
         }
       )
       const popupTargetStyle: CSSProperties = {
@@ -97,7 +81,10 @@ export default defineComponent({
       const arrowStyle = getArrowStyle(position, triggerScrollRect, getPopupScrollRect(), {
         customStyle: {
           position: 'absolute',
-          'border-width': isDefault.value ? '3px' : '6px',
+          'border-width': {
+            mini: '4px',
+            default: '6px'
+          }[props.size ?? 'default'],
           'border-style': 'solid',
           zIndex: 0
         }

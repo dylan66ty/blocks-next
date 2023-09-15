@@ -16,6 +16,7 @@ export interface TreeNode extends Omit<TreeData, 'children'> {
   data: TreeData
   unfold: boolean
   lasted: boolean
+  filter?: boolean
   hasChildren: boolean
   totalLeafNumber?: number
   parent?: TreeNode | null

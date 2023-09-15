@@ -76,6 +76,10 @@ export const selectProps = {
   card: {
     type: Boolean,
     default: false
+  },
+  compact: {
+    type: Boolean,
+    default: false
   }
 }
 

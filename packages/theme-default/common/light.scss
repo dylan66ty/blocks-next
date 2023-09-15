@@ -46,9 +46,48 @@
   --bn-font-size: 14px;
   --bn-text-color: var(--bn-color-2);
   --bn-border-color: var(--bn-color-5);
-  --bn-split-color: var(--bn-color-6);
   --bn-background-color: var(--bn-color-7);
-  --bn-disabled-color: var(--bn-color-4);
+
+
+
+    /* color */
+    --bn-text-gray: rgb(36 41 52 / 100%);
+    --bn-text-gray-1: rgb(100 107 122 / 100%);
+    --bn-text-gray-2: rgb(156 166 185 / 100%);
+   
+  
+    /* disabled */
+    --bn-disabled-color: rgb(156 166 185 / 100%);
+    --bn-disabled-bgc: rgb(250 251 253 / 100%);
+    // border-color 
+    --bn-disabled-bc: rgb(225 228 232 / 100%);
+  
+    /* hover */
+    --bn-hover-bgc: rgb(248 250 255 / 100%);
+    --bn-hover-color: var(--bn-primary);
+    --bn-hover-bc: rgb(188 196 214 / 100%);
+  
+    /* select */ 
+    --bn-select-color: var(--bn-primary);
+    --bn-select-bgc: rgb(248 250 255 / 100%);
+    --bn-select-bc: var(--bn-primary);
+    
+    
+    /* focus */
+    --bn-focus-bc: var(--bn-primary);
+  
+  
+    /* background color */ 
+    --bn-bgc: rgb(245 247 251 / 100%);
+  
+    /* size */ 
+    --bn-fs-small: 12px;
+    --bn-fs: 14px;
+    --bn-fs-large: 16px;
+  
+    /* split border */
+    --bn-split-color: rgb(237 241 246 / 100%);
+    --bn-bc: rgb(237 241 246 / 100%);
 
   // size
   --bn-size-mini: 24px;

@@ -103,7 +103,13 @@
 </script>
 
 <template>
-  <div :class="[cls]" :date-key="node.key" :data-deep="node.deep" @click="handleNodeItem">
+  <div
+    v-show="!node.filter"
+    :class="[cls]"
+    :date-key="node.key"
+    :data-deep="node.deep"
+    @click="handleNodeItem"
+  >
     <div :class="`${ns}__indent`">
       <span
         v-for="(indent, indentIndex) in node.indents"

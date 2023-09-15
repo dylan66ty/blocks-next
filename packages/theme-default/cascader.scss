@@ -3,7 +3,17 @@
 @include b(cascader) {
   display: inline-block;
   width: 260px;
+  vertical-align: bottom;
 }
+
+@include b(cascader-panel) {
+ --bn-cascader-column-padding: 23px 0;
+ --bn-cascader-column-option-gap-y: 6px;
+ --bn-cascader-column-option-padding: 0 16px;
+ --bn-cascader-column-option-height: 40px;
+ --bn-cascader-footer-padding: 12px 24px;
+
+}  
 
 @include b(cascader-panel) {
   overflow: hidden;
@@ -16,42 +26,48 @@
 
   @include e(column) {
     position: relative;
+    padding:var(--bn-cascader-column-padding);
     width: 180px;
-    height: 220px;
+    height: 224px;
     background-color: #fff;
     box-sizing: border-box;
 
+
     &:not(:last-child) {
-      border-right: 1px solid var(--bn-background-color);
+      border-right: 1px solid var(--bn-split-color);
     }
   }
 
   @include e(list) {
-    box-sizing: border-box;
     margin: 0;
-    padding: 12px 0;
   }
 
   @include e(option) {
     display: flex;
     align-items: center;
-    padding: 12px 16px;
-    font-size: var(--bn-font-size);
-    color: var(--bn-color-1);
+    margin-bottom: var(--bn-cascader-column-option-gap-y);
+    padding: var(--bn-cascader-column-option-padding);
+    height: var(--bn-cascader-column-option-height);
+    font-size: var(--bn-fs);
+    color: var(--bn-text-gray);
     box-sizing: border-box;
     cursor: pointer;
     user-select: none;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     > .bn-checkbox {
       margin-right: 8px;
     }
 
     &:hover:not(.is-disabled) {
-      background-color: var(--bn-background-color);
+      background-color: var(--bn-hover-bgc);
     }
 
     &.is-active {
-      background-color: var(--bn-background-color);
+      background-color: var(--bn-select-bgc);
     }
 
     &.is-disabled {
@@ -66,6 +82,7 @@
     align-items: center;
     flex-grow: 1;
     overflow: hidden;
+    line-height: 1;
 
     > span {
       overflow: hidden;
@@ -78,7 +95,7 @@
     display: flex;
     justify-content: flex-end;
     border-top: 1px solid var(--bn-border-color);
-    padding: 12px 24px;
+    padding: var(--bn-cascader-footer-padding);
     background-color: #fff;
     box-sizing: border-box;
   }
@@ -117,14 +134,13 @@
     }
 
     &:hover {
-      background-color: var(--bn-background-color);
+      background-color: var(--bn-hover-bgc);
       cursor: pointer;
     }
 
     &.is-selected {
       font-weight: 700;
-      color: var(--bn-primary);
-
+      color: var(--bn-select-color);
     }
   }
 

@@ -145,8 +145,13 @@
 
       const handleFilter = debounce(
         (query: string) => {
-          const matcher: TreeData[] = []
           const stack = treeDataCache.value.slice()
+          if (!query) {
+            treeRenderData.value = stack
+            return
+          }
+
+          const matcher: TreeData[] = []
           const filterMethod = props.filterMethod
 
           while (stack.length) {
@@ -260,7 +265,7 @@
 
       <template #content>
         <div ref="popupRef" :class="[`${ns}__menu`, popupClass]">
-          <Scrollbar v-if="!isEmpty" style="max-height: 200px">
+          <Scrollbar v-if="!isEmpty" style="max-height: 224px">
             <Tree
               ref="treeRef"
               :[modelType]="selected"
