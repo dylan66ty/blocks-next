@@ -50,14 +50,14 @@ export default defineComponent({
 
     const nextDisabled = computed(() => {
       const viewportWidth = viewportRef.value!.getBoundingClientRect().width
-      const arrangeWidth = arrangeRef.value!.getBoundingClientRect().width
+      const arrangeWidth = arrangeRef.value!.scrollWidth
       return translateX.value >= arrangeWidth - viewportWidth
     })
 
     const updateController = async () => {
       await nextTick()
       const viewportWidth = viewportRef.value!.getBoundingClientRect().width
-      const arrangeWidth = arrangeRef.value!.getBoundingClientRect().width
+      const arrangeWidth = arrangeRef.value!.scrollWidth
       // 放大误差
       controller.value = Math.floor(arrangeWidth - viewportWidth) > 1
     }
@@ -78,7 +78,7 @@ export default defineComponent({
       if (!controller.value) return
       const navEl = navItemRefs.value[props.activeKey!] as HTMLElement
       if (!navEl) return
-      const arrangeWidth = arrangeRef.value!.getBoundingClientRect().width
+      const arrangeWidth = arrangeRef.value!.scrollWidth
       const tagWidth = navEl.getBoundingClientRect().width
       const offsetLeft = navEl.offsetLeft
       const viewportWidth = viewportRef.value!.getBoundingClientRect().width
@@ -110,7 +110,7 @@ export default defineComponent({
     const handleSlide = (direction: number) => {
       const viewportWidth = viewportRef.value!.getBoundingClientRect().width
       const arrangeNode = arrangeRef.value!
-      const arrangeWidth = arrangeNode.getBoundingClientRect().width
+      const arrangeWidth = arrangeNode.scrollWidth
       const offset = Math.ceil(viewportWidth / 2)
       const transform = getStyle(arrangeNode, 'transform')
       const matcher = transform.match(/translateX\((.*?)px\)/)
