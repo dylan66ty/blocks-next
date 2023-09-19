@@ -1,72 +1,263 @@
 @use './mixins/bem.scss' as *;
-@use './common/append.scss' as *;
 
-@include b(date-trigger) {
-  position: relative;
-  width: 100%;
 
-  @include append-input-style($namespace);
-  
-  .#{$namespace}-input__wrapper {
-    &:not(.is-disabled) {
-      cursor: pointer;
-      .#{$namespace}-input__inner {
+@mixin cell-text-active () {
+  .#{$namespace}-date-picker__cell-text {
+    border-radius: var(--bn-date-cell-text-border-radius);
+    color: #fff;
+    background-color: var(--bn-primary);
+  }
+}
+
+@mixin ie ($element) {
+  .#{$namespace}-date-picker__#{$element} {
+    @content
+  }
+
+}
+
+@include b(date-picker__panel) {
+  --bn-date-cell-range-background-color: rgb(0 86 255 / 10%);
+  --bn-date-cell-disabled-background-color:#f5f7fa;
+  --bn-date-cell-text-gray: rgb(168 171 178 / 80%);
+  --bn-date-cell-text-border-radius: 50%;
+  --bn-date-cell-row-space: 7px;
+  --bn-date-cell-range-border-radius: 50%;
+  --bn-date-cell-height: 34px;
+  --bn-date-cell-width: 36px;
+  --bn-date-cell-text-width: 25px;
+  --bn-date-cell-text-height: 25px;
+
+
+  &.is-month, 
+  &.is-monthrange {
+    --bn-date-cell-width: 68px;
+    --bn-date-cell-row-space: 16px;
+    --bn-date-cell-text-width: 58px;
+    --bn-date-cell-text-height: 25px;
+    --bn-date-cell-text-border-radius: calc(var(--bn-date-cell-text-height) / 2);
+    --bn-date-cell-range-border-radius: calc(var(--bn-date-cell-height) / 2);
+  }
+
+  &.is-week {
+    @include ie(cell-row) {
+      &.is-disabled {
+        cursor: not-allowed;
+
+        @include ie(cell) {
+          pointer-events: none;
+        }
+      }
+
+      &:not(.is-disabled):hover {
         cursor: pointer;
+
+        @include ie(cell) {
+          pointer-events: none;
+          background-color: var(--bn-date-cell-range-background-color);
+
+          &:first-child {
+            border-top-left-radius: calc(var(--bn-date-cell-height) / 2);
+            border-bottom-left-radius: calc(var(--bn-date-cell-height) / 2);
+          }
+
+          &:last-child {
+            border-top-right-radius: calc(var(--bn-date-cell-height) / 2);
+            border-bottom-right-radius: calc(var(--bn-date-cell-height) / 2);
+          }
+
+        } 
+      }
+    }
+    
+  }
+}
+
+
+@include b(date-picker) {
+  display: inline-block;  
+  width: 230px;
+  vertical-align: bottom;
+
+  @include when(range) {
+    width: 280px;
+  }
+
+  @include e(panel) {
+    border-radius: 8px;
+    padding: 20px 20px 15px;
+    background-color: #fff;
+    box-shadow: 0 8px 40px 0 rgb(100 107 122 / 15%);
+    box-sizing: border-box;
+  }
+
+  @include e(header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    font-size: 14px;
+  }
+
+
+  @include e(header-left) {
+    display: flex;
+    color: var(--bn-color-3);
+    gap: 14px;
+
+     i {
+      cursor: pointer;
+
+      &:hover {
+        color: var(--bn-primary);
       }
     }
   }
 
-  @include e(range) {
-    position: absolute;
-    z-index: 9;
+  @include e(header-right) {
     display: flex;
-    align-items: center;
+    color: var(--bn-color-3);
+    gap: 14px;
+
+     i {
+      cursor: pointer;
+
+      &:hover {
+        color: var(--bn-primary);
+      }
+    }
+  }
+
+  @include e(header-icon) {
+    width: 14px;
+    height: 14px;
     font-size: 14px;
-    color: var(--bn-text-gray-2);
-    inset: 1px 35px 1px 12px;
+  }
+
+  @include e(header-content) {
+    font-weight: 500;
+    text-align: center;
+    color: var(--bn-color-1);
+    flex-grow: 1;
+    user-select: none;
+  }
+
+  @include e(week) {
+    display: flex;
+    border-bottom: 1px solid var(--bn-split-color);
+    padding-top: 20px;
+    padding-bottom: 16px;
+    
+  }
+
+  @include e(week-cell) {
+    flex:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--bn-date-cell-width);
+    font-size: 12px;
+    color: var(--bn-text-color);
+    line-height: 1;
+    user-select: none;
+  }
+
+  @include e(cell-row) {
+    display: flex;
+
+    & + & {
+      margin-top: var(--bn-date-cell-row-space);
+    }
+  }
+
+  @include e(cell) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--bn-date-cell-width);
+    height: var(--bn-date-cell-height);
+    font-size: 12px;
+    color: var(--bn-text-color);
+    user-select: none;
+    cursor: pointer;
+
+    &.is-cur:not(.is-select, .is-range-start, .is-range-end, .is-disabled):hover{
+      color: var(--bn-primary);
+    }
+
+    &.is-prev,
+    &.is-next
+    { 
+      color: var(--bn-date-cell-text-gray);
+    }
+
+    &.is-now {
+      color: var(--bn-primary);
+    }
+
+
+    &.is-select:not(.is-range-start, .is-range-end) {
+       @include cell-text-active()
+    }
+
+    &.is-range {
+      background-color: var(--bn-date-cell-range-background-color);
+    }
+
+    &.is-range-start {
+      border-top-left-radius: var(--bn-date-cell-range-border-radius);
+      border-bottom-left-radius: var(--bn-date-cell-range-border-radius);
+
+      @include cell-text-active()
+    }
+
+    &.is-range-end {
+      border-top-right-radius: var(--bn-date-cell-range-border-radius);
+      border-bottom-right-radius: var(--bn-date-cell-range-border-radius);
+
+      @include cell-text-active()
+
+    }
 
     &.is-disabled {
-     pointer-events: none;
+      color: var(--bn-date-cell-text-gray);
+      background-color: var(--bn-date-cell-disabled-background-color);
+      cursor: default;
+      pointer-events: none;
     }
-
-    &.is-focus {
-      color: var(--bn-text-gray);
-    }
-
   }
 
-  @include e(range-separator) {
-    padding: 0 12px;
-    font-size: inherit;
-    text-align: center;
-    color: inherit;
-    flex-grow: 1;
-    cursor: pointer;
-
-  }
-
-  @include e(range-input) {
-    margin: 0;
-    border: 0;
-    padding: 0;
-    width: 39%;
-    height: 100%;
-    font-size: inherit;
-    text-align: center;
-    color: inherit;
-    background: 0 0;
-    outline: none;
-    box-sizing: border-box;
+  @include e(cell-text) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--bn-date-cell-text-width);
+    height: var(--bn-date-cell-text-height);
     line-height: 1;
-    cursor: pointer;
-    
-    &::placeholder {
-      color: var(--bn-text-gray-2);
-    }
-
-    &:disabled {
-      color: var(--bn-disabled-color);
-    }
+    color: inherit;
   }
 
+  @include e(body) {
+    padding-top: 8px;
+    box-sizing: border-box;
+  }
+
+  @include e(range) {
+    position: relative;
+    display: flex;
+    gap: 40px;
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 1px;
+      height: 100%;
+      background-color:var(--bn-color-6);
+      content: '';
+      transform: translate(-50%, 0);
+    }
+  }
 }
+
+
