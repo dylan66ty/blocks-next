@@ -98,11 +98,11 @@
     }
   },
   "lint-staged": {
-    "*.{vue,js,ts,jsx,tsx,md}": [
+    "*.{vue,js,ts,jsx,tsx}": [
       "eslint --fix"
     ],
     "*.{scss,html}": [
-      "stylelint --fix"
+      "stylelint --fix --allow-empty-input"
     ]
   }
 }
