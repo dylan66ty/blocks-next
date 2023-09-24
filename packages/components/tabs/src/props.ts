@@ -1,12 +1,13 @@
-import type { PropType } from 'vue'
+import { definePropType } from '../../../utils/vue-utils'
 import type { TabsType } from './types'
+
 export const tabsProps = {
   activeKey: {
     type: [String, Number],
     default: undefined
   },
   type: {
-    type: String as PropType<TabsType>,
+    type: definePropType<TabsType>(String),
     default: 'line'
   },
   destroyOnHide: {
@@ -22,5 +23,9 @@ export const tabsProps = {
   hidePanes: {
     type: Boolean,
     default: true
+  },
+  size: {
+    type: definePropType<'small' | 'default' | 'large'>(String),
+    default: 'small'
   }
 }
